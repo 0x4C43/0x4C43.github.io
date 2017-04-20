@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[Git 学习笔记]]></title>
+      <url>/2017/04/19/Github%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>Git是一款免费、开源的分布式版本控制系统，他是由Linux发明者Linus Torvalds开发的。GitHub主要提供基于git的版本托管服务，是全球最大的开源社区。Git只是GitHub上用来管理项目的一个工具。</p>
+<h3 id="0x01-基本用法"><a href="#0x01-基本用法" class="headerlink" title="0x01 基本用法"></a>0x01 基本用法</h3><p><strong>初始化git仓库</strong><br>新建仓库目录文件夹，执行<code>git status</code>查看仓库状态可以看到当前目录不是一个Git仓库。通过<code>git init</code>初始化仓库。</p>
+<p><strong>查看commit记录</strong><br><code>git log</code>，按q键退出该命令。</p>
+<p><strong>文件操作</strong><br><img src="index_files/_u56FE_u89E3Git.png" alt=""><br>在工作目录、暂存目录(也叫做索引)和仓库之间复制文件使用如下命令。</p>
+<ul>
+<li><code>git add _files_</code> ：把当前文件放入暂存区域。</li>
+<li><code>git commit</code> ：给暂存区域生成快照并提交。</li>
+<li><code>git reset _files_</code> ：撤销最后一次<code>git add _files_</code>，也可以用<code>git reset</code> 撤销所有暂存区域文件。</li>
+<li><code>git checkout _files_</code> ：把文件从暂存区域复制到工作目录，用来丢弃本地修改。</li>
+</ul>
+<p><strong>提交代码的两种方式</strong></p>
+<ol>
+<li>clone GitHub上已有项目<br><code>git clone git@github.com:0x4C43/test.git</code><br>这种方法直接将远程仓库复制到本地，不需要使用<code>git init</code>初始化，并且已和远称仓库建立关联，只需在项目目录下修改和添加文件，然后commit，执行<code>git push origin master</code>提交代码。</li>
+<li>将本地项目关联远程项目<br>当本地有一个完整的仓库，且已进行多次commit，那么第一种方法不适用。使用命令<code>git remote add origin git@github.com:0x4C43/test.git</code>将本地项目与远程项目建立关联，之后就可以通过<code>git push origin master</code>提交代码。</li>
+</ol>
+<p><strong>注：</strong></p>
+<ul>
+<li>push前通常先pull，这是因为远程仓库与本地仓库不一致时会产生冲突导致push失败。</li>
+<li>git2.9以后的版本执行<code>git pull origin master</code>时可能出现错误：<code>fatal: refusing to merge unrelated histories</code>，添加可选项<code>--allow-unrelated-histories</code>可解决此问题。</li>
+<li>提交代码前需设置用户名和邮箱。<br><code>git config --global user.name &quot;username&quot;</code><br><code>git config --global user.name &quot;email&quot;</code></li>
+</ul>
+<p><strong>分支</strong></p>
+<ol>
+<li><p>新建分支<br>通过<code>git branch branch_a</code>建立分支，团队成员可在各分支下互不干扰地完成各自负责的模块。</p>
+</li>
+<li><p>重命名本地分支<br><code>git branch -m branch_old branch_new</code></p>
+</li>
+<li><p>查看分支<br>查看本地分支：<code>git branch</code><br>查看远程分支：<code>git branch -r</code><br>查看本地与远程分支：<code>git branch -a</code></p>
+</li>
+<li><p>合并分支<br>首先checkout到主分支master上，接着使用<code>git merge branch_a</code>将a分支的代码合并到master中。</p>
+</li>
+<li><p>删除分支<br>删除本地分支：<code>git branch -D branch_a</code><br>删除远程分支：<code>git push origin --delete branch_a</code></p>
+</li>
+</ol>
+<p><strong>删除错误commit</strong></p>
+<ol>
+<li><code>git reset --mixed &lt;commit_id&gt;</code>：默认方式，回退到某个版本，保留源码，回退commit和index信息。</li>
+<li><code>git reset --soft &lt;commit_id&gt;</code>：回退到某个版本，只回退commit信息，index信息和源码不恢复，可使用commit重新提交。</li>
+<li><code>git reset --hard &lt;commit_id&gt;</code>：彻底回退到某个版本，本地源码也变为原来版本。</li>
+</ol>
+<p><strong>另：</strong></p>
+<ul>
+<li>使用<code>git push origin HEAD --force</code>可更新远程commit记录，HEAD指向的版本为当前版本。</li>
+<li>通过<code>git log</code>可查看提交日志，以便确定要回退版本的commit_id。</li>
+<li>通过<code>git reflog</code>可查看命令日志，以便确定要回到未来版本的commit_id。</li>
+</ul>
+<hr>
+<p>References:<br><a href="https://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank" rel="external">https://marklodato.github.io/visual-git-guide/index-zh-cn.html</a><br><a href="https://zhuanlan.zhihu.com/stormzhang?topic=GitHub" target="_blank" rel="external">https://zhuanlan.zhihu.com/stormzhang?topic=GitHub</a><br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
+</search>
