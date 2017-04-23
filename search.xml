@@ -4,7 +4,7 @@
     
     <entry>
       <title><![CDATA[Git 学习笔记]]></title>
-      <url>/2017/04/19/Github%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      <url>/Github%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>Git是一款免费、开源的分布式版本控制系统，他是由Linux发明者Linus Torvalds开发的。GitHub主要提供基于git的版本托管服务，是全球最大的开源社区。Git只是GitHub上用来管理项目的一个工具。</p>
 <h3 id="0x01-基本用法"><a href="#0x01-基本用法" class="headerlink" title="0x01 基本用法"></a>0x01 基本用法</h3><p><strong>初始化git仓库</strong><br>新建仓库目录文件夹，执行<code>git status</code>查看仓库状态可以看到当前目录不是一个Git仓库。通过<code>git init</code>初始化仓库。</p>
 <p><strong>查看commit记录</strong><br><code>git log</code>，按q键退出该命令。</p>
