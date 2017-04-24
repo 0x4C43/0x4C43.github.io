@@ -3,30 +3,6 @@
   
     
     <entry>
-      <title><![CDATA[artice]]></title>
-      <url>/artice/</url>
-      <content type="html"></content>
-      
-        <categories>
-            
-            <category> c1 </category>
-            
-            <category> c2 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> tag1 </tag>
-            
-            <tag> tag2 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[Git 学习笔记]]></title>
       <url>/Github%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>Git是一款免费、开源的分布式版本控制系统，他是由Linux发明者Linus Torvalds开发的。GitHub主要提供基于git的版本托管服务，是全球最大的开源社区。Git只是GitHub上用来管理项目的一个工具。</p>
@@ -82,8 +58,6 @@
         <categories>
             
             <category> Github </category>
-            
-            <category> Git </category>
             
         </categories>
         

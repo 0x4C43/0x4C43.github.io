@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-04-23T15:10:30.524Z</updated>
+  <updated>2017-04-24T08:05:39.641Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,33 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>artice</title>
-    <link href="http://0x4c43.cn/artice/"/>
-    <id>http://0x4c43.cn/artice/</id>
-    <published>2017-04-23T15:04:09.000Z</published>
-    <updated>2017-04-23T15:10:30.524Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="c1" scheme="http://0x4c43.cn/categories/c1/"/>
-    
-      <category term="c2" scheme="http://0x4c43.cn/categories/c1/c2/"/>
-    
-    
-      <category term="tag1" scheme="http://0x4c43.cn/tags/tag1/"/>
-    
-      <category term="tag2" scheme="http://0x4c43.cn/tags/tag2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Git 学习笔记</title>
     <link href="http://0x4c43.cn/Github%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://0x4c43.cn/Github学习笔记/</id>
     <published>2017-04-20T01:14:14.000Z</published>
-    <updated>2017-04-23T15:11:06.248Z</updated>
+    <updated>2017-04-24T08:05:39.641Z</updated>
     
     <summary type="html">
     
@@ -51,8 +29,6 @@
     </summary>
     
       <category term="Github" scheme="http://0x4c43.cn/categories/Github/"/>
-    
-      <category term="Git" scheme="http://0x4c43.cn/categories/Github/Git/"/>
     
     
       <category term="Github" scheme="http://0x4c43.cn/tags/Github/"/>

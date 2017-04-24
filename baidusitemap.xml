@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://0x4c43.cn/Github%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2017-04-23T15:11:06.248Z</lastmod>
+    <lastmod>2017-04-24T08:05:39.641Z</lastmod>
     <data>
         <display>
         <title>Git 学习笔记</title>
@@ -19,34 +19,6 @@
            
              
               <breadCrumb title="Github" url="http://0x4c43.cn/categories/Github/"/>
-          
-             
-              <breadCrumb title="Git" url="http://0x4c43.cn/categories/Github/Git/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://0x4c43.cn/artice/</loc>
-    <lastmod>2017-04-23T15:10:30.524Z</lastmod>
-    <data>
-        <display>
-        <title>artice</title>
-        <pubTime>2017-04-23T15:04:09.000Z</pubTime>
-        
-        <tag>tag1</tag>
-         
-        <tag>tag2</tag>
-         
-         
-           
-             
-              <breadCrumb title="c1" url="http://0x4c43.cn/categories/c1/"/>
-          
-             
-              <breadCrumb title="c2" url="http://0x4c43.cn/categories/c1/c2/"/>
           
         </display>
     </data>
