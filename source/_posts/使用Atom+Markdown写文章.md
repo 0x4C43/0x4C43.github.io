@@ -1,21 +1,19 @@
 ---
 title: 使用Atom+Markdown写文章
 date: 2017-04-26 15:36:08
-tags: [Atom, Markdown]
+tags: [Atom,Markdown]
 categories: others
-keywords: Atom Markdown
+keywords: [Atom,Markdown]
 ---
-
 ### **0x01 Atom**
 Atom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo blog。
 
 可以在官网下载[Atom](https://atom.io/)。
 
 #### **常用快捷键**
-
 在File/Settings/Keybindiigns下定义了大量快捷键，常用快捷键如下:
 
-|     Header One      |             Header Two             |
+|       快捷键        |                功能                |
 |:------------------- |:---------------------------------- |
 | Crtl+Shift+M        | 开启Markdown实时预览               |
 | Command+Shift+P     | 打开命令窗口，可以运行各种菜单功能 |
@@ -28,7 +26,6 @@ Atom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和�
 | Crtl + m            | 括号之间/HTML tag之间等跳转        |
 
 #### **插件**
-
 Atom 支持插件扩展，下面列举一些实用的插件。点击File/Settings/Install，输入相应的插件名称进行安装。
 - 增强预览(markdown-preview-plus)   
   需要关闭系统自带的markdown-preview，Ctrl+Shift+M 打开预览窗口。
@@ -88,8 +85,15 @@ Markdown 支持有序列表和无序列表。
 这是一个普通段落：
     这是一个代码区块。
 ```
-当代码量较大时可以用三个反引号包围 \`\`\`。在代码块中添加一个可选的语言标识符,可以根据语法高亮显示 。
+当代码量较大时可以用三个反引号包围 \`\`\`。在代码块中添加一个可选的语言标识符,可以根据语法高亮显示，例如：  
 
+<pre>
+``` C
+void main() {
+  printf ("Hello World!");
+}
+```
+</pre>
 
 如果要标记一小段行内代码，可以用反引号\`\`，例如：
 ```
@@ -134,7 +138,7 @@ Markdown 支持以比较简短的自动链接形式来处理网址和电子邮�
 ```
 
 #### **表格**
-在安装 markdown-table-editor 插件之后可以很方便的编辑表格，输入table,按 Tab 键就会出现表格样式,注意在表格之前要空一行。
+在安装 markdown-table-editor 插件之后可以很方便的编辑表格，输入table,按 Tab 键就会出现表格样式。注意在表格之前要空一行。
 ```
 | Header One | Header Two |
 |:---------- |:---------- |
@@ -143,17 +147,41 @@ Markdown 支持以比较简短的自动链接形式来处理网址和电子邮�
 默认标题栏居中对齐，内容居左对齐。
 -: 表示内容和标题栏靠右对齐，:- 表示内容和标题栏靠左对齐，:-: 表示内容和标题栏居中对齐。
 
-### **0x03 文章发布**
+### **0x03 插入图片**
+用 Markdown 写文章有个麻烦的地方就是不能直接插图片，通常需要将图片放在本地或者云上，然后在文章中通过图片链接（相对地址或网址）来插图片。为了节省 Blog 的空间，将图片上传到[七牛云](https://www.qiniu.com/)上。   
+#### **1）注册账号并登录**
+#### **2）新建 buket**
+对象存储 > 新建存储空间，输入相关信息。   
+#### **3）极简图床 Chrome 插件**
+使用极简图床可以绑定七牛云存储空间，然后可以通过拖拽的方式上传图片到云上。绑定七牛云需要空间名称、AK、SK 和域名。
+<div align=center>
+  <img src="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageMogr2/thumbnail/!80p"/>
+</div>
+
+#### **4）插入图片**
+在文章中使用以下语法插入图片。
+```
+![](image_link)
+
+<div align=center>  # 图片居中
+  <img src= "url"/>
+</div >
+
+<img src="url?imageMogr2/thumbnail/!60p"/>  # 七牛云图片缩放
+
+```
+
+### **0x04 文章发布**
 在搭建好 Hexo Blog 之后，可以通过以下步骤新建并发布一篇新的文章。
-#### **创建文章**
+#### **1）创建文章**
 执行下列命令来创建一篇新文章。
 ```
 hexo new post <title>
 ```
-#### **撰写文章**
+#### **2）撰写文章**
 使用 Atom 和 Markdown 语法写文章内容。
 
-#### **发布文章**
+#### **3）发布文章**
 首先需要生成静态文件，然后部署到Hexo中。
 ```
 hexo clean  # 清除缓存文件 (db.json) 和已生成的静态文件 (public)
@@ -162,6 +190,5 @@ hexo d      # 部署网站
 ```
 
 ----
-
 References:    
 Markdown 官网语法说明：<http://www.markdown.cn/>

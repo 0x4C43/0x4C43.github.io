@@ -7,7 +7,6 @@ keywords: [Hexo,Next,Github,域名绑定,SEO优化,Blog备份]
 ---
 
 平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_64中进行。
-
 ### **0x01 安装Node.js**
 #### **1）通过nvm安装Node.js**
 ```
@@ -123,7 +122,7 @@ deploy:
 |:------- |:---------------------------------------------------------------------- |
 | repo    | 库（Repository）地址                                                   |
 | branch  | 分支名称。如果您使用的是 GitHub 或 GitCafe 的话，程序会尝试自动检测。  |
-| message | 自定义提交信息 ( 默认为 Site updated: now('YYYY-MM-DD HH:mm:ss')) |
+| message | 自定义提交信息 ( 默认为 Site updated:now('YYYY-MM-DD HH:mm:ss')) |
 
 #### **3）安装 hexo-deployer-git**
 ```
@@ -488,35 +487,9 @@ git push origin
 git submodule init
 git submodule update
 ```
-
-### **0x0A 插入图片**
-用 Markdown 写文章有个麻烦的地方就是不能直接插图片，通常需要将图片放在本地或者云上，然后在文章中通过图片链接（相对地址或网址）来插图片。为了节省 Blog 的空间，将图片上传到[七牛云](https://www.qiniu.com/)上。   
-#### **1）注册账号并登录**
-#### **2）新建 buket**
-对象存储 > 新建存储空间，输入相关信息。
-#### **3）极简图床 Chrome 插件**
-使用极简图床可以绑定七牛云存储空间，然后可以通过拖拽的方式上传图片到云上。绑定七牛云需要空间名称、AK、SK 和域名。
-<div align=center>
-  <img src="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageMogr2/thumbnail/!80p"/>
-</div>
-
-#### **4）插入图片**
-在文章中使用以下语法插入图片。
-```
-![](image_link)
-
-<div align=center>  # 图片居中
-  <img src= "url"/>
-</div >
-
-<img src="url?imageMogr2/thumbnail/!80p"/>  # 七牛云图片缩放
-
-```
-
 ----
 
-Reference:   
-
+Reference:
 Hexo 官方文档：<https://hexo.io/zh-cn/docs/setup.html>   
 NexT 主题官网：<http://theme-next.iissnan.com/>   
 Hexo-GitHub Page 博客绑定域名：<http://ccxxmd.me/2017/03/04/Blog_domainname/>   
