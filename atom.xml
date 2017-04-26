@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-04-26T07:36:26.210Z</updated>
+  <updated>2017-04-26T08:34:41.216Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,18 +16,24 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>使用Atom+Markdown写文章</title>
     <link href="http://0x4c43.cn/%E4%BD%BF%E7%94%A8Atom+Markdown%E5%86%99%E6%96%87%E7%AB%A0/"/>
     <id>http://0x4c43.cn/使用Atom+Markdown写文章/</id>
-    <published>2017-04-26T07:36:48.193Z</published>
-    <updated>2017-04-26T07:36:26.210Z</updated>
+    <published>2017-04-26T07:36:08.000Z</published>
+    <updated>2017-04-26T08:34:41.216Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;使用Atom-Markdown写文章&quot;&gt;&lt;a href=&quot;#使用Atom-Markdown写文章&quot; class=&quot;headerlink&quot; title=&quot;使用Atom+Markdown写文章&quot;&gt;&lt;/a&gt;&lt;strong&gt;使用Atom+Markdown写文章&lt;/stro
+      &lt;h3 id=&quot;0x01-Atom&quot;&gt;&lt;a href=&quot;#0x01-Atom&quot; class=&quot;headerlink&quot; title=&quot;0x01 Atom&quot;&gt;&lt;/a&gt;&lt;strong&gt;0x01 Atom&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;Atom 是 Github 推出的一个开源跨平台文
     
     </summary>
     
+      <category term="others" scheme="http://0x4c43.cn/categories/others/"/>
+    
+    
+      <category term="Atom" scheme="http://0x4c43.cn/tags/Atom/"/>
+    
+      <category term="Markdown" scheme="http://0x4c43.cn/tags/Markdown/"/>
     
   </entry>
   

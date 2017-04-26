@@ -3,13 +3,57 @@
   
     
     <entry>
-      <title></title>
+      <title><![CDATA[使用Atom+Markdown写文章]]></title>
       <url>/%E4%BD%BF%E7%94%A8Atom+Markdown%E5%86%99%E6%96%87%E7%AB%A0/</url>
-      <content type="html"><![CDATA[<h2 id="使用Atom-Markdown写文章"><a href="#使用Atom-Markdown写文章" class="headerlink" title="使用Atom+Markdown写文章"></a><strong>使用Atom+Markdown写文章</strong></h2><hr>
-<p>title: 使用Atom+Markdown写文章<br>date: 2017-04-26 15:36:08<br>tags: [Atom, Markdown]<br>categories: others</p>
-<h2 id="keywords-Atom-Markdown"><a href="#keywords-Atom-Markdown" class="headerlink" title="keywords: Atom Markdown"></a>keywords: Atom Markdown</h2><h3 id="0x01-Atom"><a href="#0x01-Atom" class="headerlink" title="0x01 Atom"></a><strong>0x01 Atom</strong></h3><p>Atom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo blog。</p>
+      <content type="html"><![CDATA[<h3 id="0x01-Atom"><a href="#0x01-Atom" class="headerlink" title="0x01 Atom"></a><strong>0x01 Atom</strong></h3><p>Atom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo blog。</p>
 <p>可以在官网下载<a href="https://atom.io/" target="_blank" rel="external">Atom</a>。</p>
-<h4 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a><strong>常用快捷键</strong></h4><p>在File/Settings/Keybindiigns下定义了大量快捷键，常用快捷键如下:<br>| 快捷键               | 功能                               |<br>| ——————- | ———————————- |<br>| Crtl+Shift+M        | 开启Markdown实时预览                |<br>| Command+Shift+P     | 打开命令窗口，可以运行各种菜单功能    |<br>| Command + T         | 多文件切换                          |<br>| Command + F         | 文件内查找和替换                    |<br>| Command + Shift + F | 多文件查找和替换                    |<br>| Command + [         | 对选中内容向左缩进                  |<br>| Command + ]         | 对选中内容向右缩进                  |<br>| Command + \         | 显示或隐藏目录树                    |<br>| Crtl + m            | 括号之间/HTML tag之间等跳转         |</p>
+<h4 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a><strong>常用快捷键</strong></h4><p>在File/Settings/Keybindiigns下定义了大量快捷键，常用快捷键如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Header One</th>
+<th style="text-align:left">Header Two</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Crtl+Shift+M</td>
+<td style="text-align:left">开启Markdown实时预览</td>
+</tr>
+<tr>
+<td style="text-align:left">Command+Shift+P</td>
+<td style="text-align:left">打开命令窗口，可以运行各种菜单功能</td>
+</tr>
+<tr>
+<td style="text-align:left">Command + T</td>
+<td style="text-align:left">多文件切换</td>
+</tr>
+<tr>
+<td style="text-align:left">Command + F</td>
+<td style="text-align:left">文件内查找和替换</td>
+</tr>
+<tr>
+<td style="text-align:left">Command + Shift + F</td>
+<td style="text-align:left">多文件查找和替换</td>
+</tr>
+<tr>
+<td style="text-align:left">Command + [</td>
+<td style="text-align:left">对选中内容向左缩进</td>
+</tr>
+<tr>
+<td style="text-align:left">Command + ]</td>
+<td style="text-align:left">对选中内容向右缩进</td>
+</tr>
+<tr>
+<td style="text-align:left">Command + \</td>
+<td style="text-align:left">显示或隐藏目录树</td>
+</tr>
+<tr>
+<td style="text-align:left">Crtl + m</td>
+<td style="text-align:left">括号之间/HTML tag之间等跳转</td>
+</tr>
+</tbody>
+</table>
 <h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a><strong>插件</strong></h4><p>Atom 支持插件扩展，下面列举一些实用的插件。点击File/Settings/Install，输入相应的插件名称进行安装。</p>
 <ul>
 <li><p>增强预览(markdown-preview-plus)<br>需要关闭系统自带的markdown-preview，Ctrl+Shift+M 打开预览窗口。</p>
@@ -26,7 +70,7 @@
 </li>
 </ul>
 <h3 id="0x02-Markdown-常用语法"><a href="#0x02-Markdown-常用语法" class="headerlink" title="0x02 Markdown 常用语法"></a><strong>0x02 Markdown 常用语法</strong></h3><blockquote>
-<p>Markdown 是一种轻量级标记语言，它允许人们 “易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。Markdown 最重要的设计是可读性，能直接在字面上的被阅读，而不用被一些格式化指令标记 (像是 RTF 与 HTML)。 因此，它是现行电子邮件标记格式的惯例，虽然它也借鉴了很多早期的标记语言，如：setext、Texile、reStructuredText。 — wikipedia</p>
+<p>Markdown 是一种轻量级标记语言，它允许人们 “易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。Markdown 最重要的设计是可读性，能直接在字面上的被阅读，而不用被一些格式化指令标记 (如 RTF 与 HTML)。 因此，它是现行电子邮件标记格式的惯例，虽然它也借鉴了很多早期的标记语言，如：setext、Texile、reStructuredText。 — wikipedia</p>
 </blockquote>
 <h4 id="换行"><a href="#换行" class="headerlink" title="换行"></a><strong>换行</strong></h4><p>在行尾输入两个以上的空格然后回车。</p>
 <h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a><strong>标题</strong></h4><p>在标题内容前输入特定数量的’#’来实现对应级别的HTML样式的标题(HTML提供六级标题)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## 这是 H1</div><div class="line">### 这是 H2</div><div class="line">###### 这是 H6</div></pre></td></tr></table></figure></p>
@@ -35,24 +79,33 @@
 <p>有序列表则使用数字接着一个英文句点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1.  Bird</div><div class="line">2.  McHale</div><div class="line">3.  Parish</div></pre></td></tr></table></figure></p>
 <p>当文章内容刚好行首出现数字-句点-空白时，不希望解析为有序列表，可以在句点前面加上反斜杠。</p>
 <h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a><strong>代码块</strong></h4><p>在代码块的每行前面加 4 个空格或是 1 个制表符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">这是一个普通段落：</div><div class="line">    这是一个代码区块。</div></pre></td></tr></table></figure></p>
-<p>当代码量较大时可以用三个反引号包围 ```。在代码块中添加一个可选的语言标识符,可以根据语法高亮显示，例如：</p>
-<pre>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="built_in">printf</span> (<span class="string">"Hello World!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-</pre>
-
+<p>当代码量较大时可以用三个反引号包围 ```。在代码块中添加一个可选的语言标识符,可以根据语法高亮显示 。</p>
 <p>如果要标记一小段行内代码，可以用反引号``，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Use the `printf()` function.</div></pre></td></tr></table></figure></p>
 <h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a><strong>分割线</strong></h4><p>在一行中用三个以上的 ‘*‘ 或 ‘-‘ 来建立个分割线，在符号中间可以插入空格。下面是几种正确的写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">* * *</div><div class="line">***</div><div class="line">*****</div><div class="line">- - -</div><div class="line">---------------------------------------</div></pre></td></tr></table></figure></p>
 <h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a><strong>链接</strong></h4><p>链接文字用 [方括号] 标记，方块括号后面圆括号中为网址链接（也可以是相对路径），网址后面双引号中的内容为链接的 title，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">This is [an example](http://example.com/ &quot;Title&quot;) inline link.</div><div class="line">[This link](http://example.net/) has no title attribute.</div></pre></td></tr></table></figure></p>
-<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a><strong>强调</strong></h4><p>Markdown 使用 ‘*‘ 或 ‘_‘ 作为标记强调字词的符号。首尾各一个为斜体，首尾各两个为加粗。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">*single asterisks*</div><div class="line">_single underscores_</div><div class="line">**double asterisks**</div><div class="line">__double underscores__</div><div class="line">```   </div><div class="line"></div><div class="line">#### **图片**</div><div class="line">Markdown 使用一种和链接很相似的语法来标记图片，方括号内为图片的替代文字，圆括号内为图片地址，同样也可以加上 title。</div></pre></td></tr></table></figure></p>
-<p><img src="/path/to/img.jpg" alt="Alt text" title="Title"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#### **自动链接**</div><div class="line">Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用方括号包起来， Markdown 就会自动把它转成链接。例如：</div></pre></td></tr></table></figure></p>
-<p><a href="http://example.com/" target="_blank" rel="external">http://example.com/</a><br>```</p>
-<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a><strong>表格</strong></h4><p>在安装 markdown-table-editor 插件之后可以很方便的编辑表格，输入table,按 Tab 键就会出现表格样式：</p>
-<p><pre><br>| Header One | Header Two |<br>|:———- |:———- |<br>| Item One   | Item Two   |<br></pre><br>默认标题栏居中对齐，内容居左对齐。<br>-: 表示内容和标题栏靠右对齐，:- 表示内容和标题栏靠左对齐，:-: 表示内容和标题栏居中对齐。</p>
+<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a><strong>强调</strong></h4><p>Markdown 使用 ‘*‘ 或 ‘_‘ 作为标记强调字词的符号。首尾各一个为斜体，首尾各两个为加粗。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">*single asterisks*</div><div class="line">_single underscores_</div><div class="line">**double asterisks**</div><div class="line">__double underscores__</div></pre></td></tr></table></figure></p>
+<h4 id="图片"><a href="#图片" class="headerlink" title="图片"></a><strong>图片</strong></h4><p>Markdown 使用与链接相似的语法来标记图片，方括号内为图片的替代文字，圆括号内为图片地址，同样也可以加上 title。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![Alt text](/path/to/img.jpg &quot;Title&quot;)</div></pre></td></tr></table></figure></p>
+<h4 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a><strong>自动链接</strong></h4><p>Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用方括号包起来， Markdown 就会自动把它转成链接。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;http://example.com/&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a><strong>表格</strong></h4><p>在安装 markdown-table-editor 插件之后可以很方便的编辑表格，输入table,按 Tab 键就会出现表格样式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">| Header One | Header Two |</div><div class="line">|:---------- |:---------- |</div><div class="line">| Item One   | Item Two   |</div></pre></td></tr></table></figure></p>
+<p>默认标题栏居中对齐，内容居左对齐。<br>-: 表示内容和标题栏靠右对齐，:- 表示内容和标题栏靠左对齐，:-: 表示内容和标题栏居中对齐。</p>
 <hr>
 <p>References:<br>Markdown 官网语法说明：<a href="http://www.markdown.cn/" target="_blank" rel="external">http://www.markdown.cn/</a></p>
 ]]></content>
       
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Atom </tag>
+            
+            <tag> Markdown </tag>
+            
+        </tags>
         
     </entry>
     
