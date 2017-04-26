@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-04-26T08:53:02.924Z</updated>
+  <updated>2017-04-26T13:45:49.625Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,11 +16,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Github+Hexo+NexT搭建个人博客</title>
+    <link href="http://0x4c43.cn/Github+Hexo+NexT%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://0x4c43.cn/Github+Hexo+NexT搭建个人博客/</id>
+    <published>2017-04-26T12:42:00.000Z</published>
+    <updated>2017-04-26T13:45:49.625Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_6
+    
+    </summary>
+    
+      <category term="others" scheme="http://0x4c43.cn/categories/others/"/>
+    
+    
+      <category term="Hexo" scheme="http://0x4c43.cn/tags/Hexo/"/>
+    
+      <category term="Next" scheme="http://0x4c43.cn/tags/Next/"/>
+    
+      <category term="Github" scheme="http://0x4c43.cn/tags/Github/"/>
+    
+      <category term="域名绑定" scheme="http://0x4c43.cn/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/"/>
+    
+      <category term="SEO优化" scheme="http://0x4c43.cn/tags/SEO%E4%BC%98%E5%8C%96/"/>
+    
+      <category term="Blog备份" scheme="http://0x4c43.cn/tags/Blog%E5%A4%87%E4%BB%BD/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用Atom+Markdown写文章</title>
     <link href="http://0x4c43.cn/%E4%BD%BF%E7%94%A8Atom+Markdown%E5%86%99%E6%96%87%E7%AB%A0/"/>
     <id>http://0x4c43.cn/使用Atom+Markdown写文章/</id>
     <published>2017-04-26T07:36:08.000Z</published>
-    <updated>2017-04-26T08:53:02.924Z</updated>
+    <updated>2017-04-26T13:20:39.981Z</updated>
     
     <summary type="html">
     
