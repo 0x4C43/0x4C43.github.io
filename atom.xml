@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-04-24T08:05:39.641Z</updated>
+  <updated>2017-04-26T07:36:26.210Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,24 +16,18 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Git 学习笔记</title>
-    <link href="http://0x4c43.cn/Github%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://0x4c43.cn/Github学习笔记/</id>
-    <published>2017-04-20T01:14:14.000Z</published>
-    <updated>2017-04-24T08:05:39.641Z</updated>
+    <title></title>
+    <link href="http://0x4c43.cn/%E4%BD%BF%E7%94%A8Atom+Markdown%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    <id>http://0x4c43.cn/使用Atom+Markdown写文章/</id>
+    <published>2017-04-26T07:36:48.193Z</published>
+    <updated>2017-04-26T07:36:26.210Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;Git是一款免费、开源的分布式版本控制系统，他是由Linux发明者Linus Torvalds开发的
+      &lt;h2 id=&quot;使用Atom-Markdown写文章&quot;&gt;&lt;a href=&quot;#使用Atom-Markdown写文章&quot; class=&quot;headerlink&quot; title=&quot;使用Atom+Markdown写文章&quot;&gt;&lt;/a&gt;&lt;strong&gt;使用Atom+Markdown写文章&lt;/stro
     
     </summary>
     
-      <category term="Github" scheme="http://0x4c43.cn/categories/Github/"/>
-    
-    
-      <category term="Github" scheme="http://0x4c43.cn/tags/Github/"/>
-    
-      <category term="jiaochen" scheme="http://0x4c43.cn/tags/jiaochen/"/>
     
   </entry>
   
