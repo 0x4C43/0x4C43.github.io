@@ -86,14 +86,13 @@ Markdown 支持有序列表和无序列表。
     这是一个代码区块。
 ```
 当代码量较大时可以用三个反引号包围 \`\`\`。在代码块中添加一个可选的语言标识符,可以根据语法高亮显示，例如：  
-
-<pre>
-``` C
+```
+''' C
 void main() {
   printf ("Hello World!");
 }
+'''
 ```
-</pre>
 
 如果要标记一小段行内代码，可以用反引号\`\`，例如：
 ```
@@ -155,7 +154,7 @@ Markdown 支持以比较简短的自动链接形式来处理网址和电子邮�
 #### **3）极简图床 Chrome 插件**
 使用极简图床可以绑定七牛云存储空间，然后可以通过拖拽的方式上传图片到云上。绑定七牛云需要空间名称、AK、SK 和域名。
 <div align=center>
-  <img src="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageMogr2/thumbnail/!80p"/>
+  <img src="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageView/3/w/300/h/300/q/100"/>
 </div>
 
 #### **4）插入图片**
@@ -167,7 +166,7 @@ Markdown 支持以比较简短的自动链接形式来处理网址和电子邮�
   <img src= "url"/>
 </div >
 
-<img src="url?imageMogr2/thumbnail/!60p"/>  # 七牛云图片缩放
+![](image_link?imageView/3/w/400/h/400/q/100)   # 七牛云图片缩放，w：刻度，h：高度，q：图片质量
 
 ```
 
@@ -191,4 +190,4 @@ hexo d      # 部署网站
 
 ----
 References:    
-Markdown 官网语法说明：<http://www.markdown.cn/>
+[1] [Markdown 官网语法说明](http://www.markdown.cn/)

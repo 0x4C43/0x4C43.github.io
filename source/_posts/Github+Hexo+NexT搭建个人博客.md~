@@ -246,7 +246,7 @@ highlight_theme: night bright
 修改`/themes/next/source/css/_schemes/Mist/`目录下的 \_posts-expanded.styl。
 ```
 .post-body img { margin: 0 ; }
-改为
+改为：
 .post-body img { margin: 0 auto; }
 ```
 
@@ -500,10 +500,10 @@ git submodule update
 ----
 
 Reference:
-[1] Hexo 官方文档：<https://hexo.io/zh-cn/docs/setup.html>   
-[2] NexT 主题官网：<http://theme-next.iissnan.com/>   
-[3] Hexo-GitHub Page 博客绑定域名：<http://ccxxmd.me/2017/03/04/Blog_domainname/>   
-[4] 推荐网易云跟帖：<https://blog.vadxq.com/dstogentie/>   
-[5] Hexo Next 主题 SEO 优化：<http://fanjun.im/2016/09/hexo_next_seo.html>   
-[6] Hexo 博客备份：<http://nhsensation.xyz/2016/03/14/move-blog/>   
-[7] 备份 Hexo 源文件至 GitHub：<http://www.leyar.me/backup-your-blog-to-github/>
+Hexo 官方文档：<https://hexo.io/zh-cn/docs/setup.html>   
+NexT 主题官网：<http://theme-next.iissnan.com/>   
+Hexo-GitHub Page 博客绑定域名：<http://ccxxmd.me/2017/03/04/Blog_domainname/>   
+推荐网易云跟帖：<https://blog.vadxq.com/dstogentie/>   
+Hexo Next 主题 SEO 优化：<http://fanjun.im/2016/09/hexo_next_seo.html>   
+Hexo 博客备份：<http://nhsensation.xyz/2016/03/14/move-blog/>   
+备份 Hexo 源文件至 GitHub：<http://www.leyar.me/backup-your-blog-to-github/>
