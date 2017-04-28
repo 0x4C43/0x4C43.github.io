@@ -102,8 +102,8 @@
 <meta name="description" content="2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。 泄露的工具可在 Githu">
 <meta name="keywords" content="Enternalblue,Doublepulsar,NSA,SMB,Metasploit">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSA Enternalblue + Doublepulsar 复现 MS17-010">
-<meta property="og:url" content="http://0x4c43.cn/NSA Enternalblue + Doublepulsar 复现 MS17-010/index.html">
+<meta property="og:title" content="NSA Enternalblue + Doublepulsar 复现 SMB 漏洞">
+<meta property="og:url" content="http://0x4c43.cn/NSA Enternalblue+Doublepulsar 复现 SMB 漏洞/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。 泄露的工具可在 Githu">
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg">
@@ -116,9 +116,9 @@
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png">
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png">
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/82624178-file_1493348105266_34db.png">
-<meta property="og:updated_time" content="2017-04-28T04:44:37.903Z">
+<meta property="og:updated_time" content="2017-04-28T10:54:25.798Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSA Enternalblue + Doublepulsar 复现 MS17-010">
+<meta name="twitter:title" content="NSA Enternalblue + Doublepulsar 复现 SMB 漏洞">
 <meta name="twitter:description" content="2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。 泄露的工具可在 Githu">
 <meta name="twitter:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg">
 
@@ -148,7 +148,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/NSA Enternalblue + Doublepulsar 复现 MS17-010/"/>
+  <link rel="canonical" href="http://0x4c43.cn/NSA Enternalblue+Doublepulsar 复现 SMB 漏洞/"/>
 
 
 
@@ -156,7 +156,7 @@
 
 
 
-  <title> NSA Enternalblue + Doublepulsar 复现 MS17-010 | 0x4C43's Blog </title>
+  <title> NSA Enternalblue + Doublepulsar 复现 SMB 漏洞 | 0x4C43's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -329,7 +329,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/NSA Enternalblue + Doublepulsar 复现 MS17-010/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/NSA Enternalblue+Doublepulsar 复现 SMB 漏洞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -350,7 +350,7 @@
             
             
               
-                NSA Enternalblue + Doublepulsar 复现 MS17-010
+                NSA Enternalblue + Doublepulsar 复现 SMB 漏洞
               
             
           </h1>
@@ -406,7 +406,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/NSA Enternalblue + Doublepulsar 复现 MS17-010/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/NSA Enternalblue+Doublepulsar 复现 SMB 漏洞/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -480,8 +480,9 @@
 <h5 id="4）开启-msf-监听"><a href="#4）开启-msf-监听" class="headerlink" title="4）开启 msf 监听"></a><strong>4）开启 msf 监听</strong></h5><p>在 Kali Linux 下，运行 msf，监听 6666 端口。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/80220500-file_1493346556508_101d9.png" alt=""></p>
 <h5 id="5）调用-Doublepulsar-注入-DLL"><a href="#5）调用-Doublepulsar-注入-DLL" class="headerlink" title="5）调用 Doublepulsar 注入 DLL"></a><strong>5）调用 Doublepulsar 注入 DLL</strong></h5><p>回到攻击机中，执行 <code>use Doublepulsar</code> ，回车使用默认参数直到选择 Function 为2 注入 DLL，然后指定 DLL 的路径。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/11038492-file_1493347262266_5c5.png" alt=""><br>注入成功后将返回如下信息。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png" alt=""><br>但是这里也会出现个问题，多次注入之后目标系统会出错重启。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png" alt=""></p>
 <h5 id="6）建立连接"><a href="#6）建立连接" class="headerlink" title="6）建立连接"></a><strong>6）建立连接</strong></h5><p>DLL 注入到目标系统之后，Kali Linux 将与目标系统建立连接。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/82624178-file_1493348105266_34db.png" alt=""></p>
+<h3 id="0x03-防御措施"><a href="#0x03-防御措施" class="headerlink" title="0x03 防御措施"></a><strong>0x03 防御措施</strong></h3><h4 id="1-尽快升级系统补丁"><a href="#1-尽快升级系统补丁" class="headerlink" title="1. 尽快升级系统补丁"></a><strong>1. 尽快升级系统补丁</strong></h4><h4 id="2-开启防火墙，并限制-445-端口"><a href="#2-开启防火墙，并限制-445-端口" class="headerlink" title="2. 开启防火墙，并限制 445 端口"></a><strong>2. 开启防火墙，并限制 445 端口</strong></h4><p>通过以下命令添加防火墙规则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netsh advfirewall firewall add rule name=&quot;445&quot; protocol=TCP dir=in localport=445 action=block</div></pre></td></tr></table></figure></p>
 <hr>
-<p>References:<br>[1] NSA工具包之0day Eternalblue 复现笔记：<a href="http://blog.injectxx.com/2017/04/18/%E5%A4%8D%E7%8E%B0%E7%AC%94%E8%AE%B0%E3%80%82/" target="_blank" rel="external">http://blog.injectxx.com/2017/04/18/%E5%A4%8D%E7%8E%B0%E7%AC%94%E8%AE%B0%E3%80%82/</a><br>[2] HOW TO EXPLOIT ETERNALBLUE &amp; DOUBLEPULSAR TO GET AN<br>EMPIRE/METERPRETER SESSION ON WINDOWS 7/2008：<a href="https://www.exploit-db.com/docs/41896.pdf" target="_blank" rel="external">https://www.exploit-db.com/docs/41896.pdf</a></p>
+<p>References:<br>[1] <a href="http://blog.injectxx.com/2017/04/18/%E5%A4%8D%E7%8E%B0%E7%AC%94%E8%AE%B0%E3%80%82/" target="_blank" rel="external">NSA工具包之0day Eternalblue 复现笔记</a><br>[2] <a href="https://www.exploit-db.com/docs/41896.pdf" target="_blank" rel="external">HOW TO EXPLOIT ETERNALBLUE &amp; DOUBLEPULSAR TO GET AN<br>EMPIRE/METERPRETER SESSION ON WINDOWS 7/2008</a><br>[3] <a href="https://www.vulbox.com/knowledge/detail/?id=6" target="_blank" rel="external">NSA Fuzzbunch分析与利用案例</a></p>
 
       
     </div>
@@ -709,7 +710,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-影响范围"><span class="nav-number">1.</span> <span class="nav-text">0x01 影响范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-漏洞测试"><span class="nav-number">2.</span> <span class="nav-text">0x02 漏洞测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-测试环境"><span class="nav-number">2.1.</span> <span class="nav-text">1. 测试环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-测试流程"><span class="nav-number">2.2.</span> <span class="nav-text">2. 测试流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）运行-fuzzbunch-框架"><span class="nav-number">2.2.1.</span> <span class="nav-text">1）运行 fuzzbunch 框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）调用-Eternalblue-攻击系统"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）调用 Eternalblue 攻击系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）Metasploit-生成恶意-DLL"><span class="nav-number">2.2.3.</span> <span class="nav-text">3）Metasploit 生成恶意 DLL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）开启-msf-监听"><span class="nav-number">2.2.4.</span> <span class="nav-text">4）开启 msf 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5）调用-Doublepulsar-注入-DLL"><span class="nav-number">2.2.5.</span> <span class="nav-text">5）调用 Doublepulsar 注入 DLL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6）建立连接"><span class="nav-number">2.2.6.</span> <span class="nav-text">6）建立连接</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-影响范围"><span class="nav-number">1.</span> <span class="nav-text">0x01 影响范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-漏洞测试"><span class="nav-number">2.</span> <span class="nav-text">0x02 漏洞测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-测试环境"><span class="nav-number">2.1.</span> <span class="nav-text">1. 测试环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-测试流程"><span class="nav-number">2.2.</span> <span class="nav-text">2. 测试流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）运行-fuzzbunch-框架"><span class="nav-number">2.2.1.</span> <span class="nav-text">1）运行 fuzzbunch 框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）调用-Eternalblue-攻击系统"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）调用 Eternalblue 攻击系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）Metasploit-生成恶意-DLL"><span class="nav-number">2.2.3.</span> <span class="nav-text">3）Metasploit 生成恶意 DLL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）开启-msf-监听"><span class="nav-number">2.2.4.</span> <span class="nav-text">4）开启 msf 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5）调用-Doublepulsar-注入-DLL"><span class="nav-number">2.2.5.</span> <span class="nav-text">5）调用 Doublepulsar 注入 DLL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6）建立连接"><span class="nav-number">2.2.6.</span> <span class="nav-text">6）建立连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-防御措施"><span class="nav-number">3.</span> <span class="nav-text">0x03 防御措施</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-尽快升级系统补丁"><span class="nav-number">3.1.</span> <span class="nav-text">1. 尽快升级系统补丁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-开启防火墙，并限制-445-端口"><span class="nav-number">3.2.</span> <span class="nav-text">2. 开启防火墙，并限制 445 端口</span></a></li></ol></li></ol></div>
             
 
           </div>

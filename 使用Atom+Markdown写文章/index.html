@@ -106,12 +106,12 @@
 <meta property="og:url" content="http://0x4c43.cn/使用Atom+Markdown写文章/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="0x01 AtomAtom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo blog。 可以在官网下载Atom。 常用快捷键在File/Settings/Keybindiigns">
-<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageMogr2/thumbnail/!80p">
-<meta property="og:updated_time" content="2017-04-28T04:51:20.924Z">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageView/3/w/300/h/300/q/100">
+<meta property="og:updated_time" content="2017-04-28T10:51:22.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Atom+Markdown写文章">
 <meta name="twitter:description" content="0x01 AtomAtom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo blog。 可以在官网下载Atom。 常用快捷键在File/Settings/Keybindiigns">
-<meta name="twitter:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageMogr2/thumbnail/!80p">
+<meta name="twitter:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageView/3/w/300/h/300/q/100">
 
 
 
@@ -503,12 +503,7 @@
 <p>有序列表则使用数字接着一个英文句点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1.  Bird</div><div class="line">2.  McHale</div><div class="line">3.  Parish</div></pre></td></tr></table></figure></p>
 <p>当文章内容刚好行首出现数字-句点-空白时，不希望解析为有序列表，可以在句点前面加上反斜杠。</p>
 <h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a><strong>代码块</strong></h4><p>在代码块的每行前面加 4 个空格或是 1 个制表符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">这是一个普通段落：</div><div class="line">    这是一个代码区块。</div></pre></td></tr></table></figure></p>
-<p>当代码量较大时可以用三个反引号包围 ```。在代码块中添加一个可选的语言标识符,可以根据语法高亮显示，例如：  </p>
-<pre>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="built_in">printf</span> (<span class="string">"Hello World!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-</pre>
-
+<p>当代码量较大时可以用三个反引号包围 ```。在代码块中添加一个可选的语言标识符,可以根据语法高亮显示，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&apos;&apos;&apos; C</div><div class="line">void main() &#123;</div><div class="line">  printf (&quot;Hello World!&quot;);</div><div class="line">&#125;</div><div class="line">&apos;&apos;&apos;</div></pre></td></tr></table></figure></p>
 <p>如果要标记一小段行内代码，可以用反引号``，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Use the `printf()` function.</div></pre></td></tr></table></figure></p>
 <h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a><strong>分割线</strong></h4><p>在一行中用三个以上的 ‘*‘ 或 ‘-‘ 来建立个分割线，在符号中间可以插入空格。下面是几种正确的写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">* * *</div><div class="line">***</div><div class="line">*****</div><div class="line">- - -</div><div class="line">---------------------------------------</div></pre></td></tr></table></figure></p>
 <h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a><strong>链接</strong></h4><p>链接文字用 [方括号] 标记，方块括号后面圆括号中为网址链接（也可以是相对路径），网址后面双引号中的内容为链接的 title，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">This is [an example](http://example.com/ &quot;Title&quot;) inline link.</div><div class="line">[This link](http://example.net/) has no title attribute.</div></pre></td></tr></table></figure></p>
@@ -520,15 +515,15 @@
 <h3 id="0x03-插入图片"><a href="#0x03-插入图片" class="headerlink" title="0x03 插入图片"></a><strong>0x03 插入图片</strong></h3><p>用 Markdown 写文章有个麻烦的地方就是不能直接插图片，通常需要将图片放在本地或者云上，然后在文章中通过图片链接（相对地址或网址）来插图片。为了节省 Blog 的空间，将图片上传到<a href="https://www.qiniu.com/" target="_blank" rel="external">七牛云</a>上。   </p>
 <h4 id="1）注册账号并登录"><a href="#1）注册账号并登录" class="headerlink" title="1）注册账号并登录"></a><strong>1）注册账号并登录</strong></h4><h4 id="2）新建-buket"><a href="#2）新建-buket" class="headerlink" title="2）新建 buket"></a><strong>2）新建 buket</strong></h4><p>对象存储 &gt; 新建存储空间，输入相关信息。   </p>
 <h4 id="3）极简图床-Chrome-插件"><a href="#3）极简图床-Chrome-插件" class="headerlink" title="3）极简图床 Chrome 插件"></a><strong>3）极简图床 Chrome 插件</strong></h4><p>使用极简图床可以绑定七牛云存储空间，然后可以通过拖拽的方式上传图片到云上。绑定七牛云需要空间名称、AK、SK 和域名。</p>
-<div align="center"><br>  <img src="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageMogr2/thumbnail/!80p"><br></div>
+<div align="center"><br>  <img src="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageView/3/w/300/h/300/q/100"><br></div>
 
-<h4 id="4）插入图片"><a href="#4）插入图片" class="headerlink" title="4）插入图片"></a><strong>4）插入图片</strong></h4><p>在文章中使用以下语法插入图片。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">![](image_link)</div><div class="line"></div><div class="line">&lt;div align=center&gt;  # 图片居中</div><div class="line">  &lt;img src= &quot;url&quot;/&gt;</div><div class="line">&lt;/div &gt;</div><div class="line"></div><div class="line">&lt;img src=&quot;url?imageMogr2/thumbnail/!60p&quot;/&gt;  # 七牛云图片缩放</div></pre></td></tr></table></figure></p>
+<h4 id="4）插入图片"><a href="#4）插入图片" class="headerlink" title="4）插入图片"></a><strong>4）插入图片</strong></h4><p>在文章中使用以下语法插入图片。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">![](image_link)</div><div class="line"></div><div class="line">&lt;div align=center&gt;  # 图片居中</div><div class="line">  &lt;img src= &quot;url&quot;/&gt;</div><div class="line">&lt;/div &gt;</div><div class="line"></div><div class="line">![](image_link?imageView/3/w/400/h/400/q/100)   # 七牛云图片缩放，w：刻度，h：高度，q：图片质量</div></pre></td></tr></table></figure></p>
 <h3 id="0x04-文章发布"><a href="#0x04-文章发布" class="headerlink" title="0x04 文章发布"></a><strong>0x04 文章发布</strong></h3><p>在搭建好 Hexo Blog 之后，可以通过以下步骤新建并发布一篇新的文章。</p>
 <h4 id="1）创建文章"><a href="#1）创建文章" class="headerlink" title="1）创建文章"></a><strong>1）创建文章</strong></h4><p>执行下列命令来创建一篇新文章。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new post &lt;title&gt;</div></pre></td></tr></table></figure></p>
 <h4 id="2）撰写文章"><a href="#2）撰写文章" class="headerlink" title="2）撰写文章"></a><strong>2）撰写文章</strong></h4><p>使用 Atom 和 Markdown 语法写文章内容。</p>
 <h4 id="3）发布文章"><a href="#3）发布文章" class="headerlink" title="3）发布文章"></a><strong>3）发布文章</strong></h4><p>首先需要生成静态文件，然后部署到Hexo中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo clean  # 清除缓存文件 (db.json) 和已生成的静态文件 (public)</div><div class="line">hexo g      # 生成静态文件</div><div class="line">hexo d      # 部署网站</div></pre></td></tr></table></figure></p>
 <hr>
-<p>References:<br>[1] Markdown 官网语法说明：<a href="http://www.markdown.cn/" target="_blank" rel="external">http://www.markdown.cn/</a></p>
+<p>References:<br>[1] <a href="http://www.markdown.cn/" target="_blank" rel="external">Markdown 官网语法说明</a></p>
 
       
     </div>
