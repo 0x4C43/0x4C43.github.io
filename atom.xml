@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-05-08T13:56:18.159Z</updated>
+  <updated>2017-05-11T04:12:48.277Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,11 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>DLL 注入之远程线程注入</title>
+    <link href="http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5/"/>
+    <id>http://0x4c43.cn/DLL注入之远程线程注入/</id>
+    <published>2017-05-10T13:45:08.000Z</published>
+    <updated>2017-05-11T04:12:48.277Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 Windows 中有多种方法实现 DLL 注入，&lt;a href=&quot;http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/&quot;&gt;可以使用消息钩子注入 DLL&lt;/
+    
+    </summary>
+    
+      <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
+    
+    
+      <category term="DLL 注入" scheme="http://0x4c43.cn/tags/DLL-%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+  <entry>
     <title>DLL 注入之 Windows 消息钩子</title>
     <link href="http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/"/>
     <id>http://0x4c43.cn/DLL注入之消息钩取/</id>
     <published>2017-05-08T13:45:08.000Z</published>
-    <updated>2017-05-08T13:56:18.159Z</updated>
+    <updated>2017-05-11T04:16:46.142Z</updated>
     
     <summary type="html">
     
