@@ -71,7 +71,7 @@ google 查找发现 openwrt-wrtsl54gs-squashfs.bin 固件有三个版本，分�
  https://downloads.openwrt.org/whiterussian/0.9/pptp/openwrt-wrtsl54gs-squashfs.bin
 
 使用 binwally 对比结果显示"default" 版本的相似性最高，可知，目标固件是 "default" 版本固件的修改版。
-![](http://ooyovxue7.bkt.clouddn.com/17-6-5/59066778.jpg)
+![](http://ooyovxue7.bkt.clouddn.com/17-6-5/59066778.jpg)    
 继续查看具体修改的文件为 /etc/profile 和 /bin/nc。
 ![](http://ooyovxue7.bkt.clouddn.com/17-6-5/31504566.jpg)
 
