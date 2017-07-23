@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-06-05T13:39:41.725Z</updated>
+  <updated>2017-07-23T08:16:54.854Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,11 +16,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>PE文件中添加节区</title>
+    <link href="http://0x4c43.cn/PE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/"/>
+    <id>http://0x4c43.cn/PE文件中添加节区/</id>
+    <published>2017-07-21T13:45:08.000Z</published>
+    <updated>2017-07-23T08:16:54.854Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。&lt;/p&gt;
+&lt;p&gt;打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每
+    
+    </summary>
+    
+      <category term="Reverse" scheme="http://0x4c43.cn/categories/Reverse/"/>
+    
+    
+      <category term="PE文件" scheme="http://0x4c43.cn/tags/PE%E6%96%87%E4%BB%B6/"/>
+    
+      <category term="添加节区" scheme="http://0x4c43.cn/tags/%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/"/>
+    
+      <category term="病毒感染" scheme="http://0x4c43.cn/tags/%E7%97%85%E6%AF%92%E6%84%9F%E6%9F%93/"/>
+    
+      <category term="打补丁" scheme="http://0x4c43.cn/tags/%E6%89%93%E8%A1%A5%E4%B8%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用 firmware-mod-kit 修改固件</title>
     <link href="http://0x4c43.cn/%E4%BD%BF%E7%94%A8firmware-mod-kit%E4%BF%AE%E6%94%B9%E5%9B%BA%E4%BB%B6/"/>
     <id>http://0x4c43.cn/使用firmware-mod-kit修改固件/</id>
     <published>2017-06-05T13:45:08.000Z</published>
-    <updated>2017-06-05T13:39:41.725Z</updated>
+    <updated>2017-06-05T15:04:34.713Z</updated>
     
     <summary type="html">
     
