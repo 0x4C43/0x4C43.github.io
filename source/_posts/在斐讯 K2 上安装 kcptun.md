@@ -14,24 +14,24 @@ keywords: [斐讯 K2,Shadowsocks,Kcptun，IPv6 免流]
 
 为了能方便地在多个终端使用代理，可以在路由器上部署 SS 客户端，那么经过这台路由器的所有流量都能走代理，对于终端设备上的所有应用而言，代理是透明的。
 
-###**0x01 前提条件**    
+### **0x01 前提条件**    
 首先需要一台已部署好 Shadowsocks 和 Kcptun 的 VPS，服务器上安装 SS 和 Kcptun 相对要简单一些，可以在网络上能找到脚本实现一键安装。安装好之后在 PC 上安装相应的客户端软件，设置好参数并测试服务端能否正常使用。
 
 下面是在斐讯 K2 上部署 SS 和 Kcptun 的过程。
 
-###**0x02 部署 SS**    
-####**1）安装软件包**    
+### **0x02 部署 SS**    
+#### **1）安装软件包**    
 透明代理使用 Shadowsocks-libev 和 ChinDNS 实现。使用 ssh 登陆路由器，安装相关软件包。
 ```
 opkg update
 opkg install shadowsocks-libev luci-app-shadowsocks ChinaDNS luci-app-chinadns --force-checksum
 ```
-####**2）更新 chnroute 表**    
+#### **2）更新 chnroute 表**    
 使用以下命令更新：
 ```
 wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > /etc/chnroute.txt
 ```
-####**3）配置SS**    
+#### **3）配置SS**    
 首先根据 SS 服务器中已设参数配置好 SS 的全局设置，包括以下参数：
 ```
 服务器地址：2607:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx  # 校园网 IPV6 免流
@@ -73,7 +73,7 @@ HOSTS和解析文件
 ```
 具体流程为， ss-tunnel 将 GoogleDNS(8.8.8.8:53) 转发到 127.0.0.1:1153 上，然后通过 ChinaDNS 与国内 DNS 组合成新的 127.0.0.1:1053，从而实现了国内外分流。
 
-###**0x03 部署 Kcptun**    
+### **0x03 部署 Kcptun**    
 Kcptun 部署需要确保服务端和客户端版本的一致性，只有版本一致才能正常使用。首先
 在 [kcptun项目](https://github.com/xtaci/kcptun/releases) 中下载相应版本的客户端，这里下载 [kcptun-linux-mipsle-20170525.tar.gz](https://github.com/xtaci/kcptun/releases/download/v20170525/kcptun-linux-mipsle-20170525.tar.gz)，解压后将 client_linux_mipsle 上传至路由器中。
 ```
