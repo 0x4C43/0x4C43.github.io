@@ -4,8 +4,62 @@
 
     
   <url>
+    <loc>http://0x4c43.cn/%E5%9C%A8%E6%96%90%E8%AE%AF%20K2%20%E4%B8%8A%E5%AE%89%E8%A3%85%20kcptun/</loc>
+    <lastmod>2017-08-26T07:12:57.678Z</lastmod>
+    <data>
+        <display>
+        <title>在斐讯 K2 上部署 Shadowsocks+Kcptun</title>
+        <pubTime>2017-08-26T06:34:57.000Z</pubTime>
+        
+        <tag>斐讯 K2</tag>
+         
+        <tag>Shadowsocks</tag>
+         
+        <tag>kcptun，IPv6 免流</tag>
+         
+         
+           
+             
+              <breadCrumb title="Others" url="http://0x4c43.cn/categories/Others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://0x4c43.cn/Github+Hexo+NexT%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2017-08-26T06:43:20.507Z</lastmod>
+    <data>
+        <display>
+        <title>Github+Hexo+NexT搭建个人博客</title>
+        <pubTime>2017-04-26T12:42:00.000Z</pubTime>
+        
+        <tag>Hexo</tag>
+         
+        <tag>Next</tag>
+         
+        <tag>Github</tag>
+         
+        <tag>域名绑定</tag>
+         
+        <tag>SEO优化</tag>
+         
+        <tag>Blog备份</tag>
+         
+         
+           
+             
+              <breadCrumb title="Others" url="http://0x4c43.cn/categories/Others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://0x4c43.cn/PE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/</loc>
-    <lastmod>2017-07-23T08:39:01.437Z</lastmod>
+    <lastmod>2017-07-24T07:59:44.130Z</lastmod>
     <data>
         <display>
         <title>PE文件中添加节区</title>
@@ -22,7 +76,7 @@
          
            
              
-              <breadCrumb title="Reverse" url="http://0x4c43.cn/categories/Reverse/"/>
+              <breadCrumb title="Windows" url="http://0x4c43.cn/categories/Windows/"/>
           
         </display>
     </data>
@@ -132,36 +186,6 @@
         <tag>Atom</tag>
          
         <tag>Markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="others" url="http://0x4c43.cn/categories/others/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://0x4c43.cn/Github+Hexo+NexT%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2017-04-28T04:51:03.857Z</lastmod>
-    <data>
-        <display>
-        <title>Github+Hexo+NexT搭建个人博客</title>
-        <pubTime>2017-04-26T12:42:00.000Z</pubTime>
-        
-        <tag>Hexo</tag>
-         
-        <tag>Next</tag>
-         
-        <tag>Github</tag>
-         
-        <tag>域名绑定</tag>
-         
-        <tag>SEO优化</tag>
-         
-        <tag>Blog备份</tag>
          
          
            

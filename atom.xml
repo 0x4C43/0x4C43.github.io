@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-07-23T08:39:01.437Z</updated>
+  <updated>2017-08-26T07:12:57.678Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,11 +16,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>在斐讯 K2 上部署 Shadowsocks+Kcptun</title>
+    <link href="http://0x4c43.cn/%E5%9C%A8%E6%96%90%E8%AE%AF%20K2%20%E4%B8%8A%E5%AE%89%E8%A3%85%20kcptun/"/>
+    <id>http://0x4c43.cn/在斐讯 K2 上安装 kcptun/</id>
+    <published>2017-08-26T06:34:57.000Z</published>
+    <updated>2017-08-26T07:12:57.678Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对于程序员来说，能顺畅使用互联网能够很大程度地提高工作效率。所以，通过 SS 来实现代理上网是一个很好的解决方案。此外，对于能使用校园网的学生党而言，还可以使用 SS + IPv6 来实现免流，这样就能把省下来的网费用来买VPS了。&lt;/p&gt;
+&lt;p&gt;然而，在 PC 上直接使用
+    
+    </summary>
+    
+      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
+    
+    
+      <category term="斐讯 K2" scheme="http://0x4c43.cn/tags/%E6%96%90%E8%AE%AF-K2/"/>
+    
+      <category term="Shadowsocks" scheme="http://0x4c43.cn/tags/Shadowsocks/"/>
+    
+      <category term="kcptun，IPv6 免流" scheme="http://0x4c43.cn/tags/kcptun%EF%BC%8CIPv6-%E5%85%8D%E6%B5%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PE文件中添加节区</title>
     <link href="http://0x4c43.cn/PE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/"/>
     <id>http://0x4c43.cn/PE文件中添加节区/</id>
     <published>2017-07-23T08:30:10.000Z</published>
-    <updated>2017-07-23T08:39:01.437Z</updated>
+    <updated>2017-07-24T07:59:44.130Z</updated>
     
     <summary type="html">
     
@@ -29,7 +54,7 @@
     
     </summary>
     
-      <category term="Reverse" scheme="http://0x4c43.cn/categories/Reverse/"/>
+      <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
     
     
       <category term="PE文件" scheme="http://0x4c43.cn/tags/PE%E6%96%87%E4%BB%B6/"/>
@@ -142,7 +167,7 @@
     <link href="http://0x4c43.cn/Github+Hexo+NexT%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://0x4c43.cn/Github+Hexo+NexT搭建个人博客/</id>
     <published>2017-04-26T12:42:00.000Z</published>
-    <updated>2017-04-28T04:51:03.857Z</updated>
+    <updated>2017-08-26T06:43:20.507Z</updated>
     
     <summary type="html">
     
@@ -150,7 +175,7 @@
     
     </summary>
     
-      <category term="others" scheme="http://0x4c43.cn/categories/others/"/>
+      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
     
     
       <category term="Hexo" scheme="http://0x4c43.cn/tags/Hexo/"/>
