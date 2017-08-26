@@ -2,7 +2,7 @@
 title: Github+Hexo+NexT搭建个人博客
 date: '2017-04-26 20:42'
 tags: [Hexo,Next,Github,域名绑定,SEO优化,Blog备份]
-categories: others
+categories: Others
 keywords: [Hexo,Next,Github,域名绑定,SEO优化,Blog备份]
 ---
 
@@ -455,8 +455,8 @@ git add .
 git commit –m “blog”
 git push origin Hexo:Hexo
 
-git clean
-git d -g
+hexo clean
+hexo d -g
 ```
 #### **2. 恢复**
 当需要在另一台电脑上写 blog 时，可以通过以下方式恢复 Hexo 环境。
