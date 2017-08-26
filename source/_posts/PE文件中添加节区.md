@@ -2,7 +2,7 @@
 title: PE文件中添加节区
 date: 2017-07-23 16:30:10
 tags: [PE文件,添加节区,病毒感染,打补丁]
-categories: Reverse
+categories: Windows
 keywords: [PE文件,添加节区,病毒感染,打补丁]
 ---
 
@@ -116,6 +116,7 @@ BOOL InfectFile(TCHAR *fpath)
 		return FALSE;
 	}
 	...
+}
 ```
 IsPeFile() 和 IsInfected() 函数的实现如下：
 ```C
@@ -191,6 +192,7 @@ BOOL InfectFile(TCHAR *fpath)
 	//修正PE镜像大小
 	pNTHdr->OptionalHeader.SizeOfImage += Align(pNewSec->Misc.VirtualSize,dwSecAlign);
  	...
+}
 ```
 VS2010 中默认设置时，计算 Shellcode 长度时无法正确获取函数在内存中的地址，需要将修改项目属性：配置属性/链接器/常规/关闭增量链接。
 
@@ -263,6 +265,7 @@ BOOL InfectFile(TCHAR *fpath)
 	WriteFile(hFile,lpHeap,pNewSec->SizeOfRawData,&dwSize,NULL);
 	HeapFree(hHeap,NULL,lpHeap);
 	HeapDestroy(hHeap);
+}
 ```
 修正 Shellcode 中地址之后将其复制到 PE 文件的末尾，首先使用 SetFilePointer() 函数将文件指针指向文件末尾，再通过 WriteFile() 函数将 Shellcode 函数写入文件。SetFilePointer() 函数定义如下：
 ```C
