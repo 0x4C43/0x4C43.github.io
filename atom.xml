@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-08-26T07:12:57.678Z</updated>
+  <updated>2017-09-19T07:53:01.946Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -14,6 +14,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RC4 算法实现</title>
+    <link href="http://0x4c43.cn/RC4%20%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://0x4c43.cn/RC4 算法实现/</id>
+    <published>2017-09-19T07:52:29.000Z</published>
+    <updated>2017-09-19T07:53:01.946Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;RC4 是一种对称秘钥流加密算法，对称加密算法使用的加密和解密秘钥是相同的，或是从其中一个能很容易推导出另一个。RC4 算法的特点是算法简单，运行速度快，而且密钥长度是可变的，密钥长度范围为 1-256 字节。&lt;/p&gt;
+&lt;h3 id=&quot;0x01-算法原理&quot;&gt;&lt;a href=
+    
+    </summary>
+    
+      <category term="加密解密" scheme="http://0x4c43.cn/categories/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/"/>
+    
+    
+      <category term="RC4" scheme="http://0x4c43.cn/tags/RC4/"/>
+    
+  </entry>
   
   <entry>
     <title>在斐讯 K2 上部署 Shadowsocks+Kcptun</title>
