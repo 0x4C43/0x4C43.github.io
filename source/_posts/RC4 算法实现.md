@@ -162,6 +162,6 @@ void main(int argc, char* argv[]) {
 
 ____
 References:   
-[1] [RC4](https://en.wikipedia.org/wiki/RC4)
+[1] [RC4](https://en.wikipedia.org/wiki/RC4)    
 [2] [流加密RC4的C语言实现](http://gttiankai.github.io/2015/01/18/Rc4.html)   
 [3] [RC4加密算法](http://www.cnblogs.com/zibility/p/5404478.html)
