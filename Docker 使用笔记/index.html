@@ -106,7 +106,7 @@
 <meta property="og:url" content="http://0x4c43.cn/Docker 使用笔记/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。 Docker 项目的目标是实现轻量级的操作系统虚拟化解决方案，Docker 的基础是 Linux 容器 (LXC) 等技术。在 LCX 的">
-<meta property="og:updated_time" content="2017-10-05T08:33:33.351Z">
+<meta property="og:updated_time" content="2017-10-05T08:36:56.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 使用笔记">
 <meta name="twitter:description" content="Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。 Docker 项目的目标是实现轻量级的操作系统虚拟化解决方案，Docker 的基础是 Linux 容器 (LXC) 等技术。在 LCX 的">
@@ -429,7 +429,7 @@
       
         <p>Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。</p>
 <p>Docker 项目的目标是实现轻量级的操作系统虚拟化解决方案，Docker 的基础是 Linux 容器 (LXC) 等技术。在 LCX 的基础上 Docker 进行了进一步的封装，让用户不需要关心容器的管理，使得操作更为简便，用户操作 Docker 的容器就像操作一个快速轻量级的虚拟机一样。</p>
-<p>以上为 Docker 的基本功能使用记录。</p>
+<p>以下为 Docker 的基本功能使用记录。</p>
 <h3 id="0x01-安装-Docker"><a href="#0x01-安装-Docker" class="headerlink" title="0x01 安装 Docker"></a><strong>0x01 安装 Docker</strong></h3><h4 id="1）安装"><a href="#1）安装" class="headerlink" title="1）安装"></a><strong>1）安装</strong></h4><p>在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，Ubuntu 系统上可以使用这套脚本安装：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -fsSL get.docker.com -o get-docker.sh</div><div class="line">$ sudo sh get-docker.sh --mirror Aliyun</div></pre></td></tr></table></figure></p>
 <h4 id="2）镜像加速器"><a href="#2）镜像加速器" class="headerlink" title="2）镜像加速器"></a><strong>2）镜像加速器</strong></h4><p>国内访问 Docker Hub 有时会遇到困难，此时可以配置镜像加速器。使用国内云服务商 DaoCloud 提供的加速器服务。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://xxx.m.daocloud.io</div></pre></td></tr></table></figure></p>
 <p>该脚本可以将 –registry-mirror 加入到 Docker 配置文件 /etc/docker/daemon.json 中。适用于 Ubuntu14.04、Debian、CentOS6 、CentOS7、Fedora、Arch Linux、openSUSE Leap 42.1，其他版本可能有细微不同。    </p>
