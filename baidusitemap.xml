@@ -4,8 +4,32 @@
 
     
   <url>
+    <loc>http://0x4c43.cn/Linux%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B8%8E%E5%A0%86/</loc>
+    <lastmod>2017-10-24T15:16:30.524Z</lastmod>
+    <data>
+        <display>
+        <title>Linux 内存管理与堆</title>
+        <pubTime>2017-10-24T15:18:34.000Z</pubTime>
+        
+        <tag>内存管理</tag>
+         
+        <tag>malloc</tag>
+         
+        <tag>堆</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://0x4c43.cn/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://0x4c43.cn/Docker%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2017-10-05T08:36:56.276Z</lastmod>
+    <lastmod>2017-10-09T07:24:45.555Z</lastmod>
     <data>
         <display>
         <title>Docker 使用笔记</title>
