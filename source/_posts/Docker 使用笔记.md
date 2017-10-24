@@ -127,7 +127,7 @@ ubuntu              14.04               dea1945146b9        2 weeks ago         
 
 使用 `docker commit` 意味着所有对镜像的操作都是黑箱操作，生成的镜像也被称为黑箱镜像。在实际应用中使用 Dockerfile 来定制镜像。
 
-#### **4）删除镜像**
+#### **5）删除镜像**
 如果要删除本地的镜像，可以使用 `docker	rmi` 命令。
 ```python
 lc@ubuntu:~$ sudo docker images
