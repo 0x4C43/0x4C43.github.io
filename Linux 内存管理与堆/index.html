@@ -108,7 +108,7 @@
 <meta property="og:description" content="目前各大平台主要有如下几种堆内存管理机制：12345dlmalloc – General purpose allocatorptmalloc2 – glibcjemalloc – FreeBSD and Firefoxtcmalloc – Googlelibumem – Solaris Linux 的早期版本使用的默认内存分配器为 dlmalloc，Wolfram Gloger 在 dlmallo">
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-10-24/1257914.jpg">
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-10-24/55042966.jpg">
-<meta property="og:updated_time" content="2017-10-24T15:16:30.524Z">
+<meta property="og:updated_time" content="2017-10-28T12:31:18.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 内存管理与堆">
 <meta name="twitter:description" content="目前各大平台主要有如下几种堆内存管理机制：12345dlmalloc – General purpose allocatorptmalloc2 – glibcjemalloc – FreeBSD and Firefoxtcmalloc – Googlelibumem – Solaris Linux 的早期版本使用的默认内存分配器为 dlmalloc，Wolfram Gloger 在 dlmallo">
@@ -460,7 +460,7 @@
 <p>不论 top chunk 有多大，它都不会被放到 fast  bins 或者是 bins 中。top  chunk 的大小是随着分配和回收不停变换的，如果从 top  chunk 分配内存会导致 top  chunk 减小，同时 top chunk 的指针增大；如果回收的 chunk 恰好与 top chunk 相邻，那么回收的 chunk 就会合并到 top chunk 中，从而使 top chunk 变大，top chunk 的指针减小。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">+---------------------+   &lt;--first chunk ptr</div><div class="line">|     prev_size       |</div><div class="line">+---------------------+</div><div class="line">|        size         |          </div><div class="line">+---------------------+   &lt;--first mem                  </div><div class="line">|                     |</div><div class="line">|     allocated       |         </div><div class="line">|      chunk          |      </div><div class="line">+---------------------+   &lt;--second chunk ptr                </div><div class="line">|      prev_size      |         </div><div class="line">+---------------------+                     </div><div class="line">|        size         |         </div><div class="line">+---------------------+   &lt;--second mem              </div><div class="line">|     Allocated       |         </div><div class="line">|       chunk         |     </div><div class="line">+---------------------+   &lt;-- top                  </div><div class="line">|     prev_size       |            </div><div class="line">+---------------------+                     </div><div class="line">|    size=0x205d1     |           </div><div class="line">+---------------------+                      </div><div class="line">|                     |</div><div class="line">|        TOP          |   </div><div class="line">|       CHUNK         |    </div><div class="line">|                     |</div><div class="line">+---------------------+</div></pre></td></tr></table></figure>
 <p>例如，先申请两个大小为 89 的 chunk，然后释放第二个 chunk。释放后的 chunk 将会与 top chunk 合并，使得 top chunk 增大，同时 chunk 指针减小。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-10-24/1257914.jpg" alt=""></p>
-<p><strong>d） Last Remainder chunk</strong><br>Last remainder 与 top chunk 一样，不会在任何 bins 中找到这种 chunk。当需要分配一个 small chunk，但在 small bins 中找不到合适的 chunk时，如果 last remainder chunk 大于所需的 small chunk，last remainder chunk 被分成两个 chunk，其中一个 chunk 返回给用户，另一个 chunk 变成新的 last remainder chuk。</p>
+<p><strong>d） Last Remainder chunk</strong><br>Last remainder 与 top chunk 一样，不会在任何 bins 中找到这种 chunk。当需要分配一个 small chunk，但在 small bins 中找不到合适的 chunk 时，如果 last remainder chunk 大于所需的 small chunk，last remainder chunk 被分成两个 chunk，其中一个 chunk 返回给用户，另一个 chunk 变成新的 last remainder chuk。</p>
 <h4 id="3）Bin"><a href="#3）Bin" class="headerlink" title="3）Bin"></a><strong>3）Bin</strong></h4><p>用户 free 掉的内存并不会马上归还给系统，malloc 会统一管理 heap 和 mmap 映射区域中的空闲 chunk，当用户进行下一次分配请求时，malloc 会首先试图在空闲 chunk 中挑选一块给用户，这样就避免了频繁的系统调用，降低了内存分配的开销。</p>
 <p>用于保存 free chunk 链表表头信息的指针数组称为 bin，按所悬挂链表的类型可以分为4类：Fast bin、Unsorted bin、Small bin、Large bin。保存 bin 的数据结构为 fastbinsY 和 bins 两个数组：fastbinsY 数组保存 fast bin，bins 数组保存 unsorted、small 和 large bin，总共有 126 个 bin：Bin 1 为 Unsorted bin、Bin 2 to Bin 63 为 Small bin、Bin 64 to Bin 126 为 Large bin。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-10-24/55042966.jpg" alt=""></p>
 <p><strong>Fast Bin</strong><br>fast chunk 的大小为16~64 bytes 的 chunk，保存 fast chunk 的 bin 被称为 fast bin，fast bin 在内存中分配和回收的速度最快。</p>
@@ -539,6 +539,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/终端复用工具 tmux/" rel="next" title="终端复用工具tmux">
+                <i class="fa fa-chevron-left"></i> 终端复用工具tmux
+              </a>
             
           </div>
 
@@ -622,7 +626,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -644,7 +648,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

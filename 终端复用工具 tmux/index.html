@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="firmware-mod-kit,修改 firmware" />
+  <meta name="keywords" content="tmux" />
 
 
 
@@ -99,24 +99,17 @@
 
 
 
-<meta name="description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta name="keywords" content="firmware-mod-kit,firmware">
+<meta name="description" content="0x01 简介tmux 是一款很好用的终端复用工具，主要有以下两个功能：      1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险">
+<meta name="keywords" content="tmxu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 firmware-mod-kit 修改固件">
-<meta property="og:url" content="http://0x4c43.cn/使用firmware-mod-kit修改固件/index.html">
+<meta property="og:title" content="终端复用工具tmux">
+<meta property="og:url" content="http://0x4c43.cn/终端复用工具 tmux/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
-<meta property="og:description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-6-5/78163658.jpg">
-<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-6-5/6411506.jpg">
-<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-6-5/10177238.jpg">
-<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-6-5/63948070.jpg">
-<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-6-5/59066778.jpg">
-<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-6-5/31504566.jpg">
-<meta property="og:updated_time" content="2017-06-05T15:04:34.713Z">
+<meta property="og:description" content="0x01 简介tmux 是一款很好用的终端复用工具，主要有以下两个功能：      1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险">
+<meta property="og:updated_time" content="2017-10-28T14:57:05.671Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 firmware-mod-kit 修改固件">
-<meta name="twitter:description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta name="twitter:image" content="http://ooyovxue7.bkt.clouddn.com/17-6-5/78163658.jpg">
+<meta name="twitter:title" content="终端复用工具tmux">
+<meta name="twitter:description" content="0x01 简介tmux 是一款很好用的终端复用工具，主要有以下两个功能：      1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险">
 
 
 
@@ -144,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/使用firmware-mod-kit修改固件/"/>
+  <link rel="canonical" href="http://0x4c43.cn/终端复用工具 tmux/"/>
 
 
 
@@ -152,7 +145,7 @@
 
 
 
-  <title> 使用 firmware-mod-kit 修改固件 | 0x4C43's Blog </title>
+  <title> 终端复用工具tmux | 0x4C43's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -325,7 +318,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/使用firmware-mod-kit修改固件/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/终端复用工具 tmux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -346,7 +339,7 @@
             
             
               
-                使用 firmware-mod-kit 修改固件
+                终端复用工具tmux
               
             
           </h1>
@@ -361,8 +354,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-05T21:45:08+08:00">
-                2017-06-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-28T22:57:21+08:00">
+                2017-10-28
               </time>
             
 
@@ -384,8 +377,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Embedded/" itemprop="url" rel="index">
-                    <span itemprop="name">Embedded</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -402,7 +395,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/使用firmware-mod-kit修改固件/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/终端复用工具 tmux/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -434,30 +427,153 @@
       
 
       
-        <p>firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。</p>
-<p>该工具包支持以下固件：</p>
+        <h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a><strong>0x01 简介</strong></h3><p>tmux 是一款很好用的终端复用工具，主要有以下两个功能：    </p>
 <blockquote>
-<p>DD-WRT v23    tested - versions v23 SP1 and later are compatible (soon older versions too).<br>DD-WRT v24    tested<br>OpenWrt White Russian    tested<br>OpenWrt Kamikaze    untested (should work) - not really necessary, based on OpenWrt has its Image Builder.<br>FreeWrt    untested - should work ok<br>HyperWrt    untested<br>Ewrt    untested<br>Sveasoft Alchemy    untested<br>Sveasoft Talisman    untested<br>Linksys / other vendor    not supported by scripts yet - haven’t added cramfs handling<br>ASUS WL-330G    untested - should work ok<br>ASUS WL-520G    untested - should work ok<br>ASUS WL-530G    supported<br>ASUS WL-550G    untested  - should work ok<br>Trendnet TEW-632BRP    tested<br>DLink DIR-615    untested<br>many others*    untested</p>
+<p>1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。<br>2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险，增加了安全性。</p>
 </blockquote>
-<h3 id="0x01-安装"><a href="#0x01-安装" class="headerlink" title="0x01 安装"></a><strong>0x01 安装</strong></h3><p>可在 <a href="https://code.google.com/archive/p/firmware-mod-kit/" target="_blank" rel="external">google code</a> 下载    Firmware Mod Kit v0.99 安装包，然后解压安装，安装前需要先安装相应的依赖库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For Ubuntu: $ sudo apt-get install git build-essential zlib1g-dev liblzma-dev python-magic</div><div class="line"></div><div class="line">cd firmware-mod-kit/src</div><div class="line">./configure &amp;&amp; make</div></pre></td></tr></table></figure></p>
-<h3 id="0x02-使用"><a href="#0x02-使用" class="headerlink" title="0x02 使用"></a><strong>0x02 使用</strong></h3><p>firmware-mod-kit 中包含以下几个工具脚本：</p>
+<p>tmux主要包括以下几个模块：</p>
 <blockquote>
-<p>extract-firmware.sh：解包固件<br>build-firmware.sh：重新打包固件<br>check_for_upgrade.sh：检查更新<br>unsquashfs_all.sh：解包提取出来的 squashfs 文件</p>
+<p><strong>session 会话：</strong> 一个服务器可以包含多个会话；<br><strong>window 窗口：</strong> 一个会话可以包含多个窗口；<br><strong>pane 面板：</strong> 一个窗口可以包含多个面板。</p>
 </blockquote>
-<p><img src="http://ooyovxue7.bkt.clouddn.com/17-6-5/78163658.jpg" alt=""></p>
-<h4 id="1）-解包固件"><a href="#1）-解包固件" class="headerlink" title="1） 解包固件"></a><strong>1）</strong> 解包固件</h4><p>使用以下命令解包固件，firmware.bin 为需解包的固件，working_directory 为解包结果存储位置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./extract_firmware.sh firmware.bin working_directory/</div></pre></td></tr></table></figure></p>
-<p><img src="http://ooyovxue7.bkt.clouddn.com/17-6-5/6411506.jpg" alt=""></p>
-<h4 id="2）重新打包固件"><a href="#2）重新打包固件" class="headerlink" title="2）重新打包固件"></a><strong>2）重新打包固件</strong></h4><p>修改完解包后的文件系统后，使用 build_firmware.sh 重新打包固件，新生成的固件将存在 output_directory 目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./build_firmware.sh output_directory/ working_directory/</div></pre></td></tr></table></figure></p>
-<p><img src="http://ooyovxue7.bkt.clouddn.com/17-6-5/10177238.jpg" alt=""></p>
-<h3 id="0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing"><a href="#0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing" class="headerlink" title="0x03 Directory Tree Diff &amp;&amp; Fuzzy Hashing"></a><strong>0x03 Directory Tree Diff &amp;&amp; Fuzzy Hashing</strong></h3><p>当我们发现下载的固件是被修改过时，可以使用 <a href="https://github.com/bmaia/binwally" target="_blank" rel="external">binwally</a> 将修改过的固件与<a href="https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">原版固件</a>对比，从而发现具体修改内容。</p>
-<h4 id="1-解包固件"><a href="#1-解包固件" class="headerlink" title="1) 解包固件"></a><strong>1) 解包固件</strong></h4><p>可以看到固件编译日期为 2007-02-03，而文件系统的创建实际为 2017-06-05,说明固件中的文件系统被修改过。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-6-5/63948070.jpg" alt=""></p>
-<h4 id="2）差异对比"><a href="#2）差异对比" class="headerlink" title="2）差异对比"></a><strong>2）差异对比</strong></h4><p>google 查找发现 openwrt-wrtsl54gs-squashfs.bin 固件有三个版本，分别为：</p>
+<p>以下为会话管理命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tmux [new -s 会话名 -n 窗口名]	# 启动新会话</div><div class="line">tmux at [-t 会话名]		# 恢复会话</div><div class="line">tmux ls				# 列出所有会话</div><div class="line">tmux kill-session -t 会话名	# 关闭会话</div></pre></td></tr></table></figure></p>
+<h3 id="0x02-安装与使用"><a href="#0x02-安装与使用" class="headerlink" title="0x02 安装与使用"></a><strong>0x02 安装与使用</strong></h3><p>ubuntu 中使用以下命令安装 tmux。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install tmux</div></pre></td></tr></table></figure></p>
+<h4 id="1）快捷键"><a href="#1）快捷键" class="headerlink" title="1）快捷键"></a><strong>1）快捷键</strong></h4><p>Pre 为前缀，默认为 Ctrl + b。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">快捷键</th>
+<th style="text-align:left">功能</th>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Pre Pgup</td>
+<td style="text-align:left">向上翻页</td>
+<td>Pre &amp;</td>
+<td>关闭当前窗口</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre PgDn</td>
+<td style="text-align:left">向下翻页</td>
+<td>Pre Alt-[1-5]</td>
+<td>切换面板的布局</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre s</td>
+<td style="text-align:left">现有会话列表</td>
+<td>Pre Space</td>
+<td>切换面板布局</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre (</td>
+<td style="text-align:left">前一个会话</td>
+<td>Pre Ctl+o</td>
+<td>顺序轮换面板</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre )</td>
+<td style="text-align:left">后一个会话</td>
+<td>Pre Alt+o</td>
+<td>逆序轮换面板</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre c</td>
+<td style="text-align:left">新建窗口</td>
+<td>Pre {/}</td>
+<td>上/下交换面板(swap-pane -U/-D)</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre ,</td>
+<td style="text-align:left">改变窗口的名字</td>
+<td>Pre o</td>
+<td>当前窗口中切换面板</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre $</td>
+<td style="text-align:left">改变会话的名字</td>
+<td>Pre l/r/u/d</td>
+<td>切换当前面板</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre c</td>
+<td style="text-align:left">创建新窗口</td>
+<td>Pre C-l/r/u/d</td>
+<td>改变面板大小</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre p</td>
+<td style="text-align:left">前一个窗口</td>
+<td>Pre L/R/U/D</td>
+<td>改变面板大小</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre n</td>
+<td style="text-align:left">后一个窗口</td>
+<td>Pre q</td>
+<td>显示面板编号并选择</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre l</td>
+<td style="text-align:left">前后窗口间切换</td>
+<td>Pre x</td>
+<td>关闭当前面板</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre [0-9]</td>
+<td style="text-align:left">选择窗口</td>
+<td>Pre %</td>
+<td>纵向分隔窗口</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre f</td>
+<td style="text-align:left">搜索窗口</td>
+<td>Pre “</td>
+<td>横向分隔窗口</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre w</td>
+<td style="text-align:left">列出所有窗口并选择</td>
+<td>Pre x</td>
+<td>关闭面板</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre .</td>
+<td style="text-align:left">移动窗口到新的编号</td>
+<td>Pre !</td>
+<td>关闭所有小面板</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre [</td>
+<td style="text-align:left">进入复制模式</td>
+<td>Pre b;Ctrl+方向键</td>
+<td>调整面板大小</td>
+</tr>
+<tr>
+<td style="text-align:left">Pre ]</td>
+<td style="text-align:left">粘贴</td>
+<td>Pre z</td>
+<td>最大化当前面板</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2）修改配置"><a href="#2）修改配置" class="headerlink" title="2）修改配置"></a><strong>2）修改配置</strong></h4><p>在 home 目录下新建配置文件 .tmux.conf，设置以下参数使得操作更方便。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#remap prefix from 'Ctr+b' to 'Ctr+a'</span></div><div class="line"><span class="comment">#unbind C-b</span></div><div class="line"><span class="comment">#set -g prefix C-a</span></div><div class="line"><span class="comment">#bind-key C-a send-prefix</span></div><div class="line"></div><div class="line"><span class="comment">#split panes using \and -</span></div><div class="line">bind \ split-window -h</div><div class="line">bind - split-window -v</div><div class="line">unbind <span class="string">'"'</span></div><div class="line">unbind %</div><div class="line"></div><div class="line"><span class="comment">#switch panes using Alt-arrow without prefix</span></div><div class="line">bind -n M-Left select-pane -L</div><div class="line">bind -n M-Right select-pane -R</div><div class="line">bind -n M-Up select-pane -U</div><div class="line">bind -n M-Down select-pane -D</div><div class="line"></div><div class="line"><span class="comment">#reload config file</span></div><div class="line">bind r source-file ~/.tmux.conf</div><div class="line"></div><div class="line"><span class="comment">#set mouse on</span></div><div class="line">set -g mouse-resize-pane on</div><div class="line">set -g mouse-select-pane on</div><div class="line">set -g mouse-select-window on</div><div class="line">set -g mode-mouse on</div><div class="line"></div><div class="line"><span class="comment">#copy in vim mode</span></div><div class="line">setw -g mode-keys vi</div><div class="line"></div><div class="line"><span class="comment">#reserve in current path in new window</span></div><div class="line">bind c new-window -c <span class="string">"#&#123;pane_current_path&#125;"</span></div></pre></td></tr></table></figure></p>
+<p>可通过以下方式使配置文件生效：    </p>
 <blockquote>
-<p><a href="https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin</a><br> <a href="https://downloads.openwrt.org/whiterussian/0.9/micro/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/micro/openwrt-wrtsl54gs-squashfs.bin</a><br> <a href="https://downloads.openwrt.org/whiterussian/0.9/pptp/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/pptp/openwrt-wrtsl54gs-squashfs.bin</a></p>
+<p>a）新建一个 session，配置文件在新的 session 中生效。<br>b）在当前 session 中，按 Pre + r 重新加载配置文件即可生效。</p>
 </blockquote>
-<p>使用 binwally 对比结果显示”default” 版本的相似性最高，可知，目标固件是 “default” 版本固件的修改版。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-6-5/59066778.jpg" alt=""><br>继续查看具体修改的文件为 /etc/profile 和 /bin/nc。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-6-5/31504566.jpg" alt=""></p>
+<h4 id="3）复制粘贴"><a href="#3）复制粘贴" class="headerlink" title="3）复制粘贴"></a><strong>3）复制粘贴</strong></h4><p><strong>a）鼠标选中复制</strong><br>在没有启动鼠标滚轮时，可以直接通过鼠标选中进行复制。如果启动滚轮，需要按下shift 键后使用鼠标选中要复制的内容。</p>
+<p><strong>b）复制模式</strong><br>tmux 支持两种快捷键模式：vim 和 Emacs，这里设置为 vim 快捷键模式，在上述配置文件中已添加 <code>setw -g mode-keys vi</code>，可用 j/k/h/l 移动光标。<br><strong>复制：</strong>    </p>
+<blockquote>
+<p>Pre + [ 进入复制模式；<br>按下 Space 键开始复制；<br>移动光标选中要复制的内容；<br>按 Enter 键完成复制。</p>
+</blockquote>
+<p><strong>粘贴</strong>    </p>
+<blockquote>
+<p>光标移到到粘贴位置；<br>按 Pre + ] 完成粘贴。</p>
+</blockquote>
 <hr>
-<p>References：<br>[1] <a href="https://code.google.com/archive/p/firmware-mod-kit/wikis/Documentation.wiki" target="_blank" rel="external">firmware-mod-kit - Documentation.wiki</a><br>[2] <a href="https://bitsum.com/firmware_mod_kit.htm" target="_blank" rel="external">Firmware Modification Kit</a><br>[3] <a href="http://blog.csdn.net/qq1084283172/article/details/68061957" target="_blank" rel="external">路由器逆向分析——firmware-mod-kit工具安装和使用说明</a><br>[4] <a href="https://w00tsec.blogspot.com/2015/02/firmware-forensics-diffs-timelines-elfs.html" target="_blank" rel="external">Firmware Forensics: Diffs, Timelines, ELFs and Backdoors</a></p>
+<p>References:<br>[1] <a href="https://wiki.freebsdchina.org/software/t/tmux" target="_blank" rel="external">使用tmux</a>   </p>
 
       
     </div>
@@ -487,9 +603,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/firmware-mod-kit/" rel="tag"># firmware-mod-kit</a>
-          
-            <a href="/tags/firmware/" rel="tag"># firmware</a>
+            <a href="/tags/tmxu/" rel="tag"># tmxu</a>
           
         </div>
       
@@ -502,18 +616,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/PE文件中添加节区/" rel="next" title="PE文件中添加节区">
-                <i class="fa fa-chevron-left"></i> PE文件中添加节区
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/DLL注入之远程线程注入/" rel="prev" title="DLL 注入之远程线程注入">
-                DLL 注入之远程线程注入 <i class="fa fa-chevron-right"></i>
+              <a href="/Linux 内存管理与堆/" rel="prev" title="Linux 内存管理与堆">
+                Linux 内存管理与堆 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -669,7 +779,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-安装"><span class="nav-number">1.</span> <span class="nav-text">0x01 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-使用"><span class="nav-number">2.</span> <span class="nav-text">0x02 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）-解包固件"><span class="nav-number">2.1.</span> <span class="nav-text">1） 解包固件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）重新打包固件"><span class="nav-number">2.2.</span> <span class="nav-text">2）重新打包固件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing"><span class="nav-number">3.</span> <span class="nav-text">0x03 Directory Tree Diff && Fuzzy Hashing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-解包固件"><span class="nav-number">3.1.</span> <span class="nav-text">1) 解包固件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）差异对比"><span class="nav-number">3.2.</span> <span class="nav-text">2）差异对比</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-简介"><span class="nav-number">1.</span> <span class="nav-text">0x01 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-安装与使用"><span class="nav-number">2.</span> <span class="nav-text">0x02 安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）快捷键"><span class="nav-number">2.1.</span> <span class="nav-text">1）快捷键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）修改配置"><span class="nav-number">2.2.</span> <span class="nav-text">2）修改配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）复制粘贴"><span class="nav-number">2.3.</span> <span class="nav-text">3）复制粘贴</span></a></li></ol></li></ol></div>
             
 
           </div>
