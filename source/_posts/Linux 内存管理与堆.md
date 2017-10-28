@@ -168,11 +168,11 @@ nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |                     |
             +---------------------+
 ```
-例如，先申请两个大小为 89 的 chunk，然后释放第二个 chunk。释放后的 chunk 将会与 top chunk 合并，使得 top chunk 增大，同时 chunk 指针减小。
+例如，先申请两个大小为 89 的 chunk，然后释放第二个 chunk。释放后的 chunk 将会与 top chunk 合并，使得 top chunk 增大，同时 chunk 指针减小。    
 ![](http://ooyovxue7.bkt.clouddn.com/17-10-24/1257914.jpg)
 
 **d） Last Remainder chunk**    
-Last remainder 与 top chunk 一样，不会在任何 bins 中找到这种 chunk。当需要分配一个 small chunk，但在 small bins 中找不到合适的 chunk时，如果 last remainder chunk 大于所需的 small chunk，last remainder chunk 被分成两个 chunk，其中一个 chunk 返回给用户，另一个 chunk 变成新的 last remainder chuk。
+Last remainder 与 top chunk 一样，不会在任何 bins 中找到这种 chunk。当需要分配一个 small chunk，但在 small bins 中找不到合适的 chunk 时，如果 last remainder chunk 大于所需的 small chunk，last remainder chunk 被分成两个 chunk，其中一个 chunk 返回给用户，另一个 chunk 变成新的 last remainder chuk。
 
 #### **3）Bin**
 用户 free 掉的内存并不会马上归还给系统，malloc 会统一管理 heap 和 mmap 映射区域中的空闲 chunk，当用户进行下一次分配请求时，malloc 会首先试图在空闲 chunk 中挑选一块给用户，这样就避免了频繁的系统调用，降低了内存分配的开销。
@@ -271,8 +271,7 @@ c）合并：两个相邻的 free chunk 会合并。
 11）使用 mmap 系统调用为程序的内存空间映射一块 chunk_size align 4kB 大小的空间。    
 12）如果是主分配区，调用 sbrk()，增加 top chunk 大小；如果是非主分配区，调用 mmap 来分配一个新的 sub-heap，增加 top chunk 大小。    
 
-#### **总结**
-
+#### **总结**    
 **1）小内存**    
  [获取分配区(arena)并加锁] -> fast bins -> small bins -> 合并 fast bins 加入unsorted bins -> unsorted bins -> large bins -> 增大 top chunk（低于 mmap 阈值） -> mmap（高于 mmap 阈值）。
 
@@ -296,8 +295,7 @@ c）合并：两个相邻的 free chunk 会合并。
 10）判断合并后的 chunk 的大小是否大于 FASTBIN_CONSOLIDATION_THRESHOLD（默认64KB），如果是，则会触发 fast bins 的合并操作，fast bins 中的 chunk 将被遍历，并与相邻的空闲 chunk 进行合并，合并后的 chunk 会被放到 unsorted bin 中。操作完成后转下一步。    
 11）判断 top chunk 的大小是否大于 mmap 收缩阈值（默认为 128KB），如果是，对于主分配区，则会归还 top chunk 中的一部分给操作系统。但是会保留最先分配的 128KB 的空间，用于响应用户的分配请求；如果为非主分配区，会进行 sub-heap 收缩，将 top chunk 的一部分返回给操作系统，如果 top chunk 为整个 sub-heap，会把整个 sub-heap 还回给操作系统。释放结束，从 free() 函数退出。    
 
-#### **总结**
-
+#### **总结**    
 **1）大内存**    
 直接 munmap。
 
