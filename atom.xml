@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-10-28T14:57:05.671Z</updated>
+  <updated>2017-12-31T07:01:42.306Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 堆内存溢出 unlink 攻击</title>
+    <link href="http://0x4c43.cn/Linux%20%E5%A0%86%E6%BA%A2%E5%87%BA%20unlink%20%E6%94%BB%E5%87%BB/"/>
+    <id>http://0x4c43.cn/Linux 堆溢出 unlink 攻击/</id>
+    <published>2017-12-31T06:53:28.000Z</published>
+    <updated>2017-12-31T07:01:42.306Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。&lt;/p&gt;
+&lt;p&gt;首先看
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="堆溢出" scheme="http://0x4c43.cn/tags/%E5%A0%86%E6%BA%A2%E5%87%BA/"/>
+    
+      <category term="unlink" scheme="http://0x4c43.cn/tags/unlink/"/>
+    
+  </entry>
   
   <entry>
     <title>终端复用工具tmux</title>
@@ -106,7 +129,7 @@
     <link href="http://0x4c43.cn/%E5%9C%A8%E6%96%90%E8%AE%AF%20K2%20%E4%B8%8A%E5%AE%89%E8%A3%85%20kcptun/"/>
     <id>http://0x4c43.cn/在斐讯 K2 上安装 kcptun/</id>
     <published>2017-08-26T06:34:57.000Z</published>
-    <updated>2017-08-26T07:12:57.678Z</updated>
+    <updated>2017-12-31T06:57:34.279Z</updated>
     
     <summary type="html">
     
