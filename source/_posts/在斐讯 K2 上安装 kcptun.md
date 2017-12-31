@@ -21,7 +21,7 @@ keywords: [斐讯 K2,Shadowsocks,Kcptun，IPv6 免流]
 
 ### **0x02 部署 SS**    
 #### **1）安装软件包**    
-透明代理使用 Shadowsocks-libev 和 ChinDNS 实现。使用 ssh 登陆路由器，安装相关软件包。
+透明代理使用 Shadowsocks-libev 和 ChinDNS（可不配置） 实现。使用 ssh 登陆路由器，安装相关软件包。
 ```
 opkg update
 opkg install shadowsocks-libev luci-app-shadowsocks ChinaDNS luci-app-chinadns --force-checksum
@@ -73,18 +73,27 @@ HOSTS和解析文件
 ```
 具体流程为， ss-tunnel 将 GoogleDNS(8.8.8.8:53) 转发到 127.0.0.1:1153 上，然后通过 ChinaDNS 与国内 DNS 组合成新的 127.0.0.1:1053，从而实现了国内外分流。
 
-### **0x03 部署 Kcptun**    
+### **0x03 部署 Kcptun**  
+#### **1） 安装客户端**
 Kcptun 部署需要确保服务端和客户端版本的一致性，只有版本一致才能正常使用。首先
 在 [kcptun项目](https://github.com/xtaci/kcptun/releases) 中下载相应版本的客户端，这里下载 [kcptun-linux-mipsle-20170525.tar.gz](https://github.com/xtaci/kcptun/releases/download/v20170525/kcptun-linux-mipsle-20170525.tar.gz)，解压后将 client_linux_mipsle 上传至路由器中。
+```python
+scp client_linux_mipsle root@192.168.1.1:/root/kcptun/client_linux_mipsle
 ```
-scp client_linux_mipsle root@192.168.1.1:/root/kcptun
+若提示以下内存不足错误将导致传输失败，可使用`mtd -r erase rootfs_data`命令清除设备中的所有数据以腾出内存空间，**_但这样做会导致配置信息丢失_**。
+```python
+No space left on device openwrt
 ```
-修改 /etc/rc.local 设置 kcptun 为开机启动。
-```
+传输完成后修改 /etc/rc.local 设置 kcptun 为开机启动。
+```python
 # Put your custom commands here that should be executed once
 # the system init finished. By default this file does nothing.
 
-/root/kcptun/client_linux_mipsle -l 127.0.0.1:8388 -r xxx.xxx.xxx.xxx:9523 -key xxxxxx -mtu 1350 -sndwnd 512 -rcvwnd 512 -mode fast2 -crypt aes-192  > /root/kcptun/kcptun.log 2>&1 &
+# IPv4
+/root/kcptun/client_linux_mipsle -l 127.0.0.1:8388 -r xxx.xxx.xxx.xxx:9523 -key xxxxxx -mtu 1350 -sndwnd 512 -rcvwnd 512 -mode fast2 -crypt aes-192 -nocomp true > /root/kcptun/kcptun.log 2>&1 &
+
+# or IPv6
+/root/kcptun/client_linux_mipsle -l 127.0.0.1:8388 -r [xx:xx:xx:xx:xx:xx:xx:xx]:9523 -key xxxxxx -mtu 1350 -sndwnd 512 -rcvwnd 512 -mode fast2 -crypt aes-192 -nocomp true > /root/kcptun/kcptun.log 2>&1 &
 
 exit 0
 ```
@@ -99,7 +108,12 @@ exit 0
 服务器地址：127.0.0.1
 服务器端口: 8388
 ````
-重启路由器后测试能否访问 Google。此外，还可以安装 [Kcptun 的 web 管理界面](https://blog.kuoruan.com/113.html)。
+重启路由器后测试能否访问 Google。
+
+#### **2）安装 kcptun web 管理界面**
+此外，还可以安装 [Kcptun 的 web 管理界面](https://github.com/kuoruan/luci-app-kcptun)。
+
+
 ____
 References:   
 [1] [在openwrt上部署kcptun给搬瓦工加速看1080p](http://www.right.com.cn/forum/thread-202060-1-1.html)   
