@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2017-12-31T07:01:42.306Z</updated>
+  <updated>2018-03-10T14:14:34.127Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -14,6 +14,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>zsh 使用笔记</title>
+    <link href="http://0x4c43.cn/zsh%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>http://0x4c43.cn/zsh 使用笔记/</id>
+    <published>2018-03-10T14:20:17.000Z</published>
+    <updated>2018-03-10T14:14:34.127Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Zsh 是一款功能强大终端（shell）软件，既可以作为交互式终端，也可以作为脚本解释器。它在兼容 Bash 的同时，还有提供了很多改进，例如：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;更高效&lt;br&gt;更好的自动补全&lt;br&gt;更好的文件名展开（通配符展开）&lt;br&gt;可定制性高  
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="zsh" scheme="http://0x4c43.cn/tags/zsh/"/>
+    
+      <category term="oh-my-zsh" scheme="http://0x4c43.cn/tags/oh-my-zsh/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 堆内存溢出 unlink 攻击</title>

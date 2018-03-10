@@ -3,6 +3,50 @@
   
     
     <entry>
+      <title><![CDATA[zsh 使用笔记]]></title>
+      <url>/zsh%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<p>Zsh 是一款功能强大终端（shell）软件，既可以作为交互式终端，也可以作为脚本解释器。它在兼容 Bash 的同时，还有提供了很多改进，例如：</p>
+<blockquote>
+<p>更高效<br>更好的自动补全<br>更好的文件名展开（通配符展开）<br>可定制性高    </p>
+</blockquote>
+<h3 id="0x01-安装"><a href="#0x01-安装" class="headerlink" title="0x01 安装"></a><strong>0x01 安装</strong></h3><h4 id="1）安装-zsh"><a href="#1）安装-zsh" class="headerlink" title="1）安装 zsh"></a><strong>1）安装 zsh</strong></h4><p>首先安装 zsh，并设置 zsh 为系统默认 bash。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install Zsh</div><div class="line">chsh -s $(which zsh)</div></pre></td></tr></table></figure></p>
+<p>注销（Log out）并重新进入系统，此时 shell 默认为 zsh。</p>
+<h4 id="2）安装-oh-my-zsh"><a href="#2）安装-oh-my-zsh" class="headerlink" title="2）安装 oh-my-zsh"></a><strong>2）安装 oh-my-zsh</strong></h4><p>由于 zsh 配置过于复杂，所以安装 oh-my-zsh 可简化 zsh 的配置。oh-my-zsh 有 200 多各插件和 140 多种主题。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo sh -c <span class="string">"$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"</span></div></pre></td></tr></table></figure></p>
+<h3 id="0x02-配置"><a href="#0x02-配置" class="headerlink" title="0x02 配置"></a><strong>0x02 配置</strong></h3><h4 id="1）配置主题"><a href="#1）配置主题" class="headerlink" title="1）配置主题"></a><strong>1）配置主题</strong></h4><p>修改 ~/.zshrc 中的 ZSH_THEME 参数可配置不同样式的主题。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZSH_THEME=<span class="string">"agnoster"</span></div></pre></td></tr></table></figure></p>
+<p>修改后发现主题中存在乱码，这是缺少 Powerline 字体导致的，所以需安装 Powerline 字体。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/powerline/fonts  </div><div class="line">cd fonts</div><div class="line">./install.sh</div></pre></td></tr></table></figure></p>
+<p>安装完后设置终端字体，ubuntu 中通过以下方式设置。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Edit -&gt; Profile Preferences -&gt; General -&gt; Text Appearance -&gt; Custom font</div><div class="line">-&gt; Ubuntu Mono derivative Powerline Regular</div></pre></td></tr></table></figure></p>
+<h4 id="2）隐藏用户名"><a href="#2）隐藏用户名" class="headerlink" title="2）隐藏用户名"></a><strong>2）隐藏用户名</strong></h4><p>默认情况下，命令提示符前有固定的 “username@hostname” ，可在 .zshrc 中添加以下环境变量隐藏该信息。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export DEFAULT_USER= <span class="string">"username "</span>   <span class="comment"># username 需替换为系统默认用户名</span></div></pre></td></tr></table></figure></p>
+<h3 id="0x03-插件"><a href="#0x03-插件" class="headerlink" title="0x03 插件"></a><strong>0x03 插件</strong></h3><h4 id="1）帮助文档高亮"><a href="#1）帮助文档高亮" class="headerlink" title="1）帮助文档高亮"></a><strong>1）帮助文档高亮</strong></h4><p>colored-man-pages 插件可使 man 帮助文档高亮显示，该插件在 oh-my-zsh 中自带，只需在 .zshrc 中启用即可。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">plugins=(</div><div class="line">  colored-man-pages</div><div class="line">  ...</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h4 id="2）历史记录补全"><a href="#2）历史记录补全" class="headerlink" title="2）历史记录补全"></a><strong>2）历史记录补全</strong></h4><p>zsh-autosuggestions 插件可根据历史记录自动补全命令，输入命令时会以暗色补全，按方向键右键完成输入。首先下载至 zsh 的 plugins 目录下，然后在 .zshrc 中启用。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</div></pre></td></tr></table></figure></p>
+<h4 id="3）命令高亮"><a href="#3）命令高亮" class="headerlink" title="3）命令高亮"></a><strong>3）命令高亮</strong></h4><p>zsh-syntax-highlighting 插件可使输入的命令根据主题自动高亮。输入正确的命令是黄色，输入错误的命令是红色。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting</div></pre></td></tr></table></figure></p>
+<h4 id="4）历史命令搜索"><a href="#4）历史命令搜索" class="headerlink" title="4）历史命令搜索"></a><strong>4）历史命令搜索</strong></h4><p>history-substring-search 插件可进行历史命令搜索，如果和 zsh-syntax-highlighting 插件共用，要配置到语法高亮插件之后。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/zsh-users/zsh-history-substring-search.git $ZSH_CUSTOM/plugins/history-substring-search</div></pre></td></tr></table></figure></p>
+<p>输入部分命令后，使用上下键查询可匹配的历史命令。</p>
+<h3 id="0x04-使用"><a href="#0x04-使用" class="headerlink" title="0x04 使用"></a><strong>0x04 使用</strong></h3><h4 id="1）命令补全"><a href="#1）命令补全" class="headerlink" title="1）命令补全"></a><strong>1）命令补全</strong></h4><p>按两下 tab 键可以触发 zsh 的补全，所有待补全项都可以通过键盘方向键或者 <ctrl-n p="" f="" b=""> 来选择。</ctrl-n></p>
+<h4 id="2）命令选项补全"><a href="#2）命令选项补全" class="headerlink" title="2）命令选项补全"></a><strong>2）命令选项补全</strong></h4><p>支持命令选项的补全。例如 ls -<tab><tab> 会直接列出所有 ls 的参数。</tab></tab></p>
+<h4 id="3）命令参数补全"><a href="#3）命令参数补全" class="headerlink" title="3）命令参数补全"></a><strong>3）命令参数补全</strong></h4><p>支持命令参数的补全。例如 kill 进程名<tab>，zsh 就会自动补全进程的 pid。</tab></p>
+<h4 id="4）快速目录切换"><a href="#4）快速目录切换" class="headerlink" title="4）快速目录切换"></a><strong>4）快速目录切换</strong></h4><p>zsh 会记住每一次切换的路径，然后通过 1 来切换到上一次访问的路径，2 切换到上上次，一直到 9，还可以通过 d 查看目录访问历史。</p>
+<hr>
+<p>References:<br>[1] <a href="https://github.com/robbyrussell/oh-my-zsh/wiki" target="_blank" rel="external">oh-my-zsh</a>   </p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> zsh </tag>
+            
+            <tag> oh-my-zsh </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Linux 堆内存溢出 unlink 攻击]]></title>
       <url>/Linux%20%E5%A0%86%E6%BA%A2%E5%87%BA%20unlink%20%E6%94%BB%E5%87%BB/</url>
       <content type="html"><![CDATA[<p>在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。</p>
