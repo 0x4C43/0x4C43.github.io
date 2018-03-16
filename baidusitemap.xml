@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://0x4c43.cn/%E9%85%8D%E7%BD%AE%20Linux%20Python%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
+    <lastmod>2018-03-16T11:47:54.909Z</lastmod>
+    <data>
+        <display>
+        <title>配置 Linux Python 开发环境</title>
+        <pubTime>2018-03-16T11:55:21.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://0x4c43.cn/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://0x4c43.cn/zsh%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2018-03-10T14:14:34.127Z</lastmod>
     <data>
@@ -73,13 +93,13 @@
     
   <url>
     <loc>http://0x4c43.cn/%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E5%B7%A5%E5%85%B7%20tmux/</loc>
-    <lastmod>2017-10-28T14:57:05.671Z</lastmod>
+    <lastmod>2017-10-28T15:30:33.357Z</lastmod>
     <data>
         <display>
-        <title>终端复用工具tmux</title>
+        <title>终端复用工具 tmux</title>
         <pubTime>2017-10-28T14:57:21.000Z</pubTime>
         
-        <tag>tmxu</tag>
+        <tag>tmux</tag>
          
          
            

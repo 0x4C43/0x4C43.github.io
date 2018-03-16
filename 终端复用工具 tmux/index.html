@@ -100,15 +100,15 @@
 
 
 <meta name="description" content="0x01 简介tmux 是一款很好用的终端复用工具，主要有以下两个功能：      1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险">
-<meta name="keywords" content="tmxu">
+<meta name="keywords" content="tmux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="终端复用工具tmux">
+<meta property="og:title" content="终端复用工具 tmux">
 <meta property="og:url" content="http://0x4c43.cn/终端复用工具 tmux/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="0x01 简介tmux 是一款很好用的终端复用工具，主要有以下两个功能：      1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险">
-<meta property="og:updated_time" content="2017-10-28T14:57:05.671Z">
+<meta property="og:updated_time" content="2017-10-28T15:30:33.357Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="终端复用工具tmux">
+<meta name="twitter:title" content="终端复用工具 tmux">
 <meta name="twitter:description" content="0x01 简介tmux 是一款很好用的终端复用工具，主要有以下两个功能：      1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险">
 
 
@@ -145,7 +145,7 @@
 
 
 
-  <title> 终端复用工具tmux | 0x4C43's Blog </title>
+  <title> 终端复用工具 tmux | 0x4C43's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -339,7 +339,7 @@
             
             
               
-                终端复用工具tmux
+                终端复用工具 tmux
               
             
           </h1>
@@ -558,7 +558,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="2）修改配置"><a href="#2）修改配置" class="headerlink" title="2）修改配置"></a><strong>2）修改配置</strong></h4><p>在 home 目录下新建配置文件 .tmux.conf，设置以下参数使得操作更方便。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#remap prefix from 'Ctr+b' to 'Ctr+a'</span></div><div class="line"><span class="comment">#unbind C-b</span></div><div class="line"><span class="comment">#set -g prefix C-a</span></div><div class="line"><span class="comment">#bind-key C-a send-prefix</span></div><div class="line"></div><div class="line"><span class="comment">#split panes using \and -</span></div><div class="line">bind \ split-window -h</div><div class="line">bind - split-window -v</div><div class="line">unbind <span class="string">'"'</span></div><div class="line">unbind %</div><div class="line"></div><div class="line"><span class="comment">#switch panes using Alt-arrow without prefix</span></div><div class="line">bind -n M-Left select-pane -L</div><div class="line">bind -n M-Right select-pane -R</div><div class="line">bind -n M-Up select-pane -U</div><div class="line">bind -n M-Down select-pane -D</div><div class="line"></div><div class="line"><span class="comment">#reload config file</span></div><div class="line">bind r source-file ~/.tmux.conf</div><div class="line"></div><div class="line"><span class="comment">#set mouse on</span></div><div class="line">set -g mouse-resize-pane on</div><div class="line">set -g mouse-select-pane on</div><div class="line">set -g mouse-select-window on</div><div class="line">set -g mode-mouse on</div><div class="line"></div><div class="line"><span class="comment">#copy in vim mode</span></div><div class="line">setw -g mode-keys vi</div><div class="line"></div><div class="line"><span class="comment">#reserve in current path in new window</span></div><div class="line">bind c new-window -c <span class="string">"#&#123;pane_current_path&#125;"</span></div></pre></td></tr></table></figure></p>
+<h4 id="2）修改配置"><a href="#2）修改配置" class="headerlink" title="2）修改配置"></a><strong>2）修改配置</strong></h4><p>在 home 目录下新建配置文件 .tmux.conf，设置以下参数使得操作更方便。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#remap prefix from 'Ctr+b' to 'Ctr+a'</span></div><div class="line"><span class="comment">#unbind C-b</span></div><div class="line"><span class="comment">#set -g prefix C-a</span></div><div class="line"><span class="comment">#bind-key C-a send-prefix</span></div><div class="line"></div><div class="line"><span class="comment">#split panes using \and -</span></div><div class="line">bind \ split-window -h</div><div class="line">bind - split-window -v</div><div class="line">unbind <span class="string">'"'</span></div><div class="line">unbind %</div><div class="line"></div><div class="line"><span class="comment">#switch panes using Alt-arrow without prefix</span></div><div class="line">bind -n M-Left select-pane -L</div><div class="line">bind -n M-Right select-pane -R</div><div class="line">bind -n M-Up select-pane -U</div><div class="line">bind -n M-Down select-pane -D</div><div class="line"></div><div class="line"><span class="comment">#reload config file</span></div><div class="line">bind r source-file ~/.tmux.conf</div><div class="line"></div><div class="line"><span class="comment">#set mouse on</span></div><div class="line">set -g mouse on</div><div class="line"></div><div class="line"><span class="comment">#copy in vim mode</span></div><div class="line">setw -g mode-keys vi</div><div class="line"></div><div class="line"><span class="comment">#reserve in current path in new window</span></div><div class="line">bind c new-window -c <span class="string">"#&#123;pane_current_path&#125;"</span></div></pre></td></tr></table></figure></p>
 <p>可通过以下方式使配置文件生效：    </p>
 <blockquote>
 <p>a）新建一个 session，配置文件在新的 session 中生效。<br>b）在当前 session 中，按 Pre + r 重新加载配置文件即可生效。</p>
@@ -603,7 +603,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tmxu/" rel="tag"># tmxu</a>
+            <a href="/tags/tmux/" rel="tag"># tmux</a>
           
         </div>
       
@@ -702,7 +702,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -724,7 +724,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

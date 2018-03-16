@@ -3,6 +3,46 @@
   
     
     <entry>
+      <title><![CDATA[配置 Linux Python 开发环境]]></title>
+      <url>/%E9%85%8D%E7%BD%AE%20Linux%20Python%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
+      <content type="html"><![CDATA[<p>环境：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">64</span>bit Ubuntu <span class="number">16.04</span><span class="number">.4</span> LTS (Xenial Xerus)</div><div class="line">Python <span class="number">2.7</span><span class="number">.12</span></div></pre></td></tr></table></figure></p>
+<h3 id="0x01-安装"><a href="#0x01-安装" class="headerlink" title="0x01 安装"></a><strong>0x01 安装</strong></h3><h4 id="1）virtualenvwrapper"><a href="#1）virtualenvwrapper" class="headerlink" title="1）virtualenvwrapper"></a><strong>1）virtualenvwrapper</strong></h4><p>virtualenv 是一个可以在同一台计算机中隔离多个 Python 环境的工具。它能够用于创建独立的 Python 环境，使得多个 Python 环境互不影响。virtualenvwrapper 是 virtualenv 的扩展管理包，可以更方便地管理虚拟环境。</p>
+<p>使用 pip 命令安装 virtualenvwrapper，默认安装在 /usr/local/bin 目录下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenvwrapper</div></pre></td></tr></table></figure></p>
+<p>配置环境变量 WORKON_HOME 指定虚拟环境管理目录，然后运行 virtualenvwrapper.sh 初始化配置。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export WORKON_HOME=$HOME/Virtualenv</div><div class="line">source /usr/local/bin/virtualenvwrapper.sh</div></pre></td></tr></table></figure></p>
+<p>为了避免每次使用前手动执行以上命令，可以将其写入 shell 配置文件 ~/.bashrc 或 ~/.zshrc 中。</p>
+<p><strong>错误：</strong><br>pip 安装依赖包出现以下错误：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> -=: <span class="string">'Retry'</span> <span class="keyword">and</span> <span class="string">'int'</span>TypeError: unsupported operand type(s) <span class="keyword">for</span> -=: <span class="string">'Retry'</span> <span class="keyword">and</span> <span class="string">'int'</span></div></pre></td></tr></table></figure></p>
+<p>出现该错误是因为使用的网络挂了代理，使用 pip 之前需要配置环境变量 http_proxy 到代理服务器的地址。可通过以下<a href="https://stackoverflow.com/a/39484683" target="_blank" rel="external">两种方法解决</a>。<br>a）设置环境变量：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export http_proxy=<span class="string">"http://user:pass@my.site:port/"</span></div></pre></td></tr></table></figure></p>
+<p>b）使用 —proxy 选项：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--proxy=[user:<span class="keyword">pass</span>@]url:port</div></pre></td></tr></table></figure></p>
+<h4 id="2）Pycharm"><a href="#2）Pycharm" class="headerlink" title="2）Pycharm"></a><strong>2）Pycharm</strong></h4><p>在<a href="https://www.jetbrains.com/pycharm/?fromMenu" target="_blank" rel="external">官网</a>下载软件包，然后解压到 /opt 目录下并安装。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo tar xf pycharm-community<span class="number">-2017.3</span><span class="number">.4</span>.tar.gz -C /opt/</div><div class="line">cd /opt/PyCharm-community<span class="number">-2017.3</span><span class="number">.4</span>/bin</div><div class="line">./pycharm.sh</div></pre></td></tr></table></figure></p>
+<p>安装过程中可选择安装 IdeaVim 插件。</p>
+<h3 id="0x02-使用与配置"><a href="#0x02-使用与配置" class="headerlink" title="0x02 使用与配置"></a><strong>0x02 使用与配置</strong></h3><h4 id="1）创建虚拟环境"><a href="#1）创建虚拟环境" class="headerlink" title="1）创建虚拟环境"></a><strong>1）创建虚拟环境</strong></h4><p>virtualenv 常用命令如下：   </p>
+<blockquote>
+<p>mkvirtualenv: Create a new virtualenv in $WORKON_HOME<br>cdvirtualenv: change to the $VIRTUAL_ENV directory<br>lsvirtualenv: list virtualenvs<br>rmvirtualenv: Remove a virtualenv<br>workon: list or change working virtualenvs    </p>
+</blockquote>
+<p>在项目开发过程中需要安装不同的依赖库，为了使不同项目中使用的依赖库不会互相影响，可以为每个项目单独创建一个虚拟 python 运行环境。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkvirtualenv TestVirtualenv</div></pre></td></tr></table></figure></p>
+<p>可加上参数–no-site-packages，可以不复制已经安装到系统 Python 环境的所有第三方包，得到一个干净的 Python 运行环境。创建好后，进入该虚拟环境安装所需的依赖库。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cdvirtualenv TestVirtualenv</div><div class="line">pip install somepackages</div></pre></td></tr></table></figure></p>
+<h4 id="2）Pycharm-1"><a href="#2）Pycharm-1" class="headerlink" title="2）Pycharm"></a><strong>2）Pycharm</strong></h4><p>Pycharm 已集成 virtualenv 功能，可以在新建项目时创建 virtualenv，也可以使用已有的 virtualenv。<br><strong>a）创建新的 virtualenv</strong><br>创建项目时新建一个 virtualenv。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">File -&gt; New Project -&gt; Project Interpreter -&gt; New environment using Virtualenv</div><div class="line"></div><div class="line">Location：指定 virtualenv 保存目录；</div><div class="line">Base interpreter：选择接收器；</div><div class="line">Inherit global site-packages：继承 Base interpreter 中安装的第三方库；</div><div class="line">Make available to all projects：将此虚拟环境提供给其他项目使用。</div></pre></td></tr></table></figure></p>
+<p><strong>b）使用已有 virtualenv</strong><br>创建项目时选择已有的 virtualenv 。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">File -&gt; New Project -&gt; Project Interpreter -&gt; Existing Interpreter</div><div class="line">-&gt; Setting -&gt; Add Local Python Interpreter</div><div class="line">选择已有 virtualenv 所在目录中的解释器。</div></pre></td></tr></table></figure></p>
+<hr>
+<p>References:<br>[1] <a href="https://www.jetbrains.com/help/pycharm/quick-start-guide.html" target="_blank" rel="external">Pycharm Quick Start Guide</a>   </p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[zsh 使用笔记]]></title>
       <url>/zsh%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<p>Zsh 是一款功能强大终端（shell）软件，既可以作为交互式终端，也可以作为脚本解释器。它在兼容 Bash 的同时，还有提供了很多改进，例如：</p>
@@ -104,7 +144,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[终端复用工具tmux]]></title>
+      <title><![CDATA[终端复用工具 tmux]]></title>
       <url>/%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E5%B7%A5%E5%85%B7%20tmux/</url>
       <content type="html"><![CDATA[<h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a><strong>0x01 简介</strong></h3><p>tmux 是一款很好用的终端复用工具，主要有以下两个功能：    </p>
 <blockquote>
@@ -237,7 +277,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="2）修改配置"><a href="#2）修改配置" class="headerlink" title="2）修改配置"></a><strong>2）修改配置</strong></h4><p>在 home 目录下新建配置文件 .tmux.conf，设置以下参数使得操作更方便。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#remap prefix from 'Ctr+b' to 'Ctr+a'</span></div><div class="line"><span class="comment">#unbind C-b</span></div><div class="line"><span class="comment">#set -g prefix C-a</span></div><div class="line"><span class="comment">#bind-key C-a send-prefix</span></div><div class="line"></div><div class="line"><span class="comment">#split panes using \and -</span></div><div class="line">bind \ split-window -h</div><div class="line">bind - split-window -v</div><div class="line">unbind <span class="string">'"'</span></div><div class="line">unbind %</div><div class="line"></div><div class="line"><span class="comment">#switch panes using Alt-arrow without prefix</span></div><div class="line">bind -n M-Left select-pane -L</div><div class="line">bind -n M-Right select-pane -R</div><div class="line">bind -n M-Up select-pane -U</div><div class="line">bind -n M-Down select-pane -D</div><div class="line"></div><div class="line"><span class="comment">#reload config file</span></div><div class="line">bind r source-file ~/.tmux.conf</div><div class="line"></div><div class="line"><span class="comment">#set mouse on</span></div><div class="line">set -g mouse-resize-pane on</div><div class="line">set -g mouse-select-pane on</div><div class="line">set -g mouse-select-window on</div><div class="line">set -g mode-mouse on</div><div class="line"></div><div class="line"><span class="comment">#copy in vim mode</span></div><div class="line">setw -g mode-keys vi</div><div class="line"></div><div class="line"><span class="comment">#reserve in current path in new window</span></div><div class="line">bind c new-window -c <span class="string">"#&#123;pane_current_path&#125;"</span></div></pre></td></tr></table></figure></p>
+<h4 id="2）修改配置"><a href="#2）修改配置" class="headerlink" title="2）修改配置"></a><strong>2）修改配置</strong></h4><p>在 home 目录下新建配置文件 .tmux.conf，设置以下参数使得操作更方便。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#remap prefix from 'Ctr+b' to 'Ctr+a'</span></div><div class="line"><span class="comment">#unbind C-b</span></div><div class="line"><span class="comment">#set -g prefix C-a</span></div><div class="line"><span class="comment">#bind-key C-a send-prefix</span></div><div class="line"></div><div class="line"><span class="comment">#split panes using \and -</span></div><div class="line">bind \ split-window -h</div><div class="line">bind - split-window -v</div><div class="line">unbind <span class="string">'"'</span></div><div class="line">unbind %</div><div class="line"></div><div class="line"><span class="comment">#switch panes using Alt-arrow without prefix</span></div><div class="line">bind -n M-Left select-pane -L</div><div class="line">bind -n M-Right select-pane -R</div><div class="line">bind -n M-Up select-pane -U</div><div class="line">bind -n M-Down select-pane -D</div><div class="line"></div><div class="line"><span class="comment">#reload config file</span></div><div class="line">bind r source-file ~/.tmux.conf</div><div class="line"></div><div class="line"><span class="comment">#set mouse on</span></div><div class="line">set -g mouse on</div><div class="line"></div><div class="line"><span class="comment">#copy in vim mode</span></div><div class="line">setw -g mode-keys vi</div><div class="line"></div><div class="line"><span class="comment">#reserve in current path in new window</span></div><div class="line">bind c new-window -c <span class="string">"#&#123;pane_current_path&#125;"</span></div></pre></td></tr></table></figure></p>
 <p>可通过以下方式使配置文件生效：    </p>
 <blockquote>
 <p>a）新建一个 session，配置文件在新的 session 中生效。<br>b）在当前 session 中，按 Pre + r 重新加载配置文件即可生效。</p>
@@ -264,7 +304,7 @@
         
         <tags>
             
-            <tag> tmxu </tag>
+            <tag> tmux </tag>
             
         </tags>
         
