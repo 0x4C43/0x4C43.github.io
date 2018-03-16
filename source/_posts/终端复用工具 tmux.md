@@ -1,7 +1,7 @@
 ---
-title: 终端复用工具tmux
+title: 终端复用工具 tmux
 date: 2017-10-28 22:57:21
-tags: [tmxu]
+tags: [tmux]
 categories: Linux
 keywords: [tmux]
 ---
@@ -76,10 +76,7 @@ bind -n M-Down select-pane -D
 bind r source-file ~/.tmux.conf
 
 #set mouse on
-set -g mouse-resize-pane on
-set -g mouse-select-pane on
-set -g mouse-select-window on
-set -g mode-mouse on
+set -g mouse on
 
 #copy in vim mode
 setw -g mode-keys vi
