@@ -13,13 +13,13 @@ House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chu
 
 ### **0x01 释放 fastbin chunk**    
 #### **1) 检查标志位**    
-House of Spirit 利用思路是将伪造的 chunk 放入 fastbin 中，下面分析堆管理实现中释放 fastbin chunk 的过程。首先，当释放的 chunk 是由 mmap() 创建时（即 IS_MMAPPED 标志位为 1）会调用 munmap_chunk() 进行释放。而我们希望能调用 \_int_free() 函数将 fake chunk 放入 fastbin，因此在伪造 chunk 时要把 IS_MMAPPED 设置为 0。此外把 NON_MAIN_ARENA 标志位也设置为 0。    
-```c
-/* malloc.c in glibc2.23 */
+House of Spirit 利用思路是将伪造的 chunk 放入 fastbin 中，下面分析堆管理实现中释放 fastbin chunk 的过程。首先，当释放的 chunk 是由 mmap() 创建时（即 IS_MMAPPED 标志位为 1）会调用 munmap_chunk() 进行释放。而我们希望能调用 \_int_free() 函数将 fake chunk 放入 fastbin，因此在伪造 chunk 时要把 IS_MMAPPED 设置为 0。此外把 NON_MAIN_ARENA 标志位也设置为 0。   
+```C
+// malloc.c in glibc2.23
 void __libc_free (void *mem)
 {
   mstate ar_ptr;
-  mchunkptr p;                          /* chunk corresponding to mem */
+  mchunkptr p;                          // chunk corresponding to mem
 
   void (*hook) (void *, const void *)
     = atomic_forced_read (__free_hook);
@@ -29,12 +29,12 @@ void __libc_free (void *mem)
       return;
     }
 
-  if (mem == 0)                              /* free(0) has no effect */
+  if (mem == 0)                              // free(0) has no effect
     return;
 
   p = mem2chunk (mem);
   // 判断是否由 mmap 创建的 chunk
-  if (chunk_is_mmapped (p))                /* release mmapped memory. */
+  if (chunk_is_mmapped (p))                // release mmapped memory.
     {
       /* see if the dynamic brk/mmap threshold needs adjusting */
       if (!mp_.no_dyn_threshold
@@ -53,10 +53,10 @@ void __libc_free (void *mem)
   ar_ptr = arena_for_chunk (p);
   _int_free (ar_ptr, p, 0);   // 调用 _int_free 函数释放
 }
-```   
+```
 
 #### **2) 检查 size**    
-在 _int_free() 函数中，释放 chunk 时会检查该 chunk 和下一个 chunk 的 size 字段。因此，在伪造 chunk 时应满足以下条件。    
+在 \_int_free() 函数中，释放 chunk 时会检查该 chunk 和下一个 chunk 的 size 字段。因此，在伪造 chunk 时应满足以下条件。    
 >1） fake chunk 的 size 不能超过 fastbin 中 chunk 的最大值（32bits 系统中为 64 bytes，64 bits 系统中为 128 bytes）。    
 2）fake chunk 下一个 chunk 的 size 要大于 2 * SIZE_SZ（ SIZE_SZ ，32bits 系统中为 4 bytes，64 bits 系统中为 8 bytes），小于 av->system_mem（132kb，即 0x21000 bytes）。
 ```c
