@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2018-03-16T11:47:54.909Z</updated>
+  <updated>2018-04-13T02:36:20.950Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -14,6 +14,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux glibc heap house-of-spirit</title>
+    <link href="http://0x4c43.cn/Linux%20glibc%20heap%20house-of-spirit/"/>
+    <id>http://0x4c43.cn/Linux glibc heap house-of-spirit/</id>
+    <published>2018-04-13T02:30:14.000Z</published>
+    <updated>2018-04-13T02:36:20.950Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="heap" scheme="http://0x4c43.cn/tags/heap/"/>
+    
+      <category term="house-of-spirit" scheme="http://0x4c43.cn/tags/house-of-spirit/"/>
+    
+  </entry>
   
   <entry>
     <title>配置 Linux Python 开发环境</title>
