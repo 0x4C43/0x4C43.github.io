@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>0x4C43&#39;s Blog</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://0x4c43.cn/"/>
+  <updated>2018-04-19T15:07:43.589Z</updated>
+  <id>http://0x4c43.cn/</id>
+  
+  <author>
+    <name>0x4C43</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux glibc heap house-of-force</title>
+    <link href="http://0x4c43.cn/Linux%20glibc%20heap%20house-of-force/"/>
+    <id>http://0x4c43.cn/Linux glibc heap house-of-force/</id>
+    <published>2018-04-19T15:10:45.000Z</published>
+    <updated>2018-04-19T15:07:43.589Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;该利用方法通过堆溢出漏洞修改 top chunk 的 size 字段，使得 malloc 一块很大的内存可使用 top chunk 进行分配，当更新 top chunk 的 ptr 时会发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="heap" scheme="http://0x4c43.cn/tags/heap/"/>
+    
+      <category term="house-of-force" scheme="http://0x4c43.cn/tags/house-of-force/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux glibc heap house-of-spirit</title>
+    <link href="http://0x4c43.cn/Linux%20glibc%20heap%20house-of-spirit/"/>
+    <id>http://0x4c43.cn/Linux glibc heap house-of-spirit/</id>
+    <published>2018-04-13T02:30:14.000Z</published>
+    <updated>2018-04-13T02:36:20.950Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="heap" scheme="http://0x4c43.cn/tags/heap/"/>
+    
+      <category term="house-of-spirit" scheme="http://0x4c43.cn/tags/house-of-spirit/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>配置 Linux Python 开发环境</title>
+    <link href="http://0x4c43.cn/%E9%85%8D%E7%BD%AE%20Linux%20Python%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>http://0x4c43.cn/配置 Linux Python 开发环境/</id>
+    <published>2018-03-16T11:55:21.000Z</published>
+    <updated>2018-03-16T11:47:54.909Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;环境：&lt;br&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="Python" scheme="http://0x4c43.cn/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>zsh 使用笔记</title>
+    <link href="http://0x4c43.cn/zsh%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>http://0x4c43.cn/zsh 使用笔记/</id>
+    <published>2018-03-10T14:20:17.000Z</published>
+    <updated>2018-03-10T14:14:34.127Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Zsh 是一款功能强大终端（shell）软件，既可以作为交互式终端，也可以作为脚本解释器。它在兼容 Bash 的同时，还有提供了很多改进，例如：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;更高效&lt;br&gt;更好的自动补全&lt;br&gt;更好的文件名展开（通配符展开）&lt;br&gt;可定制性高  
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="zsh" scheme="http://0x4c43.cn/tags/zsh/"/>
+    
+      <category term="oh-my-zsh" scheme="http://0x4c43.cn/tags/oh-my-zsh/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 堆内存溢出 unlink 攻击</title>
+    <link href="http://0x4c43.cn/Linux%20%E5%A0%86%E6%BA%A2%E5%87%BA%20unlink%20%E6%94%BB%E5%87%BB/"/>
+    <id>http://0x4c43.cn/Linux 堆溢出 unlink 攻击/</id>
+    <published>2017-12-31T06:53:28.000Z</published>
+    <updated>2017-12-31T07:01:42.306Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。&lt;/p&gt;
+&lt;p&gt;首先看
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="堆溢出" scheme="http://0x4c43.cn/tags/%E5%A0%86%E6%BA%A2%E5%87%BA/"/>
+    
+      <category term="unlink" scheme="http://0x4c43.cn/tags/unlink/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>终端复用工具 tmux</title>
+    <link href="http://0x4c43.cn/%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E5%B7%A5%E5%85%B7%20tmux/"/>
+    <id>http://0x4c43.cn/终端复用工具 tmux/</id>
+    <published>2017-10-28T14:57:21.000Z</published>
+    <updated>2017-10-28T15:30:33.357Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;0x01-简介&quot;&gt;&lt;a href=&quot;#0x01-简介&quot; class=&quot;headerlink&quot; title=&quot;0x01 简介&quot;&gt;&lt;/a&gt;&lt;strong&gt;0x01 简介&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;tmux 是一款很好用的终端复用工具，主要有以下两个功能：    
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="tmux" scheme="http://0x4c43.cn/tags/tmux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 内存管理与堆</title>
+    <link href="http://0x4c43.cn/Linux%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B8%8E%E5%A0%86/"/>
+    <id>http://0x4c43.cn/Linux 内存管理与堆/</id>
+    <published>2017-10-24T15:18:34.000Z</published>
+    <updated>2017-10-28T12:31:18.558Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;目前各大平台主要有如下几种堆内存管理机制：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="内存管理" scheme="http://0x4c43.cn/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    
+      <category term="malloc" scheme="http://0x4c43.cn/tags/malloc/"/>
+    
+      <category term="堆" scheme="http://0x4c43.cn/tags/%E5%A0%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker 使用笔记</title>
+    <link href="http://0x4c43.cn/Docker%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>http://0x4c43.cn/Docker 使用笔记/</id>
+    <published>2017-10-05T08:20:23.000Z</published>
+    <updated>2017-10-09T07:24:45.555Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。&lt;/p&gt;
+&lt;p
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="Docker" scheme="http://0x4c43.cn/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RC4 算法实现</title>
+    <link href="http://0x4c43.cn/RC4%20%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://0x4c43.cn/RC4 算法实现/</id>
+    <published>2017-09-19T07:52:29.000Z</published>
+    <updated>2017-09-19T08:12:43.966Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;RC4 是一种对称秘钥流加密算法，对称加密算法使用的加密和解密秘钥是相同的，或是从其中一个能很容易推导出另一个。RC4 算法的特点是算法简单，运行速度快，而且密钥长度是可变的，密钥长度范围为 1-256 字节。&lt;/p&gt;
+&lt;h3 id=&quot;0x01-算法原理&quot;&gt;&lt;a href=
+    
+    </summary>
+    
+      <category term="加密解密" scheme="http://0x4c43.cn/categories/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/"/>
+    
+    
+      <category term="RC4" scheme="http://0x4c43.cn/tags/RC4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在斐讯 K2 上部署 Shadowsocks+Kcptun</title>
+    <link href="http://0x4c43.cn/%E5%9C%A8%E6%96%90%E8%AE%AF%20K2%20%E4%B8%8A%E5%AE%89%E8%A3%85%20kcptun/"/>
+    <id>http://0x4c43.cn/在斐讯 K2 上安装 kcptun/</id>
+    <published>2017-08-26T06:34:57.000Z</published>
+    <updated>2017-12-31T06:57:34.279Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对于程序员来说，能顺畅使用互联网能够很大程度地提高工作效率。所以，通过 SS 来实现代理上网是一个很好的解决方案。此外，对于能使用校园网的学生党而言，还可以使用 SS + IPv6 来实现免流，这样就能把省下来的网费用来买VPS了。&lt;/p&gt;
+&lt;p&gt;然而，在 PC 上直接使用
+    
+    </summary>
+    
+      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
+    
+    
+      <category term="斐讯 K2" scheme="http://0x4c43.cn/tags/%E6%96%90%E8%AE%AF-K2/"/>
+    
+      <category term="Shadowsocks" scheme="http://0x4c43.cn/tags/Shadowsocks/"/>
+    
+      <category term="kcptun，IPv6 免流" scheme="http://0x4c43.cn/tags/kcptun%EF%BC%8CIPv6-%E5%85%8D%E6%B5%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PE文件中添加节区</title>
+    <link href="http://0x4c43.cn/PE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/"/>
+    <id>http://0x4c43.cn/PE文件中添加节区/</id>
+    <published>2017-07-23T08:30:10.000Z</published>
+    <updated>2017-07-24T07:59:44.130Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。&lt;/p&gt;
+&lt;p&gt;打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每
+    
+    </summary>
+    
+      <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
+    
+    
+      <category term="PE文件" scheme="http://0x4c43.cn/tags/PE%E6%96%87%E4%BB%B6/"/>
+    
+      <category term="添加节区" scheme="http://0x4c43.cn/tags/%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/"/>
+    
+      <category term="病毒感染" scheme="http://0x4c43.cn/tags/%E7%97%85%E6%AF%92%E6%84%9F%E6%9F%93/"/>
+    
+      <category term="打补丁" scheme="http://0x4c43.cn/tags/%E6%89%93%E8%A1%A5%E4%B8%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 firmware-mod-kit 修改固件</title>
+    <link href="http://0x4c43.cn/%E4%BD%BF%E7%94%A8firmware-mod-kit%E4%BF%AE%E6%94%B9%E5%9B%BA%E4%BB%B6/"/>
+    <id>http://0x4c43.cn/使用firmware-mod-kit修改固件/</id>
+    <published>2017-06-05T13:45:08.000Z</published>
+    <updated>2017-06-05T15:04:34.713Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。&lt;/p&gt;
+&lt;p&gt;该工具包支持以下
+    
+    </summary>
+    
+      <category term="Embedded" scheme="http://0x4c43.cn/categories/Embedded/"/>
+    
+    
+      <category term="firmware-mod-kit" scheme="http://0x4c43.cn/tags/firmware-mod-kit/"/>
+    
+      <category term="firmware" scheme="http://0x4c43.cn/tags/firmware/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DLL 注入之远程线程注入</title>
+    <link href="http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5/"/>
+    <id>http://0x4c43.cn/DLL注入之远程线程注入/</id>
+    <published>2017-05-10T13:45:08.000Z</published>
+    <updated>2017-05-11T04:12:48.277Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 Windows 中有多种方法实现 DLL 注入，&lt;a href=&quot;http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/&quot;&gt;可以使用消息钩子注入 DLL&lt;/
+    
+    </summary>
+    
+      <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
+    
+    
+      <category term="DLL 注入" scheme="http://0x4c43.cn/tags/DLL-%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DLL 注入之 Windows 消息钩子</title>
+    <link href="http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/"/>
+    <id>http://0x4c43.cn/DLL注入之消息钩取/</id>
+    <published>2017-05-08T13:45:08.000Z</published>
+    <updated>2017-05-11T04:16:46.142Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Windows 下的窗口应用程序是基于事件驱动方式工作的，操作系统中点击鼠标和按下键盘都是一种事件，当事件发生时操作系统会将消息发送给相应的应用程序，应用程序收到消息之后会做出响应。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;钩子(Hook)，是Windows提供的一种截获和
+    
+    </summary>
+    
+      <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
+    
+    
+      <category term="Hook" scheme="http://0x4c43.cn/tags/Hook/"/>
+    
+      <category term="DLL 注入" scheme="http://0x4c43.cn/tags/DLL-%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NSA Enternalblue + Doublepulsar 复现 SMB 漏洞</title>
+    <link href="http://0x4c43.cn/NSA%20Enternalblue+Doublepulsar%20%E5%A4%8D%E7%8E%B0%20SMB%20%E6%BC%8F%E6%B4%9E/"/>
+    <id>http://0x4c43.cn/NSA Enternalblue+Doublepulsar 复现 SMB 漏洞/</id>
+    <published>2017-04-27T09:18:08.000Z</published>
+    <updated>2017-04-28T12:53:16.159Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploi
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="Enternalblue" scheme="http://0x4c43.cn/tags/Enternalblue/"/>
+    
+      <category term="Doublepulsar" scheme="http://0x4c43.cn/tags/Doublepulsar/"/>
+    
+      <category term="NSA" scheme="http://0x4c43.cn/tags/NSA/"/>
+    
+      <category term="SMB" scheme="http://0x4c43.cn/tags/SMB/"/>
+    
+      <category term="Metasploit" scheme="http://0x4c43.cn/tags/Metasploit/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Github+Hexo+NexT搭建个人博客</title>
+    <link href="http://0x4c43.cn/Github+Hexo+NexT%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://0x4c43.cn/Github+Hexo+NexT搭建个人博客/</id>
+    <published>2017-04-26T12:42:00.000Z</published>
+    <updated>2017-08-26T06:43:20.507Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_6
+    
+    </summary>
+    
+      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
+    
+    
+      <category term="Hexo" scheme="http://0x4c43.cn/tags/Hexo/"/>
+    
+      <category term="Next" scheme="http://0x4c43.cn/tags/Next/"/>
+    
+      <category term="Github" scheme="http://0x4c43.cn/tags/Github/"/>
+    
+      <category term="域名绑定" scheme="http://0x4c43.cn/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/"/>
+    
+      <category term="SEO优化" scheme="http://0x4c43.cn/tags/SEO%E4%BC%98%E5%8C%96/"/>
+    
+      <category term="Blog备份" scheme="http://0x4c43.cn/tags/Blog%E5%A4%87%E4%BB%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Atom+Markdown写文章</title>
+    <link href="http://0x4c43.cn/%E4%BD%BF%E7%94%A8Atom+Markdown%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    <id>http://0x4c43.cn/使用Atom+Markdown写文章/</id>
+    <published>2017-04-26T07:36:08.000Z</published>
+    <updated>2017-09-19T07:58:55.930Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;0x01-Atom&quot;&gt;&lt;a href=&quot;#0x01-Atom&quot; class=&quot;headerlink&quot; title=&quot;0x01 Atom&quot;&gt;&lt;/a&gt;&lt;strong&gt;0x01 Atom&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;Atom 是 Github 推出的一个开源跨平台文
+    
+    </summary>
+    
+      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
+    
+    
+      <category term="Atom" scheme="http://0x4c43.cn/tags/Atom/"/>
+    
+      <category term="Markdown" scheme="http://0x4c43.cn/tags/Markdown/"/>
+    
+  </entry>
+  
+</feed>
