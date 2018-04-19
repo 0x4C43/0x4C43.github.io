@@ -95,7 +95,7 @@ __由于计算 request_size 的大小需要知道堆内存中 top_old 的 ptr，
 ![](http://ooyovxue7.bkt.clouddn.com/18-4-19/46291433.jpg)    
 
 ### **0x03 实例分析**
-下面以 [HITCON-Training](https://github.com/scwuaptx/HITCON-Training) 中的 lab11 为例说明 house of force 的利用过程，题目文件和利用脚本也可在 [Github]() 中下载。
+下面以 [HITCON-Training](https://github.com/scwuaptx/HITCON-Training) 中的 lab11 为例说明 house of force 的利用过程，题目文件和利用脚本也可在 [Github](https://github.com/0x4C43/Linux-Exploit/tree/master/heap_house-of-force) 中下载。
 #### **1. 漏洞**
 程序中在修改 item 时调用 change_item() 函数，name 的长度由用户指定，并且没有进行检查。输入过长字符串到 name 中将会导致堆溢出，可覆盖 top chunk。
 ```C
