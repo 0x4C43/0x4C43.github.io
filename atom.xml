@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2018-04-13T02:36:20.950Z</updated>
+  <updated>2018-04-19T15:07:43.589Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -14,6 +14,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux glibc heap house-of-force</title>
+    <link href="http://0x4c43.cn/Linux%20glibc%20heap%20house-of-force/"/>
+    <id>http://0x4c43.cn/Linux glibc heap house-of-force/</id>
+    <published>2018-04-19T15:10:45.000Z</published>
+    <updated>2018-04-19T15:07:43.589Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;该利用方法通过堆溢出漏洞修改 top chunk 的 size 字段，使得 malloc 一块很大的内存可使用 top chunk 进行分配，当更新 top chunk 的 ptr 时会发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="heap" scheme="http://0x4c43.cn/tags/heap/"/>
+    
+      <category term="house-of-force" scheme="http://0x4c43.cn/tags/house-of-force/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux glibc heap house-of-spirit</title>
