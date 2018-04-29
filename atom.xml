@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2018-04-19T15:21:06.106Z</updated>
+  <updated>2018-04-29T13:01:56.381Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -14,6 +14,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 延迟绑定机制</title>
+    <link href="http://0x4c43.cn/Linux%20%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6/"/>
+    <id>http://0x4c43.cn/Linux 延迟绑定机制/</id>
+    <published>2018-04-29T13:05:02.000Z</published>
+    <updated>2018-04-29T13:01:56.381Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="PLT" scheme="http://0x4c43.cn/tags/PLT/"/>
+    
+      <category term="Lazy Binding" scheme="http://0x4c43.cn/tags/Lazy-Binding/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux glibc heap house-of-force</title>
@@ -325,9 +347,9 @@
       <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
     
     
-      <category term="Hook" scheme="http://0x4c43.cn/tags/Hook/"/>
-    
       <category term="DLL 注入" scheme="http://0x4c43.cn/tags/DLL-%E6%B3%A8%E5%85%A5/"/>
+    
+      <category term="Hook" scheme="http://0x4c43.cn/tags/Hook/"/>
     
   </entry>
   
