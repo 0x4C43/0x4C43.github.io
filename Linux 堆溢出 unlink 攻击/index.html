@@ -1,38 +1,1006 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!doctype html>
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
-
-{% block page_class %}page-post-detail{% endblock %}
 
 
-{% block content %}
+<html class="theme-next mist" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="-rILWvtgf7gbffrRwk-E1VWNCVLMTcq6pxgs_1IfIjo" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="堆溢出,unlink" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="0x4C43's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。 首先看以下漏洞程序：12345678910111213#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;string.h">
+<meta name="keywords" content="堆溢出,unlink">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 堆内存溢出 unlink 攻击">
+<meta property="og:url" content="http://0x4c43.cn/Linux 堆溢出 unlink 攻击/index.html">
+<meta property="og:site_name" content="0x4C43's Blog">
+<meta property="og:description" content="在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。 首先看以下漏洞程序：12345678910111213#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;string.h">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-10-31/17968347.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-11-23/81536873.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-12-31/74608133.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-12-31/40338931.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-12-31/80701083.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-12-31/14873045.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-12-31/20886310.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-12-31/4598652.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-12-31/20330158.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-12-31/8077018.jpg">
+<meta property="og:updated_time" content="2017-12-31T07:01:42.306Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 堆内存溢出 unlink 攻击">
+<meta name="twitter:description" content="在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。 首先看以下漏洞程序：12345678910111213#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;string.h">
+<meta name="twitter:image" content="http://ooyovxue7.bkt.clouddn.com/17-10-31/17968347.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://0x4c43.cn/Linux 堆溢出 unlink 攻击/"/>
+
+
+
+
+
+
+
+  <title> Linux 堆内存溢出 unlink 攻击 | 0x4C43's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">0x4C43's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/Linux 堆溢出 unlink 攻击/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="0x4C43">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/binary.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0x4C43's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux 堆内存溢出 unlink 攻击
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-31T14:53:28+08:00">
+                2017-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Exploit/" itemprop="url" rel="index">
+                    <span itemprop="name">Exploit</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/Linux 堆溢出 unlink 攻击/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。</p>
+<p>首先看以下漏洞程序：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</div><div class="line">    <span class="keyword">char</span> *first, *second;</div><div class="line">    first = <span class="built_in">malloc</span>(<span class="number">666</span>);</div><div class="line">    second = <span class="built_in">malloc</span>(<span class="number">12</span>);</div><div class="line">    <span class="keyword">if</span> (argc != <span class="number">1</span>)</div><div class="line">        <span class="built_in">strcpy</span>(first, argv[<span class="number">1</span>]);</div><div class="line">    <span class="built_in">free</span>(first);</div><div class="line">    <span class="built_in">free</span>(second);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上述程序在分配完堆后，堆内存分布如下图所示。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-10-31/17968347.jpg" alt=""></p>
+<p>程序中 strcpy 函数会导致堆溢出，argv[1] 大于 666 字节时，可覆盖第二个 chunk 的各个字段为指定的值，从而使堆管理器将第二个 chunk 判断为空闲状态。根据 malloc 的内存回收机制，在 free(first) 时会将上图中的 second chunk 从 bin 中 unlink，并与第一个 chunk 合并。通过修改 second chunk 的 fd、bk 字段，unlink 时可把 free 函数的 GOT 表项写为 shellcode 地址。当程序再次调用 free 函数时会执行 shellcode。     </p>
+<p>下面具体介绍 unlink 机制和 unlink 攻击的原理。</p>
+<h3 id="0x01-释放堆与-unlink"><a href="#0x01-释放堆与-unlink" class="headerlink" title="0x01 释放堆与 unlink"></a><strong>0x01 释放堆与 unlink</strong></h3><p>释放堆时会判断当前 chunk 的相邻 chunk 是否为空闲状态，若是则会进行堆合并。合并时会将空闲 chunk 从 bin 中 unlink，并将合并后的 chunk 添加到 unsorted bin 中。堆合并分为向前合并和向后合并。</p>
+<h4 id="1）向后合并"><a href="#1）向后合并" class="headerlink" title="1）向后合并"></a><strong>1）向后合并</strong></h4><p>首先判断前一个 chunk 是否空闲，即检查当前 chunk 的 PREV_INUSE（P）位是否为 0。若为空闲，则将其合并。合并时，改变当前 chunk 指针指向前一个 chunk，使用 unlink 宏将前一个空闲 chunk 从 bin 中移除，最后更新合并后 chunk 的大小。</p>
+<p>malloc.c 中向后合并的代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">INTERNAL_SIZE_T hd = p-&gt;size; <span class="comment">/* its head field */</span></div><div class="line">INTERNAL_SIZE_T sz;  <span class="comment">/* its size */</span></div><div class="line">INTERNAL_SIZE_T prevsz; <span class="comment">/* size of previous contiguous chunk */</span></div><div class="line"></div><div class="line">sz = hd &amp; ~PREV_INUSE;</div><div class="line"><span class="comment">/* consolidate backward */</span></div><div class="line"><span class="keyword">if</span> (!(hd &amp; PREV_INUSE))</div><div class="line">&#123;</div><div class="line">  prevsz = p-&gt;prev_size;</div><div class="line">  p = chunk_at_offset(p, -(<span class="keyword">long</span>)prevsz);</div><div class="line">  sz += prevsz;</div><div class="line">  unlink(p, bck, fwd);</div><div class="line">&#125;</div><div class="line">set_head(p, sz | PREV_INUSE);</div></pre></td></tr></table></figure></p>
+<p>本例中，释放 1st chunk 时，当前 chunk(1st chunk) 的前一个 chunk 是 allocated，所以不能向后合并，unlink 宏不会被调用。</p>
+<h4 id="2）向前合并"><a href="#2）向前合并" class="headerlink" title="2）向前合并"></a><strong>2）向前合并</strong></h4><p>首先判断下个 chunk 是否空闲，即检查下下个 chunk（相对当前 chunk）的 PREV_INUSE（P）位是否为 0，若为 0 表明下个 chunk 是空闲的，则进行合并。合并时使用 unlink 宏将下个 chunk 从它的 bin 中移除，并更新合并后的 chunk 大小。</p>
+<p>malloc.c 中向前合并的代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* check/set/clear inuse bits in known places */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> inuse_bit_at_offset(p, s)\</span></div><div class="line"> (((mchunkptr)(((char*)(p)) + (s)))-&gt;size &amp; PREV_INUSE)</div><div class="line"></div><div class="line">INTERNAL_SIZE_T hd = p-&gt;size; <span class="comment">/* its head field */</span></div><div class="line">INTERNAL_SIZE_T sz;  <span class="comment">/* its size */</span></div><div class="line">sz = hd &amp; ~PREV_INUSE;</div><div class="line">next = chunk_at_offset(p, sz);</div><div class="line">nextsz = chunksize(next);</div><div class="line"><span class="comment">/* consolidate forward */</span></div><div class="line"><span class="keyword">if</span> (!(inuse_bit_at_offset(next, nextsz)))   </div><div class="line">&#123;</div><div class="line">  sz += nextsz;</div><div class="line">  ...</div><div class="line">  unlink(next, bck, fwd);</div><div class="line">  next = chunk_at_offset(p, sz);</div><div class="line">&#125;</div><div class="line"></div><div class="line">set_head(p, sz | PREV_INUSE);</div><div class="line">next-&gt;prev_size = sz;</div></pre></td></tr></table></figure></p>
+<p>本例中，释放第一个 chunk 时，当前 chunk 的下一个 chunk（2nd chunk）是 allocated，所以不能向前合并，unlink 宏不会被调用。</p>
+<h4 id="3）unlink"><a href="#3）unlink" class="headerlink" title="3）unlink"></a><strong>3）unlink</strong></h4><p>当前释放的堆与前一个或后一个空闲 chunk 进行合并时，会把空闲 chunk 从 bin 中移除，移除过程使用 unlink 宏来实现。unlink 宏的定义如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Take a chunk off a bin list */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> unlink(P, BK, FD) &#123;  \</span></div><div class="line">  FD = P-&gt;fd;             \</div><div class="line">  BK = P-&gt;bk;             \</div><div class="line">  FD-&gt;bk = BK;            \</div><div class="line">  BK-&gt;fd = FD;            \</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>unlink 即为将 P 从链表中删除的过程。</p>
+<h3 id="0x02-unlink-攻击"><a href="#0x02-unlink-攻击" class="headerlink" title="0x02 unlink 攻击"></a><strong>0x02 unlink 攻击</strong></h3><p>在 dlmalloc 中，unlink 的定义如上一节所示，只有与指针操作相关的 4 条语句。但在较新版本的 glibc 中，为了缓解攻击者进行 unlink 攻击，在宏定义中加入了安全校验，使得利用难度加大，只能在特定条件下使用一些技巧绕过校验。</p>
+<h4 id="1）原始的-unlink-攻击"><a href="#1）原始的-unlink-攻击" class="headerlink" title="1）原始的 unlink 攻击"></a><strong>1）原始的 unlink 攻击</strong></h4><p>上述例子中，传入的字符串参数长度大于 666 字节时 strcpy 会使 first chunk 溢出，可覆盖 second chunk 的头部字段为如下值：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">prev_size = 偶数</div><div class="line">size = <span class="number">-4</span></div><div class="line">fd = <span class="built_in">free</span>@got - <span class="number">12</span></div><div class="line">bk = shellcode address</div></pre></td></tr></table></figure></p>
+<p>在执行 free(first) 时，当前释放的 frist chunk 的下下个 chunk 不是 top chunk。因为 second chunk 的大小覆盖为 -4，所以下下个 chunk 在 second chunk 偏移为 -4 的位置，因此 malloc 把 second chunk 的 prev_size 当做下下个 chunk 的 size。而 prev_size 已被覆盖为偶数（PREV_INUSE位为0），malloc 会将 second chunk 当作空闲 chunk。</p>
+<p>释放 first chunk 时会将 second chunk 从 bin 中 unlink，并将其合并到 first chunk。这个过程会触发 unlink（second），此时 <code>P = second chunk ptr</code>，unlink 过程如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>）FD = second chunk ptr-&gt;fd = <span class="built_in">free</span>@got – <span class="number">12</span>；</div><div class="line"><span class="number">2</span>）BK = second chunk ptr-&gt;bk = shellcode address；</div><div class="line"><span class="number">3</span>）FD-&gt;bk = BK，即（<span class="built_in">free</span>@got – <span class="number">12</span>）-&gt;bk = shellcode address；</div><div class="line"><span class="number">4</span>）BK-&gt;fd = FD，即shellcode address-&gt;fd = <span class="built_in">free</span>@got – <span class="number">12</span>。</div></pre></td></tr></table></figure></p>
+<p>unlink 步骤 1）和 2）将 second chunk 的 fd 和 bk 复制到 FD 和 BK。如下图所示，复制后 <code>FD = free@got-12</code>，<code>BK = shellcode address</code>，即 second chunk 的 fd、bk 指针分别指向 <code>free@got-12</code> 和 <code>shellcode address</code>。</p>
+<p>步骤 3）中 FD 是 malloc_chunk 结构体指针，FD-&gt;bk 相当于 <code>FD+12 = free@got-12+12 = free@got</code>，即 FD-&gt;bk 指向 free 的 GOT 表项，FD-&gt;bk = BK 相当于 <code>free@got = shellcode address</code>，即 free 的 GOT 表项被修改为了 shellcode 地址。因此，程序在执行第二个 free 时就会执行 shellcode。</p>
+<p>同理，步骤4）中将 <code>shellcode addr + 8</code> 处 4 个字节覆盖为 <code>free@got - 12</code>，所以在编写 shellcode 时应跳过这 4 个字节。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-11-23/81536873.jpg" alt=""></p>
+<h4 id="2）绕过安全校验"><a href="#2）绕过安全校验" class="headerlink" title="2）绕过安全校验"></a><strong>2）绕过安全校验</strong></h4><p>首先，需要了解 glibc 中 unlink 的校验机制。以下为 glibc-2.19 中 unlink 宏的部分代码，在删除 P 节点之前会检查 <code>FD-&gt;bk != P || BK-&gt;fd != P</code> 是否成立，即检查当前 chunk 前一个 chunk 的 bk 与后一个 chunk 的 fd 是否指向当前 chunk。若当前 chunk 的 fd 和 bk 被修改则无法通过这项检查，<code>FD-&gt;bk = BK</code> 与 <code>BK-&gt;fd = FD</code> 不会执行，导致 unlink 攻击不能进行。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Take a chunk off a bin list */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> unlink(P, BK, FD) &#123;         \</span></div><div class="line">    FD = P-&gt;fd;								      \</div><div class="line">    BK = P-&gt;bk;								      \</div><div class="line">    <span class="meta-keyword">if</span> (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, 0))		      \</div><div class="line">      malloc_printerr (check_action, <span class="meta-string">"corrupted double-linked list"</span>, P);      \</div><div class="line">    <span class="meta-keyword">else</span> &#123;								          \</div><div class="line">        FD-&gt;bk = BK;						    \</div><div class="line">        BK-&gt;fd = FD;						    \</div><div class="line">        ...</div><div class="line">    &#125;									              \</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>为了绕过以上指针校验，需要以下条件：</p>
+<blockquote>
+<p>a） 程序中存在一个全局指针变量 ptr<br>b） ptr 指向的堆内存可由用户控制</p>
+</blockquote>
+<p>若具备以上条件，攻击者可在指针 ptr 指向的内存中伪造一个空闲 chunk P，根据 ptr 构造合适的地址覆盖 chunk P 的 fd 和 bk，使得 <code>FD-&gt;bk == P &amp;&amp; BK-&gt;fd == P</code> 成立。具体如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">P-&gt;fd = ptr - <span class="number">0xC</span></div><div class="line">P-&gt;bk = ptr - <span class="number">0x8</span></div></pre></td></tr></table></figure></p>
+<p>在执行 unlink（P）时的指针操作如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>）FD = P-&gt;fd = ptr - <span class="number">0xC</span>；</div><div class="line"><span class="number">2</span>）BK = P-&gt;bk = ptr - <span class="number">0x8</span>；</div><div class="line"><span class="comment">// FD-&gt;bk = ptr - 0xC + 0xC = ptr; BK-&gt;fd = ptr -0x8 + 0x8 = ptr;</span></div><div class="line"><span class="comment">// 由于 ptr 指向 P,可成功绕过指针校验</span></div><div class="line"><span class="number">3</span>）FD-&gt;bk = BK，即 ptr = ptr - <span class="number">0x8</span>;</div><div class="line"><span class="number">4</span>）BK-&gt;fd = FD，即 ptr = ptr - <span class="number">0xC</span>。</div></pre></td></tr></table></figure></p>
+<p>由以上过程可知，借助指向 chunk P 的 ptr 指针可绕过 “corrupted double-linked list” 安全机制，并通过 unlink 攻击实现写内存，最终使得 ptr 指向 ptr - 0xc。</p>
+<p>unlink 后，对 ptr 指向的内存进行写入，如 <code>‘A’*0xC + free@got</code>，使得 ptr 指向 free@got，再次对 ptr 指向的内存进行写入，可以把 free@got 修改为 system 的地址，之后调用 free 可任意命令执行。</p>
+<h4 id="3）实例分析"><a href="#3）实例分析" class="headerlink" title="3）实例分析"></a><strong>3）实例分析</strong></h4><p>通过调试网上找的一个例子来具体分析 unlink 利用及其安全机制的绕过，相关文件可在 <a href="https://github.com/0x4C43/Linux-Exploit/tree/master/heap_unlink" target="_blank" rel="external">Github</a> 中下载。<br>程序功能为堆的 4 种基本操作：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ssize_t</span> menu()</div><div class="line">&#123;</div><div class="line">  write(<span class="number">1</span>, <span class="string">"1.Add chunk\n"</span>, <span class="number">0xC</span>u);</div><div class="line">  write(<span class="number">1</span>, <span class="string">"2.Set chunk\n"</span>, <span class="number">0xC</span>u);</div><div class="line">  write(<span class="number">1</span>, <span class="string">"3.Delete chunk\n"</span>, <span class="number">0xF</span>u);</div><div class="line">  write(<span class="number">1</span>, <span class="string">"4.Print chunk\n"</span>, <span class="number">0xE</span>u);</div><div class="line">  <span class="keyword">return</span> write(<span class="number">1</span>, <span class="string">"5.Exit\n"</span>, <span class="number">7u</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>程序中有一个全局指针数组用于存储每一个 malloc 所分配堆块返回的指针。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">add</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">void</span> *result; <span class="comment">// eax</span></div><div class="line">  <span class="keyword">int</span> v1; <span class="comment">// ebx</span></div><div class="line">  <span class="keyword">size_t</span> size; <span class="comment">// [esp+Ch] [ebp-Ch]</span></div><div class="line"></div><div class="line">  size = <span class="number">0</span>;</div><div class="line">  <span class="keyword">if</span> ( index &gt; <span class="number">9</span> )</div><div class="line">    <span class="keyword">return</span> (<span class="keyword">void</span> *)write(<span class="number">1</span>, <span class="string">"cannot add chunks!"</span>, <span class="number">0x12</span>u);</div><div class="line">  write(<span class="number">1</span>, <span class="string">"Input the size of chunk you want to add:"</span>, <span class="number">0x28</span>u);</div><div class="line">  __isoc99_scanf(<span class="string">"%d"</span>, &amp;size);</div><div class="line">  result = (<span class="keyword">void</span> *)size;</div><div class="line">  <span class="keyword">if</span> ( (<span class="keyword">signed</span> <span class="keyword">int</span>)size &gt; <span class="number">0</span> )</div><div class="line">  &#123;</div><div class="line">    v1 = index++;</div><div class="line">    result = <span class="built_in">malloc</span>(size);</div><div class="line">    buf[v1] = result;  <span class="comment">// 把堆块指针保存到 buf 中</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"><span class="comment">// buf 为全局指针数组</span></div><div class="line">.bss:<span class="number">08049</span>D60 buf             dd ?                    ; DATA XREF: add+<span class="number">7</span>A↑w</div></pre></td></tr></table></figure></p>
+<p>首先使用 <code>add</code>功能申请 4 个大小为 0x80 的堆（small chunk），程序会将 malloc 返回的用户空间指针 ptr_mem 存放在全局指针数组 buf[n] 中，该数组起始地址 buf 为 0x8049d60。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-12-31/74608133.jpg" alt=""><br>申请好堆后，使用 <code>set</code> 功能把字符串 “/bin/sh” 写入到 chunk3 中，为后面执行 system 函数做准备。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-12-31/40338931.jpg" alt=""><br>使用 <code>set</code> 功能编辑 chunk0 的内容可溢出并覆盖 chunk1，在 chunk0 中伪造一个大小为 0x80 的空闲 chunk P，将其 fd 和 bk 设置为 buf[0]-0xc 和 buf[0]-0x8，并且修改 chunk1 的 prev_size 和 size 字段。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-12-31/80701083.jpg" alt=""><br>接着使用 <code>delete</code> 释放 chunk1，由于相邻的 chunk P 为空闲块，会触发 unlink(P) 把 chunk P 从 smallbins 中解除，并与 chunk1 合并为大小为 0x108 的空闲块。unlink 过程中可绕过 “指针破坏” 检测，并实现写内存。最终会把 buf[0] 修改为 buf[0]-0xC。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-12-31/14873045.jpg" alt=""><br>使用 <code>set</code> 编辑 chunk0 可覆盖 buf[0]，从而再次修改 buf[0]，控制其指向的内存。可将其修改为 free@got。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-12-31/20886310.jpg" alt=""><br>接着使用 <code>print</code> 输出 chunk0 的内容，可泄露出内存中 free 函数的地址，从而可计算得到 system 函数的地址。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-12-31/4598652.jpg" alt=""><br>再次编辑 chunk0 的内容，把 system 的地址写入 free@got 中。写完后可查看 free@got 已指向 system 函数。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-12-31/20330158.jpg" alt=""><br>当使用 <code>delete</code> 删除 chunk3 时执行的 free(chunk3) 实际上是 system(“\bin\sh”)，从而成功 getshell。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-12-31/8077018.jpg" alt="">    </p>
+<hr>
+<p>References:<br>[1] <a href="https://jaq.alibaba.com/community/art/show?articleid=360" target="_blank" rel="external">Linux堆溢出漏洞利用之unlink</a><br>[2] <a href="http://wooyun.jozxing.cc/static/drops/tips-7326.html" target="_blank" rel="external">堆溢出的unlink利用方法</a><br>[3] <a href="http://pwn4.fun/2016/05/07/Heap-Overflow-Using-Unlink-Double-Free/" target="_blank" rel="external">Heap Overflow Using Unlink &amp; Double Free</a>    </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/堆溢出/" rel="tag"># 堆溢出</a>
+          
+            <a href="/tags/unlink/" rel="tag"># unlink</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zsh 使用笔记/" rel="next" title="zsh 使用笔记">
+                <i class="fa fa-chevron-left"></i> zsh 使用笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/终端复用工具 tmux/" rel="prev" title="终端复用工具 tmux">
+                终端复用工具 tmux <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/binary.jpg"
+               alt="0x4C43" />
+          <p class="site-author-name" itemprop="name">0x4C43</p>
+           
+              <p class="site-description motion-element" itemprop="description">Reverse&Pwn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/0x4C43" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-释放堆与-unlink"><span class="nav-number">1.</span> <span class="nav-text">0x01 释放堆与 unlink</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）向后合并"><span class="nav-number">1.1.</span> <span class="nav-text">1）向后合并</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）向前合并"><span class="nav-number">1.2.</span> <span class="nav-text">2）向前合并</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）unlink"><span class="nav-number">1.3.</span> <span class="nav-text">3）unlink</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-unlink-攻击"><span class="nav-number">2.</span> <span class="nav-text">0x02 unlink 攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）原始的-unlink-攻击"><span class="nav-number">2.1.</span> <span class="nav-text">1）原始的 unlink 攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）绕过安全校验"><span class="nav-number">2.2.</span> <span class="nav-text">2）绕过安全校验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）实例分析"><span class="nav-number">2.3.</span> <span class="nav-text">3）实例分析</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">0x4C43</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "c190dfc84c3444f78b4a39fbfe45d4ee",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
