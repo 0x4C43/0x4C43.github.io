@@ -1,0 +1,988 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="-rILWvtgf7gbffrRwk-E1VWNCVLMTcq6pxgs_1IfIjo" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Memory Address,dynamic Linking" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="0x4C43's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="动态链接在程序运行时才对组成程序的目标文件进行链接，使用动态链接的方式可使得多个进程共用物理内存中的同一个共享目标文件，从而可节省内存空间。此外，使用动态链接使得各个模块更独立，并方便模块的更新。 为了验证多个进程是否可以共用物理内存中同一个共享对象文件中的代码段，需要将进程虚拟地址转换为对应的物理地址。 0x01 内存地址转换Linux内核采用页式存储管理，进程的虚拟地址空间被划分成固定大小的页">
+<meta name="keywords" content="Memory Address,dynamic Linking">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 动态链接">
+<meta property="og:url" content="http://0x4c43.cn/Linux 动态链接/index.html">
+<meta property="og:site_name" content="0x4C43's Blog">
+<meta property="og:description" content="动态链接在程序运行时才对组成程序的目标文件进行链接，使用动态链接的方式可使得多个进程共用物理内存中的同一个共享目标文件，从而可节省内存空间。此外，使用动态链接使得各个模块更独立，并方便模块的更新。 为了验证多个进程是否可以共用物理内存中同一个共享对象文件中的代码段，需要将进程虚拟地址转换为对应的物理地址。 0x01 内存地址转换Linux内核采用页式存储管理，进程的虚拟地址空间被划分成固定大小的页">
+<meta property="og:updated_time" content="2018-05-08T07:05:01.792Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 动态链接">
+<meta name="twitter:description" content="动态链接在程序运行时才对组成程序的目标文件进行链接，使用动态链接的方式可使得多个进程共用物理内存中的同一个共享目标文件，从而可节省内存空间。此外，使用动态链接使得各个模块更独立，并方便模块的更新。 为了验证多个进程是否可以共用物理内存中同一个共享对象文件中的代码段，需要将进程虚拟地址转换为对应的物理地址。 0x01 内存地址转换Linux内核采用页式存储管理，进程的虚拟地址空间被划分成固定大小的页">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://0x4c43.cn/Linux 动态链接/"/>
+
+
+
+
+
+
+
+  <title> Linux 动态链接 | 0x4C43's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">0x4C43's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/Linux 动态链接/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="0x4C43">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/binary.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0x4C43's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux 动态链接
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-08T14:53:14+08:00">
+                2018-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/Linux 动态链接/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>动态链接在程序运行时才对组成程序的目标文件进行链接，使用动态链接的方式可使得多个进程共用物理内存中的同一个共享目标文件，从而可节省内存空间。此外，使用动态链接使得各个模块更独立，并方便模块的更新。</p>
+<p>为了验证多个进程是否可以共用物理内存中同一个共享对象文件中的代码段，需要将进程虚拟地址转换为对应的物理地址。</p>
+<h3 id="0x01-内存地址转换"><a href="#0x01-内存地址转换" class="headerlink" title="0x01 内存地址转换"></a><strong>0x01 内存地址转换</strong></h3><p>Linux内核采用页式存储管理，进程的虚拟地址空间被划分成固定大小的页面（ Virtual Page, VP ），物理内存同样被分为与页面大小相同的物理页（Physical Page, PP）。页表是记录虚拟页与物理页映射关系的数据结构。CPU在获得虚拟地址之后，需要通过内存管理单元（Memory Management Unit，MMU）借助页表将虚拟地址映射为物理地址。</p>
+<p>将虚拟地址转换为物理地址需要访问页表，然而只有内核态的程序才能访问到页表，用户态程序无权访问。此外，Linux 系统提供了一种用户态程序访问页表的方式，通过查看 <code>/proc/pid/pagemap</code> 文件可得到虚拟内存页映射与物理内存页的映射关系。显然后者更为简单，所以下面使用该方法实现地址转换。</p>
+<p>Linux 系统上的 /proc/ 目录是一种虚拟文件系统，存储的是当前内核运行状态的一系列特殊文件，用户可以通过这些文件查看系统硬件及系统正在运行进程的信息，或者通过修改这些文件来改变内核的运行状态。</p>
+<p>根据内核文档可知，每个虚拟页在 <code>/proc/pid/pagemap</code> 中对应一项长度为 64 bits 的数据，其中 Bit 63 为 page present，表示物理内存页是否已存在；若物理页已存在，则 Bits 0-54 表示物理页号。此外，需要 root 权限的进程才能读取 <code>/proc/pid/pagemap</code> 中的内容。</p>
+<blockquote>
+<p>pagemap is a new (as of 2.6.25) set of interfaces in the kernel that allow<br>userspace programs to examine the page tables and related information by<br>reading files in /proc.</p>
+<p>There are four components to pagemap:</p>
+<p>*/proc/pid/pagemap.  This file lets a userspace process find out which<br>   physical frame each virtual page is mapped to.  It contains one 64-bit<br>   value for each virtual page, containing the following data (from<br>   fs/proc/task_mmu.c, above pagemap_read):<br>  * <font color="red">Bits 0-54  page frame number (PFN) if present</font><br>  * Bits 0-4   swap type if swapped<br>  * Bits 5-54  swap offset if swapped<br>  * Bit  55    pte is soft-dirty (see Documentation/vm/soft-dirty.txt)<br>  * Bit  56    page exclusively mapped (since 4.2)<br>  * Bits 57-60 zero<br>  * Bit  61    page is file-page or shared-anon (since 3.5)<br>  * Bit  62    page swapped<br>  * <font color="red">Bit  63    page present</font>  </p>
+<p>  Since Linux 4.0 only users with the CAP_SYS_ADMIN capability can get PFNs.<br>   In 4.0 and 4.1 opens by unprivileged fail with -EPERM.  <font color="red">Starting from<br>   4.2 the PFN field is zeroed if the user does not have CAP_SYS_ADMIN.</font><br>   Reason: information about PFNs helps in exploiting Rowhammer vulnerability.</p>
+</blockquote>
+<p>根据以上信息，利用 <code>/proc/pid/pagemap</code> 可将虚拟地址转换为物理地址，具体步骤如下：    </p>
+<blockquote>
+<p>1）计算虚拟地址所在虚拟页对应的数据项在 <code>/proc/pid/pagmap</code> 中的偏移；<br>offset = (viraddr / pagesize) <em> sizeof(uint64_t)<br>2）读取长度为 64 bits 的数据项；<br>3）根据 Bit 63 判断物理内存页是否存在；<br>4）若物理内存页已存在，则取 bits 0 - 54 作为物理页号；<br>5）计算出物理页起始地址加上页内偏移即得到物理地址；<br>phyaddr = pageframenum </em> pagesize + viraddr % pagesize;</p>
+</blockquote>
+<p>具体代码实现如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;      </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">size_t</span> virtual_to_physical(<span class="keyword">uint32_t</span> pid, <span class="keyword">size_t</span> viraddr)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">char</span> path[<span class="number">30</span>] = &#123;<span class="number">0</span>&#125;;</div><div class="line">    <span class="built_in">sprintf</span>(path , <span class="string">"/proc/%d/pagemap"</span>, pid);</div><div class="line">    <span class="keyword">int</span> fd = open(path, O_RDONLY);</div><div class="line">    <span class="keyword">if</span>(fd &lt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"open '/proc/self/pagemap' failed!\n"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">size_t</span> pagesize = getpagesize();</div><div class="line">    <span class="keyword">size_t</span> offset = (viraddr / pagesize) * <span class="keyword">sizeof</span>(<span class="keyword">uint64_t</span>);</div><div class="line">    <span class="keyword">if</span>(lseek(fd, offset, SEEK_SET) &lt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"lseek() failed!\n"</span>);</div><div class="line">        close(fd);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">uint64_t</span> info;</div><div class="line">    <span class="keyword">if</span>(read(fd, &amp;info, <span class="keyword">sizeof</span>(<span class="keyword">uint64_t</span>)) != <span class="keyword">sizeof</span>(<span class="keyword">uint64_t</span>)) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"read() failed!\n"</span>);</div><div class="line">        close(fd);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(info &amp; (((<span class="keyword">uint64_t</span>)<span class="number">1</span> &lt;&lt; <span class="number">63</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"page is not present!\n"</span>);</div><div class="line">        close(fd);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">size_t</span> pageframenum = info &amp; (((<span class="keyword">uint64_t</span>)<span class="number">1</span> &lt;&lt; <span class="number">55</span>) <span class="number">-1</span>);</div><div class="line">    <span class="keyword">size_t</span> phyaddr = pageframenum * pagesize + viraddr % pagesize;</div><div class="line">close(fd);</div><div class="line"><span class="keyword">return</span> phyaddr;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">size_t</span> phyaddr;</div><div class="line"><span class="keyword">size_t</span> viraddr;</div><div class="line"><span class="keyword">uint32_t</span> pid;</div><div class="line"></div><div class="line"><span class="built_in">printf</span>(<span class="string">"pid = "</span>);</div><div class="line"><span class="built_in">scanf</span>(<span class="string">"%u"</span>, &amp;pid);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"virtual address = "</span>);</div><div class="line"><span class="built_in">scanf</span>(<span class="string">"%x"</span>, &amp;viraddr);</div><div class="line">phyaddr = virtual_to_physical(pid, viraddr);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"virtual address = %p,physical address = %p\n"</span>, viraddr, phyaddr);</div><div class="line"><span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="0x02-动态链接"><a href="#0x02-动态链接" class="headerlink" title="0x02 动态链接"></a><strong>0x02 动态链接</strong></h3><p>动态链接在Linux中的实现称为动态共享对象（Dynamic Shared Objects），文件扩展名为 .so；Windows 中为动态链接库（Dynamical Linking Library），文件扩展名为 .dll。</p>
+<p>程序与共享对象的链接过程在开始运行程序时由动态链接器完成，之后便开始执行程序。由于共享对象装载到进程空间时的地址不确定，无法在编译阶段进行重定位确定代码中的符号地址。可通过装载时重定位和地址无关代码解决该问题。</p>
+<p>通过以下代码说明这两种情况：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">➜  dynamic_link cat Lib.c</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">foobar</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"printing from Lib.so %d\n"</span>,i);</div><div class="line">    sleep(<span class="number">-1</span>);</div><div class="line">&#125;</div><div class="line">➜  dynamic_link cat prog1.c</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Lib.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    foobar(<span class="number">1</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="1-装载时重定位"><a href="#1-装载时重定位" class="headerlink" title="1. 装载时重定位"></a><strong>1. 装载时重定位</strong></h4><p>在可执行程序装载时对地址引用进行符号重定位。由于这种方法需要修改指令中的地址，而同一个共享对象在不同进程中的加载地址不同，导致不同的进程必须在内存中有独立的对象模块，无法实现多个进程共用共享对象中的指令。</p>
+<p>首先编译生成非地址无关的共享对象 Lib_noPIC.so 以及可执行程序 prog1_noPIC：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gcc -m32 -shared Lib.c -o Lib_noPIC.so</div><div class="line">gcc -m32 prog1.c -o prog1_noPIC ./Lib_noPIC.so</div></pre></td></tr></table></figure></p>
+<p>同时运行两个 prog1_noPIC 进程，并查看其进程虚拟内存空间分布如下，可以看到两个进程的虚拟地址空间分布是相同的。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">➜  dynamic_link pidof prog1_noPIC</div><div class="line"><span class="number">18365</span> <span class="number">18364</span></div><div class="line">➜  dynamic_link cat /proc/<span class="number">18365</span>/maps</div><div class="line"><span class="number">08048000</span><span class="number">-08049000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787009</span>                             /home/lc/Load/dynamic_link/prog1_noPIC</div><div class="line"><span class="number">08049000</span><span class="number">-0804</span>a000 r--p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787009</span>                             /home/lc/Load/dynamic_link/prog1_noPIC</div><div class="line"><span class="number">0804</span>a000<span class="number">-0804</span>b000 rw-p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787009</span>                             /home/lc/Load/dynamic_link/prog1_noPIC</div><div class="line"><span class="number">0804</span>b000<span class="number">-0806</span>c000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                                  [heap]</div><div class="line">f7e00000-f7e01000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></div><div class="line">f7e01000-f7fb1000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb1000-f7fb3000 r--p <span class="number">001</span>af000 <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb3000-f7fb4000 rw-p <span class="number">001</span>b1000 <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb4000-f7fb7000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></div><div class="line">f7fd0000-f7fd1000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793527</span>                             /home/lc/Load/dynamic_link/Lib_noPIC.so</div><div class="line">f7fd1000-f7fd2000 r--p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793527</span>                             /home/lc/Load/dynamic_link/Lib_noPIC.so</div><div class="line">f7fd2000-f7fd3000 rw-p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793527</span>                             /home/lc/Load/dynamic_link/Lib_noPIC.so</div><div class="line">...</div><div class="line">➜  dynamic_link cat /proc/<span class="number">18364</span>/maps</div><div class="line"><span class="number">08048000</span><span class="number">-08049000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787009</span>                             /home/lc/Load/dynamic_link/prog1_noPIC</div><div class="line"><span class="number">08049000</span><span class="number">-0804</span>a000 r--p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787009</span>                             /home/lc/Load/dynamic_link/prog1_noPIC</div><div class="line"><span class="number">0804</span>a000<span class="number">-0804</span>b000 rw-p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787009</span>                             /home/lc/Load/dynamic_link/prog1_noPIC</div><div class="line"><span class="number">0804</span>b000<span class="number">-0806</span>c000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                                  [heap]</div><div class="line">f7e00000-f7e01000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></div><div class="line">f7e01000-f7fb1000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb1000-f7fb3000 r--p <span class="number">001</span>af000 <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb3000-f7fb4000 rw-p <span class="number">001</span>b1000 <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb4000-f7fb7000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></div><div class="line">f7fd0000-f7fd1000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793527</span>                             /home/lc/Load/dynamic_link/Lib_noPIC.so</div><div class="line">f7fd1000-f7fd2000 r--p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793527</span>                             /home/lc/Load/dynamic_link/Lib_noPIC.so</div><div class="line">f7fd2000-f7fd3000 rw-p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793527</span>                             /home/lc/Load/dynamic_link/Lib_noPIC.so</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>根据 0xf7fd0000-0xf7fd1000 地址段内存的可执行权限可知该段为 Lib_noPIC.so 代码内存区域，下面通过查看代码段中的虚拟地址对应的物理地址是否相同，以验证不同进程是否共享物理内存中同一个 Lib_noPIC.so 的代码段。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">➜  dynamic_link pidof prog1_noPIC</div><div class="line"><span class="number">18365</span> <span class="number">18364</span></div><div class="line">➜  dynamic_link sudo ./virtual_to_physical</div><div class="line">pid = <span class="number">18365</span></div><div class="line">virtual address = f7fd0005</div><div class="line">virtual address = <span class="number">0xf7fd0005</span>,physical address = <span class="number">0x6b7ea005</span></div><div class="line">➜  dynamic_link sudo ./virtual_to_physical</div><div class="line">pid = <span class="number">18364</span></div><div class="line">virtual address = f7fd0005</div><div class="line">virtual address = <span class="number">0xf7fd0005</span>,physical address = <span class="number">0x2e2cc005</span></div></pre></td></tr></table></figure></p>
+<p>从结果中可看到，不同进程中 0xf7fd0005 对应的物理内存分别为 0x6b7ea005 和 0x2e2cc005。由此说明非地址无关的共享对象中的代码段无法被不同进程共用。</p>
+<h4 id="2-地址无关代码"><a href="#2-地址无关代码" class="headerlink" title="2. 地址无关代码"></a><strong>2. 地址无关代码</strong></h4><p>地址无关代码 PIC（Position-Independent Code）把与地址相关的部分放入到数据段的全局偏移表 GOT（Global Offset Table）中，这样指令部分可保持不变，<a href="http://0x4c43.cn/Linux%20%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6/">重定位时只需修改 GOT</a>，而数据部分可在每个进程中拥有一个副本，从而实现共用共享对象的指令部分。</p>
+<p>使用以下命令编译生成地址无关的共享对象 Lib_PIC.so 以及可执行程序 prog1_PIC：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gcc -m32 -fPIC -shared Lib.c -o Lib_PIC.so</div><div class="line">gcc -m32 prog1.c -o prog1_PIC ./Lib_PIC.so</div></pre></td></tr></table></figure></p>
+<p>同时运行两个 prog1_PIC 进程，查看其进程虚拟内存空间分布如下，可以看到两个进程的虚拟地址空间分布也是相同的。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">➜  dynamic_link pidof prog1_PIC  </div><div class="line"><span class="number">19118</span> <span class="number">19113</span></div><div class="line">➜  dynamic_link cat /proc/<span class="number">19118</span>/maps</div><div class="line"><span class="number">08048000</span><span class="number">-08049000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787010</span>                             /home/lc/Load/dynamic_link/prog1_PIC</div><div class="line"><span class="number">08049000</span><span class="number">-0804</span>a000 r--p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787010</span>                             /home/lc/Load/dynamic_link/prog1_PIC</div><div class="line"><span class="number">0804</span>a000<span class="number">-0804</span>b000 rw-p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787010</span>                             /home/lc/Load/dynamic_link/prog1_PIC</div><div class="line"><span class="number">0804</span>b000<span class="number">-0806</span>c000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                                  [heap]</div><div class="line">f7e00000-f7e01000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></div><div class="line">f7e01000-f7fb1000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb1000-f7fb3000 r--p <span class="number">001</span>af000 <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb3000-f7fb4000 rw-p <span class="number">001</span>b1000 <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb4000-f7fb7000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></div><div class="line">f7fd0000-f7fd1000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793524</span>                             /home/lc/Load/dynamic_link/Lib_PIC.so</div><div class="line">f7fd1000-f7fd2000 r--p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793524</span>                             /home/lc/Load/dynamic_link/Lib_PIC.so</div><div class="line">f7fd2000-f7fd3000 rw-p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793524</span>                             /home/lc/Load/dynamic_link/Lib_PIC.so</div><div class="line">...</div><div class="line">➜  dynamic_link cat /proc/<span class="number">19113</span>/maps</div><div class="line"><span class="number">08048000</span><span class="number">-08049000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787010</span>                             /home/lc/Load/dynamic_link/prog1_PIC</div><div class="line"><span class="number">08049000</span><span class="number">-0804</span>a000 r--p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787010</span>                             /home/lc/Load/dynamic_link/prog1_PIC</div><div class="line"><span class="number">0804</span>a000<span class="number">-0804</span>b000 rw-p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">787010</span>                             /home/lc/Load/dynamic_link/prog1_PIC</div><div class="line"><span class="number">0804</span>b000<span class="number">-0806</span>c000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                                  [heap]</div><div class="line">f7e00000-f7e01000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></div><div class="line">f7e01000-f7fb1000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb1000-f7fb3000 r--p <span class="number">001</span>af000 <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb3000-f7fb4000 rw-p <span class="number">001</span>b1000 <span class="number">08</span>:<span class="number">01</span> <span class="number">935035</span>                             /lib/i386-linux-gnu/libc<span class="number">-2.23</span>.so</div><div class="line">f7fb4000-f7fb7000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></div><div class="line">f7fd0000-f7fd1000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793524</span>                             /home/lc/Load/dynamic_link/Lib_PIC.so</div><div class="line">f7fd1000-f7fd2000 r--p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793524</span>                             /home/lc/Load/dynamic_link/Lib_PIC.so</div><div class="line">f7fd2000-f7fd3000 rw-p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">793524</span>                             /home/lc/Load/dynamic_link/Lib_PIC.so</div></pre></td></tr></table></figure></p>
+<p>查看不同进程中 Lib_PIC.so 代码内存区域中的虚拟地址 0xf7fd0005 对应的物理内存地址，结果显示都为 0x2464e005。表明地址无关共享对象中的代码段可供不同进程共同使用，从而可节省内存空间。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">➜  dynamic_link pidof prog1_PIC           </div><div class="line"><span class="number">19118</span> <span class="number">19113</span></div><div class="line">➜  dynamic_link sudo ./virtual_to_physical</div><div class="line">pid = <span class="number">19118</span></div><div class="line">virtual address = f7fd0005</div><div class="line">virtual address = <span class="number">0xf7fd0005</span>,physical address = <span class="number">0x2464e005</span></div><div class="line">➜  dynamic_link sudo ./virtual_to_physical</div><div class="line">pid = <span class="number">19113</span></div><div class="line">virtual address = f7fd0005</div><div class="line">virtual address = <span class="number">0xf7fd0005</span>,physical address = <span class="number">0x2464e005</span></div></pre></td></tr></table></figure></p>
+<p>此外，共享对象的数据段在每个进程中都有独立的副本，以确保不同进程对数据的读写不影响其他进程。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">➜  dynamic_link sudo ./virtual_to_physical</div><div class="line">pid = <span class="number">19118</span></div><div class="line">virtual address = f7fd1005</div><div class="line">virtual address = <span class="number">0xf7fd1005</span>,physical address = <span class="number">0x105b6005</span></div><div class="line">➜  dynamic_link sudo ./virtual_to_physical</div><div class="line">pid = <span class="number">19113</span></div><div class="line">virtual address = f7fd1005</div><div class="line">virtual address = <span class="number">0xf7fd1005</span>,physical address = <span class="number">0x6cd47005</span></div></pre></td></tr></table></figure></p>
+<hr>
+<p>References:<br>[1] <a href="https://zhoujianshi.github.io/articles/2017/Linux%20%E8%8E%B7%E5%8F%96%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E5%AF%B9%E5%BA%94%E7%9A%84%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80/index.html" target="_blank" rel="external">Linux 获取虚拟地址对应的物理地址 </a><br>[2] 《程序员的自我修养》</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Memory-Address/" rel="tag"># Memory Address</a>
+          
+            <a href="/tags/dynamic-Linking/" rel="tag"># dynamic Linking</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Linux 延迟绑定机制/" rel="prev" title="Linux 延迟绑定机制">
+                Linux 延迟绑定机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/binary.jpg"
+               alt="0x4C43" />
+          <p class="site-author-name" itemprop="name">0x4C43</p>
+           
+              <p class="site-description motion-element" itemprop="description">Reverse&Pwn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/0x4C43" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-内存地址转换"><span class="nav-number">1.</span> <span class="nav-text">0x01 内存地址转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-动态链接"><span class="nav-number">2.</span> <span class="nav-text">0x02 动态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-装载时重定位"><span class="nav-number">2.1.</span> <span class="nav-text">1. 装载时重定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-地址无关代码"><span class="nav-number">2.2.</span> <span class="nav-text">2. 地址无关代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">0x4C43</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "c190dfc84c3444f78b4a39fbfe45d4ee",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
