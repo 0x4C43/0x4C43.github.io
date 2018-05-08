@@ -65,7 +65,7 @@ arg[2]: 0x0
        0x8048436:       xchg   ax,ax
                                                                   JUMP is taken
 ```
-0x804a010 是 func 函数的重定位偏移，即重定位表中 func 函数的重定位入口。此时 0x804a010（func@got）中的地址为 0x8048426，即 PLT 中准备进行地址解析的指令地址。
+0x804a010 是 func 函数的重定位偏移，即重定位表中 func 符号的重定位入口。此时 0x804a010（func@got）中的地址为 0x8048426，即 PLT 中准备进行地址解析的指令地址。
 ```C
 readelf -r test_lib1
 
