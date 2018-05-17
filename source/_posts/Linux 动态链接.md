@@ -44,7 +44,7 @@ reading files in /proc.
    Reason: information about PFNs helps in exploiting Rowhammer vulnerability.
 
 根据以上信息，利用 `/proc/pid/pagemap` 可将虚拟地址转换为物理地址，具体步骤如下：    
->1）计算虚拟地址所在虚拟页对应的数据项在 `/proc/pid/pagmap` 中的偏移；    
+1）计算虚拟地址所在虚拟页对应的数据项在 `/proc/pid/pagmap` 中的偏移；    
 offset = (viraddr / pagesize) * sizeof(uint64_t)    
 2）读取长度为 64 bits 的数据项；    
 3）根据 Bit 63 判断物理内存页是否存在；    
@@ -88,23 +88,23 @@ size_t virtual_to_physical(uint32_t pid, size_t viraddr)
     }
     size_t pageframenum = info & (((uint64_t)1 << 55) -1);
     size_t phyaddr = pageframenum * pagesize + viraddr % pagesize;
-close(fd);
-return phyaddr;
+    close(fd);
+    return phyaddr;
 }
 
 int main()
 {
-size_t phyaddr;
-size_t viraddr;
-uint32_t pid;
+    size_t phyaddr;
+    size_t viraddr;
+    uint32_t pid;
 
-printf("pid = ");
-scanf("%u", &pid);
-printf("virtual address = ");
-scanf("%x", &viraddr);
-phyaddr = virtual_to_physical(pid, viraddr);
-printf("virtual address = %p,physical address = %p\n", viraddr, phyaddr);
-return 0;
+    printf("pid = ");
+    scanf("%u", &pid);
+    printf("virtual address = ");
+    scanf("%x", &viraddr);
+    phyaddr = virtual_to_physical(pid, viraddr);
+    printf("virtual address = %p,physical address = %p\n", viraddr, phyaddr);
+    return 0;
 }
 ```
 
