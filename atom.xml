@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2018-05-08T07:13:20.497Z</updated>
+  <updated>2018-05-17T08:34:55.559Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 系统调用与虚拟动态共享库</title>
+    <link href="http://0x4c43.cn/Linux%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%8A%A8%E6%80%81%E5%85%B1%E4%BA%AB%E5%BA%93/"/>
+    <id>http://0x4c43.cn/Linux 系统调用与虚拟动态共享库/</id>
+    <published>2018-05-17T06:35:20.000Z</published>
+    <updated>2018-05-17T08:34:55.559Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;系统调用是应用程序与操作系统间的接口。Linux 下使用 0x80 号中断作为系统调用入口，使用 eax寄存器指定系统调用号，ebx、ecx、edx、esi、edi 和 ebp 用于传递调用参数；Windows 下使用0x2E 号中断作为系统调用入口。&lt;/p&gt;
+&lt;p&gt; 直接
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://0x4c43.cn/tags/Linux/"/>
+    
+      <category term="系统调用" scheme="http://0x4c43.cn/tags/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"/>
+    
+      <category term="vsdo" scheme="http://0x4c43.cn/tags/vsdo/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 动态链接</title>
