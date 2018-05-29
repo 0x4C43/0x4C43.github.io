@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2018-05-17T08:34:55.559Z</updated>
+  <updated>2018-05-29T13:28:35.910Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,11 +16,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>二进制程序分析框架 angr</title>
+    <link href="http://0x4c43.cn/%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90%E6%A1%86%E6%9E%B6%20angr/"/>
+    <id>http://0x4c43.cn/二进制程序分析框架 angr/</id>
+    <published>2018-05-29T13:30:00.000Z</published>
+    <updated>2018-05-29T13:28:35.910Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;angr 是一个功能强大的二进制程序分析框架，可用于程序的静态分析和动态符号执行。支持 x86、ARM、MIPS 和 PPC 架构中 32 bit 和 64 bit 可执行程序的分析。&lt;/p&gt;
+&lt;h1 id=&quot;0x01-安装&quot;&gt;&lt;a href=&quot;#0x01-安装&quot; clas
+    
+    </summary>
+    
+      <category term="Program Analysis" scheme="http://0x4c43.cn/categories/Program-Analysis/"/>
+    
+    
+      <category term="angr" scheme="http://0x4c43.cn/tags/angr/"/>
+    
+      <category term="binary analysis" scheme="http://0x4c43.cn/tags/binary-analysis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux 系统调用与虚拟动态共享库</title>
     <link href="http://0x4c43.cn/Linux%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%8A%A8%E6%80%81%E5%85%B1%E4%BA%AB%E5%BA%93/"/>
     <id>http://0x4c43.cn/Linux 系统调用与虚拟动态共享库/</id>
     <published>2018-05-17T06:35:20.000Z</published>
-    <updated>2018-05-17T08:34:55.559Z</updated>
+    <updated>2018-05-29T09:48:20.262Z</updated>
     
     <summary type="html">
     
@@ -45,7 +68,7 @@
     <link href="http://0x4c43.cn/Linux%20%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5/"/>
     <id>http://0x4c43.cn/Linux 动态链接/</id>
     <published>2018-05-08T06:53:14.000Z</published>
-    <updated>2018-05-08T07:13:20.497Z</updated>
+    <updated>2018-05-29T09:48:20.262Z</updated>
     
     <summary type="html">
     
@@ -68,7 +91,7 @@
     <link href="http://0x4c43.cn/Linux%20%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6/"/>
     <id>http://0x4c43.cn/Linux 延迟绑定机制/</id>
     <published>2018-04-29T13:05:02.000Z</published>
-    <updated>2018-04-29T13:19:38.554Z</updated>
+    <updated>2018-05-29T09:48:20.262Z</updated>
     
     <summary type="html">
     
@@ -90,7 +113,7 @@
     <link href="http://0x4c43.cn/Linux%20glibc%20heap%20house-of-force/"/>
     <id>http://0x4c43.cn/Linux glibc heap house-of-force/</id>
     <published>2018-04-19T15:10:45.000Z</published>
-    <updated>2018-04-19T15:21:06.106Z</updated>
+    <updated>2018-05-29T10:42:23.327Z</updated>
     
     <summary type="html">
     
@@ -112,7 +135,7 @@
     <link href="http://0x4c43.cn/Linux%20glibc%20heap%20house-of-spirit/"/>
     <id>http://0x4c43.cn/Linux glibc heap house-of-spirit/</id>
     <published>2018-04-13T02:30:14.000Z</published>
-    <updated>2018-04-13T02:36:20.950Z</updated>
+    <updated>2018-05-29T10:42:23.327Z</updated>
     
     <summary type="html">
     
@@ -134,7 +157,7 @@
     <link href="http://0x4c43.cn/%E9%85%8D%E7%BD%AE%20Linux%20Python%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
     <id>http://0x4c43.cn/配置 Linux Python 开发环境/</id>
     <published>2018-03-16T11:55:21.000Z</published>
-    <updated>2018-03-16T11:47:54.909Z</updated>
+    <updated>2018-05-29T09:48:20.262Z</updated>
     
     <summary type="html">
     
@@ -154,7 +177,7 @@
     <link href="http://0x4c43.cn/zsh%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
     <id>http://0x4c43.cn/zsh 使用笔记/</id>
     <published>2018-03-10T14:20:17.000Z</published>
-    <updated>2018-03-10T14:14:34.127Z</updated>
+    <updated>2018-05-29T09:48:20.262Z</updated>
     
     <summary type="html">
     
@@ -178,7 +201,7 @@
     <link href="http://0x4c43.cn/Linux%20%E5%A0%86%E6%BA%A2%E5%87%BA%20unlink%20%E6%94%BB%E5%87%BB/"/>
     <id>http://0x4c43.cn/Linux 堆溢出 unlink 攻击/</id>
     <published>2017-12-31T06:53:28.000Z</published>
-    <updated>2017-12-31T07:01:42.306Z</updated>
+    <updated>2018-05-29T10:42:23.327Z</updated>
     
     <summary type="html">
     
@@ -201,11 +224,12 @@
     <link href="http://0x4c43.cn/%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E5%B7%A5%E5%85%B7%20tmux/"/>
     <id>http://0x4c43.cn/终端复用工具 tmux/</id>
     <published>2017-10-28T14:57:21.000Z</published>
-    <updated>2017-10-28T15:30:33.357Z</updated>
+    <updated>2018-05-29T09:48:20.262Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;0x01-简介&quot;&gt;&lt;a href=&quot;#0x01-简介&quot; class=&quot;headerlink&quot; title=&quot;0x01 简介&quot;&gt;&lt;/a&gt;&lt;strong&gt;0x01 简介&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;tmux 是一款很好用的终端复用工具，主要有以下两个功能：    
+      &lt;h1 id=&quot;0x01-简介&quot;&gt;&lt;a href=&quot;#0x01-简介&quot; class=&quot;headerlink&quot; title=&quot;0x01 简介&quot;&gt;&lt;/a&gt;0x01 简介&lt;/h1&gt;&lt;p&gt;tmux 是一款很好用的终端复用工具，主要有以下两个功能：    &lt;/p&gt;
+&lt;blockquote&gt;
     
     </summary>
     
@@ -217,11 +241,31 @@
   </entry>
   
   <entry>
+    <title>Linux 使用笔记</title>
+    <link href="http://0x4c43.cn/Linux%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>http://0x4c43.cn/Linux 使用笔记/</id>
+    <published>2017-10-28T13:45:08.000Z</published>
+    <updated>2018-05-29T09:48:20.262Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;0x01-基本命令&quot;&gt;&lt;a href=&quot;#0x01-基本命令&quot; class=&quot;headerlink&quot; title=&quot;0x01 基本命令&quot;&gt;&lt;/a&gt;0x01 基本命令&lt;/h1&gt;&lt;h2 id=&quot;1-使用终端模式登录&quot;&gt;&lt;a href=&quot;#1-使用终端模式登录&quot; cla
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://0x4c43.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux 内存管理与堆</title>
     <link href="http://0x4c43.cn/Linux%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B8%8E%E5%A0%86/"/>
     <id>http://0x4c43.cn/Linux 内存管理与堆/</id>
     <published>2017-10-24T15:18:34.000Z</published>
-    <updated>2017-10-28T12:31:18.558Z</updated>
+    <updated>2018-05-29T09:48:20.262Z</updated>
     
     <summary type="html">
     
@@ -245,7 +289,7 @@
     <link href="http://0x4c43.cn/Docker%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
     <id>http://0x4c43.cn/Docker 使用笔记/</id>
     <published>2017-10-05T08:20:23.000Z</published>
-    <updated>2017-10-09T07:24:45.555Z</updated>
+    <updated>2018-05-29T09:48:20.262Z</updated>
     
     <summary type="html">
     
@@ -265,13 +309,13 @@
     <title>RC4 算法实现</title>
     <link href="http://0x4c43.cn/RC4%20%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/"/>
     <id>http://0x4c43.cn/RC4 算法实现/</id>
-    <published>2017-09-19T07:52:29.000Z</published>
-    <updated>2017-09-19T08:12:43.966Z</updated>
+    <published>2017-09-19T07:38:29.000Z</published>
+    <updated>2018-05-29T11:40:23.279Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;RC4 是一种对称秘钥流加密算法，对称加密算法使用的加密和解密秘钥是相同的，或是从其中一个能很容易推导出另一个。RC4 算法的特点是算法简单，运行速度快，而且密钥长度是可变的，密钥长度范围为 1-256 字节。&lt;/p&gt;
-&lt;h3 id=&quot;0x01-算法原理&quot;&gt;&lt;a href=
+&lt;h1 id=&quot;0x01-算法原理&quot;&gt;&lt;a href=
     
     </summary>
     
@@ -287,7 +331,7 @@
     <link href="http://0x4c43.cn/%E5%9C%A8%E6%96%90%E8%AE%AF%20K2%20%E4%B8%8A%E5%AE%89%E8%A3%85%20kcptun/"/>
     <id>http://0x4c43.cn/在斐讯 K2 上安装 kcptun/</id>
     <published>2017-08-26T06:34:57.000Z</published>
-    <updated>2017-12-31T06:57:34.279Z</updated>
+    <updated>2018-05-29T12:37:46.674Z</updated>
     
     <summary type="html">
     
@@ -312,7 +356,7 @@
     <link href="http://0x4c43.cn/PE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/"/>
     <id>http://0x4c43.cn/PE文件中添加节区/</id>
     <published>2017-07-23T08:30:10.000Z</published>
-    <updated>2017-07-24T07:59:44.130Z</updated>
+    <updated>2018-05-29T10:09:43.213Z</updated>
     
     <summary type="html">
     
@@ -339,7 +383,7 @@
     <link href="http://0x4c43.cn/%E4%BD%BF%E7%94%A8firmware-mod-kit%E4%BF%AE%E6%94%B9%E5%9B%BA%E4%BB%B6/"/>
     <id>http://0x4c43.cn/使用firmware-mod-kit修改固件/</id>
     <published>2017-06-05T13:45:08.000Z</published>
-    <updated>2017-06-05T15:04:34.713Z</updated>
+    <updated>2018-05-29T11:38:23.969Z</updated>
     
     <summary type="html">
     
@@ -362,7 +406,7 @@
     <link href="http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5/"/>
     <id>http://0x4c43.cn/DLL注入之远程线程注入/</id>
     <published>2017-05-10T13:45:08.000Z</published>
-    <updated>2017-05-11T04:12:48.277Z</updated>
+    <updated>2018-05-29T10:09:43.213Z</updated>
     
     <summary type="html">
     
@@ -382,7 +426,7 @@
     <link href="http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/"/>
     <id>http://0x4c43.cn/DLL注入之消息钩取/</id>
     <published>2017-05-08T13:45:08.000Z</published>
-    <updated>2017-05-11T04:16:46.142Z</updated>
+    <updated>2018-05-29T10:29:35.178Z</updated>
     
     <summary type="html">
     
@@ -406,7 +450,7 @@
     <link href="http://0x4c43.cn/NSA%20Enternalblue+Doublepulsar%20%E5%A4%8D%E7%8E%B0%20SMB%20%E6%BC%8F%E6%B4%9E/"/>
     <id>http://0x4c43.cn/NSA Enternalblue+Doublepulsar 复现 SMB 漏洞/</id>
     <published>2017-04-27T09:18:08.000Z</published>
-    <updated>2017-04-28T12:53:16.159Z</updated>
+    <updated>2018-05-29T10:42:23.327Z</updated>
     
     <summary type="html">
     
@@ -426,58 +470,6 @@
       <category term="SMB" scheme="http://0x4c43.cn/tags/SMB/"/>
     
       <category term="Metasploit" scheme="http://0x4c43.cn/tags/Metasploit/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Github+Hexo+NexT搭建个人博客</title>
-    <link href="http://0x4c43.cn/Github+Hexo+NexT%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://0x4c43.cn/Github+Hexo+NexT搭建个人博客/</id>
-    <published>2017-04-26T12:42:00.000Z</published>
-    <updated>2017-08-26T06:43:20.507Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_6
-    
-    </summary>
-    
-      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
-    
-    
-      <category term="Hexo" scheme="http://0x4c43.cn/tags/Hexo/"/>
-    
-      <category term="Next" scheme="http://0x4c43.cn/tags/Next/"/>
-    
-      <category term="Github" scheme="http://0x4c43.cn/tags/Github/"/>
-    
-      <category term="域名绑定" scheme="http://0x4c43.cn/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/"/>
-    
-      <category term="SEO优化" scheme="http://0x4c43.cn/tags/SEO%E4%BC%98%E5%8C%96/"/>
-    
-      <category term="Blog备份" scheme="http://0x4c43.cn/tags/Blog%E5%A4%87%E4%BB%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Atom+Markdown写文章</title>
-    <link href="http://0x4c43.cn/%E4%BD%BF%E7%94%A8Atom+Markdown%E5%86%99%E6%96%87%E7%AB%A0/"/>
-    <id>http://0x4c43.cn/使用Atom+Markdown写文章/</id>
-    <published>2017-04-26T07:36:08.000Z</published>
-    <updated>2017-09-19T07:58:55.930Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;0x01-Atom&quot;&gt;&lt;a href=&quot;#0x01-Atom&quot; class=&quot;headerlink&quot; title=&quot;0x01 Atom&quot;&gt;&lt;/a&gt;&lt;strong&gt;0x01 Atom&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;Atom 是 Github 推出的一个开源跨平台文
-    
-    </summary>
-    
-      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
-    
-    
-      <category term="Atom" scheme="http://0x4c43.cn/tags/Atom/"/>
-    
-      <category term="Markdown" scheme="http://0x4c43.cn/tags/Markdown/"/>
     
   </entry>
   
