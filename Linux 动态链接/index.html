@@ -395,8 +395,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/Linux 动态链接/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                <a href="/Linux 动态链接/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="Linux 动态链接/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -538,7 +539,12 @@
           
   <div class="comments" id="comments">
     
-      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -667,7 +673,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-内存地址转换"><span class="nav-number">1.</span> <span class="nav-text">0x01 内存地址转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-动态链接"><span class="nav-number">2.</span> <span class="nav-text">0x02 动态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-装载时重定位"><span class="nav-number">2.1.</span> <span class="nav-text">1. 装载时重定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-地址无关代码"><span class="nav-number">2.2.</span> <span class="nav-text">2. 地址无关代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-内存地址转换"><span class="nav-text">0x01 内存地址转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-动态链接"><span class="nav-text">0x02 动态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-装载时重定位"><span class="nav-text">1. 装载时重定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-地址无关代码"><span class="nav-text">2. 地址无关代码</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -809,6 +815,26 @@
 
   
 
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://0x4c43s-blog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://0x4c43.cn/Linux 动态链接/';
+          this.page.identifier = 'Linux 动态链接/';
+          this.page.title = 'Linux 动态链接';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://0x4c43s-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
 
   
 

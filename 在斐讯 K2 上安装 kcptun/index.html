@@ -395,8 +395,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/在斐讯 K2 上安装 kcptun/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                <a href="/在斐讯 K2 上安装 kcptun/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="在斐讯 K2 上安装 kcptun/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -546,7 +547,12 @@
           
   <div class="comments" id="comments">
     
-      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -675,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-前提条件"><span class="nav-number">1.</span> <span class="nav-text">0x01 前提条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-设置-NAT6"><span class="nav-number">2.</span> <span class="nav-text">0x02 设置 NAT6</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装软件包"><span class="nav-number">2.1.</span> <span class="nav-text">1. 安装软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-修改前缀"><span class="nav-number">2.2.</span> <span class="nav-text">2. 修改前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-添加-nat6"><span class="nav-number">2.3.</span> <span class="nav-text">3. 添加 nat6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-修改-sysctl-conf"><span class="nav-number">2.4.</span> <span class="nav-text">4. 修改 sysctl.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-修改-DHCP"><span class="nav-number">2.5.</span> <span class="nav-text">5. 修改 DHCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-配置防火墙规则"><span class="nav-number">2.6.</span> <span class="nav-text">6. 配置防火墙规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-重启"><span class="nav-number">2.7.</span> <span class="nav-text">7. 重启</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-部署-SS"><span class="nav-number">3.</span> <span class="nav-text">0x03 部署 SS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装软件包-1"><span class="nav-number">3.1.</span> <span class="nav-text">1. 安装软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-更新-chnroute-表"><span class="nav-number">3.2.</span> <span class="nav-text">2. 更新 chnroute 表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-配置SS"><span class="nav-number">3.3.</span> <span class="nav-text">3. 配置SS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-部署-Kcptun"><span class="nav-number">4.</span> <span class="nav-text">0x04 部署 Kcptun</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装客户端"><span class="nav-number">4.1.</span> <span class="nav-text">1.  安装客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装-kcptun-web-管理界面"><span class="nav-number">4.2.</span> <span class="nav-text">2. 安装 kcptun web 管理界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-附录-–-配置信息"><span class="nav-number">4.3.</span> <span class="nav-text">3. 附录 – 配置信息</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-前提条件"><span class="nav-text">0x01 前提条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-设置-NAT6"><span class="nav-text">0x02 设置 NAT6</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装软件包"><span class="nav-text">1. 安装软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-修改前缀"><span class="nav-text">2. 修改前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-添加-nat6"><span class="nav-text">3. 添加 nat6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-修改-sysctl-conf"><span class="nav-text">4. 修改 sysctl.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-修改-DHCP"><span class="nav-text">5. 修改 DHCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-配置防火墙规则"><span class="nav-text">6. 配置防火墙规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-重启"><span class="nav-text">7. 重启</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-部署-SS"><span class="nav-text">0x03 部署 SS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装软件包-1"><span class="nav-text">1. 安装软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-更新-chnroute-表"><span class="nav-text">2. 更新 chnroute 表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-配置SS"><span class="nav-text">3. 配置SS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-部署-Kcptun"><span class="nav-text">0x04 部署 Kcptun</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装客户端"><span class="nav-text">1.  安装客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装-kcptun-web-管理界面"><span class="nav-text">2. 安装 kcptun web 管理界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-附录-–-配置信息"><span class="nav-text">3. 附录 – 配置信息</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -817,6 +823,26 @@
 
   
 
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://0x4c43s-blog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://0x4c43.cn/在斐讯 K2 上安装 kcptun/';
+          this.page.identifier = '在斐讯 K2 上安装 kcptun/';
+          this.page.title = '在斐讯 K2 上部署 Shadowsocks+Kcptun';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://0x4c43s-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
 
   
 
