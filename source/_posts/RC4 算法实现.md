@@ -1,6 +1,6 @@
 ---
 title: RC4 算法实现
-date: 2017-09-19 15:52:29
+date: 2017-09-19 15:38:29
 tags: [RC4]
 categories: 加密解密
 keywords: [RC4]
@@ -8,10 +8,9 @@ keywords: [RC4]
 
 RC4 是一种对称秘钥流加密算法，对称加密算法使用的加密和解密秘钥是相同的，或是从其中一个能很容易推导出另一个。RC4 算法的特点是算法简单，运行速度快，而且密钥长度是可变的，密钥长度范围为 1-256 字节。
 
-### **0x01 算法原理**
+# 0x01 算法原理
 算法主要包括两个部分：1）使用 key-scheduling algorithm (KSA) 算法根据用户输入的秘钥 key 生成 S 盒；2）使用 Pseudo-random generation algorithm (PRGA) 算法生成秘钥流用于加密数据。
-
-#### **1）初始化 S 盒**
+## 1）初始化 S 盒
 KSA算法初始化长度为 256 的 S 盒。第一个 for 循环将 0 到 255 的互不重复的元素装入 S 盒；第二个 for 循环根据密钥打乱 S 盒。
 ```C
 for i from 0 to 255
@@ -22,10 +21,11 @@ for i from 0 to 255
     j := (j + S[i] + key[i mod keylength]) mod 256
     swap values of S[i] and S[j]
 endfor
- ```
-#### **2) 加密**
+```
+
+## 2) 加密
 Pseudo-random generation algorithm (PRGA) 算法根据 S 盒生成与明文长度相同的秘钥流，使用秘钥流加密明文。秘钥流的生成如下图所示：    
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/RC4.svg/800px-RC4.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/RC4.svg/800px-RC4.svg.png)     
 循环体中每收到一个字节，a 和 b 定位S盒中的一个元素，并与输入字节异或，得到密文 k；同时，c 还改变了 S 盒。由于异或运算的特性，使得加密与解密过程一致。如果输入的是明文，输出的就是密文；如果输入的是密文，输出的就是明文。
 ```C
 i := 0
@@ -37,12 +37,11 @@ while GeneratingOutput:
     K := inputByte ^ S[(S[i] + S[j]) mod 256] // d
     output K
 endwhile
- ```
+```
 
-### **0x02 算法实现**
+# 0x02 算法实现
 [开源项目](https://opensource.apple.com/source/xnu/xnu-1456.1.26/bsd/crypto/rc4/rc4.c)中的算法实现（稍作修改）如下。
-#### **1）开源实现**
-
+## 1）开源实现
 ```C
 // RC4.h
 #ifndef _SYS_CRYPTO_RC4_RC4_H_
@@ -117,7 +116,7 @@ void rc4_crypt(struct rc4_state *const state,
 #endif
 ```
 
-#### **2）测试**
+## 2）测试
 使用以下代码进行测试加密和解密的结果。
 ```C
 #include <stdio.h>
@@ -163,5 +162,5 @@ void main(int argc, char* argv[]) {
 ____
 References:   
 [1] [RC4](https://en.wikipedia.org/wiki/RC4)    
-[2] [流加密RC4的C语言实现](http://gttiankai.github.io/2015/01/18/Rc4.html)   
+[2] [流加密RC4的C语言实现](http://gttiankai.github.io/2015/01/18/Rc4.html)    
 [3] [RC4加密算法](http://www.cnblogs.com/zibility/p/5404478.html)

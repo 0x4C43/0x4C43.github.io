@@ -12,15 +12,15 @@ Docker 项目的目标是实现轻量级的操作系统虚拟化解决方案，D
 
 以下为 Docker 的基本功能使用记录。
 
-### **0x01 安装 Docker**
-#### **1）安装**
+# 0x01 安装 Docker
+## 1. 安装
 在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，Ubuntu 系统上可以使用这套脚本安装：
 ```python
 $ curl -fsSL get.docker.com -o get-docker.sh
 $ sudo sh get-docker.sh --mirror Aliyun
 ```
 
-#### **2）镜像加速器**
+## 2. 镜像加速器
 国内访问 Docker Hub 有时会遇到困难，此时可以配置镜像加速器。使用国内云服务商 DaoCloud 提供的加速器服务。
 ```python
 curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://xxx.m.daocloud.io
@@ -39,11 +39,11 @@ Registry Mirrors:
 WARNING: No swap limit support
 ```
 
-### **0x02 镜像**
+# 0x02 镜像
 对于 Linux 而言，内核启动后，会挂载 root 文件系统为其提供用户空间支持。而 Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:14.04 就包含了完整的一套 Ubuntu 14.04 最小系统的 root 文件系统。
 
 Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。
-#### **1）获取镜像**
+## 1. 获取镜像
 从 Docker Registry 获取镜像的命令是 docker pull。其命令格式为：
 ```python
 docker pull [选项] [Docker Registry地址]<仓库名>:<标签>
@@ -63,10 +63,10 @@ Status: Downloaded newer image for ubuntu:14.04
 ```
 上面的命令中没有给出 Docker Registry 地址，而镜像名称是 ubuntu:14.04，因此将会获取官方镜像 library/ubuntu 仓库中标签为 14.04 的镜像。
 
-#### **2）运行容器**
+## 2. 运行容器
 使用`docker run` 根据镜像新建并运行容器。
 ```python
-lc@ubuntu:~$ sudo docker run -it ubuntu:14.04 bash                                                                                                
+lc@ubuntu:~$ sudo docker run -it --name namestring ubuntu:14.04 bash                                                                                                
 root@fd93decf46b8:/# cat /etc/os-release
 NAME="Ubuntu"
 VERSION="14.04.5 LTS, Trusty Tahr"
@@ -80,6 +80,7 @@ BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
 root@fd93decf46b8:/#
 ```
 >-it：这是两个参数，-i 是交互式操作，-t 为交互式终端。
+--name: 指定新建容器的名称
 ubuntu:14.04：指用 ubuntu:14.04 镜像为基础来启动容器。
 bash：放在镜像名后的是命令，运行bash 返回交互式 Shell。
 
@@ -94,7 +95,7 @@ lc@ubuntu:~$ sudo docker exec -it fd93decf46b8 bash
 root@fd93decf46b8:/#
 ```
 
-#### **3）列出镜像**
+## 3. 列出镜像
 使用`docker images` 命令可以列出已经下载的镜像。
 ```python
 lc@ubuntu:~$ sudo docker images
@@ -103,7 +104,7 @@ ubuntu              14.04               dea1945146b9        2 weeks ago         
 ```
 列表包含了仓库名、标签、镜像 ID、创建时间以及所占用的空间。
 
-#### **4）保存镜像**
+## 4. 保存镜像
 当修改容器的文件后，可以使用命令`docker diff`查看具体的改动。
 ```python
 lc@ubuntu:~$ sudo docker diff fd93decf46b8
@@ -127,7 +128,7 @@ ubuntu              14.04               dea1945146b9        2 weeks ago         
 
 使用 `docker commit` 意味着所有对镜像的操作都是黑箱操作，生成的镜像也被称为黑箱镜像。在实际应用中使用 Dockerfile 来定制镜像。
 
-#### **5）删除镜像**
+## 5. 删除镜像
 如果要删除本地的镜像，可以使用 `docker	rmi` 命令。
 ```python
 lc@ubuntu:~$ sudo docker images
@@ -145,11 +146,11 @@ Deleted: sha256:12a6279e654d2f23c2fa086bf2dcd82e1a2c82b01028379bbf2cde061d9235e6
 Deleted: sha256:c47d9b229ca4eaf5d3b85b6fa7f794d00910a42634dd0fd5107a9a937b13b20f
 ```
 
-### **0x03 容器**
+# 0x03 容器
 镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。
 
 容器的实质是进程，但与直接在宿主执行的进程不同，容器进程运行于属于自己的独立的 命名空间。因此容器可以拥有自己的 root 文件系统、自己的网络配置、自己的进程空间，甚至自己的用户 ID 空间。容器内的进程是运行在一个隔离的环境里，使用起来，就好像是在一个独立于宿主的系统下操作一样。这种特性使得容器封装的应用比直接在宿主运行更加安全。
-#### **1）启动容器**
+## 1. 启动容器
 启动容器有两种方式，一种是基于镜像新建一个容器并启动，另外一个是将在终止状态（stopped）的容器重新启动。
 
 **a. 新建并启动**
@@ -187,7 +188,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 931a04d6ac70        2d696               "bash"              10 seconds ago      Up 9 seconds                            agitated_kepler
 ```
 
-#### **2）终止容器**
+## 2. 终止容器
 可以使用 `docker stop` 来终止一个运行中的容器。
 
 此外，当Docker容器中指定的应用终结时，容器也自动终止。 例如对于只启动了一个终端的容器，用户通过 exit 命令或 Ctrl+d 来退出终端时，所创建的容器立刻终止。
@@ -201,7 +202,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 f636101c203a        2d696327ab2e        "bash"                   20 hours ago        Exited (0) 8 minutes ago                        ecstatic_morse
 ```
 
-#### **3） 进入容器**
+## 3.  进入容器
 当需要进入在后台运行的容器时，可以使用`docker attach`命令进行操作。
 ```python
 lc@ubuntu:~$ sudo docker ps
@@ -210,7 +211,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 lc@ubuntu:~$ sudo docker attach 931a
 root@931a04d6ac70:/#
 ```
-#### **4） 导出和导入容器**
+## 4.  导出和导入容器
 使用 `docker export` 命令可以导出容器快照到本地文件。
 ```python
 lc@ubuntu:~$ sudo docker ps
@@ -228,7 +229,7 @@ ubuntu              v1                  22e45fa74eac        5 seconds ago       
 ubuntu              latest              2d696327ab2e        2 weeks ago         122MB
 ```
 
-#### **5）删除容器**
+## 5. 删除容器
 使用 `docker rm` 可以删除处于终止状态的容器。如果要删除一个运行中的容器，可以添加 -f 参数。
 ```python
 lc@ubuntu:~$ sudo docker ps -a                                                                                                                    
@@ -242,9 +243,9 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 931a04d6ac70        2d696               "bash"              About an hour ago   Exited (0) 7 minutes ago                       agitated_kepler
 ```
 
-### **0x04 数据管理**
+# 0x04 数据管理
 在容器中管理数据主要有两种方式：数据卷（Data volumes）和数据卷容器（Data volume containers）。
-#### **1）数据卷**
+## 1. 数据卷
 数据卷是一个可供一个或多个容器使用的特殊目录，有以下特性：
 >数据卷可以在容器之间共享和重用    
 对数据卷的修改会立马生效    
@@ -321,7 +322,7 @@ lc@ubuntu:~$
 ],
 ```
 
-#### **2）数据卷容器**
+## 2. 数据卷容器
 如果一些持续更新的数据需要在容器之间共享，可以创建数据卷容器。数据卷容器是一个正常的容器，提供数据卷供其它容器挂载。
 
 首先，创建一个名为 dbdata 的数据卷容器：
@@ -350,11 +351,11 @@ root@5d7f11a015f0:/dbdata# mkdir testvolume
 root@1a40cd12ae27:/dbdata# ls
 testvolume
 ```
-### **0x05 网络配置**
+# 0x05 网络配置
 通过 -P 或 -p 参数进行端口映射可以在外部访问容器中的网络应用。当使用 -P 标记时，Docker 会随机映射一个 49000~49900 的端口到内部容器开放的网络端口。
 
 -p 则可以指定要映射的端口，在一个指定端口上只可以绑定一个容器。
-#### **1）端口映射**
+## 1. 端口映射
 使用 `hostPort:containerPort` 将本地的 6666 端口映射到容器的 6666 端口。此时默认会绑定本地所有接口上的所有地址。
 ```python
 lc@ubuntu:~$ sudo docker run -it -d  -p 6666:6666 2d696 bash
@@ -363,13 +364,12 @@ lc@ubuntu:~$ sudo docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
 d6112543fa80        2d696               "bash"              4 seconds ago       Up 3 seconds        0.0.0.0:6666->6666/tcp   objective_lumiere
 ```
-#### **2）查看映射端口**
+## 2. 查看映射端口
 使用 `docker port` 可查看当前映射的端口配置，也可以查看绑定的地址。
 ```python
 lc@ubuntu:~$ sudo docker port d611
 6666/tcp -> 0.0.0.0:6666
 ```
-
 ____
 References:   
 [1] [Docker — 从入门到实践](https://yeasy.gitbooks.io/docker_practice/content/)       

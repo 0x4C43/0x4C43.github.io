@@ -8,7 +8,7 @@ keywords: [DLL注入，远程线程注入]
 
 在 Windows 中有多种方法实现 DLL 注入，[可以使用消息钩子注入 DLL](http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/)，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。
 
-### **0x01 注入原理**
+# 0x01 注入原理
 使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateRemoteThread 函数原型如下：
 ```C
 HANDLE WINAPI CreateRemoteThread (
@@ -29,9 +29,8 @@ HANDLE WINAPI CreateRemoteThread (
 1）获得远程进程中 LoadLibrary 函数的地址：Kernel32.dll 是系统基本库，且 Windows 系统中，所有进程加载 Kernel32.dll 模块基址是固定且一致的，所以只需获取本地进程中 LoadLibrary 地址。   
 2）向远程进程传递需加载 DLL 的路径：通过 Windows API 函数把路径写入远程进程中，使用以下API：OpenProcess、VirtualAllocEx、WriteProcessMemory、VirtualFreeEx。
 
-### **0x02 注入过程**
-
-#### **1）获取目标进程句柄**
+# 0x02 注入过程
+## 1. 获取目标进程句柄
 使用 OpenProcess 函数打开远程进程的句柄。访问权限 dwDesiredAccess 需要设置为 PROCESS_ALL_ACCESS。
 ```C
 HANDLE WINAPI OpenProcess (
@@ -40,9 +39,10 @@ HANDLE WINAPI OpenProcess (
 	DWORD 	dwProcessId		// 指定要打开的进程ID
 );
 
-hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID)；
+hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID);
 ```
-#### **2）在目标进程分配内存空间**
+
+## 2. 在目标进程分配内存空间
 使用 VirtualAllocEx 在目标进程中分配足够的内存空间，用于保存要加载 DLL 的路径。
 ```C
 LPVOID WINAPI VirtualAllocEx (
@@ -55,9 +55,9 @@ LPVOID WINAPI VirtualAllocEx (
 
 pRemoteBuf = VirtualAllocEx(hProcess, NULL, dwBufSize, MEM_COMMIT, PAGE_READWRITE);
 ```
-#### **3）写入 DLL 路径至目标进程**
-用 WriteProcessMemory 函数把需加载的 DLL 路径写入到远程进程分配的内存空间。
 
+## 3. 写入 DLL 路径至目标进程
+用 WriteProcessMemory 函数把需加载的 DLL 路径写入到远程进程分配的内存空间。
 ```C
 BOOL WINAPI WriteProcessMemory (
 	HANDLE    hProcess,		// 目标进程句柄
@@ -69,7 +69,8 @@ BOOL WINAPI WriteProcessMemory (
 
 WriteProcessMemory(hProcess, pRemoteBuf, (LPVOID)szDllPath, dwBufSize, NULL);
 ```
-#### **4）获取 LoadLibraryW 地址**
+
+## 4. 获取 LoadLibraryW 地址
 Windows 系统中，LoadLibraryW 函数位于 kernel32.dll 中，并且系统核心 DLL 会加载到固定地址，所以系统中所有进程的 LoadLibraryW 函数地址是相同的。用 GetProcAddress 函数获取本地进程 LoadLibraryW 地址即可。
 ```C
 WINAPI GetProcAddress (
@@ -80,14 +81,15 @@ WINAPI GetProcAddress (
 hMod = GetModuleHandle(L"kernel32.dll");
 pThreadProc = (LPTHREAD_START_ROUTINE)GetProcAddress(hMod, "LoadLibraryW");
 ```
-#### **5）在目标进程中运行远程线程**
+
+## 5. 在目标进程中运行远程线程
 使用 CreateRemoteThread 函数是目标进程调用 LoadLibraryW 函数加载 DLL。
 ```C
 hThread = CreateRemoteThread(hProcess, NULL, 0, pThreadProc, pRemoteBuf, 0, NULL);
 ```
 
-### **0x03 测试**
-#### **1）需注入 DLL 源码**
+# 0x03 测试
+## 1. 需注入 DLL 源码
 ```C
 //Injectdll.dll
 #include "windows.h"
@@ -115,8 +117,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDll, DWORD dwReason, LPVOID lpvReserved)
     return TRUE;  
 }   
 ```
-#### **2）注入程序**
 
+## 2. 注入程序
 ```C
 // Injectmain.cpp
 
@@ -176,15 +178,13 @@ int _tmain(int argc, TCHAR *argv[])
 	return 0;
 }
 ```
-#### **3）测试效果**
+## 3. 测试效果   
+运行 Injectmain.exe 将 DLL 注入到进程 3656（notepad.exe）中，注入成功将弹出消息框。    
+![](http://ooyovxue7.bkt.clouddn.com/17-5-11/94028700-file_1494473311845_13a5b.png)     
+查看 notepad.exe 进程加载的模块列表，可以看到 InjectDll.dll 已被加载。     
+![](http://ooyovxue7.bkt.clouddn.com/17-5-11/35149412-file_1494473313402_167fd.png)    
 
-运行 Injectmain.exe 将 DLL 注入到进程 3656（notepad.exe）中，注入成功将弹出消息框。
-
-![](http://ooyovxue7.bkt.clouddn.com/17-5-11/94028700-file_1494473311845_13a5b.png)   
-查看 notepad.exe 进程加载的模块列表，可以看到 InjectDll.dll 已被加载。
-   
-![](http://ooyovxue7.bkt.clouddn.com/17-5-11/35149412-file_1494473313402_167fd.png)
 ----
 References:   
 [1] 逆向工程核心原理   
-[3] [DLL注入浅析（下）](https://etenal.me/archives/871)
+[2] [DLL注入浅析（下）](https://etenal.me/archives/871)

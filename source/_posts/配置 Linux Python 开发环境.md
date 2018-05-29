@@ -12,8 +12,8 @@ keywords: [Python,PyCharm,virtualenv]
 Python 2.7.12
 ```
 
-### **0x01 安装**
-#### **1）virtualenvwrapper**
+# 0x01 安装
+## 1. virtualenvwrapper
 virtualenv 是一个可以在同一台计算机中隔离多个 Python 环境的工具。它能够用于创建独立的 Python 环境，使得多个 Python 环境互不影响。virtualenvwrapper 是 virtualenv 的扩展管理包，可以更方便地管理虚拟环境。
 
 使用 pip 命令安装 virtualenvwrapper，默认安装在 /usr/local/bin 目录下。
@@ -41,7 +41,7 @@ b）使用 —proxy 选项：
 ```python
 --proxy=[user:pass@]url:port
 ```
-#### **2）Pycharm**
+## 2. Pycharm
 在[官网](https://www.jetbrains.com/pycharm/?fromMenu)下载软件包，然后解压到 /opt 目录下并安装。
 ```python
 sudo tar xf pycharm-community-2017.3.4.tar.gz -C /opt/
@@ -50,9 +50,9 @@ cd /opt/PyCharm-community-2017.3.4/bin
 ```
 安装过程中可选择安装 IdeaVim 插件。
 
-### **0x02 使用与配置**
+# 0x02 使用与配置
 
-#### **1）创建虚拟环境**
+## 1. 创建虚拟环境
 virtualenv 常用命令如下：   
 >mkvirtualenv: Create a new virtualenv in $WORKON_HOME    
 cdvirtualenv: change to the $VIRTUAL_ENV directory    
@@ -70,9 +70,9 @@ cdvirtualenv TestVirtualenv
 pip install somepackages
 ```
 
-#### **2）Pycharm**
+## 2. Pycharm
 Pycharm 已集成 virtualenv 功能，可以在新建项目时创建 virtualenv，也可以使用已有的 virtualenv。    
-**a）创建新的 virtualenv**
+### 1） 创建新的 virtualenv
 创建项目时新建一个 virtualenv。
 ```python
 File -> New Project -> Project Interpreter -> New environment using Virtualenv
@@ -83,7 +83,7 @@ Inherit global site-packages：继承 Base interpreter 中安装的第三方库�
 Make available to all projects：将此虚拟环境提供给其他项目使用。
 ```
 
-**b）使用已有 virtualenv**
+### 2） 使用已有 virtualenv
 创建项目时选择已有的 virtualenv 。
 ```python
 File -> New Project -> Project Interpreter -> Existing Interpreter

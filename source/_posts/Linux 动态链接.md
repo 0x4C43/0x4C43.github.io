@@ -10,7 +10,7 @@ keywords: [Memory Address, dynamic Linking]
 
 为了验证多个进程是否可以共用物理内存中同一个共享对象文件中的代码段，需要将进程虚拟地址转换为对应的物理地址。
 
-### **0x01 内存地址转换**
+# 0x01 内存地址转换
 Linux内核采用页式存储管理，进程的虚拟地址空间被划分成固定大小的页面（ Virtual Page, VP ），物理内存同样被分为与页面大小相同的物理页（Physical Page, PP）。页表是记录虚拟页与物理页映射关系的数据结构。CPU在获得虚拟地址之后，需要通过内存管理单元（Memory Management Unit，MMU）借助页表将虚拟地址映射为物理地址。
 
 将虚拟地址转换为物理地址需要访问页表，然而只有内核态的程序才能访问到页表，用户态程序无权访问。此外，Linux 系统提供了一种用户态程序访问页表的方式，通过查看 `/proc/pid/pagemap` 文件可得到虚拟内存页映射与物理内存页的映射关系。显然后者更为简单，所以下面使用该方法实现地址转换。
@@ -45,12 +45,12 @@ reading files in /proc.
 
 根据以上信息，利用 `/proc/pid/pagemap` 可将虚拟地址转换为物理地址，具体步骤如下：    
 1）计算虚拟地址所在虚拟页对应的数据项在 `/proc/pid/pagmap` 中的偏移；    
-offset = (viraddr / pagesize) * sizeof(uint64_t)    
+`offset = (viraddr / pagesize) * sizeof(uint64_t)`    
 2）读取长度为 64 bits 的数据项；    
 3）根据 Bit 63 判断物理内存页是否存在；    
 4）若物理内存页已存在，则取 bits 0 - 54 作为物理页号；    
 5）计算出物理页起始地址加上页内偏移即得到物理地址；    
-phyaddr = pageframenum * pagesize + viraddr % pagesize;
+`phyaddr = pageframenum * pagesize + viraddr % pagesize;`
 
 具体代码实现如下：
 ```C
@@ -108,8 +108,7 @@ int main()
 }
 ```
 
-
-### **0x02 动态链接**
+# 0x02 动态链接
 动态链接在Linux中的实现称为动态共享对象（Dynamic Shared Objects），文件扩展名为 .so；Windows 中为动态链接库（Dynamical Linking Library），文件扩展名为 .dll。
 
 程序与共享对象的链接过程在开始运行程序时由动态链接器完成，之后便开始执行程序。由于共享对象装载到进程空间时的地址不确定，无法在编译阶段进行重定位确定代码中的符号地址。可通过装载时重定位和地址无关代码解决该问题。
@@ -132,7 +131,7 @@ int main(){
 }
 ```
 
-#### **1. 装载时重定位**
+## 1. 装载时重定位
 在可执行程序装载时对地址引用进行符号重定位。由于这种方法需要修改指令中的地址，而同一个共享对象在不同进程中的加载地址不同，导致不同的进程必须在内存中有独立的对象模块，无法实现多个进程共用共享对象中的指令。
 
 首先编译生成非地址无关的共享对象 Lib_noPIC.so 以及可执行程序 prog1_noPIC：
@@ -188,7 +187,7 @@ virtual address = 0xf7fd0005,physical address = 0x2e2cc005
 ```
 从结果中可看到，不同进程中 0xf7fd0005 对应的物理内存分别为 0x6b7ea005 和 0x2e2cc005。由此说明非地址无关的共享对象中的代码段无法被不同进程共用。
 
-#### **2. 地址无关代码**
+## 2. 地址无关代码
 地址无关代码 PIC（Position-Independent Code）把与地址相关的部分放入到数据段的全局偏移表 GOT（Global Offset Table）中，这样指令部分可保持不变，[重定位时只需修改 GOT](http://0x4c43.cn/Linux%20%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6/)，而数据部分可在每个进程中拥有一个副本，从而实现共用共享对象的指令部分。
 
 使用以下命令编译生成地址无关的共享对象 Lib_PIC.so 以及可执行程序 prog1_PIC：
@@ -252,7 +251,6 @@ pid = 19113
 virtual address = f7fd1005
 virtual address = 0xf7fd1005,physical address = 0x6cd47005
 ```
-
 ____
 References:   
 [1] [Linux 获取虚拟地址对应的物理地址 ](https://zhoujianshi.github.io/articles/2017/Linux%20%E8%8E%B7%E5%8F%96%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E5%AF%B9%E5%BA%94%E7%9A%84%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80/index.html)     

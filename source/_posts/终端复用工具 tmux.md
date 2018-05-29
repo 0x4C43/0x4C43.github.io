@@ -6,7 +6,7 @@ categories: Linux
 keywords: [tmux]
 ---
 
-### **0x01 简介**
+# 0x01 简介
 tmux 是一款很好用的终端复用工具，主要有以下两个功能：    
 >1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。    
 2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险，增加了安全性。
@@ -17,18 +17,18 @@ tmux主要包括以下几个模块：
 **pane 面板：** 一个窗口可以包含多个面板。
 
 以下为会话管理命令：
-```
+```bash
 tmux [new -s 会话名 -n 窗口名]	# 启动新会话
 tmux at [-t 会话名]		# 恢复会话
 tmux ls				# 列出所有会话
 tmux kill-session -t 会话名	# 关闭会话
 ```
-### **0x02 安装与使用**
+# 0x02 安装与使用
 ubuntu 中使用以下命令安装 tmux。
-```
+```bash
 sudo apt-get install tmux
 ```
-#### **1）快捷键**
+## 1. 快捷键
 Pre 为前缀，默认为 Ctrl + b。
 
 |  快捷键   |        功能        |      快捷键       |              功能              |
@@ -52,7 +52,7 @@ Pre 为前缀，默认为 Ctrl + b。
 | Pre [     | 进入复制模式       | Pre b;Ctrl+方向键 | 调整面板大小                   |
 | Pre ]     | 粘贴               | Pre z             | 最大化当前面板                 |
 
-#### **2）修改配置**
+## 2. 修改配置
 在 home 目录下新建配置文件 .tmux.conf，设置以下参数使得操作更方便。
 ```python
 #remap prefix from 'Ctr+b' to 'Ctr+a'
@@ -88,13 +88,13 @@ bind c new-window -c "#{pane_current_path}"
 >a）新建一个 session，配置文件在新的 session 中生效。    
 b）在当前 session 中，按 Pre + r 重新加载配置文件即可生效。
 
-
-#### **3）复制粘贴**
-**a）鼠标选中复制**    
+## 3. 复制粘贴
+### 1） 鼠标选中复制
 在没有启动鼠标滚轮时，可以直接通过鼠标选中进行复制。如果启动滚轮，需要按下shift 键后使用鼠标选中要复制的内容。
 
-**b）复制模式**    
+### 2）复制模式
 tmux 支持两种快捷键模式：vim 和 Emacs，这里设置为 vim 快捷键模式，在上述配置文件中已添加 `setw -g mode-keys vi`，可用 j/k/h/l 移动光标。    
+
 **复制：**    
 >Pre + [ 进入复制模式；    
 按下 Space 键开始复制；    
@@ -104,8 +104,6 @@ tmux 支持两种快捷键模式：vim 和 Emacs，这里设置为 vim 快捷键
 **粘贴**    
 >光标移到到粘贴位置；    
 按 Pre + ] 完成粘贴。
-
-
 ____
 References:   
 [1] [使用tmux](https://wiki.freebsdchina.org/software/t/tmux)   

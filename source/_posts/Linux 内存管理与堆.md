@@ -1,9 +1,9 @@
 ---
 title: Linux 内存管理与堆
 date: 2017-10-24 23:18:34
-tags: [内存管理,malloc,堆,]
+tags: [内存管理,malloc,堆]
 categories: Linux
-keywords: [内存管理,malloc,堆,]
+keywords: [内存管理,malloc,堆]
 ---
 
 目前各大平台主要有如下几种堆内存管理机制：
@@ -20,9 +20,9 @@ Linux 的早期版本使用的默认内存分配器为 dlmalloc，Wolfram Gloger
 
 下面结合 unbuntu glibc 2.19 环境来学习内存的分配与回收。
 
-### **0x01 内存管理数据结构**
+# 0x01 内存管理数据结构
 堆内存管理过程中有三个重要概念，分别是：arena、chunk、bin。
-#### **1）arena**
+## 1. arena
 程序在第一次使用 malloc 申请内存时，系统会分配一段连续的堆内存（132KB），这段内存被称为 arena。当程序申请再次申请内存时会先从 arena 的剩余部分申请，直到用完时再增加 arena 的大小。同理，当 arena中有过多空闲内存时也会缩小 arena 的大小。
 
 为了使 dlmalloc 可以支持多线程，ptmalloc 增加了非主分配区（non main arena）支持。由主线程创建的 arena 称为主分配区（main arena），由其它线程创建的 arena 称为非主分配区（non main arena）。主分配区与非主分配区用环形链表进行管理。每一个分配区利用互斥锁（mutex）使线程对于该分配区的访问互斥。
@@ -43,11 +43,11 @@ arena 的数量 = 8 * 核的数量
 
 >a) 主线程第一次调用 malloc 时创建 main arena；    
 b) thread1 和thread2 第一次调用 malloc 时，分别为它们创建 thread arena；    
-c) thread3 第一次调用 malloc 时 arena 已达上限，所以只能重用已存在的 arena（main arena、arena1 或 arena2）；    
+c) thread3 第一次调用 malloc 时 arena 已达上限，所以只能重用已存在的 arena（main arena、arena1 或 arena2. ；    
 重用 arena 过程：    
 遍历所有 arena，当找到可用的 arena 时，尝试 lock arena。如果 lock 成功，将 arena 返回给用户；如果没有空闲的 arena，阻塞排队等待 arena。
 
-#### **2）chunk**
+## 2. chunk
 逻辑上划分的一小块内存，根据作用不同分为4类：Allocated chunk、Free chunk、Top chunk、Last Remainder chunk。
 chunk 结构的定义如下：
 ```C
@@ -174,7 +174,7 @@ nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 **d） Last Remainder chunk**    
 Last remainder 与 top chunk 一样，不会在任何 bins 中找到这种 chunk。当需要分配一个 small chunk，但在 small bins 中找不到合适的 chunk 时，如果 last remainder chunk 大于所需的 small chunk，last remainder chunk 被分成两个 chunk，其中一个 chunk 返回给用户，另一个 chunk 变成新的 last remainder chuk。
 
-#### **3）Bin**
+## 3. Bin
 用户 free 掉的内存并不会马上归还给系统，malloc 会统一管理 heap 和 mmap 映射区域中的空闲 chunk，当用户进行下一次分配请求时，malloc 会首先试图在空闲 chunk 中挑选一块给用户，这样就避免了频繁的系统调用，降低了内存分配的开销。
 
 用于保存 free chunk 链表表头信息的指针数组称为 bin，按所悬挂链表的类型可以分为4类：Fast bin、Unsorted bin、Small bin、Large bin。保存 bin 的数据结构为 fastbinsY 和 bins 两个数组：fastbinsY 数组保存 fast bin，bins 数组保存 unsorted、small 和 large bin，总共有 126 个 bin：Bin 1 为 Unsorted bin、Bin 2 to Bin 63 为 Small bin、Bin 64 to Bin 126 为 Large bin。
@@ -183,12 +183,12 @@ Last remainder 与 top chunk 一样，不会在任何 bins 中找到这种 chunk
 **Fast Bin**    
 fast chunk 的大小为16~64 bytes 的 chunk，保存 fast chunk 的 bin 被称为 fast bin，fast bin 在内存中分配和回收的速度最快。
 
-小于64 bytes 的 chunk 被释放后，会被放到 fast bins 中。fast  bins 中的 chunk 并不改变它的使用标志 P，所以就无法进行合并。当需要分配的 chunk 小于或等于64 bytes 时，malloc 首先会在 fast  bins 中查找相应的空闲块，若没有找到合适的 chunk 再去查找 bins 中的空闲 chunk。fast bin 的有以下特点：
+小于64 bytes 的 chunk 被释放后，会被放到 fast bins 中。fast  bins 中的 chunk 并不改变它的使用标志 P，所以就无法进行合并。当需要分配的 chunk 小于或等于64 bytes 时，malloc 首先会在 fast  bins 中查找相应的空闲块，若没有找到合适的 chunk 再去查找 bins 中的空闲 chunk。fast bin 具有以下特点：
 >a) bin 的数量：总共10 个，每个 fast bin 包含一个 free chunk 的单向链表，单项链表的增加和删除都在链表头（LIFO）。    
 b) Chunk size：不同 bin 中 chunk 大小以8字节递增，同一个 fast bin 的 chunk大小相同。例如，第一个 fast bin 的 chunk为16字节；第二个 fast bin 的 chunk 为24字节，以此类推。在 malloc 初始化阶段，fast bin 最大64字节，因此默认 16~64 字节的 chunk是 fast chunk。    
-c) 不合并：两个相邻的 free chunk 不会合并成，虽然会产生更多碎片，但是 free 的速度提高了。
+c) 不合并：两个相邻的 free chunk 不会合并，虽然会产生更多碎片，但是 free 的速度提高了。
 
-例如，申请3个大小为 0x30（size 为 0x41）的 chunk，然后将 2-1-3 的顺序将其释放，结果如下：
+例如，申请3个大小为 0x30（size 为 0x41. 的 chunk，然后将 2-1-3 的顺序将其释放，结果如下：
 ```
 pwndbg> heap                                                                                                                              [5/1809]
 Top Chunk: 0x804c078
@@ -243,7 +243,7 @@ c）Chunk size：没有大小限制。
 small chunk 小于512字节，保存 small chunk 的 bin 称为 small bin。small bin 的分配与回收比 large bin 快，但比 fast bin 慢。它有以下特点：
 >a）bin 的数量：总共有62个 small bin。    
 b）循环双向链表：small bin 包含free chunk 的循环双向链表，双向链表的增加在表头，删除在末尾（FIFO）。    
-c）Chunk Size：不同 bin 中 chunk 大小以8字节递增。同一个 small bin 里的 chunk 大小相同。例如，第一个 small bin（Bin 2）chunk 的大小为16字节；第二个 smallbin（Bin 3）chunk 的大小为24字节，以此类推。    
+c）Chunk Size：不同 bin 中 chunk 大小以8字节递增。同一个 small bin 里的 chunk 大小相同。例如，第一个 small bin（Bin 2. chunk 的大小为16字节；第二个 smallbin（Bin 3. chunk 的大小为24字节，以此类推。    
 d）合并：两个相邻的 free chunk 会合并。合并可减少碎片，但会使 free 速度减慢。
 
 **Large Bin**    
@@ -254,13 +254,13 @@ c）合并：两个相邻的 free chunk 会合并。
 
 当空闲的 chunk 被链接到 bin 中时，malloc 会把表示该 chunk 是否处于使用中的标志 P 设为 0（该标志在下一个 chunk 的 size中），同时 malloc 还会检查它前后的 chunk 是否也是空闲的，如果是的话，malloc 会首先把它们合并为一个大的 chunk，然后将合并后的 chunk 放到 unstored bin 中。
 
-### **0x02 内存分配**
-#### **malloc**
+# 0x02 内存分配
+## malloc
 当使用 malloc 申请内存时，malloc 的具体过程如下：
 
-1）获取一个未加锁的分配区，如果所有分配区都加了锁，ptmalloc 会开辟一个新的分配区。开辟新分配区时，会调用 mmap 创建一个 sub-heap，并设置好 top chunk。    
-2）将用户的请求大小转换为实际需要分配的 chunk 空间大小。       
-3）判断所需分配 chunk 的大小是否在 fast chunk 中。若是，则转下一步，否则跳到第 5 步。    
+1. 获取一个未加锁的分配区，如果所有分配区都加了锁，ptmalloc 会开辟一个新的分配区。开辟新分配区时，会调用 mmap 创建一个 sub-heap，并设置好 top chunk。    
+2. 将用户的请求大小转换为实际需要分配的 chunk 空间大小。       
+3. 判断所需分配 chunk 的大小是否在 fast chunk 中。若是，则转下一步，否则跳到第 5 步。    
 4）首先尝试在 fast bins 中取一个所需大小的 chunk 分配给用户。如果可以找到，则分配结束，否则转到下一步。    
 5）判断所需大小是否处在 small  bins 中，若是，则转下一步，否则转到第 7 步。    
 6）根据所需分配的 chunk 的大小，找到对应的 small bin，从该 bin 的尾部摘取一个恰好满足大小的 chunk。若成功，则分配结束，否则，转到下一步。    
@@ -268,24 +268,22 @@ c）合并：两个相邻的 free chunk 会合并。
 8）从 large bins 中按照 “smallest-first，best-fit” 原则找一个合适的 chunk，从中划分一块所需大小的 chunk，并将剩下的部分链接回到 bins 中。若操作成功，则分配结束，否则转到下一步。    
 9）判断 top chunk 大小能否满足所需 chunk 的大小，如果能，则从 top chunk 中分配内存。否则转到下一步。    
 10）判断所需分配的 chunk 大小是否大于等于 mmap 分配阈值，如果是，则转下一步，调用 mmap 分配，否则跳到第 12 步。    
-11）使用 mmap 系统调用为程序的内存空间映射一块 chunk_size align 4kB 大小的空间。    
-12）如果是主分配区，调用 sbrk()，增加 top chunk 大小；如果是非主分配区，调用 mmap 来分配一个新的 sub-heap，增加 top chunk 大小。    
+11. 使用 mmap 系统调用为程序的内存空间映射一块 chunk_size align 4kB 大小的空间。    
+12. 如果是主分配区，调用 sbrk()，增加 top chunk 大小；如果是非主分配区，调用 mmap 来分配一个新的 sub-heap，增加 top chunk 大小。    
 
-#### **总结**    
-**1）小内存**    
+## 总结    
+**1. 小内存**    
  [获取分配区(arena)并加锁] -> fast bins -> small bins -> 合并 fast bins 加入unsorted bins -> unsorted bins -> large bins -> 增大 top chunk（低于 mmap 阈值） -> mmap（高于 mmap 阈值）。
 
-**2）大内存**    
+**2. 大内存**    
 直接 mmap。
 
-
-### **0x03 内存回收**
-#### **free**
-释放堆内存时根据 chunk 所处的位置和该 chunk 的大小采取不同的方法。free() 函数的具体步骤如下：
-
-1）首先需要获取分配区的锁，保证线程安全。    
-2）判断传入的指针是否为 0，如果为 0，则直接 return。否则转下一步。    
-3）判断所需释放的 chunk 是否为 mmaped chunk，如果是，则调用 munmap() 释放，解除内存空间映射，该该空间不再有效。    
+# 0x03 内存回收
+## free
+释放堆内存时根据 chunk 所处的位置和该 chunk 的大小采取不同的方法。free() 函数的具体步骤如下：    
+1. 首先需要获取分配区的锁，保证线程安全。    
+2. 判断传入的指针是否为 0，如果为 0，则直接 return。否则转下一步。    
+3. 判断所需释放的 chunk 是否为 mmaped chunk，如果是，则调用 munmap() 释放，解除内存空间映射，该该空间不再有效。    
 4）判断 chunk 的大小和所处的位置，若为 fast chunk，则转到下一步，否则跳到第 6 步。    
 5）将 chunk 放到 fast bins 中，并且不修改该 chunk 使用状态位 P，也不与相邻的 chunk 进行合并。释放结束。    
 6）判断前一个 chunk 的使用状态，如果是空闲块，则合并。并转下一步。    
@@ -293,17 +291,17 @@ c）合并：两个相邻的 free chunk 会合并。
 8）判断下一个 chunk 的使用状态，如果是空闲块，则合并，并将合并后的 chunk 放到 unsorted bin 中。并转到第 10 步。    
 9）释放的 chunk 与 top chunk 相邻，将它与 top chunk 合并，并更新 top chunk 的大小等信息。转下一步。    
 10）判断合并后的 chunk 的大小是否大于 FASTBIN_CONSOLIDATION_THRESHOLD（默认64KB），如果是，则会触发 fast bins 的合并操作，fast bins 中的 chunk 将被遍历，并与相邻的空闲 chunk 进行合并，合并后的 chunk 会被放到 unsorted bin 中。操作完成后转下一步。    
-11）判断 top chunk 的大小是否大于 mmap 收缩阈值（默认为 128KB），如果是，对于主分配区，则会归还 top chunk 中的一部分给操作系统。但是会保留最先分配的 128KB 的空间，用于响应用户的分配请求；如果为非主分配区，会进行 sub-heap 收缩，将 top chunk 的一部分返回给操作系统，如果 top chunk 为整个 sub-heap，会把整个 sub-heap 还回给操作系统。释放结束，从 free() 函数退出。    
+11. 判断 top chunk 的大小是否大于 mmap 收缩阈值（默认为 128KB），如果是，对于主分配区，则会归还 top chunk 中的一部分给操作系统。但是会保留最先分配的 128KB 的空间，用于响应用户的分配请求；如果为非主分配区，会进行 sub-heap 收缩，将 top chunk 的一部分返回给操作系统，如果 top chunk 为整个 sub-heap，会把整个 sub-heap 还回给操作系统。释放结束，从 free() 函数退出。    
 
-#### **总结**    
-**1）大内存**    
+## 总结    
+**1. 大内存**    
 直接 munmap。
 
-**2）小内存**    
+**2. 小内存**    
 fast chunk：放入 fast bin -> top chunk 相邻：与 top chunk 合并 -> small chunk、large chunk：与前后的 free chunk 合并后放到 unsorted bin中 -> 如果合并后的 chunk 大于 64KB 则触发合并 fast bin 操作，合并fast bin放到 unsorted 中 -> top chunk 大小达到 mmap 收缩阈值，则将部分 top chunk 的内存归还给系统。
 ____
 References:   
 [1] glibc内存管理ptmalloc源代码分析     
 [2] [深入理解glibc malloc](http://pwn4.fun/2016/04/11/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3glibc-malloc/)    
-[3] [glibc内存分配与回收过程图解](http://blog.csdn.net/maokelong95/article/details/52006379)
+[3] [glibc内存分配与回收过程图解](http://blog.csdn.net/maokelong95/article/details/52006379)    
 [4] [Understanding glibc malloc](https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/comment-page-1/?spm=a313e.7916648.0.0.123608f8erhuwJ)

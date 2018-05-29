@@ -9,9 +9,8 @@ keywords: [DLL注入，消息钩子，Hook]
 Windows 下的窗口应用程序是基于事件驱动方式工作的，操作系统中点击鼠标和按下键盘都是一种事件，当事件发生时操作系统会将消息发送给相应的应用程序，应用程序收到消息之后会做出响应。
 >钩子(Hook)，是Windows提供的一种截获和监视系统中消息的方法，应用程序可以通过 SetWindowsHook 函数设置钩子以监视指定窗口的某种消息，而且所监视的窗口可以是其他进程所创建的。当消息到达后，在目标窗口处理函数之前处理它。
 
-### **0x01 钩子原理**
-
-操作系统维护这一个链表进行钩子的管理，每设置一个钩子就在钩链中增加一个节点，最新设定的钩子将会最早获得消息的控制权。此外，每个钩子需要设定一个回调函数（钩子函数），在产生指定消息后作出处理。当指定消息发生时，系统会调用这些回调函数。在回调函数中可以监视消息、修改消息，或者屏蔽消息，使消息无法传递到目的窗口。
+# 0x01 钩子原理
+操作系统维护着一个链表进行钩子的管理，每设置一个钩子就在钩链中增加一个节点，最新设定的钩子将会最早获得消息的控制权。此外，每个钩子需要设定一个回调函数（钩子函数），在产生指定消息后作出处理。当指定消息发生时，系统会调用这些回调函数。在回调函数中可以监视消息、修改消息，或者屏蔽消息，使消息无法传递到目的窗口。
 
 根据钩子的范围可分为全局钩子和局部钩子，全局钩子可以钩取所有基于消息机制的应用程序，局部钩子只是钩取指定线程的消息。全局钩子将钩子函数放在一个 DLL 中，当某个进程产生指定消息之后，操作系统会自动将该 DLL 注入到该进程中。
 
@@ -24,11 +23,10 @@ Windows 下的窗口应用程序是基于事件驱动方式工作的，操作系
 
 Windows 提供消息钩子相关的 API 主要有 SetWindowsHookEx()、CallNextHookEx() 和 UnhookWindowsHookEx()。
 
-### **0x02 键盘钩子**
-
+# 0x02 键盘钩子
 键盘记录器是恶意代码中常见的一种类型，木马编写者通常以隐蔽的方式将键盘记录器安装在目标主机以窃取登录凭证等敏感信息。通过消息钩子可以实现一个键盘记录器，但是这种方法极容易被杀毒软件发现。下面通过一个简单的例子演示全局键盘钩子。
 
-#### **1）安装与卸载钩子**
+## 1. 安装与卸载钩子
 由于是全局消息钩子，所以需要将消息钩子的安装与卸载放在 DLL 中。
 ```C
 #ifdef __cplusplus    // If used by C++ code,
@@ -69,7 +67,7 @@ UnhookWindowsHookEx 用于卸载消息钩子，它只有一个参数，即需要
 
 在 DLL 中要将该函数导出供主程序使用，`_declspec(dllexport) `声明 InstallHook() 和 UninstallHook() 为导出函数。
 
-#### **2）钩子函数**
+## 2. 钩子函数
 全局键盘消息钩子会截获所有应用程序的键盘消息，包括系统的控制台程序，为了方便操作，若目标程序为控制台程序（conhost.exe）则直接将消息传递给它；否则当有键盘按下都会弹出消息窗口，并显示按下的按键。具体实现如下：
 ```C
 LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
@@ -103,7 +101,6 @@ int WINAPI GetKeyNameText(
   _In_  int    cchSize    // The maximum of the key name
 );
 ```
-
 CallNextHookEx 将消息继续传递给钩子链中下一个钩子函数，直到目标窗口。
 ```C
 LRESULT WINAPI CallNextHookEx(
@@ -112,9 +109,9 @@ LRESULT WINAPI CallNextHookEx(
   _In_     WPARAM wParam,
   _In_     LPARAM lParam
 );
-
 ```
-#### **3）测试**
+
+## 3. 测试
 以上即为消息钩子相关的函数，下面调用这些函数测试键盘钩子的效果。
 ```C
 #include "stdio.h"
@@ -159,14 +156,16 @@ void main()
 }
 ```
 在记事本中按下按键，弹出按键值。
-
-![](http://ooyovxue7.bkt.clouddn.com/17-5-8/7397613-file_1494250200322_1341b.png)
+<div align=center>
+  <img src="http://ooyovxue7.bkt.clouddn.com/17-5-8/7397613-file_1494250200322_1341b.png?imageView/3/w/300/h/300/q/100"/>>
+</div>
 
 查看记事本进程模块，可以看到 DLL 已成功注入该进程。
+<div align=center>
+  <img src="http://ooyovxue7.bkt.clouddn.com/17-5-8/20626831-file_1494250203063_f29f.png?imageView/3/w/300/h/300/q/100"/>
+</div>
 
-![](http://ooyovxue7.bkt.clouddn.com/17-5-8/20626831-file_1494250203063_f29f.png)
-
-### **0x03 调试注入到进程中的 DLL**
+# 0x03 调试
 使用 OllyDbg 可以调试注入到目标进程中的 DLL 文件，具体步骤如下：
 > 1.运行 notepad.exe，使用 OD attach 运行中的 notepad；   
 2.选项/ 调试选项/ 事件/ 中断于新模块（dll）；   
