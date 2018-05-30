@@ -4,7 +4,7 @@
     
     <entry>
       <title><![CDATA[二进制程序分析框架 angr]]></title>
-      <url>/%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90%E6%A1%86%E6%9E%B6%20angr/</url>
+      <url>/2018/0529/binary-program-analysis-framework-angr/</url>
       <content type="html"><![CDATA[<p>angr 是一个功能强大的二进制程序分析框架，可用于程序的静态分析和动态符号执行。支持 x86、ARM、MIPS 和 PPC 架构中 32 bit 和 64 bit 可执行程序的分析。</p>
 <h1 id="0x01-安装"><a href="#0x01-安装" class="headerlink" title="0x01 安装"></a>0x01 安装</h1><p>angr 是一个 python 库，适用于 python2.x 系列，暂时不支持 python3.x 系列。由于 angr 会对 libz3 和 libVEX 产生修改，为了防止对已安装库的修改而影响其他程序的使用，官方建议在 python 虚拟环境（virtualenvwrapper）中安装和使用 angr。<br>环境:</p>
 <blockquote>
@@ -57,7 +57,7 @@
     
     <entry>
       <title><![CDATA[Linux 系统调用与虚拟动态共享库]]></title>
-      <url>/Linux%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%8A%A8%E6%80%81%E5%85%B1%E4%BA%AB%E5%BA%93/</url>
+      <url>/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/</url>
       <content type="html"><![CDATA[<p>系统调用是应用程序与操作系统间的接口。Linux 下使用 0x80 号中断作为系统调用入口，使用 eax寄存器指定系统调用号，ebx、ecx、edx、esi、edi 和 ebp 用于传递调用参数；Windows 下使用0x2E 号中断作为系统调用入口。</p>
 <p> 直接使用系统调用编程有以下弊端：1）系统调用接口过于原始，使用不方便；2）各操作系统间系统调用不兼容。因此，运行库作为操作系统与应用程序间的抽象层可实现源码级的可移植性。</p>
 <h1 id="0x01-Linux-经典系统调用"><a href="#0x01-Linux-经典系统调用" class="headerlink" title="0x01 Linux 经典系统调用"></a>0x01 Linux 经典系统调用</h1><p>现代操作系统中有用户模式和内核模式两种特权模式。操作系统通过中断从用户态切换到内核态。不同中断具有不同的中断号，一个中断号对应一个中断处理程序。内核中使用中断向量表存放中断处理程序的指针。</p>
@@ -107,7 +107,7 @@
     
     <entry>
       <title><![CDATA[Linux 动态链接]]></title>
-      <url>/Linux%20%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5/</url>
+      <url>/2018/0508/linux-dynamic-link/</url>
       <content type="html"><![CDATA[<p>动态链接在程序运行时才对组成程序的目标文件进行链接，使用动态链接的方式可使得多个进程共用物理内存中的同一个共享目标文件，从而可节省内存空间。此外，使用动态链接使得各个模块更独立，并方便模块的更新。</p>
 <p>为了验证多个进程是否可以共用物理内存中同一个共享对象文件中的代码段，需要将进程虚拟地址转换为对应的物理地址。</p>
 <h1 id="0x01-内存地址转换"><a href="#0x01-内存地址转换" class="headerlink" title="0x01 内存地址转换"></a>0x01 内存地址转换</h1><p>Linux内核采用页式存储管理，进程的虚拟地址空间被划分成固定大小的页面（ Virtual Page, VP ），物理内存同样被分为与页面大小相同的物理页（Physical Page, PP）。页表是记录虚拟页与物理页映射关系的数据结构。CPU在获得虚拟地址之后，需要通过内存管理单元（Memory Management Unit，MMU）借助页表将虚拟地址映射为物理地址。</p>
@@ -158,7 +158,7 @@
     
     <entry>
       <title><![CDATA[Linux 延迟绑定机制]]></title>
-      <url>/Linux%20%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6/</url>
+      <url>/2018/0429/linux-delay-binding-mechanism/</url>
       <content type="html"><![CDATA[<p>如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。</p>
 <h1 id="0x01-延迟绑定原理"><a href="#0x01-延迟绑定原理" class="headerlink" title="0x01 延迟绑定原理"></a>0x01 延迟绑定原理</h1><p>延迟绑定是当函数第一次被调用的时候才进行绑定（包括符号查找、重定位等），如果函数不被调用就不进行绑定。延迟绑定机制可以大大加快程序的启动速度，特别有利于一些引用了大量函数的程序。</p>
 <blockquote>
@@ -198,7 +198,7 @@
     
     <entry>
       <title><![CDATA[Linux glibc heap house-of-force]]></title>
-      <url>/Linux%20glibc%20heap%20house-of-force/</url>
+      <url>/2018/0419/linux-glibc-heap-houseofforce/</url>
       <content type="html"><![CDATA[<p>该利用方法通过堆溢出漏洞修改 top chunk 的 size 字段，使得 malloc 一块很大的内存可使用 top chunk 进行分配，当更新 top chunk 的 ptr 时会发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段、.data 段和 GOT 表等。当再次使用 malloc 申请内存时将从目标内存处进行分配，之后对该内存进行写操作，即可实现任意地址写数据。</p>
 <h1 id="0x01-TOP-Chunk"><a href="#0x01-TOP-Chunk" class="headerlink" title="0x01 TOP Chunk"></a>0x01 TOP Chunk</h1><p>堆内存是从低地址向高地址进行分配的，在堆内存的最高处存在着一块空闲 chunk 称为 top chunk。使用 malloc 分配内存时，若 bins 和 fast bins 中的 chunk 都不能满足分配需要则在 top chunk 中分出一块内存给用户。</p>
 <p>top chunk 的大小跟随内存的分配和回收不停变换，如果从 top chunk 分配内存会导致 top chunk 减小，同时 top chunk 的指针增大；如果回收的 chunk 恰好与 top chunk 相邻，那么回收的 chunk 就会合并到 top chunk 中，从而使 top chunk 变大，top chunk 的指针减小。</p>
@@ -247,7 +247,7 @@
     
     <entry>
       <title><![CDATA[Linux glibc heap house-of-spirit]]></title>
-      <url>/Linux%20glibc%20heap%20house-of-spirit/</url>
+      <url>/2018/0413/linux-glibc-heap-houseofspirit/</url>
       <content type="html"><![CDATA[<p>House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪造的 chunk 放入 fastbin 中。当再次申请内存时，会返回伪造的 chunk，接着可对返回的内存写数据。</p>
 <h1 id="0x01-释放-fastbin-chunk"><a href="#0x01-释放-fastbin-chunk" class="headerlink" title="0x01 释放 fastbin chunk"></a>0x01 释放 fastbin chunk</h1><h2 id="1-检查标志位"><a href="#1-检查标志位" class="headerlink" title="1. 检查标志位"></a>1. 检查标志位</h2><p>House of Spirit 利用思路是将伪造的 chunk 放入 fastbin 中，下面分析堆管理实现中释放 fastbin chunk 的过程。首先，当释放的 chunk 是由 mmap() 创建时（即 IS_MMAPPED 标志位为 1）会调用 munmap_chunk() 进行释放。而我们希望能调用 _int_free() 函数将 fake chunk 放入 fastbin，因此在伪造 chunk 时要把 IS_MMAPPED 设置为 0。此外把 NON_MAIN_ARENA 标志位也设置为 0。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// malloc.c in glibc2.23</span></div><div class="line"><span class="keyword">void</span> __libc_free (<span class="keyword">void</span> *mem)</div><div class="line">&#123;</div><div class="line">  mstate ar_ptr;</div><div class="line">  mchunkptr p;                          <span class="comment">// chunk corresponding to mem</span></div><div class="line"></div><div class="line">  <span class="keyword">void</span> (*hook) (<span class="keyword">void</span> *, <span class="keyword">const</span> <span class="keyword">void</span> *)</div><div class="line">    = atomic_forced_read (__free_hook);</div><div class="line">  <span class="keyword">if</span> (__builtin_expect (hook != <span class="literal">NULL</span>, <span class="number">0</span>))</div><div class="line">    &#123;</div><div class="line">      (*hook)(mem, RETURN_ADDRESS (<span class="number">0</span>));</div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (mem == <span class="number">0</span>)                              <span class="comment">// free(0) has no effect</span></div><div class="line">    <span class="keyword">return</span>;</div><div class="line"></div><div class="line">  p = mem2chunk (mem);</div><div class="line">  <span class="comment">// 判断是否由 mmap 创建的 chunk</span></div><div class="line">  <span class="keyword">if</span> (chunk_is_mmapped (p))                <span class="comment">// release mmapped memory.</span></div><div class="line">    &#123;</div><div class="line">      <span class="comment">/* see if the dynamic brk/mmap threshold needs adjusting */</span></div><div class="line">      <span class="keyword">if</span> (!mp_.no_dyn_threshold</div><div class="line">          &amp;&amp; p-&gt;size &gt; mp_.mmap_threshold</div><div class="line">          &amp;&amp; p-&gt;size &lt;= DEFAULT_MMAP_THRESHOLD_MAX)</div><div class="line">        &#123;</div><div class="line">          mp_.mmap_threshold = chunksize (p);</div><div class="line">          mp_.trim_threshold = <span class="number">2</span> * mp_.mmap_threshold;</div><div class="line">          LIBC_PROBE (memory_mallopt_free_dyn_thresholds, <span class="number">2</span>,</div><div class="line">                      mp_.mmap_threshold, mp_.trim_threshold);</div><div class="line">        &#125;</div><div class="line">      munmap_chunk (p);   <span class="comment">// 调用 munmap_chunk 函数释放</span></div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  ar_ptr = arena_for_chunk (p);</div><div class="line">  _int_free (ar_ptr, p, <span class="number">0</span>);   <span class="comment">// 调用 _int_free 函数释放</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="2-检查-size"><a href="#2-检查-size" class="headerlink" title="2. 检查 size"></a>2. 检查 size</h2><p>在 _int_free() 函数中，释放 chunk 时会检查该 chunk 和下一个 chunk 的 size 字段。因此，在伪造 chunk 时应满足以下条件。    </p>
@@ -295,7 +295,7 @@
     
     <entry>
       <title><![CDATA[配置 Linux Python 开发环境]]></title>
-      <url>/%E9%85%8D%E7%BD%AE%20Linux%20Python%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
+      <url>/2018/0316/configure-the-linux-python-development-environment/</url>
       <content type="html"><![CDATA[<p>环境：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">64</span>bit Ubuntu <span class="number">16.04</span><span class="number">.4</span> LTS (Xenial Xerus)</div><div class="line">Python <span class="number">2.7</span><span class="number">.12</span></div></pre></td></tr></table></figure></p>
 <h1 id="0x01-安装"><a href="#0x01-安装" class="headerlink" title="0x01 安装"></a>0x01 安装</h1><h2 id="1-virtualenvwrapper"><a href="#1-virtualenvwrapper" class="headerlink" title="1. virtualenvwrapper"></a>1. virtualenvwrapper</h2><p>virtualenv 是一个可以在同一台计算机中隔离多个 Python 环境的工具。它能够用于创建独立的 Python 环境，使得多个 Python 环境互不影响。virtualenvwrapper 是 virtualenv 的扩展管理包，可以更方便地管理虚拟环境。</p>
 <p>使用 pip 命令安装 virtualenvwrapper，默认安装在 /usr/local/bin 目录下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenvwrapper</div></pre></td></tr></table></figure></p>
@@ -336,7 +336,7 @@
     
     <entry>
       <title><![CDATA[zsh 使用笔记]]></title>
-      <url>/zsh%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
+      <url>/2018/0310/zsh-use-notes/</url>
       <content type="html"><![CDATA[<p>Zsh 是一款功能强大终端（shell）软件，既可以作为交互式终端，也可以作为脚本解释器。它在兼容 Bash 的同时，还有提供了很多改进，例如：</p>
 <blockquote>
 <p>更高效<br>更好的自动补全<br>更好的文件名展开（通配符展开）<br>可定制性高    </p>
@@ -380,7 +380,7 @@
     
     <entry>
       <title><![CDATA[Linux 堆内存溢出 unlink 攻击]]></title>
-      <url>/Linux%20%E5%A0%86%E6%BA%A2%E5%87%BA%20unlink%20%E6%94%BB%E5%87%BB/</url>
+      <url>/2017/1231/linux-heap-memory-overflow-unlink-attack/</url>
       <content type="html"><![CDATA[<p>在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。</p>
 <p>首先看以下漏洞程序：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</div><div class="line">    <span class="keyword">char</span> *first, *second;</div><div class="line">    first = <span class="built_in">malloc</span>(<span class="number">666</span>);</div><div class="line">    second = <span class="built_in">malloc</span>(<span class="number">12</span>);</div><div class="line">    <span class="keyword">if</span> (argc != <span class="number">1</span>)</div><div class="line">        <span class="built_in">strcpy</span>(first, argv[<span class="number">1</span>]);</div><div class="line">    <span class="built_in">free</span>(first);</div><div class="line">    <span class="built_in">free</span>(second);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>上述程序在分配完堆后，堆内存分布如下图所示。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-10-31/17968347.jpg" alt=""></p>
@@ -437,7 +437,7 @@
     
     <entry>
       <title><![CDATA[终端复用工具 tmux]]></title>
-      <url>/%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E5%B7%A5%E5%85%B7%20tmux/</url>
+      <url>/2017/1028/terminal-multiplexing-tool-tmux/</url>
       <content type="html"><![CDATA[<h1 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h1><p>tmux 是一款很好用的终端复用工具，主要有以下两个功能：    </p>
 <blockquote>
 <p>1）split 窗口。可以在一个 terminal 下打开多个终端，也可以对当前屏幕进行各种 split ，即可以同时打开多个显示范围更小的终端。<br>2）在使用 SSH 的环境下，避免因网络不稳定而断开连接，导致工作现场的丢失。使用 tmux，重新连接以后，可以直接回到原来的工作环境，不但提高了工作 效率，还降低了风险，增加了安全性。</p>
@@ -605,7 +605,7 @@
     
     <entry>
       <title><![CDATA[Linux 使用笔记]]></title>
-      <url>/Linux%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
+      <url>/2017/1028/linux-usage-notes/</url>
       <content type="html"><![CDATA[<h1 id="0x01-基本命令"><a href="#0x01-基本命令" class="headerlink" title="0x01 基本命令"></a>0x01 基本命令</h1><h2 id="1-使用终端模式登录"><a href="#1-使用终端模式登录" class="headerlink" title="1. 使用终端模式登录"></a>1. 使用终端模式登录</h2><p>终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6</div><div class="line">使用 Ctrl+Alt+F7 回到桌面模式</div></pre></td></tr></table></figure></p>
 <h2 id="2-分页显示"><a href="#2-分页显示" class="headerlink" title="2. 分页显示"></a>2. 分页显示</h2><p>终端模式下，输出的内容多于一屏时使用；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cat file1 | less 或 less file1</div><div class="line">cat file1 | more 或 more file1</div></pre></td></tr></table></figure></p>
 <h2 id="3-命令帮助"><a href="#3-命令帮助" class="headerlink" title="3. 命令帮助"></a>3. 命令帮助</h2><p>用于查看命令的使用说明；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">man ls</div><div class="line">man -f reboot</div><div class="line">man <span class="number">2</span> reboot</div></pre></td></tr></table></figure></p>
@@ -652,7 +652,7 @@
     
     <entry>
       <title><![CDATA[Linux 内存管理与堆]]></title>
-      <url>/Linux%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B8%8E%E5%A0%86/</url>
+      <url>/2017/1024/linux-memory-management-and-heap/</url>
       <content type="html"><![CDATA[<p>目前各大平台主要有如下几种堆内存管理机制：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dlmalloc – General purpose allocator</div><div class="line">ptmalloc2 – glibc</div><div class="line">jemalloc – FreeBSD and Firefox</div><div class="line">tcmalloc – Google</div><div class="line">libumem – Solaris</div></pre></td></tr></table></figure></p>
 <p>Linux 的早期版本使用的默认内存分配器为 dlmalloc，Wolfram Gloger 在 dlmalloc 基础上改进的 ptmalloc2 提供了多线程支持，所以 Linux 后来采用 ptmalloc2 作为默认内存分配器。多线程支持可以提升内存分配器的性能，进而提升了应用程序的性能。</p>
 <p>在dlmalloc中，当多个线程同时调用malloc时，因为空闲列表被所有线程共享，所以只有一个线程能够访问临界区。因此，使用dlmalloc的多线程程序会在内存分配上耗费过多时间，导致整体性能下降。而在ptmalloc2中，每个线程都维护着一个独立的堆段，维护这些堆的空闲列表也是独立的。当有两个线程同时调用malloc时，均可立即分配到内存。</p>
@@ -751,7 +751,7 @@
     
     <entry>
       <title><![CDATA[Docker 使用笔记]]></title>
-      <url>/Docker%20%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
+      <url>/2017/1005/docker-use-notes/</url>
       <content type="html"><![CDATA[<p>Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。</p>
 <p>Docker 项目的目标是实现轻量级的操作系统虚拟化解决方案，Docker 的基础是 Linux 容器 (LXC) 等技术。在 LCX 的基础上 Docker 进行了进一步的封装，让用户不需要关心容器的管理，使得操作更为简便，用户操作 Docker 的容器就像操作一个快速轻量级的虚拟机一样。</p>
 <p>以下为 Docker 的基本功能使用记录。</p>
@@ -835,7 +835,7 @@
     
     <entry>
       <title><![CDATA[RC4 算法实现]]></title>
-      <url>/RC4%20%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/</url>
+      <url>/2017/0919/rc4-algorithm-implementation/</url>
       <content type="html"><![CDATA[<p>RC4 是一种对称秘钥流加密算法，对称加密算法使用的加密和解密秘钥是相同的，或是从其中一个能很容易推导出另一个。RC4 算法的特点是算法简单，运行速度快，而且密钥长度是可变的，密钥长度范围为 1-256 字节。</p>
 <h1 id="0x01-算法原理"><a href="#0x01-算法原理" class="headerlink" title="0x01 算法原理"></a>0x01 算法原理</h1><p>算法主要包括两个部分：1）使用 key-scheduling algorithm (KSA) 算法根据用户输入的秘钥 key 生成 S 盒；2）使用 Pseudo-random generation algorithm (PRGA) 算法生成秘钥流用于加密数据。</p>
 <h2 id="1）初始化-S-盒"><a href="#1）初始化-S-盒" class="headerlink" title="1）初始化 S 盒"></a>1）初始化 S 盒</h2><p>KSA算法初始化长度为 256 的 S 盒。第一个 for 循环将 0 到 255 的互不重复的元素装入 S 盒；第二个 for 循环根据密钥打乱 S 盒。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i from <span class="number">0</span> to <span class="number">255</span></div><div class="line">    S[i] := i</div><div class="line">endfor</div><div class="line">j := <span class="number">0</span></div><div class="line"><span class="keyword">for</span> i from <span class="number">0</span> to <span class="number">255</span></div><div class="line">    j := (j + S[i] + key[i mod keylength]) mod <span class="number">256</span></div><div class="line">    swap values of S[i] <span class="keyword">and</span> S[j]</div><div class="line">endfor</div></pre></td></tr></table></figure></p>
@@ -865,7 +865,7 @@
     
     <entry>
       <title><![CDATA[在斐讯 K2 上部署 Shadowsocks+Kcptun]]></title>
-      <url>/%E5%9C%A8%E6%96%90%E8%AE%AF%20K2%20%E4%B8%8A%E5%AE%89%E8%A3%85%20kcptun/</url>
+      <url>/2017/0826//</url>
       <content type="html"><![CDATA[<p>对于程序员来说，能顺畅使用互联网能够很大程度地提高工作效率。所以，通过 SS 来实现代理上网是一个很好的解决方案。此外，对于能使用校园网的学生党而言，还可以使用 SS + IPv6 来实现免流，这样就能把省下来的网费用来买VPS了。</p>
 <p>然而，在 PC 上直接使用客户端软件代理上网有以下缺点：<br>1）不能实现全局流量的代理功能，只有支持代理功能的应用才能通过 SS 代理上网。虽然有相关的软件可以实现全局流量代理，但这样就很不方便，为了代理上网要多开好几个应用。<br>2）如果手机等其他设备也想使用代理，也必须得用客户端才能行。</p>
 <p>为了能方便地在多个终端使用代理，可以在路由器上部署 SS 客户端，那么经过这台路由器的所有流量都能走代理，对于终端设备上的所有应用而言，代理是透明的。</p>
@@ -924,7 +924,7 @@
     
     <entry>
       <title><![CDATA[PE文件中添加节区]]></title>
-      <url>/PE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/</url>
+      <url>/2017/0723/add-section-in-pe-file/</url>
       <content type="html"><![CDATA[<p>在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。</p>
 <p>打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每个节区在磁盘中的对齐单位为 0x200 字节，所以每个节区间可能会存在空隙，如果补丁代码或病毒需注入的代码量较少时，可以把代码写入到这些空隙中。对于恶意代码而言，以这种方式感染目标文件更具隐蔽性。</p>
 <p>当补丁代码或病毒需注入的代码量较大时，可以在 PE 文件的末尾添加一个节区用于存储这些代码。下面介绍如何在 PE 文件中添加一个节区。</p>
@@ -984,7 +984,7 @@
     
     <entry>
       <title><![CDATA[使用 firmware-mod-kit 修改固件]]></title>
-      <url>/%E4%BD%BF%E7%94%A8firmware-mod-kit%E4%BF%AE%E6%94%B9%E5%9B%BA%E4%BB%B6/</url>
+      <url>/2017/0605/use-firmwaremodkit-to-modify-the-firmware/</url>
       <content type="html"><![CDATA[<p>firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。</p>
 <p>该工具包支持以下固件：</p>
 <blockquote>
@@ -1030,7 +1030,7 @@
     
     <entry>
       <title><![CDATA[DLL 注入之远程线程注入]]></title>
-      <url>/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5/</url>
+      <url>/2017/0510/remote-thread-injection-for-dll/</url>
       <content type="html"><![CDATA[<p>在 Windows 中有多种方法实现 DLL 注入，<a href="http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/">可以使用消息钩子注入 DLL</a>，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。</p>
 <h1 id="0x01-注入原理"><a href="#0x01-注入原理" class="headerlink" title="0x01 注入原理"></a>0x01 注入原理</h1><p>使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateRemoteThread 函数原型如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">HANDLE WINAPI CreateRemoteThread (</div><div class="line">	HANDLE                  hProcess,	// 远程进程句柄</div><div class="line">	LPSECURITY_ATTRIBUTES  	lpThreadAttributes,	// 线程的安全属性</div><div class="line">	SIZE_T                  dwStackSize,		// 线程栈的大小</div><div class="line">	LPTHREAD_START_ROUTINE	lpStartAddress,  // 线程入口函数的起始地址</div><div class="line">	LPVOID                  lpParameter, 		// 传递给线程函数的参数</div><div class="line">	DWORD                   dwCreationFlags,	// 线程是否立即启动</div><div class="line">	LPDWORD                 lpThreadId		// 用于保存内核分配给线程的ID</div><div class="line">)；</div></pre></td></tr></table></figure></p>
 <p>主要关注三个参数：hProcess、lpStartAddress 和 lpParameter。hProcess 是要执行线程的目标进程句柄；lpStartAddress 是线程函数的起始地址，且该函数必须位于目标进程内；lpParameter 是传递给线程函数的参数。</p>
@@ -1067,7 +1067,7 @@
     
     <entry>
       <title><![CDATA[DLL 注入之 Windows 消息钩子]]></title>
-      <url>/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/</url>
+      <url>/2017/0508/windows-message-hooks-for-dll-injection/</url>
       <content type="html"><![CDATA[<p>Windows 下的窗口应用程序是基于事件驱动方式工作的，操作系统中点击鼠标和按下键盘都是一种事件，当事件发生时操作系统会将消息发送给相应的应用程序，应用程序收到消息之后会做出响应。</p>
 <blockquote>
 <p>钩子(Hook)，是Windows提供的一种截获和监视系统中消息的方法，应用程序可以通过 SetWindowsHook 函数设置钩子以监视指定窗口的某种消息，而且所监视的窗口可以是其他进程所创建的。当消息到达后，在目标窗口处理函数之前处理它。</p>
@@ -1118,7 +1118,7 @@
     
     <entry>
       <title><![CDATA[NSA Enternalblue + Doublepulsar 复现 SMB 漏洞]]></title>
-      <url>/NSA%20Enternalblue+Doublepulsar%20%E5%A4%8D%E7%8E%B0%20SMB%20%E6%BC%8F%E6%B4%9E/</url>
+      <url>/2017/0427//</url>
       <content type="html"><![CDATA[<p>2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。</p>
 <p>泄露的工具可在 Github 下载：<a href="https://github.com/misterch0c/shadowbroker" target="_blank" rel="external">https://github.com/misterch0c/shadowbroker</a></p>
 <h1 id="0x01-影响范围"><a href="#0x01-影响范围" class="headerlink" title="0x01 影响范围"></a>0x01 影响范围</h1><p>下图中列举了工具中相关模块所影响的服务和系统。<br><img src="http://ooyovxue7.bkt.clouddn.com/17-4-28/92526918-file_1493343199647_16966.jpg" alt=""></p>
@@ -1195,7 +1195,7 @@
     
     <entry>
       <title><![CDATA[Github+Hexo+NexT搭建个人博客]]></title>
-      <url>/Github+Hexo+NexT%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+      <url>/2017/0426//</url>
       <content type="html"><![CDATA[<p>平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_64中进行。</p>
 <h1 id="0x01-安装Node-js"><a href="#0x01-安装Node-js" class="headerlink" title="0x01 安装Node.js"></a>0x01 安装Node.js</h1><h2 id="1-通过nvm安装Node-js"><a href="#1-通过nvm安装Node-js" class="headerlink" title="1. 通过nvm安装Node.js"></a>1. 通过nvm安装Node.js</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh</div><div class="line">$ nvm ls-remote</div><div class="line">$ nvm install v7.9.0</div></pre></td></tr></table></figure>
 <h2 id="2-测试"><a href="#2-测试" class="headerlink" title="2. 测试"></a>2. 测试</h2><p>安装完后可以新建一个简单的 hello.js 测试是否安装成功，hello.js 代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var http = require(<span class="string">'http'</span>);</div><div class="line">http.createServer(<span class="keyword">function</span>(req, res)&#123;</div><div class="line">    res.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</div><div class="line">    res.end(<span class="string">'Hello World\n'</span>);</div><div class="line">&#125;).listen(8808, <span class="string">'127.0.0.1'</span>);</div><div class="line">console.log(<span class="string">'Server running at http://127.0.0.1:8808'</span>);</div></pre></td></tr></table></figure></p>
@@ -1330,7 +1330,7 @@
     
     <entry>
       <title><![CDATA[使用Atom+Markdown写文章]]></title>
-      <url>/%E4%BD%BF%E7%94%A8Atom+Markdown%E5%86%99%E6%96%87%E7%AB%A0/</url>
+      <url>/2017/0426//</url>
       <content type="html"><![CDATA[<h1 id="0x01-Atom"><a href="#0x01-Atom" class="headerlink" title="0x01 Atom"></a>0x01 Atom</h1><p>Atom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo blog。</p>
 <p>可以在官网下载<a href="https://atom.io/" target="_blank" rel="external">Atom</a>。</p>
 <h2 id="1-常用快捷键"><a href="#1-常用快捷键" class="headerlink" title="1. 常用快捷键"></a>1. 常用快捷键</h2><p>在File/Settings/Keybindiigns下定义了大量快捷键，常用快捷键如下:</p>

