@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2018-05-29T13:28:35.910Z</updated>
+  <updated>2018-05-30T02:40:52.900Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://0x4c43.cn/2018/0529/binary-program-analysis-framework-angr/"/>
     <id>http://0x4c43.cn/2018/0529/binary-program-analysis-framework-angr/</id>
     <published>2018-05-29T13:30:00.000Z</published>
-    <updated>2018-05-29T13:28:35.910Z</updated>
+    <updated>2018-05-30T02:40:52.900Z</updated>
     
     <summary type="html">
     
@@ -43,7 +43,7 @@
     <link href="http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/"/>
     <id>http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/</id>
     <published>2018-05-17T06:35:20.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:52.732Z</updated>
     
     <summary type="html">
     
@@ -68,7 +68,7 @@
     <link href="http://0x4c43.cn/2018/0508/linux-dynamic-link/"/>
     <id>http://0x4c43.cn/2018/0508/linux-dynamic-link/</id>
     <published>2018-05-08T06:53:14.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:52.396Z</updated>
     
     <summary type="html">
     
@@ -91,7 +91,7 @@
     <link href="http://0x4c43.cn/2018/0429/linux-delay-binding-mechanism/"/>
     <id>http://0x4c43.cn/2018/0429/linux-delay-binding-mechanism/</id>
     <published>2018-04-29T13:05:02.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:52.732Z</updated>
     
     <summary type="html">
     
@@ -113,7 +113,7 @@
     <link href="http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/"/>
     <id>http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/</id>
     <published>2018-04-19T15:10:45.000Z</published>
-    <updated>2018-05-29T10:42:23.327Z</updated>
+    <updated>2018-05-30T02:40:53.000Z</updated>
     
     <summary type="html">
     
@@ -135,7 +135,7 @@
     <link href="http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/"/>
     <id>http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/</id>
     <published>2018-04-13T02:30:14.000Z</published>
-    <updated>2018-05-29T10:42:23.327Z</updated>
+    <updated>2018-05-30T02:40:53.492Z</updated>
     
     <summary type="html">
     
@@ -157,7 +157,7 @@
     <link href="http://0x4c43.cn/2018/0316/configure-the-linux-python-development-environment/"/>
     <id>http://0x4c43.cn/2018/0316/configure-the-linux-python-development-environment/</id>
     <published>2018-03-16T11:55:21.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:53.472Z</updated>
     
     <summary type="html">
     
@@ -177,7 +177,7 @@
     <link href="http://0x4c43.cn/2018/0310/zsh-use-notes/"/>
     <id>http://0x4c43.cn/2018/0310/zsh-use-notes/</id>
     <published>2018-03-10T14:20:17.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:54.848Z</updated>
     
     <summary type="html">
     
@@ -201,7 +201,7 @@
     <link href="http://0x4c43.cn/2017/1231/linux-heap-memory-overflow-unlink-attack/"/>
     <id>http://0x4c43.cn/2017/1231/linux-heap-memory-overflow-unlink-attack/</id>
     <published>2017-12-31T06:53:28.000Z</published>
-    <updated>2018-05-29T10:42:23.327Z</updated>
+    <updated>2018-05-30T02:40:53.404Z</updated>
     
     <summary type="html">
     
@@ -224,7 +224,7 @@
     <link href="http://0x4c43.cn/2017/1028/terminal-multiplexing-tool-tmux/"/>
     <id>http://0x4c43.cn/2017/1028/terminal-multiplexing-tool-tmux/</id>
     <published>2017-10-28T14:57:21.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:52.900Z</updated>
     
     <summary type="html">
     
@@ -245,7 +245,7 @@
     <link href="http://0x4c43.cn/2017/1028/linux-usage-notes/"/>
     <id>http://0x4c43.cn/2017/1028/linux-usage-notes/</id>
     <published>2017-10-28T13:45:08.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:54.824Z</updated>
     
     <summary type="html">
     
@@ -265,7 +265,7 @@
     <link href="http://0x4c43.cn/2017/1024/linux-memory-management-and-heap/"/>
     <id>http://0x4c43.cn/2017/1024/linux-memory-management-and-heap/</id>
     <published>2017-10-24T15:18:34.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:52.732Z</updated>
     
     <summary type="html">
     
@@ -289,7 +289,7 @@
     <link href="http://0x4c43.cn/2017/1005/docker-use-notes/"/>
     <id>http://0x4c43.cn/2017/1005/docker-use-notes/</id>
     <published>2017-10-05T08:20:23.000Z</published>
-    <updated>2018-05-29T09:48:20.262Z</updated>
+    <updated>2018-05-30T02:40:54.048Z</updated>
     
     <summary type="html">
     
@@ -310,7 +310,7 @@
     <link href="http://0x4c43.cn/2017/0919/rc4-algorithm-implementation/"/>
     <id>http://0x4c43.cn/2017/0919/rc4-algorithm-implementation/</id>
     <published>2017-09-19T07:38:29.000Z</published>
-    <updated>2018-05-29T11:40:23.279Z</updated>
+    <updated>2018-05-30T02:40:52.880Z</updated>
     
     <summary type="html">
     
@@ -327,11 +327,11 @@
   </entry>
   
   <entry>
-    <title>在斐讯 K2 上部署 Shadowsocks+Kcptun</title>
-    <link href="http://0x4c43.cn/2017/0826//"/>
-    <id>http://0x4c43.cn/2017/0826//</id>
+    <title>在斐讯 K2 上部署 Shadowsocks 与 Kcptun</title>
+    <link href="http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-fiers-k2/"/>
+    <id>http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-fiers-k2/</id>
     <published>2017-08-26T06:34:57.000Z</published>
-    <updated>2018-05-29T12:37:46.674Z</updated>
+    <updated>2018-05-30T11:06:28.375Z</updated>
     
     <summary type="html">
     
@@ -356,7 +356,7 @@
     <link href="http://0x4c43.cn/2017/0723/add-section-in-pe-file/"/>
     <id>http://0x4c43.cn/2017/0723/add-section-in-pe-file/</id>
     <published>2017-07-23T08:30:10.000Z</published>
-    <updated>2018-05-29T10:09:43.213Z</updated>
+    <updated>2018-05-30T02:40:52.956Z</updated>
     
     <summary type="html">
     
@@ -383,7 +383,7 @@
     <link href="http://0x4c43.cn/2017/0605/use-firmwaremodkit-to-modify-the-firmware/"/>
     <id>http://0x4c43.cn/2017/0605/use-firmwaremodkit-to-modify-the-firmware/</id>
     <published>2017-06-05T13:45:08.000Z</published>
-    <updated>2018-05-29T11:38:23.969Z</updated>
+    <updated>2018-05-30T02:40:54.636Z</updated>
     
     <summary type="html">
     
@@ -406,7 +406,7 @@
     <link href="http://0x4c43.cn/2017/0510/remote-thread-injection-for-dll/"/>
     <id>http://0x4c43.cn/2017/0510/remote-thread-injection-for-dll/</id>
     <published>2017-05-10T13:45:08.000Z</published>
-    <updated>2018-05-29T10:09:43.213Z</updated>
+    <updated>2018-05-30T02:40:52.064Z</updated>
     
     <summary type="html">
     
@@ -426,7 +426,7 @@
     <link href="http://0x4c43.cn/2017/0508/windows-message-hooks-for-dll-injection/"/>
     <id>http://0x4c43.cn/2017/0508/windows-message-hooks-for-dll-injection/</id>
     <published>2017-05-08T13:45:08.000Z</published>
-    <updated>2018-05-29T10:29:35.178Z</updated>
+    <updated>2018-05-30T02:40:52.220Z</updated>
     
     <summary type="html">
     
@@ -446,11 +446,11 @@
   </entry>
   
   <entry>
-    <title>NSA Enternalblue + Doublepulsar 复现 SMB 漏洞</title>
-    <link href="http://0x4c43.cn/2017/0427//"/>
-    <id>http://0x4c43.cn/2017/0427//</id>
+    <title>复现 NSA Enternalblue SMB 漏洞</title>
+    <link href="http://0x4c43.cn/2017/0427/replicated-nsa-enternalblue-smb-vulnerability/"/>
+    <id>http://0x4c43.cn/2017/0427/replicated-nsa-enternalblue-smb-vulnerability/</id>
     <published>2017-04-27T09:18:08.000Z</published>
-    <updated>2018-05-29T10:42:23.327Z</updated>
+    <updated>2018-05-30T11:11:12.858Z</updated>
     
     <summary type="html">
     
@@ -464,8 +464,6 @@
       <category term="Enternalblue" scheme="http://0x4c43.cn/tags/Enternalblue/"/>
     
       <category term="Doublepulsar" scheme="http://0x4c43.cn/tags/Doublepulsar/"/>
-    
-      <category term="NSA" scheme="http://0x4c43.cn/tags/NSA/"/>
     
       <category term="SMB" scheme="http://0x4c43.cn/tags/SMB/"/>
     
