@@ -5,7 +5,7 @@
 # Site
 title: 0x4C43's Blog
 subtitle: 
-description: Reverse&Pwn
+description: Binary Exploitation
 author: '0x4C43'
 language: en
 timezone:
@@ -14,7 +14,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://0x4c43.cn
 root: /
-permalink: :title/
+permalink: :year/:month:day/:translate_title/
 permalink_defaults:
 
 # Directory
@@ -101,6 +101,16 @@ sitemap:
   path: sitemap.xml
 baidusitemap:
   path: baidusitemap.xml
+
+translate_title:
+  translate_way: google  # google,youdao,baidu_with_appid,baidu_no_appid
+  youdao_api_key: '' # Your youdao_api_key
+  youdao_keyfrom: xxxx-blog # Your youdao_keyfrom
+  is_need_proxy: false     # true | false
+  proxy_url: http://localhost:50018 # Your proxy_url
+  baidu_appid: '' # Your baidu_appid
+  baidu_appkey: '' # Your baidu_appkey
+
 
 # Creative Commons 4.0 International License.
 # http://creativecommons.org/

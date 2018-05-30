@@ -1,9 +1,16 @@
 ---
-title: 在斐讯 K2 上部署 Shadowsocks+Kcptun
-date: 2017-08-26 14:34:57
-tags: [斐讯 K2,Shadowsocks,kcptun，IPv6 免流]
+title: 在斐讯 K2 上部署 Shadowsocks 与 Kcptun
+tags:
+  - 斐讯 K2
+  - Shadowsocks
+  - kcptun，IPv6 免流
 categories: Others
-keywords: [斐讯 K2,Shadowsocks,Kcptun，IPv6 免流]
+keywords:
+  - 斐讯 K2
+  - Shadowsocks
+  - Kcptun，IPv6 免流
+translate_title: deploy-shadowsocks-and-kcptun-on-fiers-k2
+date: 2017-08-26 14:34:57
 ---
 
 对于程序员来说，能顺畅使用互联网能够很大程度地提高工作效率。所以，通过 SS 来实现代理上网是一个很好的解决方案。此外，对于能使用校园网的学生党而言，还可以使用 SS + IPv6 来实现免流，这样就能把省下来的网费用来买VPS了。

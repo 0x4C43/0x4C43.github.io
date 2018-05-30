@@ -1,9 +1,13 @@
 ---
 title: DLL 注入之 Windows 消息钩子
-date: 2017-05-08 21:45:08
-tags: [Hook, DLL 注入]
+tags:
+  - Hook
+  - DLL 注入
 categories: Windows
-keywords: [DLL注入，消息钩子，Hook]
+keywords:
+  - DLL注入，消息钩子，Hook
+translate_title: windows-message-hooks-for-dll-injection
+date: 2017-05-08 21:45:08
 ---
 
 Windows 下的窗口应用程序是基于事件驱动方式工作的，操作系统中点击鼠标和按下键盘都是一种事件，当事件发生时操作系统会将消息发送给相应的应用程序，应用程序收到消息之后会做出响应。

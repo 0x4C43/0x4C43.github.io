@@ -1,9 +1,14 @@
 ---
 title: Linux glibc heap house-of-force
-date: 2018-04-19 23:10:45
-tags: [heap,house-of-force]
+tags:
+  - heap
+  - house-of-force
 categories: Exploit
-keywords: [heap,house-of-force]
+keywords:
+  - heap
+  - house-of-force
+translate_title: linux-glibc-heap-houseofforce
+date: 2018-04-19 23:10:45
 ---
 
 该利用方法通过堆溢出漏洞修改 top chunk 的 size 字段，使得 malloc 一块很大的内存可使用 top chunk 进行分配，当更新 top chunk 的 ptr 时会发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段、.data 段和 GOT 表等。当再次使用 malloc 申请内存时将从目标内存处进行分配，之后对该内存进行写操作，即可实现任意地址写数据。

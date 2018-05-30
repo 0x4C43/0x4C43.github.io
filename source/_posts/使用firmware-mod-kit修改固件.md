@@ -1,9 +1,14 @@
 ---
 title: 使用 firmware-mod-kit 修改固件
-date: 2017-06-05 21:45:08
-tags: [firmware-mod-kit, firmware]
+tags:
+  - firmware-mod-kit
+  - firmware
 categories: Embedded
-keywords: [firmware-mod-kit, 修改 firmware]
+keywords:
+  - firmware-mod-kit
+  - 修改 firmware
+translate_title: use-firmwaremodkit-to-modify-the-firmware
+date: 2017-06-05 21:45:08
 ---
 
 firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。
