@@ -7,7 +7,7 @@ keywords:
   - Python
   - PyCharm
   - virtualenv
-translate_title: configure-the-linux-python-development-environment
+translate_title: configuring-the-linux-python-development-environment
 date: 2018-03-16 19:55:21
 ---
 

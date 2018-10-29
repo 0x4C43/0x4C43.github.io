@@ -7,7 +7,7 @@ categories: Linux
 keywords:
   - zsh
   - oh-my-zsh
-translate_title: zsh-use-notes
+translate_title: zsh-notes
 date: 2018-03-10 22:20:17
 ---
 

@@ -6,7 +6,7 @@ tags:
 categories: Windows
 keywords:
   - DLL注入，消息钩子，Hook
-translate_title: windows-message-hooks-for-dll-injection
+translate_title: dll-injection-windows-message-hook
 date: 2017-05-08 21:45:08
 ---
 
@@ -159,15 +159,11 @@ void main()
 	}
 }
 ```
-在记事本中按下按键，弹出按键值。
-<div align=center>
-  <img src="http://ooyovxue7.bkt.clouddn.com/17-5-8/7397613-file_1494250200322_1341b.png?imageView/3/w/300/h/300/q/100"/>>
-</div>
+在记事本中按下按键，弹出按键值。  
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-8/7397613-file_1494250200322_1341b.png)  
 
-查看记事本进程模块，可以看到 DLL 已成功注入该进程。
-<div align=center>
-  <img src="http://ooyovxue7.bkt.clouddn.com/17-5-8/20626831-file_1494250203063_f29f.png?imageView/3/w/300/h/300/q/100"/>
-</div>
+查看记事本进程模块，可以看到 DLL 已成功注入该进程。  
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-8/20626831-file_1494250203063_f29f.png)
 
 # 0x03 调试
 使用 OllyDbg 可以调试注入到目标进程中的 DLL 文件，具体步骤如下：

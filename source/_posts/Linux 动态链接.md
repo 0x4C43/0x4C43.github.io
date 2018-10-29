@@ -193,7 +193,7 @@ virtual address = 0xf7fd0005,physical address = 0x2e2cc005
 从结果中可看到，不同进程中 0xf7fd0005 对应的物理内存分别为 0x6b7ea005 和 0x2e2cc005。由此说明非地址无关的共享对象中的代码段无法被不同进程共用。
 
 ## 2. 地址无关代码
-地址无关代码 PIC（Position-Independent Code）把与地址相关的部分放入到数据段的全局偏移表 GOT（Global Offset Table）中，这样指令部分可保持不变，[重定位时只需修改 GOT](http://0x4c43.cn/Linux%20%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6/)，而数据部分可在每个进程中拥有一个副本，从而实现共用共享对象的指令部分。
+地址无关代码 PIC（Position-Independent Code）把与地址相关的部分放入到数据段的全局偏移表 GOT（Global Offset Table）中，这样指令部分可保持不变，[重定位时只需修改 GOT](http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/)，而数据部分可在每个进程中拥有一个副本，从而实现共用共享对象的指令部分。
 
 使用以下命令编译生成地址无关的共享对象 Lib_PIC.so 以及可执行程序 prog1_PIC：
 ```python

@@ -16,7 +16,7 @@ keywords:
   - 域名绑定
   - SEO优化
   - Blog备份
-translate_title: build-a-personal-blog-using-github-and-hexo
+translate_title: build-a-personal-blog-with-github-and-hexo
 ---
 
 平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_64中进行。

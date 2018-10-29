@@ -3,10 +3,10 @@ title: DLL 注入之远程线程注入
 date: 2017-05-10 21:45:08
 tags: [DLL 注入]
 categories: Windows
-keywords: [DLL注入，远程线程注入]
+keywords: [DLL 注入，远程线程注入]
 ---
 
-在 Windows 中有多种方法实现 DLL 注入，[可以使用消息钩子注入 DLL](http://0x4c43.cn/2017/0508/windows-message-hooks-for-dll-injection/)，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。
+在 Windows 中有多种方法实现 DLL 注入，[可以使用消息钩子注入 DLL](http://0x4c43.cn/2017/0508/dll-injection-windows-message-hook/)，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。
 
 # 0x01 注入原理
 使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateRemoteThread 函数原型如下：
@@ -180,9 +180,9 @@ int _tmain(int argc, TCHAR *argv[])
 ```
 ## 3. 测试效果   
 运行 Injectmain.exe 将 DLL 注入到进程 3656（notepad.exe）中，注入成功将弹出消息框。    
-![](http://ooyovxue7.bkt.clouddn.com/17-5-11/94028700-file_1494473311845_13a5b.png)     
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-11/94028700-file_1494473311845_13a5b.png)     
 查看 notepad.exe 进程加载的模块列表，可以看到 InjectDll.dll 已被加载。     
-![](http://ooyovxue7.bkt.clouddn.com/17-5-11/35149412-file_1494473313402_167fd.png)    
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-11/35149412-file_1494473313402_167fd.png)    
 
 ----
 References:   

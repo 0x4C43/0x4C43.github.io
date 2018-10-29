@@ -5,7 +5,7 @@ tags:
 categories: Linux
 keywords:
   - tmux
-translate_title: terminal-multiplexing-tool-tmux
+translate_title: terminal-reuse-tool-tmux
 date: 2017-10-28 22:57:21
 ---
 

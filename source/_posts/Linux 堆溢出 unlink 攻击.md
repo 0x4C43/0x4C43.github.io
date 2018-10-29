@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
 }
 ```
 上述程序在分配完堆后，堆内存分布如下图所示。    
-![](http://ooyovxue7.bkt.clouddn.com/17-10-31/17968347.jpg)
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-10-31/17968347.jpg)
 
 程序中 strcpy 函数会导致堆溢出，argv[1] 大于 666 字节时，可覆盖第二个 chunk 的各个字段为指定的值，从而使堆管理器将第二个 chunk 判断为空闲状态。根据 malloc 的内存回收机制，在 free(first) 时会将上图中的 second chunk 从 bin 中 unlink，并与第一个 chunk 合并。通过修改 second chunk 的 fd、bk 字段，unlink 时可把 free 函数的 GOT 表项写为 shellcode 地址。当程序再次调用 free 函数时会执行 shellcode。     
 
@@ -127,7 +127,7 @@ unlink 步骤 1）和 2）将 second chunk 的 fd 和 bk 复制到 FD 和 BK。�
 步骤 3）中 FD 是 malloc_chunk 结构体指针，FD->bk 相当于 `FD+12 = free@got-12+12 = free@got`，即 FD->bk 指向 free 的 GOT 表项，FD->bk = BK 相当于 `free@got = shellcode address`，即 free 的 GOT 表项被修改为了 shellcode 地址。因此，程序在执行第二个 free 时就会执行 shellcode。
 
 同理，步骤4）中将 `shellcode addr + 8` 处 4 个字节覆盖为 `free@got - 12`，所以在编写 shellcode 时应跳过这 4 个字节。    
-![](http://ooyovxue7.bkt.clouddn.com/17-11-23/81536873.jpg)
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-11-23/81536873.jpg)
 
 ## 2. 绕过安全校验
 首先，需要了解 glibc 中 unlink 的校验机制。以下为 glibc-2.19 中 unlink 宏的部分代码，在删除 P 节点之前会检查 `FD->bk != P || BK->fd != P` 是否成立，即检查当前 chunk 前一个 chunk 的 bk 与后一个 chunk 的 fd 是否指向当前 chunk。若当前 chunk 的 fd 和 bk 被修改则无法通过这项检查，`FD->bk = BK` 与 `BK->fd = FD` 不会执行，导致 unlink 攻击不能进行。
@@ -208,21 +208,21 @@ void *add()
 ```
 
 首先使用 `add`功能申请 4 个大小为 0x80 的堆（small chunk），程序会将 malloc 返回的用户空间指针 ptr_mem 存放在全局指针数组 buf[n] 中，该数组起始地址 buf 为 0x8049d60。    
-![](http://ooyovxue7.bkt.clouddn.com/17-12-31/74608133.jpg)       
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-12-31/74608133.jpg)       
 申请好堆后，使用 `set` 功能把字符串 “/bin/sh” 写入到 chunk3 中，为后面执行 system 函数做准备。        
-![](http://ooyovxue7.bkt.clouddn.com/17-12-31/40338931.jpg)        
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-12-31/40338931.jpg)        
 使用 `set` 功能编辑 chunk0 的内容可溢出并覆盖 chunk1，在 chunk0 中伪造一个大小为 0x80 的空闲 chunk P，将其 fd 和 bk 设置为 buf[0]-0xc 和 buf[0]-0x8，并且修改 chunk1 的 prev_size 和 size 字段。    
-![](http://ooyovxue7.bkt.clouddn.com/17-12-31/80701083.jpg)    
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-12-31/80701083.jpg)    
 接着使用 `delete` 释放 chunk1，由于相邻的 chunk P 为空闲块，会触发 unlink(P) 把 chunk P 从 smallbins 中解除，并与 chunk1 合并为大小为 0x108 的空闲块。unlink 过程中可绕过 “指针破坏” 检测，并实现写内存。最终会把 buf[0] 修改为 buf[0]-0xC。    
-![](http://ooyovxue7.bkt.clouddn.com/17-12-31/14873045.jpg)    
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-12-31/14873045.jpg)    
 使用 `set` 编辑 chunk0 可覆盖 buf[0]，从而再次修改 buf[0]，控制其指向的内存。可将其修改为 free@got。     
-![](http://ooyovxue7.bkt.clouddn.com/17-12-31/20886310.jpg)     
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-12-31/20886310.jpg)     
 接着使用 `print` 输出 chunk0 的内容，可泄露出内存中 free 函数的地址，从而可计算得到 system 函数的地址。    
-![](http://ooyovxue7.bkt.clouddn.com/17-12-31/4598652.jpg)    
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-12-31/4598652.jpg)    
 再次编辑 chunk0 的内容，把 system 的地址写入 free@got 中。写完后可查看 free@got 已指向 system 函数。    
-![](http://ooyovxue7.bkt.clouddn.com/17-12-31/20330158.jpg)    
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-12-31/20330158.jpg)    
 当使用 `delete` 删除 chunk3 时执行的 free(chunk3) 实际上是 system(“\bin\sh”)，从而成功 getshell。    
-![](http://ooyovxue7.bkt.clouddn.com/17-12-31/8077018.jpg)    
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-12-31/8077018.jpg)    
 
 ____
 References:   

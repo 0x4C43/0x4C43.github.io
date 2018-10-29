@@ -2,7 +2,7 @@
 title: RC4 算法实现
 tags:
   - RC4
-categories: 加密解密
+categories: Crypto
 keywords:
   - RC4
 translate_title: rc4-algorithm-implementation
@@ -160,7 +160,7 @@ void main(int argc, char* argv[]) {
 }
 ```
 运行结果如下：    
-![](http://ooyovxue7.bkt.clouddn.com/17-9-19/88889666.jpg)
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-9-19/88889666.jpg)
 
 ____
 References:   

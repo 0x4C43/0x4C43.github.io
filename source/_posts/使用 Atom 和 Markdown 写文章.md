@@ -7,7 +7,7 @@ categories: Others
 keywords:
   - Atom
   - Markdown
-translate_title: writing-articles-with-atom-and-markdown
+translate_title: write-articles-using-atom-and-markdown
 date: 2017-04-26 15:36:08
 ---
 
@@ -171,9 +171,7 @@ Markdown 支持以比较简短的自动链接形式来处理网址和电子邮�
 
 ## 3. 极简图床 Chrome 插件
 使用极简图床可以绑定七牛云存储空间，然后可以通过拖拽的方式上传图片到云上。绑定七牛云需要空间名称、AK、SK 和域名。   
-<div align=center>
-  <img src="http://ooyovxue7.bkt.clouddn.com/17-4-26/26825806-file_1493208795361_1da.png?imageView/3/w/300/h/300/q/100"/>
-</div>
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-4-26/26825806-file_1493208795361_1da.png)
 
 ## 4. 插入图片
 在文章中使用以下语法插入图片。

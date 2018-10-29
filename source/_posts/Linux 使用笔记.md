@@ -33,7 +33,7 @@ man -f reboot
 man 2 reboot
 ```
 输入”/string“，按回车，查找关键字 string，n 键向下查找，N 键向上查找；
-![](http://ooyovxue7.bkt.clouddn.com/17-10-28/99556537.jpg)    
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-10-28/99556537.jpg)    
 -f 用于查询命令说明存在于哪些 man 文档文件中；
 查看 reboot 命令在 man 文档的第二章中的解释；
 

@@ -1,17 +1,17 @@
 ---
-title: PE文件中添加节区
+title: PE 文件中添加节区
 tags:
-  - PE文件
+  - PE 文件
   - 添加节区
   - 病毒感染
   - 打补丁
 categories: Windows
 keywords:
-  - PE文件
+  - PE 文件
   - 添加节区
   - 病毒感染
   - 打补丁
-translate_title: add-section-in-pe-file
+translate_title: a-section-in-the-pe-file
 date: 2017-07-23 16:30:10
 ---
 
@@ -33,23 +33,22 @@ SizeOfRawData: 0x600 // 该字段为对齐后的值
 PointerToRawData: 0x5200 // 上一节区的 PointerToRawData + SizeOfRawData
 Characteristics：0x60000020  // 与 .text段一致
 ```
-![](http://ooyovxue7.bkt.clouddn.com/17-7-21/52134100.jpg)
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/52134100.jpg)
 
 ## 2. 修改 NumberOfSection    
 添加一个节表之后需要修改 IMAGE_FILE_HEADER 中的 NumberOfSection 字段，将节区数量由 4 改为 5。
-![](http://ooyovxue7.bkt.clouddn.com/17-7-21/41073536.jpg)
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/41073536.jpg)
 
 ## 3. 修改 SizeOfImage    
 接着修改文件映像大小，即 IMAGE_OPTIONAL_HEADER 中的 SizeOfImage 字段，该字段按内存对齐方式对齐，在原大小（0x9000）的基础上加上新节区的大小（0x450），对齐后为 0xa000。
-![](http://ooyovxue7.bkt.clouddn.com/17-7-21/28635670.jpg)
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/28635670.jpg)
 
 ## 4. 添加节区数据    
 最后添加新增节区的数据，把光标移到文件的末尾，点击 “编辑” / “插入数据”，插入数据大小为 1536(0x600)，使用 00 填充，点击确认，保存即可。
 
 到此，已成功添加了一个节区，修改之后的程序仍是可运行的，使用 PEview 查看新增节区如下：
-![](http://ooyovxue7.bkt.clouddn.com/17-7-21/90730788.jpg)
 
-![](http://ooyovxue7.bkt.clouddn.com/17-7-21/63364761.jpg)
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/63364761.jpg)
 
 这里需要注意插入数据的大小要按磁盘对齐方式对齐，不然最终修改后的文件无法运行，并提示“该文件不是有效的 Win32 应用程序”。
 # 0x02 编程实现    
@@ -365,7 +364,7 @@ int main(void)
 }
 ```
 运行被感染后的文件，会弹出以下消息框，使用 PEview 可以看到添加了一个名为 .new 的节区。
-![](http://ooyovxue7.bkt.clouddn.com/17-7-23/33815689.jpg)    
+![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-23/33815689.jpg)    
 完整代码可以在 [此链接](https://github.com/0x4C43/InflectPE) 下载。
 
 ____

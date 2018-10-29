@@ -5,7 +5,7 @@ tags:
 categories: Linux
 keywords:
   - Docker
-translate_title: docker-use-notes
+translate_title: docker-notes
 date: 2017-10-05 16:20:23
 ---
 
