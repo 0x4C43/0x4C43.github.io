@@ -17,8 +17,8 @@
   
   <entry>
     <title>博客图床迁移</title>
-    <link href="http://0x4c43.cn/2018/1029//"/>
-    <id>http://0x4c43.cn/2018/1029//</id>
+    <link href="http://0x4c43.cn/2018/1029/blog-map-migration/"/>
+    <id>http://0x4c43.cn/2018/1029/blog-map-migration/</id>
     <published>2018-10-29T10:20:24.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -38,8 +38,8 @@
   
   <entry>
     <title>2018 铁人三项赛 aleph1 Writeup</title>
-    <link href="http://0x4c43.cn/2018/1029//"/>
-    <id>http://0x4c43.cn/2018/1029//</id>
+    <link href="http://0x4c43.cn/2018/1029/2018-triathlon-aleph1-writeup/"/>
+    <id>http://0x4c43.cn/2018/1029/2018-triathlon-aleph1-writeup/</id>
     <published>2018-10-29T03:45:08.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -58,8 +58,8 @@
   
   <entry>
     <title>栈溢出 Stack smash 利用</title>
-    <link href="http://0x4c43.cn/2018/1013//"/>
-    <id>http://0x4c43.cn/2018/1013//</id>
+    <link href="http://0x4c43.cn/2018/1013/stack-overflow-smash-utilization/"/>
+    <id>http://0x4c43.cn/2018/1013/stack-overflow-smash-utilization/</id>
     <published>2018-10-13T11:40:28.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -79,8 +79,8 @@
   
   <entry>
     <title>EasyRM2MP3 栈溢出分析</title>
-    <link href="http://0x4c43.cn/2018/0814//"/>
-    <id>http://0x4c43.cn/2018/0814//</id>
+    <link href="http://0x4c43.cn/2018/0814/easyrm2mp3-stack-overflow-analysis/"/>
+    <id>http://0x4c43.cn/2018/0814/easyrm2mp3-stack-overflow-analysis/</id>
     <published>2018-08-14T09:50:00.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -99,8 +99,8 @@
   
   <entry>
     <title>IDAPyhon 脚本批量分析程序</title>
-    <link href="http://0x4c43.cn/2018/0803//"/>
-    <id>http://0x4c43.cn/2018/0803//</id>
+    <link href="http://0x4c43.cn/2018/0803/idapyhon-script-batch-analysis-program/"/>
+    <id>http://0x4c43.cn/2018/0803/idapyhon-script-batch-analysis-program/</id>
     <published>2018-08-03T01:20:18.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -120,8 +120,8 @@
   
   <entry>
     <title>使用 AFL 进行模糊测试</title>
-    <link href="http://0x4c43.cn/2018/0722//"/>
-    <id>http://0x4c43.cn/2018/0722//</id>
+    <link href="http://0x4c43.cn/2018/0722/use-afl-for-fuzz-testing/"/>
+    <id>http://0x4c43.cn/2018/0722/use-afl-for-fuzz-testing/</id>
     <published>2018-07-22T13:58:12.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -141,8 +141,8 @@
   
   <entry>
     <title>American Fuzzy Lop</title>
-    <link href="http://0x4c43.cn/2018/0722//"/>
-    <id>http://0x4c43.cn/2018/0722//</id>
+    <link href="http://0x4c43.cn/2018/0722/american-fuzzy-lop/"/>
+    <id>http://0x4c43.cn/2018/0722/american-fuzzy-lop/</id>
     <published>2018-07-22T13:50:34.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -161,8 +161,8 @@
   
   <entry>
     <title>VMWare 中扩展 ubuntu 磁盘空间</title>
-    <link href="http://0x4c43.cn/2018/0707//"/>
-    <id>http://0x4c43.cn/2018/0707//</id>
+    <link href="http://0x4c43.cn/2018/0707/extend-ubuntu-disk-space-in-vmware/"/>
+    <id>http://0x4c43.cn/2018/0707/extend-ubuntu-disk-space-in-vmware/</id>
     <published>2018-07-07T06:00:23.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -182,8 +182,8 @@
   
   <entry>
     <title>Heartbleed 漏洞分析</title>
-    <link href="http://0x4c43.cn/2018/0701//"/>
-    <id>http://0x4c43.cn/2018/0701//</id>
+    <link href="http://0x4c43.cn/2018/0701/heartbleed-vulnerability-analysis/"/>
+    <id>http://0x4c43.cn/2018/0701/heartbleed-vulnerability-analysis/</id>
     <published>2018-07-01T04:02:14.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -202,8 +202,8 @@
   
   <entry>
     <title>IA-32 内存模型与地址映射</title>
-    <link href="http://0x4c43.cn/2018/0617//"/>
-    <id>http://0x4c43.cn/2018/0617//</id>
+    <link href="http://0x4c43.cn/2018/0617/ia32-memory-model-and-address-mapping/"/>
+    <id>http://0x4c43.cn/2018/0617/ia32-memory-model-and-address-mapping/</id>
     <published>2018-06-17T13:37:12.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -224,8 +224,8 @@
   
   <entry>
     <title>VMware 与 Credential Guard 不兼容</title>
-    <link href="http://0x4c43.cn/2018/0615//"/>
-    <id>http://0x4c43.cn/2018/0615//</id>
+    <link href="http://0x4c43.cn/2018/0615/vmware-is-not-compatible-with-credential-guard/"/>
+    <id>http://0x4c43.cn/2018/0615/vmware-is-not-compatible-with-credential-guard/</id>
     <published>2018-06-15T10:31:34.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -244,8 +244,8 @@
   
   <entry>
     <title>二进制程序分析框架 angr</title>
-    <link href="http://0x4c43.cn/2018/0529//"/>
-    <id>http://0x4c43.cn/2018/0529//</id>
+    <link href="http://0x4c43.cn/2018/0529/binary-program-analysis-framework-angr/"/>
+    <id>http://0x4c43.cn/2018/0529/binary-program-analysis-framework-angr/</id>
     <published>2018-05-29T13:30:00.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -267,8 +267,8 @@
   
   <entry>
     <title>Linux 系统调用与虚拟动态共享库</title>
-    <link href="http://0x4c43.cn/2018/0517//"/>
-    <id>http://0x4c43.cn/2018/0517//</id>
+    <link href="http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/"/>
+    <id>http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/</id>
     <published>2018-05-17T06:35:20.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -292,8 +292,8 @@
   
   <entry>
     <title>Linux 动态链接</title>
-    <link href="http://0x4c43.cn/2018/0508//"/>
-    <id>http://0x4c43.cn/2018/0508//</id>
+    <link href="http://0x4c43.cn/2018/0508/linux-dynamic-link/"/>
+    <id>http://0x4c43.cn/2018/0508/linux-dynamic-link/</id>
     <published>2018-05-08T06:53:14.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -315,8 +315,8 @@
   
   <entry>
     <title>Linux 延迟绑定机制</title>
-    <link href="http://0x4c43.cn/2018/0429//"/>
-    <id>http://0x4c43.cn/2018/0429//</id>
+    <link href="http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/"/>
+    <id>http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/</id>
     <published>2018-04-29T13:05:02.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -337,8 +337,8 @@
   
   <entry>
     <title>Linux glibc heap house-of-force</title>
-    <link href="http://0x4c43.cn/2018/0419//"/>
-    <id>http://0x4c43.cn/2018/0419//</id>
+    <link href="http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/"/>
+    <id>http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/</id>
     <published>2018-04-19T15:10:45.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -359,8 +359,8 @@
   
   <entry>
     <title>Linux glibc heap house-of-spirit</title>
-    <link href="http://0x4c43.cn/2018/0413//"/>
-    <id>http://0x4c43.cn/2018/0413//</id>
+    <link href="http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/"/>
+    <id>http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/</id>
     <published>2018-04-13T02:30:14.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -381,8 +381,8 @@
   
   <entry>
     <title>配置 Linux Python 开发环境</title>
-    <link href="http://0x4c43.cn/2018/0316//"/>
-    <id>http://0x4c43.cn/2018/0316//</id>
+    <link href="http://0x4c43.cn/2018/0316/configuring-the-linux-python-development-environment/"/>
+    <id>http://0x4c43.cn/2018/0316/configuring-the-linux-python-development-environment/</id>
     <published>2018-03-16T11:55:21.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -401,8 +401,8 @@
   
   <entry>
     <title>zsh 使用笔记</title>
-    <link href="http://0x4c43.cn/2018/0310//"/>
-    <id>http://0x4c43.cn/2018/0310//</id>
+    <link href="http://0x4c43.cn/2018/0310/zsh-notes/"/>
+    <id>http://0x4c43.cn/2018/0310/zsh-notes/</id>
     <published>2018-03-10T14:20:17.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
@@ -425,8 +425,8 @@
   
   <entry>
     <title>Linux 堆内存溢出 unlink 攻击</title>
-    <link href="http://0x4c43.cn/2017/1231//"/>
-    <id>http://0x4c43.cn/2017/1231//</id>
+    <link href="http://0x4c43.cn/2017/1231/linux-heap-memory-overflow-unlink-attack/"/>
+    <id>http://0x4c43.cn/2017/1231/linux-heap-memory-overflow-unlink-attack/</id>
     <published>2017-12-31T06:53:28.000Z</published>
     <updated>2018-10-28T20:22:00.000Z</updated>
     
