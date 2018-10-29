@@ -1,0 +1,997 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="-rILWvtgf7gbffrRwk-E1VWNCVLMTcq6pxgs_1IfIjo" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PLT,Lazy Binding" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="0x4C43's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。 0x01 延迟绑定原理延迟绑定是当函数第一次被调用的时候才进行绑定（包括符号查找、重定">
+<meta name="keywords" content="PLT,Lazy Binding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 延迟绑定机制">
+<meta property="og:url" content="http://0x4c43.cn/2018/0429//index.html">
+<meta property="og:site_name" content="0x4C43's Blog">
+<meta property="og:description" content="如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。 0x01 延迟绑定原理延迟绑定是当函数第一次被调用的时候才进行绑定（包括符号查找、重定">
+<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/78087498.jpg">
+<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/26402902.jpg">
+<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 延迟绑定机制">
+<meta name="twitter:description" content="如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。 0x01 延迟绑定原理延迟绑定是当函数第一次被调用的时候才进行绑定（包括符号查找、重定">
+<meta name="twitter:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/78087498.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://0x4c43.cn/2018/0429//"/>
+
+
+
+
+
+
+
+  <title> Linux 延迟绑定机制 | 0x4C43's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">0x4C43's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0429/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="0x4C43">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/binary.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0x4C43's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux 延迟绑定机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-29T21:05:02+08:00">
+                2018-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/0429/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/0429//" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。</p>
+<h1 id="0x01-延迟绑定原理"><a href="#0x01-延迟绑定原理" class="headerlink" title="0x01 延迟绑定原理"></a>0x01 延迟绑定原理</h1><p>延迟绑定是当函数第一次被调用的时候才进行绑定（包括符号查找、重定位等），如果函数不被调用就不进行绑定。延迟绑定机制可以大大加快程序的启动速度，特别有利于一些引用了大量函数的程序。</p>
+<blockquote>
+<p>GOT（Global Offset Table，全局偏移表）<br>GOT 是数据段用于地址无关代码的 Linux ELF 文件中确定全局变量和外部函数地址的表。ELF 中有 .got 和 .plt.got 两个 GOT 表，.got 表用于全局变量的引用地址，.got.plt 用于保存函数引用的地址。  </p>
+<p>PLT（Procedure Linkage Table，程序链接表）<br>PLT 是 Linux ELF 文件中用于延迟绑定的表。</p>
+</blockquote>
+<p>下面介绍延迟绑定的基本原理。假设程序中调用 func 函数，该函数在 .plt 段中相应的项为 func@plt，在 .got.plt 中相应的项为 func@got，链接器在初始化时将 func@got 中的值填充为 “preapre resolver” 指令处的地址。func@plt 的伪代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func@plt:</div><div class="line">jmp *(func@got)</div><div class="line">prepare resolver</div><div class="line">jmp _dl_runtime_resolve</div></pre></td></tr></table></figure></p>
+<h2 id="1-首次调用"><a href="#1-首次调用" class="headerlink" title="1. 首次调用"></a>1. 首次调用</h2><p>第一次调用 func 函数时，首先会跳转到 PLT 执行 <code>jmp *(func@got)</code>，由于该函数没被调用过，func@got 中的值不是 func 函数的地址，而是 PLT 中的 “preapre resolver” 指令的地址，所以会跳转到 “preapre resolver” 执行，接着会调用 _dl_runtime_resolve 解析 func 函数的地址，并将该函数真正的地址填充到 func@got，最后跳转到 func 函数继续执行代码。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/78087498.jpg" alt="">    </p>
+<h2 id="2-非首次调用"><a href="#2-非首次调用" class="headerlink" title="2. 非首次调用"></a>2. 非首次调用</h2><p>当再次调用 func 函数时，由于 func@got 中已填充正确的函数地址，此时执行 PLT 中的 <code>jmp *(func@got)</code> 即可成功跳转到 func 函数中执行。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/26402902.jpg" alt="">    </p>
+<h1 id="0x02-实例调试"><a href="#0x02-实例调试" class="headerlink" title="0x02 实例调试"></a>0x02 实例调试</h1><p>下面通过调试程序中 func 函数的调用过程说明延迟绑定的原理。首先函数执行 call 指令调用 func 函数时会跳转到 0x8048420（func@plt）处执行。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   <span class="number">0x8048546</span> &lt;main+<span class="number">11</span>&gt;: mov    ebp,esp</div><div class="line">   <span class="number">0x8048548</span> &lt;main+<span class="number">13</span>&gt;: push   ecx</div><div class="line">   <span class="number">0x8048549</span> &lt;main+<span class="number">14</span>&gt;: sub    esp,<span class="number">0x4</span></div><div class="line">=&gt; <span class="number">0x804854c</span> &lt;main+<span class="number">17</span>&gt;: call   <span class="number">0x8048420</span> &lt;func@plt&gt;</div><div class="line">   <span class="number">0x8048551</span> &lt;main+<span class="number">22</span>&gt;: nop</div><div class="line">   <span class="number">0x8048552</span> &lt;main+<span class="number">23</span>&gt;: add    esp,<span class="number">0x4</span></div><div class="line">   <span class="number">0x8048555</span> &lt;main+<span class="number">26</span>&gt;: pop    ecx</div><div class="line">   <span class="number">0x8048556</span> &lt;main+<span class="number">27</span>&gt;: pop    ebp</div><div class="line">Guessed arguments:</div><div class="line">arg[<span class="number">0</span>]: <span class="number">0xf7fb33dc</span> --&gt; <span class="number">0xf7fb41e0</span> --&gt; <span class="number">0x0</span></div><div class="line">arg[<span class="number">1</span>]: <span class="number">0xffffced0</span> --&gt; <span class="number">0x1</span></div><div class="line">arg[<span class="number">2</span>]: <span class="number">0x0</span></div></pre></td></tr></table></figure></p>
+<p>接着跳转到 ds[0x804a010]（func@got）处，由于是第一次调用该函数，func@got 中的地址并非函数的真实地址，需要对其进行地址重定位。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   <span class="number">0x8048410</span> &lt;__libc_start_main@plt&gt;:   jmp    DWORD PTR ds:<span class="number">0x804a00c</span></div><div class="line">   <span class="number">0x8048416</span> &lt;__libc_start_main@plt+<span class="number">6</span>&gt;: push   <span class="number">0x0</span></div><div class="line">   <span class="number">0x804841b</span> &lt;__libc_start_main@plt+<span class="number">11</span>&gt;:        jmp    <span class="number">0x8048400</span></div><div class="line">=&gt; <span class="number">0x8048420</span> &lt;func@plt&gt;:        jmp    DWORD PTR ds:<span class="number">0x804a010</span></div><div class="line"> | <span class="number">0x8048426</span> &lt;func@plt+<span class="number">6</span>&gt;:      push   <span class="number">0x8</span></div><div class="line"> | <span class="number">0x804842b</span> &lt;func@plt+<span class="number">11</span>&gt;:     jmp    <span class="number">0x8048400</span></div><div class="line"> | <span class="number">0x8048430</span>:   jmp    DWORD PTR ds:<span class="number">0x8049ffc</span></div><div class="line"> | <span class="number">0x8048436</span>:   xchg   ax,ax</div><div class="line"> |-&gt;   <span class="number">0x8048426</span> &lt;func@plt+<span class="number">6</span>&gt;:  push   <span class="number">0x8</span></div><div class="line">       <span class="number">0x804842b</span> &lt;func@plt+<span class="number">11</span>&gt;: jmp    <span class="number">0x8048400</span></div><div class="line">       <span class="number">0x8048430</span>:       jmp    DWORD PTR ds:<span class="number">0x8049ffc</span></div><div class="line">       <span class="number">0x8048436</span>:       xchg   ax,ax</div><div class="line">                                                                  JUMP is taken</div></pre></td></tr></table></figure></p>
+<p>0x804a010 是 func 函数的重定位偏移，即重定位表中 func 符号的重定位入口。此时 0x804a010（func@got）中的地址为 0x8048426，即 PLT 中准备进行地址解析的指令地址。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">readelf -r test_lib1</div><div class="line"></div><div class="line">Relocation section '.rel.plt' at offset 0x3c0 contains 2 entries:</div><div class="line"> Offset     Info    Type            Sym.Value  Sym. Name</div><div class="line">0804a00c  00000307 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0</div><div class="line">0804a010  00000407 R_386_JUMP_SLOT   00000000   func</div><div class="line"></div><div class="line">gdb-peda$ telescope 0x804a010</div><div class="line">0000| 0x804a010 --&gt; 0x8048426 (&lt;func@plt+6&gt;:    push   0x8)</div><div class="line">0004| 0x804a014 --&gt; 0x0</div><div class="line">0008| 0x804a018 --&gt; 0x0</div></pre></td></tr></table></figure></p>
+<p>程序跳转到 0x8048426 后，又经过 2 次跳转到 ds[0x804a008] 处执行。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   <span class="number">0x804841b</span> &lt;__libc_start_main@plt+<span class="number">11</span>&gt;:        jmp    <span class="number">0x8048400</span></div><div class="line">   <span class="number">0x8048420</span> &lt;func@plt&gt;:        jmp    DWORD PTR ds:<span class="number">0x804a010</span></div><div class="line">   <span class="number">0x8048426</span> &lt;func@plt+<span class="number">6</span>&gt;:      push   <span class="number">0x8</span></div><div class="line">=&gt; <span class="number">0x804842b</span> &lt;func@plt+<span class="number">11</span>&gt;:     jmp    <span class="number">0x8048400</span></div><div class="line"> | <span class="number">0x8048430</span>:   jmp    DWORD PTR ds:<span class="number">0x8049ffc</span></div><div class="line"> | <span class="number">0x8048436</span>:   xchg   ax,ax</div><div class="line"> | <span class="number">0x8048438</span>:   add    BYTE PTR [eax],al</div><div class="line"> | <span class="number">0x804843a</span>:   add    BYTE PTR [eax],al</div><div class="line"> |-&gt;   <span class="number">0x8048400</span>:       push   DWORD PTR ds:<span class="number">0x804a004</span></div><div class="line">       <span class="number">0x8048406</span>:       jmp    DWORD PTR ds:<span class="number">0x804a008</span></div><div class="line">       <span class="number">0x804840c</span>:       add    BYTE PTR [eax],al</div><div class="line">       <span class="number">0x804840e</span>:       add    BYTE PTR [eax],al</div><div class="line">                                                                  JUMP is taken</div></pre></td></tr></table></figure></p>
+<p>ds[0x804a008] 处即为用于解析 func 地址的 _dl_runtime_resolve 函数。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   <span class="number">0x80483fd</span>:   add    BYTE PTR [eax],al</div><div class="line">   <span class="number">0x80483ff</span>:   add    bh,bh</div><div class="line">   <span class="number">0x8048401</span>:   xor    eax,<span class="number">0x804a004</span></div><div class="line">=&gt; <span class="number">0x8048406</span>:   jmp    DWORD PTR ds:<span class="number">0x804a008</span></div><div class="line"> | <span class="number">0x804840c</span>:   add    BYTE PTR [eax],al</div><div class="line"> | <span class="number">0x804840e</span>:   add    BYTE PTR [eax],al</div><div class="line"> | <span class="number">0x8048410</span> &lt;__libc_start_main@plt&gt;:   jmp    DWORD PTR ds:<span class="number">0x804a00c</span></div><div class="line"> | <span class="number">0x8048416</span> &lt;__libc_start_main@plt+<span class="number">6</span>&gt;: push   <span class="number">0x0</span></div><div class="line"> |-&gt;   <span class="number">0xf7fee000</span> &lt;_dl_runtime_resolve&gt;:        push   eax</div><div class="line">       <span class="number">0xf7fee001</span> &lt;_dl_runtime_resolve+<span class="number">1</span>&gt;:      push   ecx</div><div class="line">       <span class="number">0xf7fee002</span> &lt;_dl_runtime_resolve+<span class="number">2</span>&gt;:      push   edx</div><div class="line">       <span class="number">0xf7fee003</span> &lt;_dl_runtime_resolve+<span class="number">3</span>&gt;:      mov    edx,DWORD PTR [esp+<span class="number">0x10</span>]</div><div class="line">                                                                  JUMP is taken</div></pre></td></tr></table></figure></p>
+<p>_dl_runtime_resolve 函数会将 func 函数的真实地址填充到 0x804a010（func@got）中，并返回到 func 函数中继续执行。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   <span class="number">0xf7fd051c</span> &lt;__x86.get_pc_thunk.dx&gt;:  mov    edx,DWORD PTR [esp]</div><div class="line">   <span class="number">0xf7fd051f</span> &lt;__x86.get_pc_thunk.dx+<span class="number">3</span>&gt;:        ret    </div><div class="line">   <span class="number">0xf7fd0520</span> &lt;func&gt;:   push   ebp</div><div class="line">=&gt; <span class="number">0xf7fd0521</span> &lt;func+<span class="number">1</span>&gt;: mov    ebp,esp</div><div class="line">   <span class="number">0xf7fd0523</span> &lt;func+<span class="number">3</span>&gt;: push   ebx</div><div class="line">   <span class="number">0xf7fd0524</span> &lt;func+<span class="number">4</span>&gt;: sub    esp,<span class="number">0x4</span></div><div class="line">   <span class="number">0xf7fd0527</span> &lt;func+<span class="number">7</span>&gt;: call   <span class="number">0xf7fd054b</span> &lt;__x86.get_pc_thunk.ax&gt;</div><div class="line">   <span class="number">0xf7fd052c</span> &lt;func+<span class="number">12</span>&gt;:        add    eax,<span class="number">0x1ad4</span></div><div class="line"></div><div class="line">gdb-peda$ telescope <span class="number">0x804a010</span></div><div class="line"><span class="number">0000</span>| <span class="number">0x804a010</span> --&gt; <span class="number">0xf7fd0520</span> (&lt;func&gt;: push   ebp)</div></pre></td></tr></table></figure></p>
+<p>至此，使用延迟绑定的可执行文件中函数地址重定位已完成，当再次调用 func 函数时即可通过 jmp ds[0x804a010] 直接跳转到 func 函数中执行。</p>
+<hr>
+<p>References:<br>[1]《程序员的自我修养》<br>[2] <a href="http://rickgray.me/2015/08/07/use-gdb-to-study-got-and-plt/" target="_blank" rel="external">通过 GDB 调试理解 GOT/PLT</a><br>[3] <a href="https://zhuanlan.zhihu.com/p/25892385" target="_blank" rel="external">手把手教你栈溢出从入门到放弃（下）</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PLT/" rel="tag"># PLT</a>
+          
+            <a href="/tags/Lazy-Binding/" rel="tag"># Lazy Binding</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/0508/" rel="next" title="Linux 动态链接">
+                <i class="fa fa-chevron-left"></i> Linux 动态链接
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/0419/" rel="prev" title="Linux glibc heap house-of-force">
+                Linux glibc heap house-of-force <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/binary.jpg"
+               alt="0x4C43" />
+          <p class="site-author-name" itemprop="name">0x4C43</p>
+           
+              <p class="site-description motion-element" itemprop="description">Binary Exploitation</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/0x4C43" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-延迟绑定原理"><span class="nav-text">0x01 延迟绑定原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-首次调用"><span class="nav-text">1. 首次调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-非首次调用"><span class="nav-text">2. 非首次调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-实例调试"><span class="nav-text">0x02 实例调试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">0x4C43</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://0x4c43s-blog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://0x4c43.cn/2018/0429/';
+          this.page.identifier = '2018/0429//';
+          this.page.title = 'Linux 延迟绑定机制';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://0x4c43s-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "c190dfc84c3444f78b4a39fbfe45d4ee",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

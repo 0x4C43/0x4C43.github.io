@@ -1,0 +1,1031 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="-rILWvtgf7gbffrRwk-E1VWNCVLMTcq6pxgs_1IfIjo" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AFL,Fuzz" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="0x4C43's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="American Fuzzy Lop 中介绍了 AFL 的原理和特性，下面将使用 AFL 对几个常用的应用程序进行模糊测试。 0x01 AFL 安装与使用首先下载 AFL 源码 进行安装。12$ make$ make install 若程序从 stdin 中获取输入，则 afl-fuzz 的使用方法如下：12./afl-fuzz -i testcase_dir -o findings_dir --">
+<meta name="keywords" content="Fuzz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 AFL 进行模糊测试">
+<meta property="og:url" content="http://0x4c43.cn/2018/0722//index.html">
+<meta property="og:site_name" content="0x4C43's Blog">
+<meta property="og:description" content="American Fuzzy Lop 中介绍了 AFL 的原理和特性，下面将使用 AFL 对几个常用的应用程序进行模糊测试。 0x01 AFL 安装与使用首先下载 AFL 源码 进行安装。12$ make$ make install 若程序从 stdin 中获取输入，则 afl-fuzz 的使用方法如下：12./afl-fuzz -i testcase_dir -o findings_dir --">
+<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/17526042.jpg">
+<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/76650703.jpg">
+<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/66936998.jpg">
+<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/94579623.jpg">
+<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 AFL 进行模糊测试">
+<meta name="twitter:description" content="American Fuzzy Lop 中介绍了 AFL 的原理和特性，下面将使用 AFL 对几个常用的应用程序进行模糊测试。 0x01 AFL 安装与使用首先下载 AFL 源码 进行安装。12$ make$ make install 若程序从 stdin 中获取输入，则 afl-fuzz 的使用方法如下：12./afl-fuzz -i testcase_dir -o findings_dir --">
+<meta name="twitter:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/17526042.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://0x4c43.cn/2018/0722//"/>
+
+
+
+
+
+
+
+  <title> 使用 AFL 进行模糊测试 | 0x4C43's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">0x4C43's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0722/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="0x4C43">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/binary.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0x4C43's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用 AFL 进行模糊测试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-22T21:58:12+08:00">
+                2018-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Fuzz/" itemprop="url" rel="index">
+                    <span itemprop="name">Fuzz</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/0722/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/0722//" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://0x4c43.cn/2018/0722/american-fuzzy-lop/">American Fuzzy Lop</a> 中介绍了 AFL 的原理和特性，下面将使用 AFL 对几个常用的应用程序进行模糊测试。</p>
+<h1 id="0x01-AFL-安装与使用"><a href="#0x01-AFL-安装与使用" class="headerlink" title="0x01 AFL 安装与使用"></a>0x01 AFL 安装与使用</h1><p>首先下载 <a href="http://lcamtuf.coredump.cx/afl/releases/afl-latest.tgz" target="_blank" rel="external">AFL 源码</a> 进行安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ make</div><div class="line">$ make install</div></pre></td></tr></table></figure></p>
+<p>若程序从 stdin 中获取输入，则 afl-fuzz 的使用方法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./afl-fuzz -i testcase_dir -o findings_dir -- \</div><div class="line">     /path/to/tested/program [...program<span class="string">'s cmdline...]</span></div></pre></td></tr></table></figure></p>
+<p>若程序从文件中获取输入，则在命令行部分输入 “@@” 字符作为占位符，afl-fuzz 会自动用输入文件名将其替换。</p>
+<h1 id="0x02-模糊测试"><a href="#0x02-模糊测试" class="headerlink" title="0x02 模糊测试"></a>0x02 模糊测试</h1><h2 id="1-测试-libtiff"><a href="#1-测试-libtiff" class="headerlink" title="1. 测试 libtiff"></a>1. 测试 libtiff</h2><h3 id="1）安装-libtiff"><a href="#1）安装-libtiff" class="headerlink" title="1）安装 libtiff"></a>1）安装 libtiff</h3><p>下载 <a href="http://download.osgeo.org/libtiff/tiff-4.0.9.tar.gz" target="_blank" rel="external">libtiff 源码</a>，并使用 afl-gcc 编译。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CC=/usr/<span class="built_in">local</span>/bin/afl-gcc CXX=/usr/<span class="built_in">local</span>/bin/afl-g++ ./configure --disable-shared</div><div class="line">make clean</div><div class="line">make</div></pre></td></tr></table></figure></p>
+<p>编译好后，可执行文件在 tools 文件夹中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~/tiff-4.0.9/tools$ ls</div><div class="line">CMakeLists.txt  pal2rgb.o    tiff2pdf.c   tiffcp.o      tiffinfo.o</div><div class="line">fax2ps          ppm2tiff     tiff2pdf.o   tiffcrop      tiffmedian</div><div class="line">fax2ps.c        ppm2tiff.c   tiff2ps      tiffcrop.c    tiffmedian.c</div><div class="line">fax2ps.o        ppm2tiff.o   tiff2ps.c    tiffcrop.o    tiffmedian.o</div><div class="line">fax2tiff        raw2tiff     tiff2ps.o    tiffdither    tiffset</div><div class="line">fax2tiff.c      raw2tiff.c   tiff2rgba    tiffdither.c  tiffset.c</div><div class="line">fax2tiff.o      raw2tiff.o   tiff2rgba.c  tiffdither.o  tiffset.o</div><div class="line">Makefile        rgb2ycbcr.c  tiff2rgba.o  tiffdump      tiffsplit</div><div class="line">Makefile.am     thumbnail.c  tiffcmp      tiffdump.c    tiffsplit.c</div><div class="line">Makefile.in     tiff2bw      tiffcmp.c    tiffdump.o    tiffsplit.o</div><div class="line">Makefile.vc     tiff2bw.c    tiffcmp.o    tiffgt.c</div><div class="line">pal2rgb         tiff2bw.o    tiffcp       tiffinfo</div><div class="line">pal2rgb.c       tiff2pdf     tiffcp.c     tiffinfo.c</div></pre></td></tr></table></figure></p>
+<h3 id="2）模糊测试"><a href="#2）模糊测试" class="headerlink" title="2）模糊测试"></a>2）模糊测试</h3><p>下面对 tools 文件夹中的 tiff2bw 进行模糊测试。首先新建 2 个文件夹用于存放输入和输出文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkdir tiff_input tiff_output</div></pre></td></tr></table></figure></p>
+<p>从AFL 官网下载 <a href="http://lcamtuf.coredump.cx/afl/demo/" target="_blank" rel="external">测试样例</a> ，然后将 <code>afl_testcases\tiff\full\images</code> 目录下的文件复制到 tiff_input 中，最后运行 afl-fuzz 进行测试。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">afl-fuzz -i tiff_input -o tiff_output -- ./vultarget/tiff-4.0.9/tools/tiff2bw @@ /dev/null</div></pre></td></tr></table></figure></p>
+<p>其中，-i 指定测试样本的路径；-o 指定输出结果的路径；/dev/null 使错误信息不输出到屏幕。  </p>
+<p>afl-fuzz 跑了 12 个小时仍没有发现 crash。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/17526042.jpg" alt="">  </p>
+<h2 id="2-测试-ImageMagick"><a href="#2-测试-ImageMagick" class="headerlink" title="2. 测试 ImageMagick"></a>2. 测试 ImageMagick</h2><h3 id="1）安装-ImageMagick"><a href="#1）安装-ImageMagick" class="headerlink" title="1）安装 ImageMagick"></a>1）安装 ImageMagick</h3><p>首先，使用以下命令下载、编译和安装 ImageMagick。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/ImageMagick/ImageMagick.git</div><div class="line"><span class="built_in">cd</span> ImageMagick</div><div class="line">CC=/usr/<span class="built_in">local</span>/bin/afl-clang CXX=/usr/<span class="built_in">local</span>/bin/afl-clang++ ./configure --disable-shared</div><div class="line">make</div></pre></td></tr></table></figure></p>
+<h3 id="2）测试样例"><a href="#2）测试样例" class="headerlink" title="2）测试样例"></a>2）测试样例</h3><p><strong>测试样例获取</strong><br>高质量的测试样例可提高模糊测试的效率，可以使用 MozillaSecurity 提供的<a href="https://github.com/MozillaSecurity/fuzzdata" target="_blank" rel="external">开源测试样本</a>进行测试。</p>
+<p>此外，还可以从 ImageMagick 的<a href="https://github.com/ImageMagick/ImageMagick/issues?utf8=%E2%9C%93&amp;q=cve" target="_blank" rel="external">漏洞提交 issue</a> 中找到大量的测试样例。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/76650703.jpg" alt="">  </p>
+<p><strong>测试样例预处理</strong><br>在使用这些测试样例之前，先进行以下预处理可提高测试效率。</p>
+<ul>
+<li>生成不同格式的样例；</li>
+<li>使用 afl-tmin 减小测试样例的大小；</li>
+<li>使用 afl-cmin 减小测试样例的数量；</li>
+</ul>
+<p>通过以下脚本可完成预处理。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">import</span> shutil</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmin</span><span class="params">()</span>:</span></div><div class="line">    command = <span class="string">' -m 300 -t 5000 ./utilities/magick convert @@ /dev/null'</span> </div><div class="line">    os.system(<span class="string">'afl-cmin -i seeds/tmin -o seeds/cmin '</span> + command)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">tmin</span><span class="params">()</span>:</span></div><div class="line">    command = <span class="string">' -m 300 -t 5000 ./utilities/magick convert @@ /dev/null'</span> </div><div class="line">    seed_list = os.listdir(<span class="string">'seeds/all_format'</span>)</div><div class="line">    <span class="keyword">for</span> seed <span class="keyword">in</span> seed_list:</div><div class="line">        in_file = os.path.join(<span class="string">'seeds/all_format'</span>, seed)</div><div class="line">        out_file = os.path.join(<span class="string">'seeds/tmin'</span>, seed)</div><div class="line">        <span class="keyword">if</span> os.path.getsize(in_file) &gt; <span class="number">1024</span>*<span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> os.path.getsize(in_file) &lt; <span class="number">1024</span>*<span class="number">3</span> <span class="keyword">and</span> <span class="keyword">not</span> seed.endswith(<span class="string">'.txt'</span>):</div><div class="line">                os.system(<span class="string">'afl-tmin -i '</span> + in_file + <span class="string">' -o '</span> + out_file + command)</div><div class="line">                print(<span class="string">'afl-tmin -i '</span> + in_file + <span class="string">' -o '</span> + out_file + command)</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">pass</span></div><div class="line">        <span class="keyword">elif</span> os.path.getsize(in_file) &gt; <span class="number">0</span>:</div><div class="line">            shutil.copyfile(in_file,out_file)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">pass</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(origin_seeds)</span>:</span></div><div class="line">    seed_list = os.listdir(origin_seeds)</div><div class="line">    <span class="keyword">for</span> seed <span class="keyword">in</span> seed_list:</div><div class="line">        seed_in = os.path.join(origin_seeds, seed)</div><div class="line">        file_name = (os.path.splitext(seed)[<span class="number">0</span>])</div><div class="line">        coder_list = os.listdir(<span class="string">'coders'</span>)</div><div class="line"></div><div class="line">        <span class="keyword">for</span> cfile <span class="keyword">in</span> coder_list:</div><div class="line">            <span class="keyword">if</span> cfile.endswith(<span class="string">'.c'</span>):</div><div class="line">                extern = cfile[:cfile.find(<span class="string">'.c'</span>)]</div><div class="line">                seed_out = <span class="string">'seeds/all_format/'</span> + file_name + <span class="string">'.'</span> + extern</div><div class="line">                os.system(<span class="string">'utilities/magick convert '</span> + seed_in + <span class="string">' '</span> + seed_out)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">if</span> len(sys.argv) &lt; <span class="number">2</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'Usage: '</span> + sys.argv[<span class="number">0</span>] + <span class="string">' origin_seeds_dir'</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        origin_seeds_dir = sys.argv[<span class="number">1</span>]</div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            os.mkdir(<span class="string">'seeds'</span>)</div><div class="line">            seeds_path = os.path.join(os.path.abspath(<span class="string">'.'</span>),<span class="string">'seeds'</span>)</div><div class="line">            os.mkdir(os.path.join(seeds_path,<span class="string">'all_format'</span>))</div><div class="line">            os.mkdir(os.path.join(seeds_path,<span class="string">'cmin'</span>))</div><div class="line">            os.mkdir(os.path.join(seeds_path,<span class="string">'tmin'</span>))</div><div class="line">        <span class="keyword">except</span>:</div><div class="line">            <span class="keyword">print</span> <span class="string">'make dir fail!'</span></div><div class="line"></div><div class="line">        convert(origin_seeds_dir)</div><div class="line">        tmin()</div><div class="line">        cmin()</div></pre></td></tr></table></figure></p>
+<h3 id="3）模糊测试"><a href="#3）模糊测试" class="headerlink" title="3）模糊测试"></a>3）模糊测试</h3><p>程序运行模型一般为以下形式：</p>
+<blockquote>
+<p>输入-&gt; 解析（Parse） -&gt; 处理(Process) -&gt; 数据组装(Reassemble) -&gt; 输出</p>
+</blockquote>
+<p>对于 ImageMagick 而言，其 identify 命令可用户获取图片的属性，只会进行解析；convert 可转换图像格式和大小，以及进行各种处理，如果将处理结果输出到 /dev/null 则不进行写操作，如果使用 <code>convert in.png out.jpg</code> 则可触发写，即可覆盖更多的代码。</p>
+<p>使用不同命令参数也可以触发更多的代码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">afl-fuzz -i input -o output ./magick convert @@ /dev/null</div><div class="line">afl-fuzz -i input -o output ./magick composite @@ /dev/null</div><div class="line">afl-fuzz -i input -o output ./magick compare @@ /dev/null</div><div class="line">afl-fuzz -i input -o output ./magick montage @@ /dev/null</div><div class="line">afl-fuzz -i input -o output ./magick identify @@ /dev/null</div></pre></td></tr></table></figure></p>
+<p>接下来开始进行模糊测试，首先新建测试样本文件夹和测试结果文件夹，然后将前面得到的测试样本放入 image_input 文件夹中，最后使用以下命令同时运行多个 fuzzer。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ mkdir input output</div><div class="line"></div><div class="line">$ afl-fuzz -i input/min_input -o output -M fuzzer01 -t 4000 -m 200 ./vultarget/ImageMagick/utilities/magick  convert @@  out.jpg</div><div class="line">$ afl-fuzz -i input/min_input -o output -S fuzzer02 -t 4000 -m 200 ./vultarget/ImageMagick/utilities/magick  convert @@  out.jpg</div><div class="line">$ afl-fuzz -i input/min_input -o output -S fuzzer03 -t 4000 -m 200 ./vultarget/ImageMagick/utilities/magick  convert @@  out.jpg</div></pre></td></tr></table></figure></p>
+<p>afl-fuzz 参数说明：</p>
+<ul>
+<li>-i：指定测试样本所在目录；</li>
+<li>-o：指定测试结果存放目录；</li>
+<li>-M：运行主(Master) Fuzzer；</li>
+<li>-S：运行从属(Slave) Fuzzer；</li>
+<li>-t：设置程序运行超时值，单位为 ms；</li>
+<li>-m：最大运行内存，单位为 MB；</li>
+</ul>
+<p>测试过程中，需要注意的是 ImageMagick 在运行时会在 /tmp 目录下生成大量的临时文件，使得磁盘空间爆满，最终会导致 afl-fuzz 停止运行。为保证 afl-fuzz 能正常运行，需要使用以下脚本删除这些临时文件。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> time</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        file_list = os.listdir(<span class="string">'/tmp'</span>)</div><div class="line"></div><div class="line">        <span class="keyword">for</span> file_index <span class="keyword">in</span> file_list:</div><div class="line">            <span class="keyword">if</span> file_index.startswith(<span class="string">'magick'</span>):</div><div class="line">                <span class="keyword">try</span>:</div><div class="line">                    os.remove(<span class="string">'/tmp/'</span> + file_index)</div><div class="line">                <span class="keyword">except</span>:</div><div class="line">                    <span class="keyword">pass</span></div><div class="line">        time.sleep(<span class="number">10</span>)</div></pre></td></tr></table></figure></p>
+<p>运行三个 fuzzer 同时跑了 1 天 18 小时之后发现了一个 2  crash。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/66936998.jpg" alt="">  </p>
+<h2 id="3-测试-UPX"><a href="#3-测试-UPX" class="headerlink" title="3. 测试 UPX"></a>3. 测试 UPX</h2><h3 id="1）安装-UPX"><a href="#1）安装-UPX" class="headerlink" title="1）安装 UPX"></a>1）安装 UPX</h3><p>首先获取 upx 的源码，默认分支的版本为 3.94，修改编译选项：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/upx/upx.git</div><div class="line">$ <span class="built_in">cd</span> upx</div><div class="line">$ vim Makefile</div><div class="line">$ CC = /usr/<span class="built_in">local</span>/bin/afl-gcc   <span class="comment"># 添加该语句</span></div><div class="line">$ <span class="built_in">cd</span> upx</div><div class="line">$ vim Makefile</div><div class="line">$ CXX    ?= /usr/<span class="built_in">local</span>/bin/afl-g++   <span class="comment"># 修改 CXX</span></div></pre></td></tr></table></figure></p>
+<p>执行以下语句获取 lzma-sdk。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule update --init --recursive</div></pre></td></tr></table></figure></p>
+<p>此外，还需要下载安装 <a href="http://www.oberhumer.com/opensource/ucl/" target="_blank" rel="external">UCL</a>，并设置环境变量 。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ucl-1.03</div><div class="line">$ ./configure</div><div class="line">$ make</div><div class="line">$ sudo make install</div><div class="line">$ <span class="built_in">export</span> UPX_UCLDIR=/path/to/ucl-1.03</div></pre></td></tr></table></figure></p>
+<p>最后编译 upx，编译完后在 /src 目录下会生成可执行文件 upx.out。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ make all</div></pre></td></tr></table></figure></p>
+<h3 id="2）模糊测试-1"><a href="#2）模糊测试-1" class="headerlink" title="2）模糊测试"></a>2）模糊测试</h3><p>编译完后进行模糊测试。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ mkdir upx_in upx_out</div><div class="line">$ cp /bin/touch upx_in</div><div class="line">$ afl-fuzz -i upx_in -o upx_out -m 300 -t 300000 -- vultarget/upx/src/upx.out @@</div></pre></td></tr></table></figure></p>
+<p>afl-fuzz 跑了一段时间后，发现了 11 个 crashes(upx 3.94)。对 crashes 分析后发现只有一个样例可触发 bug，但是该 bug 已经在 3.95 中<a href="https://github.com/upx/upx/commit/3931cb7871a9cabf63e7c91bcb685bac2e72c22b" target="_blank" rel="external">修复</a>了。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/94579623.jpg" alt=""><br>使用以下命令可切换到最新版本所在的分支，从中可看到 bug 已被修复。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git checkout devel</div></pre></td></tr></table></figure></p>
+<h1 id="0x03-Fuzz-技巧"><a href="#0x03-Fuzz-技巧" class="headerlink" title="0x03 Fuzz 技巧"></a>0x03 Fuzz 技巧</h1><ul>
+<li>在开源项目提交漏洞的 issue 里能看到这些漏洞是怎么发现的，以及还能收集一些样本，可参考这些方法进行 Fuzz。</li>
+<li>对于开源项目，分析源码与 Fuzz 是相辅相成的，通过分析源码可找到合适的 Fuzz 入口和构造高质量的 Fuzz 样本。</li>
+<li>Fuzz 时可设置一些功能选项可提高代码覆盖率。</li>
+<li>模糊测试文件和网络协议等高度结构化数据时，通过构造合适的字典可提高代码覆盖率。</li>
+</ul>
+<hr>
+<p>References:<br>[1] <a href="http://lcamtuf.coredump.cx/afl/" target="_blank" rel="external">american fuzzy lop (2.52b)</a><br>[2] <a href="http://files.meetup.com/17933012/2015-03-introduction-fuzzing-with-afl.pdf" target="_blank" rel="external">AFL–American Fuzzy Lop</a><br>[3] <a href="https://github.com/lcatro/Fuzzing-ImageMagick/blob/master/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Fuzzing%E6%8C%96%E6%8E%98ImageMagick%E7%9A%84%E6%BC%8F%E6%B4%9E.md" target="_blank" rel="external">如何使用Fuzzing挖掘ImageMagick的漏洞</a><br>[4] <a href="https://github.com/lcatro/How-to-Read-Source-and-Fuzzing/blob/master/2.Fuzzing%20%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5.md" target="_blank" rel="external">Fuzzing 模糊测试之数据输入</a>  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Fuzz/" rel="tag"># Fuzz</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/0803/" rel="next" title="IDAPyhon 脚本批量分析程序">
+                <i class="fa fa-chevron-left"></i> IDAPyhon 脚本批量分析程序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/0722/" rel="prev" title="American Fuzzy Lop">
+                American Fuzzy Lop <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/binary.jpg"
+               alt="0x4C43" />
+          <p class="site-author-name" itemprop="name">0x4C43</p>
+           
+              <p class="site-description motion-element" itemprop="description">Binary Exploitation</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/0x4C43" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-AFL-安装与使用"><span class="nav-text">0x01 AFL 安装与使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-模糊测试"><span class="nav-text">0x02 模糊测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-测试-libtiff"><span class="nav-text">1. 测试 libtiff</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）安装-libtiff"><span class="nav-text">1）安装 libtiff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）模糊测试"><span class="nav-text">2）模糊测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-测试-ImageMagick"><span class="nav-text">2. 测试 ImageMagick</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）安装-ImageMagick"><span class="nav-text">1）安装 ImageMagick</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）测试样例"><span class="nav-text">2）测试样例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）模糊测试"><span class="nav-text">3）模糊测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试-UPX"><span class="nav-text">3. 测试 UPX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）安装-UPX"><span class="nav-text">1）安装 UPX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）模糊测试-1"><span class="nav-text">2）模糊测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-Fuzz-技巧"><span class="nav-text">0x03 Fuzz 技巧</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">0x4C43</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://0x4c43s-blog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://0x4c43.cn/2018/0722/';
+          this.page.identifier = '2018/0722//';
+          this.page.title = '使用 AFL 进行模糊测试';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://0x4c43s-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "c190dfc84c3444f78b4a39fbfe45d4ee",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

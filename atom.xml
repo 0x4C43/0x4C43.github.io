@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2018-05-30T02:40:52.900Z</updated>
+  <updated>2018-10-28T20:22:00.000Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,11 +16,238 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>博客图床迁移</title>
+    <link href="http://0x4c43.cn/2018/1029//"/>
+    <id>http://0x4c43.cn/2018/1029//</id>
+    <published>2018-10-29T10:20:24.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。&lt;/p&gt;
+&lt;h1 id=&quot;0x01-下载图片&quot;&gt;&lt;a href=&quot;#0x01-下载图片&quot; 
+    
+    </summary>
+    
+      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
+    
+    
+      <category term="图床" scheme="http://0x4c43.cn/tags/%E5%9B%BE%E5%BA%8A/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2018 铁人三项赛 aleph1 Writeup</title>
+    <link href="http://0x4c43.cn/2018/1029//"/>
+    <id>http://0x4c43.cn/2018/1029//</id>
+    <published>2018-10-29T03:45:08.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;0x01-漏洞位置&quot;&gt;&lt;a href=&quot;#0x01-漏洞位置&quot; class=&quot;headerlink&quot; title=&quot;0x01 漏洞位置&quot;&gt;&lt;/a&gt;0x01 漏洞位置&lt;/h1&gt;&lt;p&gt;程序很简单，调用 fgets() 从 stdin 中读取 1337 bytes 数据
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="pwn" scheme="http://0x4c43.cn/tags/pwn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>栈溢出 Stack smash 利用</title>
+    <link href="http://0x4c43.cn/2018/1013//"/>
+    <id>http://0x4c43.cn/2018/1013//</id>
+    <published>2018-10-13T11:40:28.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 Linux 系统应用程序中部署 Canary 漏洞缓解机制可有效防御栈溢出漏洞的攻击，然而在一定环境下，攻击者可利用该机制泄露内存信息，实现进一步的攻击。&lt;/p&gt;
+&lt;h1 id=&quot;0x01利用思路&quot;&gt;&lt;a href=&quot;#0x01利用思路&quot; class=&quot;headerli
+    
+    </summary>
+    
+      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
+    
+    
+      <category term="Stack smash" scheme="http://0x4c43.cn/tags/Stack-smash/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EasyRM2MP3 栈溢出分析</title>
+    <link href="http://0x4c43.cn/2018/0814//"/>
+    <id>http://0x4c43.cn/2018/0814//</id>
+    <published>2018-08-14T09:50:00.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;0x01-漏洞信息&quot;&gt;&lt;a href=&quot;#0x01-漏洞信息&quot; class=&quot;headerlink&quot; title=&quot;0x01 漏洞信息&quot;&gt;&lt;/a&gt;0x01 漏洞信息&lt;/h1&gt;&lt;p&gt;Easy RM to MP3 Converter 是一款音频文件格式转换工具，根据 
+    
+    </summary>
+    
+      <category term="Vulnerability Analysis" scheme="http://0x4c43.cn/categories/Vulnerability-Analysis/"/>
+    
+    
+      <category term="stack overflow" scheme="http://0x4c43.cn/tags/stack-overflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IDAPyhon 脚本批量分析程序</title>
+    <link href="http://0x4c43.cn/2018/0803//"/>
+    <id>http://0x4c43.cn/2018/0803//</id>
+    <published>2018-08-03T01:20:18.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当我们需要对大量二进制文件进行分析时，使用 Python 将其自动化，可以极大的提高效率。&lt;/p&gt;
+&lt;h1 id=&quot;0x01-运行-IDA&quot;&gt;&lt;a href=&quot;#0x01-运行-IDA&quot; class=&quot;headerlink&quot; title=&quot;0x01 运行 IDA&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="Program Analysis" scheme="http://0x4c43.cn/categories/Program-Analysis/"/>
+    
+    
+      <category term="IDAPython" scheme="http://0x4c43.cn/tags/IDAPython/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 AFL 进行模糊测试</title>
+    <link href="http://0x4c43.cn/2018/0722//"/>
+    <id>http://0x4c43.cn/2018/0722//</id>
+    <published>2018-07-22T13:58:12.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://0x4c43.cn/2018/0722/american-fuzzy-lop/&quot;&gt;American Fuzzy Lop&lt;/a&gt; 中介绍了 AFL 的原理和特性，下面将使用 AFL 对几个常用的应用程序进行模糊测试。&lt;/p&gt;
+&lt;h1 id=&quot;0
+    
+    </summary>
+    
+      <category term="Fuzz" scheme="http://0x4c43.cn/categories/Fuzz/"/>
+    
+    
+      <category term="Fuzz" scheme="http://0x4c43.cn/tags/Fuzz/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>American Fuzzy Lop</title>
+    <link href="http://0x4c43.cn/2018/0722//"/>
+    <id>http://0x4c43.cn/2018/0722//</id>
+    <published>2018-07-22T13:50:34.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;AFL 是一种安全导向的模糊测试工具，它采用一种新型的编译时插桩和遗传算法来自动生成测试样本，使用这些样本可触发目标二进制程序中新的内部状态，从而可提高模糊测试的代码覆盖率。与其他插桩模糊测试工具相比，afl-fuzz 的设计更具有实用性：具有适度的性能开销，使用各种高效的
+    
+    </summary>
+    
+      <category term="Fuzz" scheme="http://0x4c43.cn/categories/Fuzz/"/>
+    
+    
+      <category term="Fuzz" scheme="http://0x4c43.cn/tags/Fuzz/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VMWare 中扩展 ubuntu 磁盘空间</title>
+    <link href="http://0x4c43.cn/2018/0707//"/>
+    <id>http://0x4c43.cn/2018/0707//</id>
+    <published>2018-07-07T06:00:23.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于在 VMWare 系统中使用 ubuntu 时安装的软件过多，导致磁盘空间不够用。因此，需要扩展虚拟机的磁盘空间，依照网上找到的方法可完成该过程，便记录在此。&lt;/p&gt;
+&lt;h1 id=&quot;0x01-VMWare-设置&quot;&gt;&lt;a href=&quot;#0x01-VMWare-设置&quot; c
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+    
+    
+      <category term="磁盘空间" scheme="http://0x4c43.cn/tags/%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Heartbleed 漏洞分析</title>
+    <link href="http://0x4c43.cn/2018/0701//"/>
+    <id>http://0x4c43.cn/2018/0701//</id>
+    <published>2018-07-01T04:02:14.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;0x01-基础知识&quot;&gt;&lt;a href=&quot;#0x01-基础知识&quot; class=&quot;headerlink&quot; title=&quot;0x01 基础知识&quot;&gt;&lt;/a&gt;0x01 基础知识&lt;/h1&gt;&lt;h2 id=&quot;1-SSL协议简介&quot;&gt;&lt;a href=&quot;#1-SSL协议简介&quot; class
+    
+    </summary>
+    
+      <category term="Vulnerability Analysis" scheme="http://0x4c43.cn/categories/Vulnerability-Analysis/"/>
+    
+    
+      <category term="Heartbleed" scheme="http://0x4c43.cn/tags/Heartbleed/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IA-32 内存模型与地址映射</title>
+    <link href="http://0x4c43.cn/2018/0617//"/>
+    <id>http://0x4c43.cn/2018/0617//</id>
+    <published>2018-06-17T13:37:12.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;8086 的内部寄存器为 16 bits，同时有 20 根地址线，是第一款支持内存分段模型的处理器，它只工作在实模式下。IA-32(Intel Architecture, 32-bit) 由 1987 年的 8086 处理器发展而来，它的寄存器为 32 bits，有 32 
+    
+    </summary>
+    
+      <category term="Operating System" scheme="http://0x4c43.cn/categories/Operating-System/"/>
+    
+    
+      <category term="内存模型" scheme="http://0x4c43.cn/tags/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="地址映射" scheme="http://0x4c43.cn/tags/%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VMware 与 Credential Guard 不兼容</title>
+    <link href="http://0x4c43.cn/2018/0615//"/>
+    <id>http://0x4c43.cn/2018/0615//</id>
+    <published>2018-06-15T10:31:34.000Z</published>
+    <updated>2018-10-28T20:22:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;0x01-Problem&quot;&gt;&lt;a href=&quot;#0x01-Problem&quot; class=&quot;headerlink&quot; title=&quot;0x01 Problem&quot;&gt;&lt;/a&gt;0x01 Problem&lt;/h1&gt;&lt;p&gt;每次更新完 Windows10 后，使用 VMware Wo
+    
+    </summary>
+    
+      <category term="Problems&amp;Solutions" scheme="http://0x4c43.cn/categories/Problems-Solutions/"/>
+    
+    
+      <category term="Credential Guard" scheme="http://0x4c43.cn/tags/Credential-Guard/"/>
+    
+  </entry>
+  
+  <entry>
     <title>二进制程序分析框架 angr</title>
-    <link href="http://0x4c43.cn/2018/0529/binary-program-analysis-framework-angr/"/>
-    <id>http://0x4c43.cn/2018/0529/binary-program-analysis-framework-angr/</id>
+    <link href="http://0x4c43.cn/2018/0529//"/>
+    <id>http://0x4c43.cn/2018/0529//</id>
     <published>2018-05-29T13:30:00.000Z</published>
-    <updated>2018-05-30T02:40:52.900Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -40,10 +267,10 @@
   
   <entry>
     <title>Linux 系统调用与虚拟动态共享库</title>
-    <link href="http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/"/>
-    <id>http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/</id>
+    <link href="http://0x4c43.cn/2018/0517//"/>
+    <id>http://0x4c43.cn/2018/0517//</id>
     <published>2018-05-17T06:35:20.000Z</published>
-    <updated>2018-05-30T02:40:52.732Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -65,10 +292,10 @@
   
   <entry>
     <title>Linux 动态链接</title>
-    <link href="http://0x4c43.cn/2018/0508/linux-dynamic-link/"/>
-    <id>http://0x4c43.cn/2018/0508/linux-dynamic-link/</id>
+    <link href="http://0x4c43.cn/2018/0508//"/>
+    <id>http://0x4c43.cn/2018/0508//</id>
     <published>2018-05-08T06:53:14.000Z</published>
-    <updated>2018-05-30T02:40:52.396Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -88,10 +315,10 @@
   
   <entry>
     <title>Linux 延迟绑定机制</title>
-    <link href="http://0x4c43.cn/2018/0429/linux-delay-binding-mechanism/"/>
-    <id>http://0x4c43.cn/2018/0429/linux-delay-binding-mechanism/</id>
+    <link href="http://0x4c43.cn/2018/0429//"/>
+    <id>http://0x4c43.cn/2018/0429//</id>
     <published>2018-04-29T13:05:02.000Z</published>
-    <updated>2018-05-30T02:40:52.732Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -110,10 +337,10 @@
   
   <entry>
     <title>Linux glibc heap house-of-force</title>
-    <link href="http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/"/>
-    <id>http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/</id>
+    <link href="http://0x4c43.cn/2018/0419//"/>
+    <id>http://0x4c43.cn/2018/0419//</id>
     <published>2018-04-19T15:10:45.000Z</published>
-    <updated>2018-05-30T02:40:53.000Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -132,10 +359,10 @@
   
   <entry>
     <title>Linux glibc heap house-of-spirit</title>
-    <link href="http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/"/>
-    <id>http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/</id>
+    <link href="http://0x4c43.cn/2018/0413//"/>
+    <id>http://0x4c43.cn/2018/0413//</id>
     <published>2018-04-13T02:30:14.000Z</published>
-    <updated>2018-05-30T02:40:53.492Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -154,10 +381,10 @@
   
   <entry>
     <title>配置 Linux Python 开发环境</title>
-    <link href="http://0x4c43.cn/2018/0316/configure-the-linux-python-development-environment/"/>
-    <id>http://0x4c43.cn/2018/0316/configure-the-linux-python-development-environment/</id>
+    <link href="http://0x4c43.cn/2018/0316//"/>
+    <id>http://0x4c43.cn/2018/0316//</id>
     <published>2018-03-16T11:55:21.000Z</published>
-    <updated>2018-05-30T02:40:53.472Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -174,10 +401,10 @@
   
   <entry>
     <title>zsh 使用笔记</title>
-    <link href="http://0x4c43.cn/2018/0310/zsh-use-notes/"/>
-    <id>http://0x4c43.cn/2018/0310/zsh-use-notes/</id>
+    <link href="http://0x4c43.cn/2018/0310//"/>
+    <id>http://0x4c43.cn/2018/0310//</id>
     <published>2018-03-10T14:20:17.000Z</published>
-    <updated>2018-05-30T02:40:54.848Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -198,10 +425,10 @@
   
   <entry>
     <title>Linux 堆内存溢出 unlink 攻击</title>
-    <link href="http://0x4c43.cn/2017/1231/linux-heap-memory-overflow-unlink-attack/"/>
-    <id>http://0x4c43.cn/2017/1231/linux-heap-memory-overflow-unlink-attack/</id>
+    <link href="http://0x4c43.cn/2017/1231//"/>
+    <id>http://0x4c43.cn/2017/1231//</id>
     <published>2017-12-31T06:53:28.000Z</published>
-    <updated>2018-05-30T02:40:53.404Z</updated>
+    <updated>2018-10-28T20:22:00.000Z</updated>
     
     <summary type="html">
     
@@ -216,258 +443,6 @@
       <category term="堆溢出" scheme="http://0x4c43.cn/tags/%E5%A0%86%E6%BA%A2%E5%87%BA/"/>
     
       <category term="unlink" scheme="http://0x4c43.cn/tags/unlink/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>终端复用工具 tmux</title>
-    <link href="http://0x4c43.cn/2017/1028/terminal-multiplexing-tool-tmux/"/>
-    <id>http://0x4c43.cn/2017/1028/terminal-multiplexing-tool-tmux/</id>
-    <published>2017-10-28T14:57:21.000Z</published>
-    <updated>2018-05-30T02:40:52.900Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;0x01-简介&quot;&gt;&lt;a href=&quot;#0x01-简介&quot; class=&quot;headerlink&quot; title=&quot;0x01 简介&quot;&gt;&lt;/a&gt;0x01 简介&lt;/h1&gt;&lt;p&gt;tmux 是一款很好用的终端复用工具，主要有以下两个功能：    &lt;/p&gt;
-&lt;blockquote&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
-    
-    
-      <category term="tmux" scheme="http://0x4c43.cn/tags/tmux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux 使用笔记</title>
-    <link href="http://0x4c43.cn/2017/1028/linux-usage-notes/"/>
-    <id>http://0x4c43.cn/2017/1028/linux-usage-notes/</id>
-    <published>2017-10-28T13:45:08.000Z</published>
-    <updated>2018-05-30T02:40:54.824Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;0x01-基本命令&quot;&gt;&lt;a href=&quot;#0x01-基本命令&quot; class=&quot;headerlink&quot; title=&quot;0x01 基本命令&quot;&gt;&lt;/a&gt;0x01 基本命令&lt;/h1&gt;&lt;h2 id=&quot;1-使用终端模式登录&quot;&gt;&lt;a href=&quot;#1-使用终端模式登录&quot; cla
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://0x4c43.cn/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux 内存管理与堆</title>
-    <link href="http://0x4c43.cn/2017/1024/linux-memory-management-and-heap/"/>
-    <id>http://0x4c43.cn/2017/1024/linux-memory-management-and-heap/</id>
-    <published>2017-10-24T15:18:34.000Z</published>
-    <updated>2018-05-30T02:40:52.732Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;目前各大平台主要有如下几种堆内存管理机制：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
-    
-    
-      <category term="内存管理" scheme="http://0x4c43.cn/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
-    
-      <category term="malloc" scheme="http://0x4c43.cn/tags/malloc/"/>
-    
-      <category term="堆" scheme="http://0x4c43.cn/tags/%E5%A0%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker 使用笔记</title>
-    <link href="http://0x4c43.cn/2017/1005/docker-use-notes/"/>
-    <id>http://0x4c43.cn/2017/1005/docker-use-notes/</id>
-    <published>2017-10-05T08:20:23.000Z</published>
-    <updated>2018-05-30T02:40:54.048Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。&lt;/p&gt;
-&lt;p
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
-    
-    
-      <category term="Docker" scheme="http://0x4c43.cn/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RC4 算法实现</title>
-    <link href="http://0x4c43.cn/2017/0919/rc4-algorithm-implementation/"/>
-    <id>http://0x4c43.cn/2017/0919/rc4-algorithm-implementation/</id>
-    <published>2017-09-19T07:38:29.000Z</published>
-    <updated>2018-05-30T02:40:52.880Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;RC4 是一种对称秘钥流加密算法，对称加密算法使用的加密和解密秘钥是相同的，或是从其中一个能很容易推导出另一个。RC4 算法的特点是算法简单，运行速度快，而且密钥长度是可变的，密钥长度范围为 1-256 字节。&lt;/p&gt;
-&lt;h1 id=&quot;0x01-算法原理&quot;&gt;&lt;a href=
-    
-    </summary>
-    
-      <category term="加密解密" scheme="http://0x4c43.cn/categories/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/"/>
-    
-    
-      <category term="RC4" scheme="http://0x4c43.cn/tags/RC4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在斐讯 K2 上部署 Shadowsocks 与 Kcptun</title>
-    <link href="http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-fiers-k2/"/>
-    <id>http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-fiers-k2/</id>
-    <published>2017-08-26T06:34:57.000Z</published>
-    <updated>2018-05-30T11:13:27.931Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;对于程序员来说，能顺畅使用互联网能够很大程度地提高工作效率。所以，通过 SS 来实现代理上网是一个很好的解决方案。此外，对于能使用校园网的学生党而言，还可以使用 SS + IPv6 来实现免流，这样就能把省下来的网费用来买VPS了。&lt;/p&gt;
-&lt;p&gt;然而，在 PC 上直接使用
-    
-    </summary>
-    
-      <category term="Others" scheme="http://0x4c43.cn/categories/Others/"/>
-    
-    
-      <category term="斐讯 K2" scheme="http://0x4c43.cn/tags/%E6%96%90%E8%AE%AF-K2/"/>
-    
-      <category term="Shadowsocks" scheme="http://0x4c43.cn/tags/Shadowsocks/"/>
-    
-      <category term="kcptun，IPv6 免流" scheme="http://0x4c43.cn/tags/kcptun%EF%BC%8CIPv6-%E5%85%8D%E6%B5%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PE文件中添加节区</title>
-    <link href="http://0x4c43.cn/2017/0723/add-section-in-pe-file/"/>
-    <id>http://0x4c43.cn/2017/0723/add-section-in-pe-file/</id>
-    <published>2017-07-23T08:30:10.000Z</published>
-    <updated>2018-05-30T02:40:52.956Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。&lt;/p&gt;
-&lt;p&gt;打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每
-    
-    </summary>
-    
-      <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
-    
-    
-      <category term="PE文件" scheme="http://0x4c43.cn/tags/PE%E6%96%87%E4%BB%B6/"/>
-    
-      <category term="添加节区" scheme="http://0x4c43.cn/tags/%E6%B7%BB%E5%8A%A0%E8%8A%82%E5%8C%BA/"/>
-    
-      <category term="病毒感染" scheme="http://0x4c43.cn/tags/%E7%97%85%E6%AF%92%E6%84%9F%E6%9F%93/"/>
-    
-      <category term="打补丁" scheme="http://0x4c43.cn/tags/%E6%89%93%E8%A1%A5%E4%B8%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 firmware-mod-kit 修改固件</title>
-    <link href="http://0x4c43.cn/2017/0605/use-firmwaremodkit-to-modify-the-firmware/"/>
-    <id>http://0x4c43.cn/2017/0605/use-firmwaremodkit-to-modify-the-firmware/</id>
-    <published>2017-06-05T13:45:08.000Z</published>
-    <updated>2018-05-30T02:40:54.636Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。&lt;/p&gt;
-&lt;p&gt;该工具包支持以下
-    
-    </summary>
-    
-      <category term="Embedded" scheme="http://0x4c43.cn/categories/Embedded/"/>
-    
-    
-      <category term="firmware-mod-kit" scheme="http://0x4c43.cn/tags/firmware-mod-kit/"/>
-    
-      <category term="firmware" scheme="http://0x4c43.cn/tags/firmware/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DLL 注入之远程线程注入</title>
-    <link href="http://0x4c43.cn/2017/0510/remote-thread-injection-for-dll/"/>
-    <id>http://0x4c43.cn/2017/0510/remote-thread-injection-for-dll/</id>
-    <published>2017-05-10T13:45:08.000Z</published>
-    <updated>2018-05-30T02:40:52.064Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在 Windows 中有多种方法实现 DLL 注入，&lt;a href=&quot;http://0x4c43.cn/DLL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96/&quot;&gt;可以使用消息钩子注入 DLL&lt;/
-    
-    </summary>
-    
-      <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
-    
-    
-      <category term="DLL 注入" scheme="http://0x4c43.cn/tags/DLL-%E6%B3%A8%E5%85%A5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DLL 注入之 Windows 消息钩子</title>
-    <link href="http://0x4c43.cn/2017/0508/windows-message-hooks-for-dll-injection/"/>
-    <id>http://0x4c43.cn/2017/0508/windows-message-hooks-for-dll-injection/</id>
-    <published>2017-05-08T13:45:08.000Z</published>
-    <updated>2018-05-30T02:40:52.220Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Windows 下的窗口应用程序是基于事件驱动方式工作的，操作系统中点击鼠标和按下键盘都是一种事件，当事件发生时操作系统会将消息发送给相应的应用程序，应用程序收到消息之后会做出响应。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;钩子(Hook)，是Windows提供的一种截获和
-    
-    </summary>
-    
-      <category term="Windows" scheme="http://0x4c43.cn/categories/Windows/"/>
-    
-    
-      <category term="DLL 注入" scheme="http://0x4c43.cn/tags/DLL-%E6%B3%A8%E5%85%A5/"/>
-    
-      <category term="Hook" scheme="http://0x4c43.cn/tags/Hook/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>复现 NSA Enternalblue SMB 漏洞</title>
-    <link href="http://0x4c43.cn/2017/0427/replicated-nsa-enternalblue-smb-vulnerability/"/>
-    <id>http://0x4c43.cn/2017/0427/replicated-nsa-enternalblue-smb-vulnerability/</id>
-    <published>2017-04-27T09:18:08.000Z</published>
-    <updated>2018-05-30T11:13:27.131Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploi
-    
-    </summary>
-    
-      <category term="Exploit" scheme="http://0x4c43.cn/categories/Exploit/"/>
-    
-    
-      <category term="Enternalblue" scheme="http://0x4c43.cn/tags/Enternalblue/"/>
-    
-      <category term="Doublepulsar" scheme="http://0x4c43.cn/tags/Doublepulsar/"/>
-    
-      <category term="SMB" scheme="http://0x4c43.cn/tags/SMB/"/>
-    
-      <category term="Metasploit" scheme="http://0x4c43.cn/tags/Metasploit/"/>
     
   </entry>
   
