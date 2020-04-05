@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="图床" />
+  <meta name="keywords" content="磁盘空间" />
 
 
 
@@ -99,19 +99,17 @@
 
 
 
-<meta name="description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
-<meta name="keywords" content="图床">
+<meta name="description" content="由于在 VMWare 系统中使用 ubuntu 时安装的软件过多，导致磁盘空间不够用。因此，需要扩展虚拟机的磁盘空间，依照网上找到的方法可完成该过程，便记录在此。 0x01 VMWare 设置将需要扩展空间的虚拟机关机，并且需删除该虚拟机的快照。之后点击 虚拟机/设置/硬盘/扩展，设置扩展后的容量，这里从 20G 扩展到 40G。 设置完后，开启虚拟机，发现扩展的空间仍无法使用。123456789">
+<meta name="keywords" content="磁盘空间">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客图床迁移">
-<meta property="og:url" content="http://0x4c43.cn/2018/1029/blog-map-bed-migration/index.html">
+<meta property="og:title" content="VMWare 中扩展 ubuntu 磁盘空间">
+<meta property="og:url" content="http://0x4c43.cn/2018/0707/extend-ubuntu-disk-space-in-vmware/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
-<meta property="og:description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
-<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png">
-<meta property="og:updated_time" content="2020-04-05T05:54:42.423Z">
+<meta property="og:description" content="由于在 VMWare 系统中使用 ubuntu 时安装的软件过多，导致磁盘空间不够用。因此，需要扩展虚拟机的磁盘空间，依照网上找到的方法可完成该过程，便记录在此。 0x01 VMWare 设置将需要扩展空间的虚拟机关机，并且需删除该虚拟机的快照。之后点击 虚拟机/设置/硬盘/扩展，设置扩展后的容量，这里从 20G 扩展到 40G。 设置完后，开启虚拟机，发现扩展的空间仍无法使用。123456789">
+<meta property="og:updated_time" content="2020-04-05T07:59:31.144Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客图床迁移">
-<meta name="twitter:description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png">
+<meta name="twitter:title" content="VMWare 中扩展 ubuntu 磁盘空间">
+<meta name="twitter:description" content="由于在 VMWare 系统中使用 ubuntu 时安装的软件过多，导致磁盘空间不够用。因此，需要扩展虚拟机的磁盘空间，依照网上找到的方法可完成该过程，便记录在此。 0x01 VMWare 设置将需要扩展空间的虚拟机关机，并且需删除该虚拟机的快照。之后点击 虚拟机/设置/硬盘/扩展，设置扩展后的容量，这里从 20G 扩展到 40G。 设置完后，开启虚拟机，发现扩展的空间仍无法使用。123456789">
 
 
 
@@ -139,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2018/1029/blog-map-bed-migration/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2018/0707/extend-ubuntu-disk-space-in-vmware/"/>
 
 
 
@@ -147,7 +145,7 @@
 
 
 
-  <title> 博客图床迁移 | 0x4C43's Blog </title>
+  <title> VMWare 中扩展 ubuntu 磁盘空间 | 0x4C43's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -310,7 +308,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/1029/blog-map-bed-migration/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0707/extend-ubuntu-disk-space-in-vmware/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -331,7 +329,7 @@
             
             
               
-                博客图床迁移
+                VMWare 中扩展 ubuntu 磁盘空间
               
             
           </h1>
@@ -346,8 +344,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-29T18:20:24+08:00">
-                2018-10-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-07T14:00:23+08:00">
+                2018-07-07
               </time>
             
 
@@ -369,8 +367,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Others/" itemprop="url" rel="index">
-                    <span itemprop="name">Others</span>
+                  <a href="/categories/Pro-Sol/" itemprop="url" rel="index">
+                    <span itemprop="name">Pro&Sol</span>
                   </a>
                 </span>
 
@@ -387,9 +385,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/1029/blog-map-bed-migration/#comments" itemprop="discussionUrl">
+                <a href="/2018/0707/extend-ubuntu-disk-space-in-vmware/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/1029/blog-map-bed-migration/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/0707/extend-ubuntu-disk-space-in-vmware/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -420,20 +418,20 @@
       
 
       
-        <p>博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。</p>
-<h1 id="0x01-下载图片"><a href="#0x01-下载图片" class="headerlink" title="0x01 下载图片"></a>0x01 下载图片</h1><p>七牛云提供命令行工具 <a href="https://developer.qiniu.com/kodo/tools/1302/qshell#2" target="_blank" rel="external">qshell</a> 操作对象存储，可以使用该工具将已有数据同步到本地。</p>
-<h2 id="1-密钥设置"><a href="#1-密钥设置" class="headerlink" title="1. 密钥设置"></a>1. 密钥设置</h2><p>首先需要设置密钥，密钥 <code>ak</code> 与 <code>sk</code> 可在“个人面板/密钥管理”中查看。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ qshell account ak sk</div></pre></td></tr></table></figure></p>
-<h2 id="2-同步数据"><a href="#2-同步数据" class="headerlink" title="2. 同步数据"></a>2. 同步数据</h2><p>使用 <a href="https://github.com/qiniu/qshell/blob/master/docs/qdownload.md" target="_blank" rel="external">qdownload</a> 命令可将图片同步到本地，该功能是收费的，但是通过设置 <code>cdn_domain</code> 参数可免费使用 10G 的流量。该命令使用方法如下，其中 <code>LocalDownloadConfig</code> 为本地下载的配置文件。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ qshell qdownload [&lt;ThreadCount&gt;] &lt;LocalDownloadConfig&gt;</div></pre></td></tr></table></figure></p>
-<p>为能使用免费流量，新建如下配置文件，其中 <code>bucket</code> 为存储空间名称，<code>cdn_domain</code> 为需同步存储空间的外部默认域名。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"dest_dir"</span>   :   <span class="string">"/home/lc/Desktop/images"</span>,</div><div class="line">    <span class="string">"bucket"</span>     :   <span class="string">"hexo"</span>,</div><div class="line">    <span class="string">"prefix"</span>     :   <span class="string">""</span>,</div><div class="line">    <span class="string">"suffixes"</span>   :   <span class="string">""</span>,</div><div class="line">    <span class="string">"cdn_domain"</span> :   <span class="string">"http://ooyovxue7.bkt.clouddn.com"</span>,</div><div class="line">    <span class="string">"referer"</span>    :   <span class="string">""</span>,</div><div class="line">    <span class="string">"log_file"</span>   :   <span class="string">"download.log"</span>,</div><div class="line">    <span class="string">"log_level"</span>  :   <span class="string">"info"</span>,</div><div class="line">    <span class="string">"log_rotate"</span> :   <span class="number">1</span>,</div><div class="line">    <span class="string">"log_stdout"</span> :   false</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>命令执行完后，所有图片将下载到 <code>dest_dir</code> 设定的目录中。</p>
-<h1 id="0x02-腾讯云-COS"><a href="#0x02-腾讯云-COS" class="headerlink" title="0x02 腾讯云 COS"></a>0x02 腾讯云 COS</h1><h2 id="1-上传图片"><a href="#1-上传图片" class="headerlink" title="1. 上传图片"></a>1. 上传图片</h2><p>首先创建存储空间，并设置访问权限为<strong>公有读私有写</strong>，创建好后将下载的图片批量上传至 COS。为方便替换已有文章中图片链接，应保留七牛云中数据的文件夹结构。</p>
-<p>此外，为了防止盗链导致免费流量被耗尽，需要设置防盗链，将博客域名加入白名单中。但设置之后，本地文章中无法正常访问图片，所以酌情设置该功能。</p>
-<h2 id="2-修改链接"><a href="#2-修改链接" class="headerlink" title="2. 修改链接"></a>2. 修改链接</h2><p>将图片上传到腾讯云 COS 之后，即可正常访问这些图片。接下来需要修改已有文章中的图片链接，将链接中的七牛云域名 <code>old_domain_name</code> 替换为腾讯云域名 <code>new_domain_name</code>（在“基础配置/访问域名”中查看），下面使用 <code>sed</code> 命令进行批量修改。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="string">'s#($old_domain_name#($new_domain_name#g'</span> /path_to_blog/source/_posts/*.md</div></pre></td></tr></table></figure></p>
-<p>所有链接修改完后，博客图床迁移便完成了。</p>
-<p>2020.04.05 更新：近期腾讯云 COS 完成商业版测试，后续 COS 不再免费。因为贫穷，最终又把图床迁移到 Github。</p>
-<h1 id="0x03-PicGo"><a href="#0x03-PicGo" class="headerlink" title="0x03 PicGo"></a>0x03 PicGo</h1><p><a href="https://molunerfinn.com/PicGo/" target="_blank" rel="external">PicGo</a> 是一款图片上传工具，可支持多种图床，其中包括腾讯云 COS。配置方法参看 <a href="https://github.com/Molunerfinn/PicGo/wiki/%E8%AF%A6%E7%BB%86%E7%AA%97%E5%8F%A3%E7%9A%84%E4%BD%BF%E7%94%A8#%E8%85%BE%E8%AE%AF%E4%BA%91cos" target="_blank" rel="external">官方文档</a>，由于主账户权限较大，基于安全考虑，建议新建一个子账户，并对该子账户只授予 COS 读写权限，具体设置方法参考 <a href="https://cloud.tencent.com/document/product/436/11714" target="_blank" rel="external">使用子账号对 COS 进行授权</a>。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png" alt=""></p>
+        <p>由于在 VMWare 系统中使用 ubuntu 时安装的软件过多，导致磁盘空间不够用。因此，需要扩展虚拟机的磁盘空间，依照网上找到的方法可完成该过程，便记录在此。</p>
+<h1 id="0x01-VMWare-设置"><a href="#0x01-VMWare-设置" class="headerlink" title="0x01 VMWare 设置"></a>0x01 VMWare 设置</h1><p>将需要扩展空间的虚拟机关机，并且需删除该虚拟机的快照。之后点击 <code>虚拟机/设置/硬盘/扩展</code>，设置扩展后的容量，这里从 20G 扩展到 40G。</p>
+<p>设置完后，开启虚拟机，发现扩展的空间仍无法使用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">sudo fdisk <span class="_">-l</span></div><div class="line">Disk /dev/sda: 40 GiB, 42949672960 bytes, 83886080 sectors</div><div class="line">Units: sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disklabel <span class="built_in">type</span>: dos</div><div class="line">Disk identifier: 0xbaa4ad2e</div><div class="line"></div><div class="line">Device     Boot    Start      End  Sectors Size Id Type</div><div class="line">/dev/sda1  *        2048 33554431 33552384  16G 83 Linux</div><div class="line">/dev/sda2       33556478 41940991  8384514   4G  5 Extended</div><div class="line">/dev/sda5       33556480 41940991  8384512   4G 82 Linux swap / Solaris</div></pre></td></tr></table></figure></p>
+<h1 id="0x02-重新分区"><a href="#0x02-重新分区" class="headerlink" title="0x02 重新分区"></a>0x02 重新分区</h1><p>为了能正常使用增加的磁盘容量，需把分区删除，然后再重新进行分区。首先关闭交换分区：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ubuntu<span class="comment"># swapoff -a</span></div><div class="line">ubuntu<span class="comment"># free -m</span></div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:           3921         634        2414          11         872        2925</div><div class="line">Swap:             0           0           0</div></pre></td></tr></table></figure></p>
+<p>删除 /dev/sda1 和 /dev/sda2 分区。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">ubuntu<span class="comment"># fdisk /dev/sda</span></div><div class="line"></div><div class="line">Welcome to fdisk (util-linux 2.27.1).</div><div class="line">Changes will remain <span class="keyword">in</span> memory only, until you decide to write them.</div><div class="line">Be careful before using the write command.</div><div class="line"></div><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</div><div class="line">Disk /dev/sda: 40 GiB, 42949672960 bytes, 83886080 sectors</div><div class="line">Units: sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disklabel <span class="built_in">type</span>: dos</div><div class="line">Disk identifier: 0xbaa4ad2e</div><div class="line"></div><div class="line">Device     Boot    Start      End  Sectors Size Id Type</div><div class="line">/dev/sda1  *        2048 33554431 33552384  16G 83 Linux</div><div class="line">/dev/sda2       33556478 41940991  8384514   4G  5 Extended</div><div class="line">/dev/sda5       33556480 41940991  8384512   4G 82 Linux swap / Solaris</div><div class="line"></div><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): d</div><div class="line">Partition number (1,2,5, default 5): 1</div><div class="line"></div><div class="line">Partition 1 has been deleted.</div><div class="line"></div><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): d</div><div class="line">Partition number (2,5, default 5): 2</div><div class="line"></div><div class="line">Partition 2 has been deleted.</div><div class="line"></div><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</div><div class="line">Disk /dev/sda: 40 GiB, 42949672960 bytes, 83886080 sectors</div><div class="line">Units: sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disklabel <span class="built_in">type</span>: dos</div><div class="line">Disk identifier: 0xbaa4ad2e</div></pre></td></tr></table></figure></p>
+<p>删除分区后，重新进行分区。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</div><div class="line">Partition <span class="built_in">type</span></div><div class="line">   p   primary (0 primary, 0 extended, 4 free)</div><div class="line">   e   extended (container <span class="keyword">for</span> logical partitions)</div><div class="line">Select (default p): p</div><div class="line">Partition number (1-4, default 1): 1</div><div class="line">First sector (2048-83886079, default 2048): </div><div class="line">Last sector, +sectors or +size&#123;K,M,G,T,P&#125; (2048-83886079, default 83886079): 75501568</div><div class="line"></div><div class="line">Created a new partition 1 of <span class="built_in">type</span> <span class="string">'Linux'</span> and of size 36 GiB.</div></pre></td></tr></table></figure></p>
+<p>First sector 使用默认值，Last sector 的值设置为 75501568，根据上面 <code>free -m</code> 输出的信息计算：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">75501568 = 83886080(total sectors) - 8384512(swap sectors)</div></pre></td></tr></table></figure></p>
+<p>可以看到已经新建了一个 36G 的 /dev/sda1 分区。接着继续分区：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</div><div class="line">Partition <span class="built_in">type</span></div><div class="line">   p   primary (1 primary, 0 extended, 3 free)</div><div class="line">   e   extended (container <span class="keyword">for</span> logical partitions)</div><div class="line">Select (default p): p</div><div class="line">Partition number (2-4, default 2): 2</div><div class="line">First sector (75501569-83886079, default 75503616): </div><div class="line">Last sector, +sectors or +size&#123;K,M,G,T,P&#125; (75503616-83886079, default 83886079): </div><div class="line"></div><div class="line">Created a new partition 2 of <span class="built_in">type</span> <span class="string">'Linux'</span> and of size 4 GiB.</div><div class="line"></div><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</div><div class="line">Disk /dev/sda: 40 GiB, 42949672960 bytes, 83886080 sectors</div><div class="line">Units: sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disklabel <span class="built_in">type</span>: dos</div><div class="line">Disk identifier: 0xbaa4ad2e</div><div class="line"></div><div class="line">Device     Boot    Start      End  Sectors Size Id Type</div><div class="line">/dev/sda1           2048 75501568 75499521  36G 83 Linux</div><div class="line">/dev/sda2       75503616 83886079  8382464   4G 83 Linux</div></pre></td></tr></table></figure></p>
+<p>到此，新建的 2 个分区的大小已经设置好了，还需要设置 ID，将 /dev/sda2 设置为 Linux swap 。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): t</div><div class="line">Partition number (1,2, default 2): 2</div><div class="line">Partition <span class="built_in">type</span> (<span class="built_in">type</span> L to list all types): 82</div><div class="line"></div><div class="line">Changed <span class="built_in">type</span> of partition <span class="string">'Linux'</span> to <span class="string">'Linux swap / Solaris'</span>.</div></pre></td></tr></table></figure></p>
+<p>最后使用 w 保存。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): w</div><div class="line">The partition table has been altered.</div><div class="line">Calling ioctl() to re-read partition table.</div><div class="line">Re-reading the partition table failed.: Device or resource busy</div><div class="line"></div><div class="line">The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).</div></pre></td></tr></table></figure></p>
+<p>重启虚拟机，并设置交换分区的 UUID。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">ubuntu<span class="comment"># awk '/swap/ &#123; print $1&#125;' /etc/fstab</span></div><div class="line"><span class="comment">#</span></div><div class="line">UUID=a3e89d30-b6b8-4131-9c0c-0c686a7ae1f7</div><div class="line"></div><div class="line">ubuntu<span class="comment"># dd if=/dev/zero of=/dev/sda2 </span></div><div class="line">dd: writing to <span class="string">'/dev/sda2'</span>: No space left on device</div><div class="line">8382465+0 records <span class="keyword">in</span></div><div class="line">8382464+0 records out</div><div class="line">4291821568 bytes (4.3 GB, 4.0 GiB) copied, 159.644 s, 26.9 MB/s</div><div class="line">ubuntu<span class="comment"># mkswap -U a3e89d30-b6b8-4131-9c0c-0c686a7ae1f7 /dev/sda2</span></div><div class="line">Setting up swapspace version 1, size = 4 GiB (4291817472 bytes)</div><div class="line">no label, UUID=a3e89d30-b6b8-4131-9c0c-0c686a7ae1f7</div><div class="line">ubuntu<span class="comment"># swapon -a</span></div><div class="line">ubuntu<span class="comment"># free -m</span></div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:           3921         635        2766          11         519        2952</div><div class="line">Swap:          4092           0        4092</div><div class="line"></div><div class="line">ubuntu<span class="comment"># resize2fs /dev/sda1</span></div><div class="line">resize2fs 1.42.13 (17-May-2015)</div><div class="line">Filesystem at /dev/sda1 is mounted on /; on-line resizing required</div><div class="line">old_desc_blocks = 1, new_desc_blocks = 3</div><div class="line">The filesystem on /dev/sda1 is now 9437440 (4k) blocks long.</div><div class="line"></div><div class="line">ubuntu<span class="comment"># df -h</span></div><div class="line">Filesystem      Size  Used Avail Use% Mounted on</div><div class="line">udev            1.9G     0  1.9G   0% /dev</div><div class="line">tmpfs           393M  6.2M  387M   2% /run</div><div class="line">/dev/sda1        36G   12G   23G  35% /</div><div class="line">tmpfs           2.0G  216K  2.0G   1% /dev/shm</div><div class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</div><div class="line">tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup</div><div class="line">tmpfs           393M   72K  393M   1% /run/user/1000</div></pre></td></tr></table></figure></p>
+<p>到此已经完成所有配置，可以看到 /dev/sda1 的容量已经调整到 36G。</p>
 <hr>
-<p>References:<br>[1] <a href="https://sjq597.github.io/2018/10/13/%E4%B8%83%E7%89%9B%E6%B5%8B%E8%AF%95%E5%9F%9F%E5%90%8D%E5%9B%9E%E6%94%B6%E8%BF%81%E7%A7%BB%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E5%88%B0%E8%85%BE%E8%AE%AF%E4%BA%91/" target="_blank" rel="external">七牛测试域名回收迁移博客图床到腾讯云</a><br>[2] <a href="https://jdhao.github.io/2018/10/20/qiuniu_migrate_to_tencent_cos/" target="_blank" rel="external">把博客图床从七牛云迁移到腾讯云</a>  </p>
+<p>References:<br>[1] <a href="https://blog.csdn.net/openrd/article/details/51405884" target="_blank" rel="external">VMware下ubuntu扩展磁盘空间</a>   </p>
 
       
     </div>
@@ -463,7 +461,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/图床/" rel="tag"># 图床</a>
+            <a href="/tags/磁盘空间/" rel="tag"># 磁盘空间</a>
           
         </div>
       
@@ -476,14 +474,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/0722/american-fuzzy-lop/" rel="next" title="American Fuzzy Lop">
+                <i class="fa fa-chevron-left"></i> American Fuzzy Lop
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/1029/2018-triathlon-aleph1-writeup/" rel="prev" title="2018 铁人三项赛 aleph1 Writeup">
-                2018 铁人三项赛 aleph1 Writeup <i class="fa fa-chevron-right"></i>
+              <a href="/2018/0701/heartbleed-vulnerability-analysis/" rel="prev" title="Heartbleed 漏洞分析">
+                Heartbleed 漏洞分析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -644,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-下载图片"><span class="nav-text">0x01 下载图片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-密钥设置"><span class="nav-text">1. 密钥设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-同步数据"><span class="nav-text">2. 同步数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-腾讯云-COS"><span class="nav-text">0x02 腾讯云 COS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-上传图片"><span class="nav-text">1. 上传图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-修改链接"><span class="nav-text">2. 修改链接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-PicGo"><span class="nav-text">0x03 PicGo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-VMWare-设置"><span class="nav-text">0x01 VMWare 设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-重新分区"><span class="nav-text">0x02 重新分区</span></a></li></ol></div>
             
 
           </div>
@@ -796,9 +798,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2018/1029/blog-map-bed-migration/';
-          this.page.identifier = '2018/1029/blog-map-bed-migration/';
-          this.page.title = '博客图床迁移';
+          this.page.url = 'http://0x4c43.cn/2018/0707/extend-ubuntu-disk-space-in-vmware/';
+          this.page.identifier = '2018/0707/extend-ubuntu-disk-space-in-vmware/';
+          this.page.title = 'VMWare 中扩展 ubuntu 磁盘空间';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://0x4c43s-blog.disqus.com/embed.js';

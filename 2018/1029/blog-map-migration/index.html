@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux 配置,使用" />
+  <meta name="keywords" content="图床" />
 
 
 
@@ -99,19 +99,19 @@
 
 
 
-<meta name="description" content="0x01 基本命令1. 使用终端模式登录终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；12使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6使用 Ctrl+Alt+F7 回到桌面模式 2. 分页显示终端模式下，输出的内容多于一屏时使用；12cat file1 | less 或 less file1ca">
-<meta name="keywords" content="Linux">
+<meta name="description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
+<meta name="keywords" content="图床">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 使用笔记">
-<meta property="og:url" content="http://0x4c43.cn/2017/1028/linux-notes/index.html">
+<meta property="og:title" content="博客图床迁移">
+<meta property="og:url" content="http://0x4c43.cn/2018/1029/blog-map-migration/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
-<meta property="og:description" content="0x01 基本命令1. 使用终端模式登录终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；12使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6使用 Ctrl+Alt+F7 回到桌面模式 2. 分页显示终端模式下，输出的内容多于一屏时使用；12cat file1 | less 或 less file1ca">
-<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020499_99556537.jpg">
-<meta property="og:updated_time" content="2020-04-05T05:47:30.887Z">
+<meta property="og:description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png">
+<meta property="og:updated_time" content="2020-04-05T08:15:11.672Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux 使用笔记">
-<meta name="twitter:description" content="0x01 基本命令1. 使用终端模式登录终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；12使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6使用 Ctrl+Alt+F7 回到桌面模式 2. 分页显示终端模式下，输出的内容多于一屏时使用；12cat file1 | less 或 less file1ca">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020499_99556537.jpg">
+<meta name="twitter:title" content="博客图床迁移">
+<meta name="twitter:description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png">
 
 
 
@@ -139,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2017/1028/linux-notes/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2018/1029/blog-map-migration/"/>
 
 
 
@@ -147,7 +147,7 @@
 
 
 
-  <title> Linux 使用笔记 | 0x4C43's Blog </title>
+  <title> 博客图床迁移 | 0x4C43's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -310,7 +310,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/1028/linux-notes/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/1029/blog-map-migration/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -331,7 +331,7 @@
             
             
               
-                Linux 使用笔记
+                博客图床迁移
               
             
           </h1>
@@ -346,8 +346,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-28T21:45:08+08:00">
-                2017-10-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-29T18:20:24+08:00">
+                2018-10-29
               </time>
             
 
@@ -369,8 +369,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Others/" itemprop="url" rel="index">
+                    <span itemprop="name">Others</span>
                   </a>
                 </span>
 
@@ -387,9 +387,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/1028/linux-notes/#comments" itemprop="discussionUrl">
+                <a href="/2018/1029/blog-map-migration/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/1028/linux-notes/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/1029/blog-map-migration/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -420,33 +420,20 @@
       
 
       
-        <h1 id="0x01-基本命令"><a href="#0x01-基本命令" class="headerlink" title="0x01 基本命令"></a>0x01 基本命令</h1><h2 id="1-使用终端模式登录"><a href="#1-使用终端模式登录" class="headerlink" title="1. 使用终端模式登录"></a>1. 使用终端模式登录</h2><p>终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6</div><div class="line">使用 Ctrl+Alt+F7 回到桌面模式</div></pre></td></tr></table></figure></p>
-<h2 id="2-分页显示"><a href="#2-分页显示" class="headerlink" title="2. 分页显示"></a>2. 分页显示</h2><p>终端模式下，输出的内容多于一屏时使用；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cat file1 | less 或 less file1</div><div class="line">cat file1 | more 或 more file1</div></pre></td></tr></table></figure></p>
-<h2 id="3-命令帮助"><a href="#3-命令帮助" class="headerlink" title="3. 命令帮助"></a>3. 命令帮助</h2><p>用于查看命令的使用说明；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">man ls</div><div class="line">man -f reboot</div><div class="line">man <span class="number">2</span> reboot</div></pre></td></tr></table></figure></p>
-<p>输入”/string“，按回车，查找关键字 string，n 键向下查找，N 键向上查找；<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020499_99556537.jpg" alt=""><br>-f 用于查询命令说明存在于哪些 man 文档文件中；<br>查看 reboot 命令在 man 文档的第二章中的解释；</p>
-<p>同样可用 info ls 查看命令说明文档。</p>
-<h2 id="4-命令行快捷键"><a href="#4-命令行快捷键" class="headerlink" title="4. 命令行快捷键"></a>4. 命令行快捷键</h2><p>常用:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Ctrl L：清屏</div><div class="line">Ctrl M：等效于回车</div><div class="line">Ctrl C: 中断正在当前正在执行的程序</div></pre></td></tr></table></figure></p>
-<p>历史命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Ctrl P: 上一条命令，可以一直按表示一直往前翻</div><div class="line">Ctrl N: 下一条命令</div><div class="line">Ctrl R:再按历史命令中出现过的字符串：按字符串寻找历史命令（重度推荐）</div></pre></td></tr></table></figure></p>
-<p>命令行编辑:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Tab: 自动补齐</div><div class="line">Ctrl A：移动光标到命令行首</div><div class="line">Ctrl E: 移动光标到命令行尾</div><div class="line">Ctrl B: 光标后退</div><div class="line">Ctrl F: 光标前进</div><div class="line">Alt F: 光标前进一个单词</div><div class="line">Alt B: 光标后退一格单词</div><div class="line">Ctrl H: 删除光标的前一个字符</div><div class="line">Ctrl D: 删除当前光标所在字符</div><div class="line">Alt D: 删除当前单词</div><div class="line">Ctrl K：删除光标之后所有字符</div><div class="line">Ctrl U: 清空当前键入的命令</div><div class="line">Ctrl W: 删除光标前的单词(Word, 不包含空格的字符串)</div><div class="line">Ctrl Y: 粘贴Ctrl W或Ctrl K删除的内容</div><div class="line">Alt .: 粘贴上一条命令的最后一个参数（很有用）</div><div class="line">Ctrl X Ctrl E: 调出系统默认编辑器编辑当前输入的命令，退出编辑器时，命令执行</div></pre></td></tr></table></figure></p>
-<p>其他:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Ctrl Z: 把当前进程放到后台（之后可用<span class="string">''</span><span class="built_in">fg</span><span class="string">''</span>命令回到前台）</div><div class="line">Ctrl PageUp: 屏幕输出向上翻页</div><div class="line">Ctrl PageDown: 屏幕输出向下翻页</div></pre></td></tr></table></figure></p>
-<h1 id="0x02-系统配置"><a href="#0x02-系统配置" class="headerlink" title="0x02 系统配置"></a>0x02 系统配置</h1><h2 id="1-修改软件源"><a href="#1-修改软件源" class="headerlink" title="1. 修改软件源"></a>1. 修改软件源</h2><p>使用国内的 ubuntu 源速度会快很多。下面使用 ubuntu 16.04 的<a href="https://mirrors.ustc.edu.cn/repogen/" target="_blank" rel="external">科大源</a>，可以使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo sed -i &apos;s/archive.ubuntu.com/mirrors.ustc.edu.cn/g&apos; /etc/apt/sources.list</div></pre></td></tr></table></figure></p>
-<p>或者直接编辑 /etc/apt/sources.list 文件，在文件最前面添加以下条目：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span></div><div class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ xenial main restricted universe multiverse</div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial main main restricted universe multiverse</span></div><div class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse</div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse</span></div><div class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse</div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse</span></div><div class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ xenial-security main restricted universe multiverse</div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial-security main restricted universe multiverse</span></div><div class="line"><span class="comment"># 预发布软件源，不建议启用</span></div><div class="line"><span class="comment"># deb https://mirrors.ustc.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse</span></div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse</span></div></pre></td></tr></table></figure></p>
-<h2 id="2-添加-DNS-配置"><a href="#2-添加-DNS-配置" class="headerlink" title="2. 添加 DNS 配置"></a>2. 添加 DNS 配置</h2><p>直接修改 /etc/resolv.conf 重启会被覆盖，使用以下两种方法设置可避免该问题。<br><strong>a）修改文件/etc/network/interfaces</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># interfaces(5) file used by ifup(8) and ifdown(8)</span></div><div class="line"><span class="comment"># auto lo</span></div><div class="line"><span class="comment"># iface lo inet loopback</span></div><div class="line"></div><div class="line">auto eth0    </div><div class="line">iface eth0 inet static    </div><div class="line">address <span class="number">192.168</span><span class="number">.3</span><span class="number">.250</span>    <span class="comment"># IP    </span></div><div class="line">netmask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>    <span class="comment"># netmask    </span></div><div class="line">gateway <span class="number">192.168</span><span class="number">.3</span><span class="number">.1</span>      <span class="comment"># gateway    </span></div><div class="line">dns-nameservers <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>  <span class="comment"># DNS</span></div></pre></td></tr></table></figure></p>
-<p><strong>b）修改文件 /etc/resolvconf/resolv.conf.d/base</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nameserver <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></div><div class="line">nameserver <span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span></div></pre></td></tr></table></figure></p>
-<h2 id="3-设置环境变量"><a href="#3-设置环境变量" class="headerlink" title="3. 设置环境变量"></a>3. 设置环境变量</h2><p><strong>a）全局环境变量</strong><br>全局环境变量，对所有用户都会生效。</p>
-<ul>
-<li>etc/profile: 此文件为系统的每个用户设置环境信息。当用户登录时，该文件被执行一次，并从 /etc/profile.d 目录的配置文件中搜集 shell 的设置。    </li>
-<li>/etc/bashrc: 当 bash shell 被打开时，该文件被读取。</li>
-</ul>
-<p><strong>b）用户环境变量</strong></p>
-<ul>
-<li>~/.bash_profile 或 ~/.profile: 只对单个用户生效，当用户登录时该文件执行一次。用户可使用该文件添加自己使用的 shell 变量信息。</li>
-<li>~/.bashrc: 只对单个用户生效，当打开新的 shell 时，该文件被读取。</li>
-</ul>
-<p><strong>c）系统环境变量</strong><br> /etc/environment 设置的是整个系统的环境，而/etc/profile是设置所有用户的环境。<br> 使用 source /etc/environment 可以使变量设置在当前窗口立即生效</p>
-<h2 id="4-设置代理"><a href="#4-设置代理" class="headerlink" title="4. 设置代理"></a>4. 设置代理</h2><p>可在 /etc/environment 中添加以下环境变量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">http_proxy=<span class="string">"http://ip:port/"</span></div><div class="line">https_proxy=<span class="string">"https://ip:port/"</span></div><div class="line">ftp_proxy=<span class="string">"ftp://ip:port/"</span></div><div class="line">socks_proxy=<span class="string">"socks://ip:port/"</span></div><div class="line">all_proxy=<span class="string">"https://ip:port/"</span></div></pre></td></tr></table></figure></p>
-<h1 id="0x03-工具"><a href="#0x03-工具" class="headerlink" title="0x03 工具"></a>0x03 工具</h1><h2 id="1）oh-my-zsh"><a href="#1）oh-my-zsh" class="headerlink" title="1）oh-my-zsh"></a>1）oh-my-zsh</h2><h2 id="2）tmux"><a href="#2）tmux" class="headerlink" title="2）tmux"></a>2）tmux</h2><h2 id="3）ipython"><a href="#3）ipython" class="headerlink" title="3）ipython"></a>3）ipython</h2><hr>
-<p>References:<br>[1] <a href="https://gist.github.com/zhulianhua/befb8f61db8c72b4763d" target="_blank" rel="external">Linux 命令行编辑快捷键</a>   </p>
+        <p>博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。</p>
+<h1 id="0x01-下载图片"><a href="#0x01-下载图片" class="headerlink" title="0x01 下载图片"></a>0x01 下载图片</h1><p>七牛云提供命令行工具 <a href="https://developer.qiniu.com/kodo/tools/1302/qshell#2" target="_blank" rel="external">qshell</a> 操作对象存储，可以使用该工具将已有数据同步到本地。</p>
+<h2 id="1-密钥设置"><a href="#1-密钥设置" class="headerlink" title="1. 密钥设置"></a>1. 密钥设置</h2><p>首先需要设置密钥，密钥 <code>ak</code> 与 <code>sk</code> 可在“个人面板/密钥管理”中查看。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ qshell account ak sk</div></pre></td></tr></table></figure></p>
+<h2 id="2-同步数据"><a href="#2-同步数据" class="headerlink" title="2. 同步数据"></a>2. 同步数据</h2><p>使用 <a href="https://github.com/qiniu/qshell/blob/master/docs/qdownload.md" target="_blank" rel="external">qdownload</a> 命令可将图片同步到本地，该功能是收费的，但是通过设置 <code>cdn_domain</code> 参数可免费使用 10G 的流量。该命令使用方法如下，其中 <code>LocalDownloadConfig</code> 为本地下载的配置文件。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ qshell qdownload [&lt;ThreadCount&gt;] &lt;LocalDownloadConfig&gt;</div></pre></td></tr></table></figure></p>
+<p>为能使用免费流量，新建如下配置文件，其中 <code>bucket</code> 为存储空间名称，<code>cdn_domain</code> 为需同步存储空间的外部默认域名。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"dest_dir"</span>   :   <span class="string">"/home/lc/Desktop/images"</span>,</div><div class="line">    <span class="string">"bucket"</span>     :   <span class="string">"hexo"</span>,</div><div class="line">    <span class="string">"prefix"</span>     :   <span class="string">""</span>,</div><div class="line">    <span class="string">"suffixes"</span>   :   <span class="string">""</span>,</div><div class="line">    <span class="string">"cdn_domain"</span> :   <span class="string">"http://ooyovxue7.bkt.clouddn.com"</span>,</div><div class="line">    <span class="string">"referer"</span>    :   <span class="string">""</span>,</div><div class="line">    <span class="string">"log_file"</span>   :   <span class="string">"download.log"</span>,</div><div class="line">    <span class="string">"log_level"</span>  :   <span class="string">"info"</span>,</div><div class="line">    <span class="string">"log_rotate"</span> :   <span class="number">1</span>,</div><div class="line">    <span class="string">"log_stdout"</span> :   false</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>命令执行完后，所有图片将下载到 <code>dest_dir</code> 设定的目录中。</p>
+<h1 id="0x02-腾讯云-COS"><a href="#0x02-腾讯云-COS" class="headerlink" title="0x02 腾讯云 COS"></a>0x02 腾讯云 COS</h1><h2 id="1-上传图片"><a href="#1-上传图片" class="headerlink" title="1. 上传图片"></a>1. 上传图片</h2><p>首先创建存储空间，并设置访问权限为<strong>公有读私有写</strong>，创建好后将下载的图片批量上传至 COS。为方便替换已有文章中图片链接，应保留七牛云中数据的文件夹结构。</p>
+<p>此外，为了防止盗链导致免费流量被耗尽，需要设置防盗链，将博客域名加入白名单中。但设置之后，本地文章中无法正常访问图片，所以酌情设置该功能。</p>
+<h2 id="2-修改链接"><a href="#2-修改链接" class="headerlink" title="2. 修改链接"></a>2. 修改链接</h2><p>将图片上传到腾讯云 COS 之后，即可正常访问这些图片。接下来需要修改已有文章中的图片链接，将链接中的七牛云域名 <code>old_domain_name</code> 替换为腾讯云域名 <code>new_domain_name</code>（在“基础配置/访问域名”中查看），下面使用 <code>sed</code> 命令进行批量修改。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="string">'s#($old_domain_name#($new_domain_name#g'</span> /path_to_blog/source/_posts/*.md</div></pre></td></tr></table></figure></p>
+<p>所有链接修改完后，博客图床迁移便完成了。</p>
+<p>2020.04.05 更新：近期腾讯云 COS 完成商业版测试，后续 COS 不再免费。因为贫穷，最终又把图床迁移到 Github。</p>
+<h1 id="0x03-PicGo"><a href="#0x03-PicGo" class="headerlink" title="0x03 PicGo"></a>0x03 PicGo</h1><p><a href="https://molunerfinn.com/PicGo/" target="_blank" rel="external">PicGo</a> 是一款图片上传工具，可支持多种图床，其中包括腾讯云 COS。配置方法参看 <a href="https://github.com/Molunerfinn/PicGo/wiki/%E8%AF%A6%E7%BB%86%E7%AA%97%E5%8F%A3%E7%9A%84%E4%BD%BF%E7%94%A8#%E8%85%BE%E8%AE%AF%E4%BA%91cos" target="_blank" rel="external">官方文档</a>，由于主账户权限较大，基于安全考虑，建议新建一个子账户，并对该子账户只授予 COS 读写权限，具体设置方法参考 <a href="https://cloud.tencent.com/document/product/436/11714" target="_blank" rel="external">使用子账号对 COS 进行授权</a>。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png" alt=""></p>
+<hr>
+<p>References:<br>[1] <a href="https://sjq597.github.io/2018/10/13/%E4%B8%83%E7%89%9B%E6%B5%8B%E8%AF%95%E5%9F%9F%E5%90%8D%E5%9B%9E%E6%94%B6%E8%BF%81%E7%A7%BB%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E5%88%B0%E8%85%BE%E8%AE%AF%E4%BA%91/" target="_blank" rel="external">七牛测试域名回收迁移博客图床到腾讯云</a><br>[2] <a href="https://jdhao.github.io/2018/10/20/qiuniu_migrate_to_tencent_cos/" target="_blank" rel="external">把博客图床从七牛云迁移到腾讯云</a>  </p>
 
       
     </div>
@@ -476,7 +463,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/图床/" rel="tag"># 图床</a>
           
         </div>
       
@@ -489,18 +476,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/1028/terminal-reuse-tool-tmux/" rel="next" title="终端复用工具 tmux">
-                <i class="fa fa-chevron-left"></i> 终端复用工具 tmux
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/1024/linux-memory-management-and-heap/" rel="prev" title="Linux 内存管理与堆">
-                Linux 内存管理与堆 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/1029/2018-triathlon-aleph1-writeup/" rel="prev" title="2018 铁人三项赛 aleph1 Writeup">
+                2018 铁人三项赛 aleph1 Writeup <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -661,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-基本命令"><span class="nav-text">0x01 基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-使用终端模式登录"><span class="nav-text">1. 使用终端模式登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分页显示"><span class="nav-text">2. 分页显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-命令帮助"><span class="nav-text">3. 命令帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-命令行快捷键"><span class="nav-text">4. 命令行快捷键</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-系统配置"><span class="nav-text">0x02 系统配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-修改软件源"><span class="nav-text">1. 修改软件源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-添加-DNS-配置"><span class="nav-text">2. 添加 DNS 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-设置环境变量"><span class="nav-text">3. 设置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-设置代理"><span class="nav-text">4. 设置代理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-工具"><span class="nav-text">0x03 工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1）oh-my-zsh"><span class="nav-text">1）oh-my-zsh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2）tmux"><span class="nav-text">2）tmux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3）ipython"><span class="nav-text">3）ipython</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-下载图片"><span class="nav-text">0x01 下载图片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-密钥设置"><span class="nav-text">1. 密钥设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-同步数据"><span class="nav-text">2. 同步数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-腾讯云-COS"><span class="nav-text">0x02 腾讯云 COS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-上传图片"><span class="nav-text">1. 上传图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-修改链接"><span class="nav-text">2. 修改链接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-PicGo"><span class="nav-text">0x03 PicGo</span></a></li></ol></div>
             
 
           </div>
@@ -813,9 +796,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2017/1028/linux-notes/';
-          this.page.identifier = '2017/1028/linux-notes/';
-          this.page.title = 'Linux 使用笔记';
+          this.page.url = 'http://0x4c43.cn/2018/1029/blog-map-migration/';
+          this.page.identifier = '2018/1029/blog-map-migration/';
+          this.page.title = '博客图床迁移';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://0x4c43s-blog.disqus.com/embed.js';

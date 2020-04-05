@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020285_51587433.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020287_65486405.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020283_46291433.jpg">
-<meta property="og:updated_time" content="2020-04-05T05:47:30.727Z">
+<meta property="og:updated_time" content="2020-04-05T07:30:50.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux glibc heap house-of-force">
 <meta name="twitter:description" content="该利用方法通过堆溢出漏洞修改 top chunk 的 size 字段，使得 malloc 一块很大的内存可使用 top chunk 进行分配，当更新 top chunk 的 ptr 时会发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段、.data 段和 GOT 表等。当再次使用 malloc 申请内存时将从目标内存处进行分配，之后对该内存进行写操作，即可实现">
@@ -493,7 +493,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/0429/linux-late-binding-mechanism/" rel="next" title="Linux 延迟绑定机制">
+              <a href="/2018/0429/linux-lazy-binding-mechanism/" rel="next" title="Linux 延迟绑定机制">
                 <i class="fa fa-chevron-left"></i> Linux 延迟绑定机制
               </a>
             

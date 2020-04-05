@@ -4,7 +4,7 @@
     
     <entry>
       <title><![CDATA[博客图床迁移]]></title>
-      <url>/2018/1029/blog-map-bed-migration/</url>
+      <url>/2018/1029/blog-map-migration/</url>
       <content type="html"><![CDATA[<p>博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。</p>
 <h1 id="0x01-下载图片"><a href="#0x01-下载图片" class="headerlink" title="0x01 下载图片"></a>0x01 下载图片</h1><p>七牛云提供命令行工具 <a href="https://developer.qiniu.com/kodo/tools/1302/qshell#2" target="_blank" rel="external">qshell</a> 操作对象存储，可以使用该工具将已有数据同步到本地。</p>
 <h2 id="1-密钥设置"><a href="#1-密钥设置" class="headerlink" title="1. 密钥设置"></a>1. 密钥设置</h2><p>首先需要设置密钥，密钥 <code>ak</code> 与 <code>sk</code> 可在“个人面板/密钥管理”中查看。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ qshell account ak sk</div></pre></td></tr></table></figure></p>
@@ -207,7 +207,7 @@
     
     <entry>
       <title><![CDATA[使用 AFL 进行模糊测试]]></title>
-      <url>/2018/0722/use-afl-for-fuzzing/</url>
+      <url>/2018/0722/use-afl-for-fuzz-testing/</url>
       <content type="html"><![CDATA[<p><a href="http://0x4c43.cn/2018/0722/american-fuzzy-lop/">American Fuzzy Lop</a> 中介绍了 AFL 的原理和特性，下面将使用 AFL 对几个常用的应用程序进行模糊测试。</p>
 <h1 id="0x01-AFL-安装与使用"><a href="#0x01-AFL-安装与使用" class="headerlink" title="0x01 AFL 安装与使用"></a>0x01 AFL 安装与使用</h1><p>首先下载 <a href="http://lcamtuf.coredump.cx/afl/releases/afl-latest.tgz" target="_blank" rel="external">AFL 源码</a> 进行安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ make</div><div class="line">$ make install</div></pre></td></tr></table></figure></p>
 <p>若程序从 stdin 中获取输入，则 afl-fuzz 的使用方法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./afl-fuzz -i testcase_dir -o findings_dir -- \</div><div class="line">     /path/to/tested/program [...program<span class="string">'s cmdline...]</span></div></pre></td></tr></table></figure></p>
@@ -367,7 +367,7 @@
     
     <entry>
       <title><![CDATA[VMWare 中扩展 ubuntu 磁盘空间]]></title>
-      <url>/2018/0707/expanding-ubuntu-disk-space-in-vmware/</url>
+      <url>/2018/0707/extend-ubuntu-disk-space-in-vmware/</url>
       <content type="html"><![CDATA[<p>由于在 VMWare 系统中使用 ubuntu 时安装的软件过多，导致磁盘空间不够用。因此，需要扩展虚拟机的磁盘空间，依照网上找到的方法可完成该过程，便记录在此。</p>
 <h1 id="0x01-VMWare-设置"><a href="#0x01-VMWare-设置" class="headerlink" title="0x01 VMWare 设置"></a>0x01 VMWare 设置</h1><p>将需要扩展空间的虚拟机关机，并且需删除该虚拟机的快照。之后点击 <code>虚拟机/设置/硬盘/扩展</code>，设置扩展后的容量，这里从 20G 扩展到 40G。</p>
 <p>设置完后，开启虚拟机，发现扩展的空间仍无法使用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">sudo fdisk <span class="_">-l</span></div><div class="line">Disk /dev/sda: 40 GiB, 42949672960 bytes, 83886080 sectors</div><div class="line">Units: sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 512 bytes</div><div class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</div><div class="line">Disklabel <span class="built_in">type</span>: dos</div><div class="line">Disk identifier: 0xbaa4ad2e</div><div class="line"></div><div class="line">Device     Boot    Start      End  Sectors Size Id Type</div><div class="line">/dev/sda1  *        2048 33554431 33552384  16G 83 Linux</div><div class="line">/dev/sda2       33556478 41940991  8384514   4G  5 Extended</div><div class="line">/dev/sda5       33556480 41940991  8384512   4G 82 Linux swap / Solaris</div></pre></td></tr></table></figure></p>
@@ -604,7 +604,7 @@
     
     <entry>
       <title><![CDATA[二进制程序分析框架 angr]]></title>
-      <url>/2018/0529/binary-analysis-framework-angr/</url>
+      <url>/2018/0529/binary-program-analysis-framework-angr/</url>
       <content type="html"><![CDATA[<p>angr 是一个功能强大的二进制程序分析框架，可用于程序的静态分析和动态符号执行。支持 x86、ARM、MIPS 和 PPC 架构中 32 bit 和 64 bit 可执行程序的分析。</p>
 <h1 id="0x01-安装"><a href="#0x01-安装" class="headerlink" title="0x01 安装"></a>0x01 安装</h1><p>angr 是一个 python 库，适用于 python2.x 系列，暂时不支持 python3.x 系列。由于 angr 会对 libz3 和 libVEX 产生修改，为了防止对已安装库的修改而影响其他程序的使用，官方建议在 python 虚拟环境（virtualenvwrapper）中安装和使用 angr。<br>环境:</p>
 <blockquote>
@@ -657,7 +657,7 @@
     
     <entry>
       <title><![CDATA[Linux 系统调用与虚拟动态共享库]]></title>
-      <url>/2018/0517/linux-system-call-and-virtual-dynamic-shared-library/</url>
+      <url>/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/</url>
       <content type="html"><![CDATA[<p>系统调用是应用程序与操作系统间的接口。Linux 下使用 0x80 号中断作为系统调用入口，使用 eax寄存器指定系统调用号，ebx、ecx、edx、esi、edi 和 ebp 用于传递调用参数；Windows 下使用0x2E 号中断作为系统调用入口。</p>
 <p> 直接使用系统调用编程有以下弊端：1）系统调用接口过于原始，使用不方便；2）各操作系统间系统调用不兼容。因此，运行库作为操作系统与应用程序间的抽象层可实现源码级的可移植性。</p>
 <h1 id="0x01-Linux-经典系统调用"><a href="#0x01-Linux-经典系统调用" class="headerlink" title="0x01 Linux 经典系统调用"></a>0x01 Linux 经典系统调用</h1><p>现代操作系统中有用户模式和内核模式两种特权模式。操作系统通过中断从用户态切换到内核态。不同中断具有不同的中断号，一个中断号对应一个中断处理程序。内核中使用中断向量表存放中断处理程序的指针。</p>
@@ -758,7 +758,7 @@
     
     <entry>
       <title><![CDATA[Linux 延迟绑定机制]]></title>
-      <url>/2018/0429/linux-late-binding-mechanism/</url>
+      <url>/2018/0429/linux-lazy-binding-mechanism/</url>
       <content type="html"><![CDATA[<p>如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。</p>
 <h1 id="0x01-延迟绑定原理"><a href="#0x01-延迟绑定原理" class="headerlink" title="0x01 延迟绑定原理"></a>0x01 延迟绑定原理</h1><p>延迟绑定是当函数第一次被调用的时候才进行绑定（包括符号查找、重定位等），如果函数不被调用就不进行绑定。延迟绑定机制可以大大加快程序的启动速度，特别有利于一些引用了大量函数的程序。</p>
 <blockquote>
@@ -1205,7 +1205,7 @@
     
     <entry>
       <title><![CDATA[Linux 使用笔记]]></title>
-      <url>/2017/1028/linux-notes/</url>
+      <url>/2017/1028/linux-usage-notes/</url>
       <content type="html"><![CDATA[<h1 id="0x01-基本命令"><a href="#0x01-基本命令" class="headerlink" title="0x01 基本命令"></a>0x01 基本命令</h1><h2 id="1-使用终端模式登录"><a href="#1-使用终端模式登录" class="headerlink" title="1. 使用终端模式登录"></a>1. 使用终端模式登录</h2><p>终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6</div><div class="line">使用 Ctrl+Alt+F7 回到桌面模式</div></pre></td></tr></table></figure></p>
 <h2 id="2-分页显示"><a href="#2-分页显示" class="headerlink" title="2. 分页显示"></a>2. 分页显示</h2><p>终端模式下，输出的内容多于一屏时使用；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cat file1 | less 或 less file1</div><div class="line">cat file1 | more 或 more file1</div></pre></td></tr></table></figure></p>
 <h2 id="3-命令帮助"><a href="#3-命令帮助" class="headerlink" title="3. 命令帮助"></a>3. 命令帮助</h2><p>用于查看命令的使用说明；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">man ls</div><div class="line">man -f reboot</div><div class="line">man <span class="number">2</span> reboot</div></pre></td></tr></table></figure></p>
@@ -1351,7 +1351,7 @@
     
     <entry>
       <title><![CDATA[Docker 使用笔记]]></title>
-      <url>/2017/1005/docker-usage-notes/</url>
+      <url>/2017/1005/docker-notes/</url>
       <content type="html"><![CDATA[<p>Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。</p>
 <p>Docker 项目的目标是实现轻量级的操作系统虚拟化解决方案，Docker 的基础是 Linux 容器 (LXC) 等技术。在 LCX 的基础上 Docker 进行了进一步的封装，让用户不需要关心容器的管理，使得操作更为简便，用户操作 Docker 的容器就像操作一个快速轻量级的虚拟机一样。</p>
 <p>以下为 Docker 的基本功能使用记录。</p>
@@ -1596,7 +1596,7 @@
     
     <entry>
       <title><![CDATA[使用 firmware-mod-kit 修改固件]]></title>
-      <url>/2017/0605/use-firmwaremodkit-to-modify-firmware/</url>
+      <url>/2017/0605/modify-firmware-using-firmwaremodkit/</url>
       <content type="html"><![CDATA[<p>firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。</p>
 <p>该工具包支持以下固件：</p>
 <blockquote>
@@ -1642,7 +1642,7 @@
     
     <entry>
       <title><![CDATA[DLL 注入之远程线程注入]]></title>
-      <url>/2017/0510/dll-injection-of-remote-thread/</url>
+      <url>/2017/0510/dll-injection-remote-thread/</url>
       <content type="html"><![CDATA[<p>在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL（参考《DLL 注入之 Windows 消息钩子》这篇文章），但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。</p>
 <h1 id="0x01-注入原理"><a href="#0x01-注入原理" class="headerlink" title="0x01 注入原理"></a>0x01 注入原理</h1><p>使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateRemoteThread 函数原型如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">HANDLE WINAPI CreateRemoteThread (</div><div class="line">	HANDLE                  hProcess,	// 远程进程句柄</div><div class="line">	LPSECURITY_ATTRIBUTES  	lpThreadAttributes,	// 线程的安全属性</div><div class="line">	SIZE_T                  dwStackSize,		// 线程栈的大小</div><div class="line">	LPTHREAD_START_ROUTINE	lpStartAddress,  // 线程入口函数的起始地址</div><div class="line">	LPVOID                  lpParameter, 		// 传递给线程函数的参数</div><div class="line">	DWORD                   dwCreationFlags,	// 线程是否立即启动</div><div class="line">	LPDWORD                 lpThreadId		// 用于保存内核分配给线程的ID</div><div class="line">)；</div></pre></td></tr></table></figure></p>
 <p>主要关注三个参数：hProcess、lpStartAddress 和 lpParameter。hProcess 是要执行线程的目标进程句柄；lpStartAddress 是线程函数的起始地址，且该函数必须位于目标进程内；lpParameter 是传递给线程函数的参数。</p>
@@ -1679,7 +1679,7 @@
     
     <entry>
       <title><![CDATA[DLL 注入之 Windows 消息钩子]]></title>
-      <url>/2017/0508/dll-injected-windows-message-hook/</url>
+      <url>/2017/0508/dll-injection-windows-message-hook/</url>
       <content type="html"><![CDATA[<p>Windows 下的窗口应用程序是基于事件驱动方式工作的，操作系统中点击鼠标和按下键盘都是一种事件，当事件发生时操作系统会将消息发送给相应的应用程序，应用程序收到消息之后会做出响应。</p>
 <blockquote>
 <p>钩子(Hook)，是Windows提供的一种截获和监视系统中消息的方法，应用程序可以通过 SetWindowsHook 函数设置钩子以监视指定窗口的某种消息，而且所监视的窗口可以是其他进程所创建的。当消息到达后，在目标窗口处理函数之前处理它。</p>
@@ -1801,7 +1801,7 @@
     
     <entry>
       <title><![CDATA[使用 Github 和 Hexo 搭建个人博客]]></title>
-      <url>/2017/0426/use-github-and-hexo-to-build-a-personal-blog/</url>
+      <url>/2017/0426/build-a-personal-blog-with-github-and-hexo/</url>
       <content type="html"><![CDATA[<p>平时在网上查文档的时候经常能看到一些非常好的博客，然后就想着自己也搭一个，一方面可以记录一些问题的解决方法，以便查阅，另一方面希望能促使自己多总结，多写文档。所以，经过这几天的折腾，终于把基本功能都搭好了。下面是搭建过程的记录，以下操作在 ubuntu14.04 x86_64中进行。</p>
 <h1 id="0x01-安装Node-js"><a href="#0x01-安装Node-js" class="headerlink" title="0x01 安装Node.js"></a>0x01 安装Node.js</h1><h2 id="1-通过nvm安装Node-js"><a href="#1-通过nvm安装Node-js" class="headerlink" title="1. 通过nvm安装Node.js"></a>1. 通过nvm安装Node.js</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh</div><div class="line">$ nvm ls-remote</div><div class="line">$ nvm install v7.9.0</div></pre></td></tr></table></figure>
 <h2 id="2-测试"><a href="#2-测试" class="headerlink" title="2. 测试"></a>2. 测试</h2><p>安装完后可以新建一个简单的 hello.js 测试是否安装成功，hello.js 代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var http = require(<span class="string">'http'</span>);</div><div class="line">http.createServer(<span class="keyword">function</span>(req, res)&#123;</div><div class="line">    res.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</div><div class="line">    res.end(<span class="string">'Hello World\n'</span>);</div><div class="line">&#125;).listen(8808, <span class="string">'127.0.0.1'</span>);</div><div class="line">console.log(<span class="string">'Server running at http://127.0.0.1:8808'</span>);</div></pre></td></tr></table></figure></p>

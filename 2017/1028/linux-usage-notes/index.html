@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="firmware-mod-kit,修改 firmware" />
+  <meta name="keywords" content="Linux 配置,使用" />
 
 
 
@@ -99,24 +99,19 @@
 
 
 
-<meta name="description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta name="keywords" content="firmware-mod-kit,firmware">
+<meta name="description" content="0x01 基本命令1. 使用终端模式登录终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；12使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6使用 Ctrl+Alt+F7 回到桌面模式 2. 分页显示终端模式下，输出的内容多于一屏时使用；12cat file1 | less 或 less file1ca">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 firmware-mod-kit 修改固件">
-<meta property="og:url" content="http://0x4c43.cn/2017/0605/use-firmwaremodkit-to-modify-firmware/index.html">
+<meta property="og:title" content="Linux 使用笔记">
+<meta property="og:url" content="http://0x4c43.cn/2017/1028/linux-usage-notes/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
-<meta property="og:description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021073_78163658.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021071_6411506.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021063_10177238.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021069_63948070.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586055964_20200405110549327_27386.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021066_31504566.jpg">
-<meta property="og:updated_time" content="2020-04-05T05:47:31.099Z">
+<meta property="og:description" content="0x01 基本命令1. 使用终端模式登录终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；12使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6使用 Ctrl+Alt+F7 回到桌面模式 2. 分页显示终端模式下，输出的内容多于一屏时使用；12cat file1 | less 或 less file1ca">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020499_99556537.jpg">
+<meta property="og:updated_time" content="2020-04-05T07:56:40.700Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 firmware-mod-kit 修改固件">
-<meta name="twitter:description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021073_78163658.jpg">
+<meta name="twitter:title" content="Linux 使用笔记">
+<meta name="twitter:description" content="0x01 基本命令1. 使用终端模式登录终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；12使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6使用 Ctrl+Alt+F7 回到桌面模式 2. 分页显示终端模式下，输出的内容多于一屏时使用；12cat file1 | less 或 less file1ca">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020499_99556537.jpg">
 
 
 
@@ -144,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2017/0605/use-firmwaremodkit-to-modify-firmware/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2017/1028/linux-usage-notes/"/>
 
 
 
@@ -152,7 +147,7 @@
 
 
 
-  <title> 使用 firmware-mod-kit 修改固件 | 0x4C43's Blog </title>
+  <title> Linux 使用笔记 | 0x4C43's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -315,7 +310,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/0605/use-firmwaremodkit-to-modify-firmware/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/1028/linux-usage-notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -336,7 +331,7 @@
             
             
               
-                使用 firmware-mod-kit 修改固件
+                Linux 使用笔记
               
             
           </h1>
@@ -351,8 +346,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-05T21:45:08+08:00">
-                2017-06-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-28T21:45:08+08:00">
+                2017-10-28
               </time>
             
 
@@ -374,8 +369,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Embedded/" itemprop="url" rel="index">
-                    <span itemprop="name">Embedded</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -392,9 +387,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/0605/use-firmwaremodkit-to-modify-firmware/#comments" itemprop="discussionUrl">
+                <a href="/2017/1028/linux-usage-notes/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/0605/use-firmwaremodkit-to-modify-firmware/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/1028/linux-usage-notes/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -425,30 +420,33 @@
       
 
       
-        <p>firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。</p>
-<p>该工具包支持以下固件：</p>
-<blockquote>
-<p>DD-WRT v23    tested - versions v23 SP1 and later are compatible (soon older versions too).<br>DD-WRT v24    tested<br>OpenWrt White Russian    tested<br>OpenWrt Kamikaze    untested (should work) - not really necessary, based on OpenWrt has its Image Builder.<br>FreeWrt    untested - should work ok<br>HyperWrt    untested<br>Ewrt    untested<br>Sveasoft Alchemy    untested<br>Sveasoft Talisman    untested<br>Linksys / other vendor    not supported by scripts yet - haven’t added cramfs handling<br>ASUS WL-330G    untested - should work ok<br>ASUS WL-520G    untested - should work ok<br>ASUS WL-530G    supported<br>ASUS WL-550G    untested  - should work ok<br>Trendnet TEW-632BRP    tested<br>DLink DIR-615    untested<br>many others*    untested</p>
-</blockquote>
-<h1 id="0x01-安装"><a href="#0x01-安装" class="headerlink" title="0x01 安装"></a>0x01 安装</h1><p>可在 <a href="https://code.google.com/archive/p/firmware-mod-kit/" target="_blank" rel="external">google code</a> 下载    Firmware Mod Kit v0.99 安装包，然后解压安装，安装前需要先安装相应的依赖库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For Ubuntu: $ sudo apt-get install git build-essential zlib1g-dev liblzma-dev python-magic</div><div class="line"></div><div class="line">cd firmware-mod-kit/src</div><div class="line">./configure &amp;&amp; make</div></pre></td></tr></table></figure></p>
-<h1 id="0x02-使用"><a href="#0x02-使用" class="headerlink" title="0x02 使用"></a>0x02 使用</h1><p>firmware-mod-kit 中包含以下几个工具脚本：</p>
-<blockquote>
-<p>extract-firmware.sh：解包固件<br>build-firmware.sh：重新打包固件<br>check_for_upgrade.sh：检查更新<br>unsquashfs_all.sh：解包提取出来的 squashfs 文件</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021073_78163658.jpg" alt=""></p>
-<h2 id="1-解包固件"><a href="#1-解包固件" class="headerlink" title="1.  解包固件"></a>1.  解包固件</h2><p>使用以下命令解包固件，firmware.bin 为需解包的固件，working_directory 为解包结果存储位置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./extract_firmware.sh firmware.bin working_directory/</div></pre></td></tr></table></figure></p>
-<p><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021071_6411506.jpg" alt=""></p>
-<h2 id="2-重新打包固件"><a href="#2-重新打包固件" class="headerlink" title="2. 重新打包固件"></a>2. 重新打包固件</h2><p>修改完解包后的文件系统后，使用 build_firmware.sh 重新打包固件，新生成的固件将存在 output_directory 目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./build_firmware.sh output_directory/ working_directory/</div></pre></td></tr></table></figure></p>
-<p><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021063_10177238.jpg" alt=""></p>
-<h1 id="0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing"><a href="#0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing" class="headerlink" title="0x03 Directory Tree Diff &amp;&amp; Fuzzy Hashing"></a>0x03 Directory Tree Diff &amp;&amp; Fuzzy Hashing</h1><p>当我们发现下载的固件是被修改过时，可以使用 <a href="https://github.com/bmaia/binwally" target="_blank" rel="external">binwally</a> 将修改过的固件与<a href="https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">原版固件</a>对比，从而发现具体修改内容。</p>
-<h2 id="1-解包固件-1"><a href="#1-解包固件-1" class="headerlink" title="1. 解包固件"></a>1. 解包固件</h2><p>可以看到固件编译日期为 2007-02-03，而文件系统的创建实际为 2017-06-05,说明固件中的文件系统被修改过。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021069_63948070.jpg" alt=""></p>
-<h2 id="2-差异对比"><a href="#2-差异对比" class="headerlink" title="2. 差异对比"></a>2. 差异对比</h2><p>google 查找发现 openwrt-wrtsl54gs-squashfs.bin 固件有三个版本，分别为：</p>
-<blockquote>
-<p><a href="https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin</a><br> <a href="https://downloads.openwrt.org/whiterussian/0.9/micro/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/micro/openwrt-wrtsl54gs-squashfs.bin</a><br> <a href="https://downloads.openwrt.org/whiterussian/0.9/pptp/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/pptp/openwrt-wrtsl54gs-squashfs.bin</a></p>
-</blockquote>
-<p>使用 binwally 对比结果显示”default” 版本的相似性最高，可知，目标固件是 “default” 版本固件的修改版。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586055964_20200405110549327_27386.png" alt=""><br>继续查看具体修改的文件为 /etc/profile 和 /bin/nc。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021066_31504566.jpg" alt=""></p>
-<hr>
-<p>References：<br>[1] <a href="https://code.google.com/archive/p/firmware-mod-kit/wikis/Documentation.wiki" target="_blank" rel="external">firmware-mod-kit - Documentation.wiki</a><br>[2] <a href="https://bitsum.com/firmware_mod_kit.htm" target="_blank" rel="external">Firmware Modification Kit</a><br>[3] <a href="http://blog.csdn.net/qq1084283172/article/details/68061957" target="_blank" rel="external">路由器逆向分析——firmware-mod-kit工具安装和使用说明</a><br>[4] <a href="https://w00tsec.blogspot.com/2015/02/firmware-forensics-diffs-timelines-elfs.html" target="_blank" rel="external">Firmware Forensics: Diffs, Timelines, ELFs and Backdoors</a></p>
+        <h1 id="0x01-基本命令"><a href="#0x01-基本命令" class="headerlink" title="0x01 基本命令"></a>0x01 基本命令</h1><h2 id="1-使用终端模式登录"><a href="#1-使用终端模式登录" class="headerlink" title="1. 使用终端模式登录"></a>1. 使用终端模式登录</h2><p>终端模式即命令行模式，Linux 系统默认提供6个终端（Teletype, tty1-tty6）；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">使用 Ctrl+Alt+F1 进入 tty1 、... 、Ctrl+Alt+F6 进入 tty6</div><div class="line">使用 Ctrl+Alt+F7 回到桌面模式</div></pre></td></tr></table></figure></p>
+<h2 id="2-分页显示"><a href="#2-分页显示" class="headerlink" title="2. 分页显示"></a>2. 分页显示</h2><p>终端模式下，输出的内容多于一屏时使用；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cat file1 | less 或 less file1</div><div class="line">cat file1 | more 或 more file1</div></pre></td></tr></table></figure></p>
+<h2 id="3-命令帮助"><a href="#3-命令帮助" class="headerlink" title="3. 命令帮助"></a>3. 命令帮助</h2><p>用于查看命令的使用说明；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">man ls</div><div class="line">man -f reboot</div><div class="line">man <span class="number">2</span> reboot</div></pre></td></tr></table></figure></p>
+<p>输入”/string“，按回车，查找关键字 string，n 键向下查找，N 键向上查找；<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020499_99556537.jpg" alt=""><br>-f 用于查询命令说明存在于哪些 man 文档文件中；<br>查看 reboot 命令在 man 文档的第二章中的解释；</p>
+<p>同样可用 info ls 查看命令说明文档。</p>
+<h2 id="4-命令行快捷键"><a href="#4-命令行快捷键" class="headerlink" title="4. 命令行快捷键"></a>4. 命令行快捷键</h2><p>常用:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Ctrl L：清屏</div><div class="line">Ctrl M：等效于回车</div><div class="line">Ctrl C: 中断正在当前正在执行的程序</div></pre></td></tr></table></figure></p>
+<p>历史命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Ctrl P: 上一条命令，可以一直按表示一直往前翻</div><div class="line">Ctrl N: 下一条命令</div><div class="line">Ctrl R:再按历史命令中出现过的字符串：按字符串寻找历史命令（重度推荐）</div></pre></td></tr></table></figure></p>
+<p>命令行编辑:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Tab: 自动补齐</div><div class="line">Ctrl A：移动光标到命令行首</div><div class="line">Ctrl E: 移动光标到命令行尾</div><div class="line">Ctrl B: 光标后退</div><div class="line">Ctrl F: 光标前进</div><div class="line">Alt F: 光标前进一个单词</div><div class="line">Alt B: 光标后退一格单词</div><div class="line">Ctrl H: 删除光标的前一个字符</div><div class="line">Ctrl D: 删除当前光标所在字符</div><div class="line">Alt D: 删除当前单词</div><div class="line">Ctrl K：删除光标之后所有字符</div><div class="line">Ctrl U: 清空当前键入的命令</div><div class="line">Ctrl W: 删除光标前的单词(Word, 不包含空格的字符串)</div><div class="line">Ctrl Y: 粘贴Ctrl W或Ctrl K删除的内容</div><div class="line">Alt .: 粘贴上一条命令的最后一个参数（很有用）</div><div class="line">Ctrl X Ctrl E: 调出系统默认编辑器编辑当前输入的命令，退出编辑器时，命令执行</div></pre></td></tr></table></figure></p>
+<p>其他:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Ctrl Z: 把当前进程放到后台（之后可用<span class="string">''</span><span class="built_in">fg</span><span class="string">''</span>命令回到前台）</div><div class="line">Ctrl PageUp: 屏幕输出向上翻页</div><div class="line">Ctrl PageDown: 屏幕输出向下翻页</div></pre></td></tr></table></figure></p>
+<h1 id="0x02-系统配置"><a href="#0x02-系统配置" class="headerlink" title="0x02 系统配置"></a>0x02 系统配置</h1><h2 id="1-修改软件源"><a href="#1-修改软件源" class="headerlink" title="1. 修改软件源"></a>1. 修改软件源</h2><p>使用国内的 ubuntu 源速度会快很多。下面使用 ubuntu 16.04 的<a href="https://mirrors.ustc.edu.cn/repogen/" target="_blank" rel="external">科大源</a>，可以使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo sed -i &apos;s/archive.ubuntu.com/mirrors.ustc.edu.cn/g&apos; /etc/apt/sources.list</div></pre></td></tr></table></figure></p>
+<p>或者直接编辑 /etc/apt/sources.list 文件，在文件最前面添加以下条目：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span></div><div class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ xenial main restricted universe multiverse</div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial main main restricted universe multiverse</span></div><div class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse</div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse</span></div><div class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse</div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse</span></div><div class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ xenial-security main restricted universe multiverse</div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial-security main restricted universe multiverse</span></div><div class="line"><span class="comment"># 预发布软件源，不建议启用</span></div><div class="line"><span class="comment"># deb https://mirrors.ustc.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse</span></div><div class="line"><span class="comment"># deb-src https://mirrors.ustc.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse</span></div></pre></td></tr></table></figure></p>
+<h2 id="2-添加-DNS-配置"><a href="#2-添加-DNS-配置" class="headerlink" title="2. 添加 DNS 配置"></a>2. 添加 DNS 配置</h2><p>直接修改 /etc/resolv.conf 重启会被覆盖，使用以下两种方法设置可避免该问题。<br><strong>a）修改文件/etc/network/interfaces</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># interfaces(5) file used by ifup(8) and ifdown(8)</span></div><div class="line"><span class="comment"># auto lo</span></div><div class="line"><span class="comment"># iface lo inet loopback</span></div><div class="line"></div><div class="line">auto eth0    </div><div class="line">iface eth0 inet static    </div><div class="line">address <span class="number">192.168</span><span class="number">.3</span><span class="number">.250</span>    <span class="comment"># IP    </span></div><div class="line">netmask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>    <span class="comment"># netmask    </span></div><div class="line">gateway <span class="number">192.168</span><span class="number">.3</span><span class="number">.1</span>      <span class="comment"># gateway    </span></div><div class="line">dns-nameservers <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>  <span class="comment"># DNS</span></div></pre></td></tr></table></figure></p>
+<p><strong>b）修改文件 /etc/resolvconf/resolv.conf.d/base</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nameserver <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></div><div class="line">nameserver <span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span></div></pre></td></tr></table></figure></p>
+<h2 id="3-设置环境变量"><a href="#3-设置环境变量" class="headerlink" title="3. 设置环境变量"></a>3. 设置环境变量</h2><p><strong>a）全局环境变量</strong><br>全局环境变量，对所有用户都会生效。</p>
+<ul>
+<li>etc/profile: 此文件为系统的每个用户设置环境信息。当用户登录时，该文件被执行一次，并从 /etc/profile.d 目录的配置文件中搜集 shell 的设置。    </li>
+<li>/etc/bashrc: 当 bash shell 被打开时，该文件被读取。</li>
+</ul>
+<p><strong>b）用户环境变量</strong></p>
+<ul>
+<li>~/.bash_profile 或 ~/.profile: 只对单个用户生效，当用户登录时该文件执行一次。用户可使用该文件添加自己使用的 shell 变量信息。</li>
+<li>~/.bashrc: 只对单个用户生效，当打开新的 shell 时，该文件被读取。</li>
+</ul>
+<p><strong>c）系统环境变量</strong><br> /etc/environment 设置的是整个系统的环境，而/etc/profile是设置所有用户的环境。<br> 使用 source /etc/environment 可以使变量设置在当前窗口立即生效</p>
+<h2 id="4-设置代理"><a href="#4-设置代理" class="headerlink" title="4. 设置代理"></a>4. 设置代理</h2><p>可在 /etc/environment 中添加以下环境变量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">http_proxy=<span class="string">"http://ip:port/"</span></div><div class="line">https_proxy=<span class="string">"https://ip:port/"</span></div><div class="line">ftp_proxy=<span class="string">"ftp://ip:port/"</span></div><div class="line">socks_proxy=<span class="string">"socks://ip:port/"</span></div><div class="line">all_proxy=<span class="string">"https://ip:port/"</span></div></pre></td></tr></table></figure></p>
+<h1 id="0x03-工具"><a href="#0x03-工具" class="headerlink" title="0x03 工具"></a>0x03 工具</h1><h2 id="1）oh-my-zsh"><a href="#1）oh-my-zsh" class="headerlink" title="1）oh-my-zsh"></a>1）oh-my-zsh</h2><h2 id="2）tmux"><a href="#2）tmux" class="headerlink" title="2）tmux"></a>2）tmux</h2><h2 id="3）ipython"><a href="#3）ipython" class="headerlink" title="3）ipython"></a>3）ipython</h2><hr>
+<p>References:<br>[1] <a href="https://gist.github.com/zhulianhua/befb8f61db8c72b4763d" target="_blank" rel="external">Linux 命令行编辑快捷键</a>   </p>
 
       
     </div>
@@ -478,9 +476,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/firmware-mod-kit/" rel="tag"># firmware-mod-kit</a>
-          
-            <a href="/tags/firmware/" rel="tag"># firmware</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -493,8 +489,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/0723/add-section-in-pe-file/" rel="next" title="PE 文件中添加节区">
-                <i class="fa fa-chevron-left"></i> PE 文件中添加节区
+              <a href="/2017/1028/terminal-reuse-tool-tmux/" rel="next" title="终端复用工具 tmux">
+                <i class="fa fa-chevron-left"></i> 终端复用工具 tmux
               </a>
             
           </div>
@@ -503,8 +499,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/0510/dll-injection-of-remote-thread/" rel="prev" title="DLL 注入之远程线程注入">
-                DLL 注入之远程线程注入 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/1024/linux-memory-management-and-heap/" rel="prev" title="Linux 内存管理与堆">
+                Linux 内存管理与堆 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -665,7 +661,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-安装"><span class="nav-text">0x01 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-使用"><span class="nav-text">0x02 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-解包固件"><span class="nav-text">1.  解包固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-重新打包固件"><span class="nav-text">2. 重新打包固件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing"><span class="nav-text">0x03 Directory Tree Diff && Fuzzy Hashing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-解包固件-1"><span class="nav-text">1. 解包固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-差异对比"><span class="nav-text">2. 差异对比</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-基本命令"><span class="nav-text">0x01 基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-使用终端模式登录"><span class="nav-text">1. 使用终端模式登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分页显示"><span class="nav-text">2. 分页显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-命令帮助"><span class="nav-text">3. 命令帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-命令行快捷键"><span class="nav-text">4. 命令行快捷键</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-系统配置"><span class="nav-text">0x02 系统配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-修改软件源"><span class="nav-text">1. 修改软件源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-添加-DNS-配置"><span class="nav-text">2. 添加 DNS 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-设置环境变量"><span class="nav-text">3. 设置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-设置代理"><span class="nav-text">4. 设置代理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-工具"><span class="nav-text">0x03 工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1）oh-my-zsh"><span class="nav-text">1）oh-my-zsh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2）tmux"><span class="nav-text">2）tmux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3）ipython"><span class="nav-text">3）ipython</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -817,9 +813,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2017/0605/use-firmwaremodkit-to-modify-firmware/';
-          this.page.identifier = '2017/0605/use-firmwaremodkit-to-modify-firmware/';
-          this.page.title = '使用 firmware-mod-kit 修改固件';
+          this.page.url = 'http://0x4c43.cn/2017/1028/linux-usage-notes/';
+          this.page.identifier = '2017/1028/linux-usage-notes/';
+          this.page.title = 'Linux 使用笔记';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://0x4c43s-blog.disqus.com/embed.js';
