@@ -1,12 +1,9 @@
 ---
 title: 栈溢出 Stack smash 利用
-tags:
-  - Stack smash
-categories: Exploit
-keywords:
-  - Stack smash
-translate_title: stack-overflow-smash-utilization
 date: 2018-10-13 19:40:28
+tags: [Stack smash]
+categories: Exploit
+keywords: [Stack smash]
 ---
 
 在 Linux 系统应用程序中部署 Canary 漏洞缓解机制可有效防御栈溢出漏洞的攻击，然而在一定环境下，攻击者可利用该机制泄露内存信息，实现进一步的攻击。

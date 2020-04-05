@@ -312,7 +312,7 @@ exit 0
 Android 中 SS 远程端口设置为远程服务器 SS 端口，kcptun 配置如下，注意不能有空格：
 ```bash
 # IPV6
-remoteaddr=[xxxx:xxxx:xxxx:xxxx:16d7:3cd1:xxxx:xxxx]::9523;key=xxxxxx;mtu=1350;sndwnd=512;rcvwnd=512;mode=fast2;crypt=aes-192;nocomp=true
+remoteaddr=[xxxx:xxxx:xxxx:xxxx:16d7:3cd1:xxxx:xxxx]:9523;key=xxxxxx;mtu=1350;sndwnd=512;rcvwnd=512;mode=fast2;crypt=aes-192;nocomp=true
 # IPV4
 remoteaddr=xxx.xxx.xxx.xxx:9523;key=xxxxxx;mtu=1350;sndwnd=512;rcvwnd=512;mode=fast2;crypt=aes-192;nocomp=true
 ```

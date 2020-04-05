@@ -1,14 +1,9 @@
 ---
 title: 配置 Linux Python 开发环境
-tags:
-  - Python
-categories: Linux
-keywords:
-  - Python
-  - PyCharm
-  - virtualenv
-translate_title: configuring-the-linux-python-development-environment
 date: 2018-03-16 19:55:21
+tags: [Python]
+categories: Linux
+keywords: [Python,PyCharm,virtualenv]
 ---
 
 环境：

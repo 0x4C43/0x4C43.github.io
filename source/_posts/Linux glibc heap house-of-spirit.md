@@ -1,14 +1,9 @@
 ---
 title: Linux glibc heap house-of-spirit
-tags:
-  - heap
-  - house-of-spirit
-categories: Exploit
-keywords:
-  - heap
-  - house-of-spirit
-translate_title: linux-glibc-heap-houseofspirit
 date: 2018-04-13 10:30:14
+tags: [heap,house-of-spirit]
+categories: Exploit
+keywords: [heap,house-of-spirit]
 ---
 
 House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪造的 chunk 放入 fastbin 中。当再次申请内存时，会返回伪造的 chunk，接着可对返回的内存写数据。
@@ -89,7 +84,7 @@ static void _int_free (mstate av, mchunkptr p, int have_lock) {
 
 # 0x2 利用思路
 下面是一个利用场景：程序中存在栈溢出漏洞，溢出长度不足以覆盖栈中返回地址等目标内存，但是能覆盖栈中一个即将被 free 的堆指针 ptr。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/35769818.jpg)    
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020304_35769818.jpg)    
 利用思路如下：    
 >1）在可控区域 1 中伪造一个 chunk，伪造的 chunk 应满足上述条件，并确保该 chunk 能覆盖目标内存区域；   
 >2)  为了知道 fake chunk 的地址，需泄露栈地址。之后通过栈溢出等漏洞修改即将释放的堆指针 ptr，使其指向 `fake chunk + 2*size_t`（prev_size 和 size 字段的大小，32 bits 系统中为 4 bytes，64 bits 系统中为 8 bytes）；    
@@ -251,33 +246,33 @@ if __name__ == "__main__":
 
 ## 3. 利用过程
 1）首先添加 100 条评论，使得 v1 溢出修改 nbytes 为 0x6e。nbytes 被修改前内存中地址如下：    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/46175149.jpg)    
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020313_46175149.jpg)    
 nbytes 被修改后内存中地址如下：      
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/70375310.jpg)    
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020322_70375310.jpg)    
 
 2）接着利用内存泄露漏洞可得到 libc 中 \_IO_file_sync 函数在内存中的地址，题目已给 libc.so 文件，通过该地址可计算处 system 函数和 “/bin/sh” 字符串的地址。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/50239044.jpg)   
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020320_50239044.jpg)   
 此外，利用该漏洞还能泄露栈地址，通过计算偏移量可得到堆指针 \*name 的内存地址，为后续覆盖该堆指针做准备。      
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/91788711.jpg)       
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020328_91788711.jpg)       
 
 3）继续添加评论时，可在 reason 内存中伪造一个 fast chunk。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/93324098.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020331_93324098.jpg)  
 
 4）溢出 comment 变量内存，修改堆指针 \*name 指向伪造的 chunk。堆指针被覆盖前内存如下：    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/47717698.jpg)        
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020316_47717698.jpg)        
 堆指针被覆盖后内存如下：    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/37025857.jpg)     
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020305_37025857.jpg)     
 
 5）之后添加评论前程序会 free(name)，此时伪造的 chunk 将被加入 fastbin 中。     
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/18602401.jpg)   
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020298_18602401.jpg)   
 
 6）再次添加评论，会把栈中伪造的 chunk 分配给 name，此时溢出 name 可覆盖 survey 函数的返回地址为 system 函数地址。返回地址被修改前内存如下：    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/27242292.jpg)     
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020301_27242292.jpg)     
 返回地址被修改后内存如下：    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/44036325.jpg)   
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020308_44036325.jpg)   
 
 7）程序返回时将执行 system。     
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-12/83693658.jpg)   
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020325_83693658.jpg)   
 
 ---
 References:   

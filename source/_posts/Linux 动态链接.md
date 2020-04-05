@@ -1,14 +1,9 @@
 ---
 title: Linux 动态链接
-tags:
-  - Memory Address
-  - dynamic Linking
+date: 2018-05-8 14:53:14
+tags: [Memory Address, dynamic Linking]
 categories: Linux
-keywords:
-  - Memory Address
-  - dynamic Linking
-translate_title: linux-dynamic-link
-date: 2018-05-08 14:53:14
+keywords: [Memory Address, dynamic Linking]
 ---
 
 动态链接在程序运行时才对组成程序的目标文件进行链接，使用动态链接的方式可使得多个进程共用物理内存中的同一个共享目标文件，从而可节省内存空间。此外，使用动态链接使得各个模块更独立，并方便模块的更新。

@@ -1,12 +1,9 @@
 ---
 title: RC4 算法实现
-tags:
-  - RC4
-categories: Crypto
-keywords:
-  - RC4
-translate_title: rc4-algorithm-implementation
 date: 2017-09-19 15:38:29
+tags: [RC4]
+categories: Crypto
+keywords: [RC4]
 ---
 
 RC4 是一种对称秘钥流加密算法，对称加密算法使用的加密和解密秘钥是相同的，或是从其中一个能很容易推导出另一个。RC4 算法的特点是算法简单，运行速度快，而且密钥长度是可变的，密钥长度范围为 1-256 字节。
@@ -160,7 +157,7 @@ void main(int argc, char* argv[]) {
 }
 ```
 运行结果如下：    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-9-19/88889666.jpg)
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020574_88889666.jpg)
 
 ____
 References:   

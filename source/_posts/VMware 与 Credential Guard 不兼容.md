@@ -1,12 +1,9 @@
 ---
 title: VMware 与 Credential Guard 不兼容
-tags:
-  - Credential Guard
-categories: Problems&Solutions
-keywords:
-  - Credential Guard
-translate_title: vmware-is-not-compatible-with-credential-guard
 date: 2018-06-15 18:31:34
+tags: [Credential Guard]
+categories: Problems&Solutions
+keywords: [Credential Guard]
 ---
 
 # 0x01 Problem

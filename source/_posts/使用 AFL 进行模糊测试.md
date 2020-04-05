@@ -1,13 +1,9 @@
 ---
 title: 使用 AFL 进行模糊测试
-tags:
-  - Fuzz
-categories: Fuzz
-keywords:
-  - AFL
-  - Fuzz
-translate_title: use-afl-for-fuzz-testing
 date: 2018-07-22 21:58:12
+tags: [Fuzz]
+categories: Fuzz
+keywords: [AFL, Fuzz]
 ---
 
 [American Fuzzy Lop](http://0x4c43.cn/2018/0722/american-fuzzy-lop/) 中介绍了 AFL 的原理和特性，下面将使用 AFL 对几个常用的应用程序进行模糊测试。
@@ -63,7 +59,7 @@ afl-fuzz -i tiff_input -o tiff_output -- ./vultarget/tiff-4.0.9/tools/tiff2bw @@
 其中，-i 指定测试样本的路径；-o 指定输出结果的路径；/dev/null 使错误信息不输出到屏幕。  
 
 afl-fuzz 跑了 12 个小时仍没有发现 crash。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/17526042.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020901_17526042.jpg)  
 
 ## 2. 测试 ImageMagick
 ### 1）安装 ImageMagick
@@ -80,7 +76,7 @@ make
 高质量的测试样例可提高模糊测试的效率，可以使用 MozillaSecurity 提供的[开源测试样本](https://github.com/MozillaSecurity/fuzzdata)进行测试。
 
 此外，还可以从 ImageMagick 的[漏洞提交 issue](https://github.com/ImageMagick/ImageMagick/issues?utf8=%E2%9C%93&q=cve) 中找到大量的测试样例。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/76650703.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020906_76650703.jpg)  
 
 **测试样例预处理**  
 在使用这些测试样例之前，先进行以下预处理可提高测试效率。
@@ -200,7 +196,7 @@ if __name__ == '__main__':
 ```
 
 运行三个 fuzzer 同时跑了 1 天 18 小时之后发现了一个 2  crash。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/66936998.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020904_66936998.jpg)  
 
 ## 3. 测试 UPX
 ### 1）安装 UPX
@@ -239,7 +235,7 @@ $ cp /bin/touch upx_in
 $ afl-fuzz -i upx_in -o upx_out -m 300 -t 300000 -- vultarget/upx/src/upx.out @@
 ```
 afl-fuzz 跑了一段时间后，发现了 11 个 crashes(upx 3.94)。对 crashes 分析后发现只有一个样例可触发 bug，但是该 bug 已经在 3.95 中[修复](https://github.com/upx/upx/commit/3931cb7871a9cabf63e7c91bcb685bac2e72c22b)了。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-22/94579623.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020908_94579623.jpg)  
 使用以下命令可切换到最新版本所在的分支，从中可看到 bug 已被修复。
 ```bash
 $ git checkout devel

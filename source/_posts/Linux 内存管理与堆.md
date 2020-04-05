@@ -1,16 +1,9 @@
 ---
 title: Linux 内存管理与堆
-tags:
-  - 内存管理
-  - malloc
-  - 堆
-categories: Linux
-keywords:
-  - 内存管理
-  - malloc
-  - 堆
-translate_title: linux-memory-management-and-heap
 date: 2017-10-24 23:18:34
+tags: [内存管理,malloc,堆]
+categories: Linux
+keywords: [内存管理,malloc,堆]
 ---
 
 目前各大平台主要有如下几种堆内存管理机制：
@@ -129,7 +122,7 @@ Free chunk 结构图如下：
     chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |             Size of previous chunk                            |
             +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    `head:' |             Size of chunk, in bytes                         |P|
+    'head:' |             Size of chunk, in bytes                         |P|
       mem-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |             Forward pointer to next chunk in list             |
             +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -139,7 +132,7 @@ Free chunk 结构图如下：
             .                                                               .
             .                                                               |
 nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    `foot:' |             Size of chunk, in bytes                           |
+    'foot:' |             Size of chunk, in bytes                           |
             +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
 
@@ -176,7 +169,7 @@ nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             +---------------------+
 ```
 例如，先申请两个大小为 89 的 chunk，然后释放第二个 chunk。释放后的 chunk 将会与 top chunk 合并，使得 top chunk 增大，同时 chunk 指针减小。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-10-24/1257914.jpg)
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020434_1257914.jpg)
 
 **d） Last Remainder chunk**    
 Last remainder 与 top chunk 一样，不会在任何 bins 中找到这种 chunk。当需要分配一个 small chunk，但在 small bins 中找不到合适的 chunk 时，如果 last remainder chunk 大于所需的 small chunk，last remainder chunk 被分成两个 chunk，其中一个 chunk 返回给用户，另一个 chunk 变成新的 last remainder chuk。
@@ -185,7 +178,7 @@ Last remainder 与 top chunk 一样，不会在任何 bins 中找到这种 chunk
 用户 free 掉的内存并不会马上归还给系统，malloc 会统一管理 heap 和 mmap 映射区域中的空闲 chunk，当用户进行下一次分配请求时，malloc 会首先试图在空闲 chunk 中挑选一块给用户，这样就避免了频繁的系统调用，降低了内存分配的开销。
 
 用于保存 free chunk 链表表头信息的指针数组称为 bin，按所悬挂链表的类型可以分为4类：Fast bin、Unsorted bin、Small bin、Large bin。保存 bin 的数据结构为 fastbinsY 和 bins 两个数组：fastbinsY 数组保存 fast bin，bins 数组保存 unsorted、small 和 large bin，总共有 126 个 bin：Bin 1 为 Unsorted bin、Bin 2 to Bin 63 为 Small bin、Bin 64 to Bin 126 为 Large bin。
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-10-24/55042966.jpg)
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020437_55042966.jpg)
 
 **Fast Bin**    
 fast chunk 的大小为16~64 bytes 的 chunk，保存 fast chunk 的 bin 被称为 fast bin，fast bin 在内存中分配和回收的速度最快。

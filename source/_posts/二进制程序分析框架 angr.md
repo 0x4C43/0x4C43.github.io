@@ -1,13 +1,9 @@
 ---
 title: 二进制程序分析框架 angr
-tags:
-  - angr
-  - binary analysis
-categories: Program Analysis
-keywords:
-  - angr
-translate_title: binary-program-analysis-framework-angr
 date: 2018-05-29 21:30:00
+tags: [angr, binary analysis]
+categories: Program Analysis
+keywords: [angr]
 ---
 
 angr 是一个功能强大的二进制程序分析框架，可用于程序的静态分析和动态符号执行。支持 x86、ARM、MIPS 和 PPC 架构中 32 bit 和 64 bit 可执行程序的分析。
@@ -44,7 +40,7 @@ sudo apt-get install python-dev libffi-dev build-essential
 git clone https://github.com/angr/angr-dev
 cd angr-dev
 mkvirtualenv angr
-./setup.sh -i
+./setup.sh -i 
 ```
 
 # 0x02 顶层接口

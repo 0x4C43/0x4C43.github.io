@@ -1,16 +1,10 @@
 ---
 title: Heartbleed 漏洞分析
-tags:
-  - Heartbleed
+date: 2018-07-1 12:02:14
+tags: [Heartbleed]
 categories: Vulnerability Analysis
-keywords:
-  - Heartbleed
-  - CVE-2014-0160
-translate_title: heartbleed-vulnerability-analysis
-date: 2018-07-01 12:02:14
+keywords: [Heartbleed, CVE-2014-0160]
 ---
-
-
 
 # 0x01 基础知识
 
@@ -22,14 +16,14 @@ SSL/TLS 协议能够提供的安全服务主要包括：
 - 完整性——使用消息认证码（MAC）保障数据完整性，防止消息被篡改；
 - 重放保护——通过使用隐式序列号防止重放攻击。
 SSL/TLS 协议有一个高度模块化的架构，可分为两层：SSL 记录协议为上层协议提供数据封装、压缩、消息认证和完整性保护、加密等安全服务；SSL 上层协议使用 SSL 记录协议提供的服务完成 SSL 通信过程，上层协议包括以下几个子协议：  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-6-30/10954248.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019878_10954248.jpg)  
 **SSL 握手协议**：提供建立安全通道的服务，用于协商安全参数和密码套件、服务器身份认证、客户端身份认证（可选）、密钥生成；  
 **SSL 修改密文协议**：用于更新当前使用的加密套件。在服务器和客户端间互相通告将启用新的密码规范，使得双方实现同步；  
 **SSL 报警协议**：传递握手过程中产生的的错误，分为 fatal 和 warning 两个级别，fatal 类型的错误会直接中断 SSL 链接，而 warning 级别的错误 SSL 链接仍可继续，只是会给出错误警告。
 
 ## 2. SSL握手过程
 SSL 安全协议中，服务器和客户端间的通信可分为握手阶段和传输阶段。其中，握手阶段需要 2 次握手完成。SSL 的通信过程如下图所示，步骤 1 和步骤 2 完成第一次握手过程，协商通信双方使用的加密方式。同时，客户端获取服务器的数字证书；步骤 3 和步骤 4 完成第二次握手过程，协商后续数据传输所使用的对称加密密钥。至此，SSL 连接建立完成。步骤 5，双方通过 SSL 协议建立的安全通道进行加密传输。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-6-30/1996222.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019888_1996222.jpg)  
 
 ## 3. SSL“心跳”机制
 SSL 协议完成握手过程后，客户端和服务器间便建立安全可靠的通信。SSL 安全协议工作在传输层的 TCP 协议之上，所以服务器和客户端需要保持持续连接的状态。由于服务器的资源有限，当连接的客户端数量较大时，服务器要维持这些连接将会消耗很多资源，因此需要及时断开完成通信的客户端以减少服务器的负载压力。服务器通过 SSL 的心跳机制可判断客户端是否已完成通信。
@@ -49,7 +43,7 @@ struct {
 ```
 
 心跳包的结构如下图所示，前半部分为 SSL 记录头，Content Type 为消息类型（0x18 表示心跳包消息），TLS Version 为 SSL 版本信息，Record length 为记录长度；后半部分即为心跳消息。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-6-30/64534789.jpg)   
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019902_64534789.jpg)   
 其中，SSL 记录长度（Record length）为心跳消息的总长度。
 ```C
 Record length = 1 bytes(Heartbeat Type) + 2 bytes(Payload length) + payload length(Payload) + 16 bytes(Padding)
@@ -64,7 +58,7 @@ struct {
 } HeartbeatMessage;
 ```
 下图为心跳请求包的数据包实例，其载荷长度为 5 bytes。   
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-6-30/91460635.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019909_91460635.jpg)  
 
 ## 4. OpenSSL
 OpenSSL 是一个强大的安全套接字层密码开源库，包括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试使用。大多数通过 SSL/TLS 协议加密的网站都使用了 OpenSSL 开源软件包。当 OpenSSL 被爆出安全漏洞时，将会影响所有使用 OpenSSL 开源包的应用。
@@ -96,7 +90,7 @@ OpenSSL：openssl-1.0.1e
 docker run -d -p 8443:443 hmlio/vaas-cve-2014-0160
 ```
 最后在宿主机中用浏览器访问 `https://127.0.0.1:8443`，若服务正常，将返回以下页面。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-6-30/37260673.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019894_37260673.jpg)  
 ### 2）测试
 从 exploit-db 下载 [POC](https://www.exploit-db.com/exploits/32745/) 对 HTTP 服务器进行测试，并用 tcpdump 捕获攻击过程中通信双方交互的数据。可修改 POC 中畸形心跳请求包的构造方式，原畸形包没有载荷 (payload) 和填充字符 (padding)；修改后的畸形包有完整的包结构。两种构造方式都能成功利用漏洞。
 ```python
@@ -121,15 +115,15 @@ sudo tcpdump -i docker0 -w heartbleed.pcap
 python exploit.py -p 8443 127.0.0.1
 ```
 测试结果如下图所示，利用漏洞已成功获取服务器内存中数据，返回的数据中包含了客户端发送的 HTTP 请求头信息。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-1/55912321.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019898_55912321.jpg)  
 使用 Wireshark 打开数据包文件 heartbleed.pcap，筛选出 SSL 通信数据包有以下 4 个。前 2 个为 SSL 协议握手过程的第一阶段。第 3 个为客户端发送的畸形心跳请求包，该请求包中载荷长度（payload length）为 341 bytes，但是实际载荷内容（payload）的长度为 5 bytes。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-1/67904758.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019904_67904758.jpg)  
 第 4 个为服务器返回的心跳响应包，由于服务器收到畸形心跳请求包后，在构造心跳响应包时未对载荷长度进行检查，将内存中其它数据与心跳数据（总长度为 341 bytes）一起返回给客户端，导致服务器内存泄露，从下图可看到泄露的服务器内存数据中包含有客户端发送的 HTTP 请求头信息。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-1/38937640.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019896_38937640.jpg)  
 
 # 0x03 漏洞原理
 Heartleed 漏洞攻击过程如下图所示，客户端向服务器发送心跳载荷长度（payload length）大于实际心跳载荷（payload）长度的心跳请求包，服务器会将内存中的额外数据返回给客户端，可能导致敏感信息泄露。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-1/16554705.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019886_16554705.jpg)  
 ## 1. POC 分析
 通过分析 POC 可知， main 函数中首先与服务器建立 socket 连接；接着发送 SSL Client Hello 进行第一次握手，Client Hello 的 Heartbeat Hello 扩展中 Mode 字段为 peer_allowed_to_send 表明客户端支持心跳机制。若服务器返回 Server Hello Done 则表明已完成第一次握手过程；最后发送畸形心跳请求包即可触发漏洞。
 ```python
@@ -172,7 +166,7 @@ POC 中构造的畸形心跳请求包如下图所示，其中载荷长度（0x01
 # 0x0155:payload 长度; 5*' 41':载荷数据; 16*' 42':填充字节
 hb = h2bin('18 03 02'+' 00 08'+' 01'+' 01 55'+5*' 41'+16*' 42')
 ```
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-1/95471870.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019911_95471870.jpg)  
 hit_hb() 函数向服务器发送畸形心跳请求包，正常情况下服务器应返回的心跳响应包长度为 24 bytes。
 ```python
 Heartbeat response length = 1 bytes(Heartbeat Type) + 2 bytes(Payload length) + 5 bytes(payload length)
@@ -256,7 +250,7 @@ hbtype = *p++;  // 心跳包类型
 n2s(p, payload);  // 心跳包载荷长度
 pl = p;  // pl 指向心跳包载荷
 ```
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-1/95471870.jpg)   
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019911_95471870.jpg)   
 
 ### 2）分配内存空间
 解析完心跳包后，若心跳包类型为 TLS1_HB_REQUEST，则为后续构造心跳响应包分配长度为 360 bytes 的内存。<font color= red> 这里未对心跳载荷长度字段进行检查就分配内存是漏洞产生的重要原因。</font>
@@ -266,7 +260,7 @@ if (hbtype == TLS1_HB_REQUEST)
     unsigned char *buffer, *bp;
     int r;
     /* 为心跳响应包分配内存, 大小为 1 byte(Heartbeat Type)+ 2 bytes(Payload length)+
-	  * 341 bytes(Payload) + 16 bytes(Padding) = 360 bytes */
+	     341 bytes(Payload) + 16 bytes(Padding) = 360 bytes */
     buffer = OPENSSL_malloc(1 + 2 + payload + padding);
     bp = buffer;    // bp指向刚分配的内存
     …
@@ -285,7 +279,7 @@ bp += payload;
 RAND_pseudo_bytes(bp, padding);
 ```
 由 dtls1_process_heartbeat() 函数构造出的心跳响应包结构如下图所示。  
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-1/77216907.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019907_77216907.jpg)  
 ### 4）发送心跳响应包
 最后通过 dtls1_write_bytes() 函数把构造好的心跳响应包发送给客户端，服务器将会把内存中除客户端发送的心跳包载荷外的其他数据返回给客户端，导致内存泄露。  
 ```C
@@ -297,7 +291,7 @@ openssl-1.0.1f 中该漏洞进行了修复，分析补丁代码可看到 dtls1_p
 - 检查 1：当实际心跳载荷（payload）长度为 0 时，函数返回 0；
 - 检查 2：当心跳包载荷长度（payload length）大于实际载荷（payload）的长度时，函数返回 0。 
 
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-7-1/16326376.jpg)  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586019882_16326376.jpg)  
 添加长度检查后，客户端只有在发送实际心跳载荷（payload）长度大于 0，且心跳包载荷长度 (payload length) 不大于实际心跳包载荷（payload）长度的心跳请求包时，服务器才会返回心跳响应包，因此可成功修补该漏洞。
 ____
 References:   

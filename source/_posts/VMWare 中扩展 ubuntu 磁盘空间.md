@@ -1,12 +1,9 @@
 ---
 title: VMWare 中扩展 ubuntu 磁盘空间
-tags:
-  - 磁盘空间
-categories: Linux
-keywords:
-  - 磁盘空间
-translate_title: extend-ubuntu-disk-space-in-vmware
 date: 2018-07-07 14:00:23
+tags: [磁盘空间]
+categories: Pro&Sol
+keywords: [磁盘空间]
 ---
 
 由于在 VMWare 系统中使用 ubuntu 时安装的软件过多，导致磁盘空间不够用。因此，需要扩展虚拟机的磁盘空间，依照网上找到的方法可完成该过程，便记录在此。

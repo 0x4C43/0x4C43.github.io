@@ -1,14 +1,9 @@
 ---
 title: Linux 延迟绑定机制
-tags:
-  - PLT
-  - Lazy Binding
-categories: Linux
-keywords:
-  - PLT
-  - Lazy Binding
-translate_title: linux-lazy-binding-mechanism
 date: 2018-04-29 21:05:02
+tags: [PLT, Lazy Binding]
+categories: Linux
+keywords: [PLT, Lazy Binding]
 ---
 
 如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。
@@ -30,11 +25,11 @@ jmp _dl_runtime_resolve
 ```
 ## 1. 首次调用
 第一次调用 func 函数时，首先会跳转到 PLT 执行 `jmp *(func@got)`，由于该函数没被调用过，func@got 中的值不是 func 函数的地址，而是 PLT 中的 “preapre resolver” 指令的地址，所以会跳转到 “preapre resolver” 执行，接着会调用 \_dl_runtime_resolve 解析 func 函数的地址，并将该函数真正的地址填充到 func@got，最后跳转到 func 函数继续执行代码。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/78087498.jpg)    
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020528_78087498.jpg)    
 
 ## 2. 非首次调用
 当再次调用 func 函数时，由于 func@got 中已填充正确的函数地址，此时执行 PLT 中的 `jmp *(func@got)` 即可成功跳转到 func 函数中执行。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/26402902.jpg)    
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020526_26402902.jpg)    
 
 # 0x02 实例调试
 下面通过调试程序中 func 函数的调用过程说明延迟绑定的原理。首先函数执行 call 指令调用 func 函数时会跳转到 0x8048420（func@plt）处执行。

@@ -1,14 +1,9 @@
 ---
 title: 使用 Atom 与 Markdown 写文章
-tags:
-  - Atom
-  - Markdown
-categories: Others
-keywords:
-  - Atom
-  - Markdown
-translate_title: write-articles-using-atom-and-markdown
 date: 2017-04-26 15:36:08
+tags: [Atom,Markdown]
+categories: Others
+keywords: [Atom,Markdown]
 ---
 
 # 0x01 Atom
@@ -171,8 +166,7 @@ Markdown 支持以比较简短的自动链接形式来处理网址和电子邮�
 
 ## 3. 极简图床 Chrome 插件
 使用极简图床可以绑定七牛云存储空间，然后可以通过拖拽的方式上传图片到云上。绑定七牛云需要空间名称、AK、SK 和域名。   
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-4-26/26825806-file_1493208795361_1da.png)
-
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021035_26825806-file_1493208795361_1da.png)
 ## 4. 插入图片
 在文章中使用以下语法插入图片。
 ```

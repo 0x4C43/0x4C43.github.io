@@ -1,13 +1,9 @@
 ---
 title: EasyRM2MP3 栈溢出分析
-date: '2018-08-14 17:50'
-tags:
-  - stack overflow
+date: 2018-08-14 17:50
+tags: [stack overflow]
 categories: Vulnerability Analysis
-keywords:
-  - stack overflow
-  - EasyRM2MP3
-translate_title: easyrm2mp3-stack-overflow-analysis
+keywords: [stack overflow, EasyRM2MP3]
 ---
 
 # 0x01 漏洞信息
@@ -20,7 +16,7 @@ Easy RM to MP3 Converter 是一款音频文件格式转换工具，根据 Exploi
 
 由于 Windows7 系统默认开启 DEP 保护，利用该漏洞时，为了返回到栈上执行 shellcode，需要把系统 DEP 关闭。  
 （1）“命令运行符” -> “以管理员身份运行”；  
-（2）运行 bcdedit.exe/set {current} nx AlwaysOff；  
+（2）运行 `cdedit.exe/set {current} nx AlwaysOff`；  
 （3）重启计算机生效。
 
 ## 1. 漏洞复现

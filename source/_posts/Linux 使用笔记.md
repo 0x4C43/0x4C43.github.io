@@ -1,13 +1,9 @@
 ---
 title: Linux 使用笔记
-tags:
-  - Linux
-categories: Linux
-keywords:
-  - Linux 配置
-  - 使用
-translate_title: linux-usage-notes
 date: 2017-10-28 21:45:08
+tags: [Linux]
+categories: Linux
+keywords: [Linux 配置,使用]
 ---
 
 # 0x01 基本命令
@@ -32,8 +28,8 @@ man ls
 man -f reboot
 man 2 reboot
 ```
-输入”/string“，按回车，查找关键字 string，n 键向下查找，N 键向上查找；
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-10-28/99556537.jpg)    
+输入”/string“，按回车，查找关键字 string，n 键向下查找，N 键向上查找；  
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020499_99556537.jpg)    
 -f 用于查询命令说明存在于哪些 man 文档文件中；
 查看 reboot 命令在 man 文档的第二章中的解释；
 

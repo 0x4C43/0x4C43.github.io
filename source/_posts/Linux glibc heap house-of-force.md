@@ -1,14 +1,9 @@
 ---
 title: Linux glibc heap house-of-force
-tags:
-  - heap
-  - house-of-force
-categories: Exploit
-keywords:
-  - heap
-  - house-of-force
-translate_title: linux-glibc-heap-houseofforce
 date: 2018-04-19 23:10:45
+tags: [heap,house-of-force]
+categories: Exploit
+keywords: [heap,house-of-force]
 ---
 
 该利用方法通过堆溢出漏洞修改 top chunk 的 size 字段，使得 malloc 一块很大的内存可使用 top chunk 进行分配，当更新 top chunk 的 ptr 时会发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段、.data 段和 GOT 表等。当再次使用 malloc 申请内存时将从目标内存处进行分配，之后对该内存进行写操作，即可实现任意地址写数据。
@@ -77,7 +72,7 @@ rax            0x603030 0x603030
 (unsigned long) (size) >= (unsigned long) (nb + MINSIZE)
 ```
 由于 arena 的大小为 132KB，所以 top chunk 的 size 不大于 132KB（0x21000 bytes），因此在正常情况下通过 top chunk 分配的堆不能超过 0x21000 bytes，这导致无法在更新 top chunk 的 ptr 时发生整数溢出。为此，需要先利用堆溢出漏洞修改 top chunk 的 size 为一个大数，通常取 -1（其补码为 0xFFFFFFFFFFFFFFFF），之后便可通过 top chunk 申请一块很大的内存以触发整数溢出。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/51587433.jpg)     
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020285_51587433.jpg)     
 
 ## 2. malloc 一块大内存，控制 top chunk ptr
 假设该步骤中申请内存时用户请求大小为 request_size；最终需控制的内存地址为 target；top chunk 的 ptr 初始值为 top_old，分配新 chunk 后的 ptr 为 top_new；由上一节中的分析可得到以下等式，其中 SIZE_SZ 在 64 bits 系统中为 8 bytes，32 bits 系统中为 4 bytes。
@@ -92,12 +87,12 @@ target = top_new + 2* SIZE_SZ  // 2* SIZE_SZ为prev_size和size字段长度
  需要注意的是 request_size+SIZE_SZ 要遵循块的对齐机制，如果未对齐应进行调整，将 request_size 的计算结果减去一个值（因为对齐时会增大长度使其对齐），使 request_size+SIZE_SZ 能对齐。
 
 malloc 执行完后 top chunk ptr 将会更新，并指向目标内存 target-2* SIZE_SZ 处，即 top chunk 已转移到目标内存地址。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/65486405.jpg)    
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020287_65486405.jpg)    
 __由于计算 request_size 的大小需要知道堆内存中 top_old 的 ptr，所以得借助其他漏洞泄漏堆中 top chunk 的地址。或者可以将 target 指定在堆内存区域，那么通过本地调试可获得 top chunk 的地址，此时使用上式计算所得 request_size 相当于相对地址偏移，当堆基址改变后该值仍适用。__
 
 ## 3. 再次 malloc，返回目标内存
 此时申请 chunk 将从目标内存处分配，最终成功返回目标内存 target，之后可对该内存写数据，以实现进一步的攻击。    
-![](https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/46291433.jpg)    
+![](https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020283_46291433.jpg)    
 
 # 0x03 实例分析
 下面以 [HITCON-Training](https://github.com/scwuaptx/HITCON-Training) 中的 lab11 为例说明 house of force 的利用过程，题目文件和利用脚本也可在 [Github](https://github.com/0x4C43/Linux-Exploit/tree/master/heap_house-of-force) 中下载。

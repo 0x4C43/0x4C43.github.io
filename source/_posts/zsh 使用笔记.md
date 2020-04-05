@@ -1,14 +1,9 @@
 ---
 title: zsh 使用笔记
-tags:
-  - zsh
-  - oh-my-zsh
-categories: Linux
-keywords:
-  - zsh
-  - oh-my-zsh
-translate_title: zsh-notes
 date: 2018-03-10 22:20:17
+tags: [zsh, oh-my-zsh]
+categories: Linux
+keywords: [zsh, oh-my-zsh]
 ---
 
 Zsh 是一款功能强大终端（shell）软件，既可以作为交互式终端，也可以作为脚本解释器。它在兼容 Bash 的同时，还有提供了很多改进，例如：

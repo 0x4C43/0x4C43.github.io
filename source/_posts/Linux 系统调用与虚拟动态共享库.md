@@ -1,16 +1,9 @@
 ---
 title: Linux 系统调用与虚拟动态共享库
-tags:
-  - Linux
-  - 系统调用
-  - vsdo
-categories: Linux
-keywords:
-  - Linux
-  - 系统调用
-  - vsdo
-translate_title: linux-system-calls-and-virtual-dynamic-shared-libraries
 date: 2018-05-17 14:35:20
+tags: [Linux,系统调用, vsdo]
+categories: Linux
+keywords: [Linux,系统调用, vsdo]
 ---
 
 系统调用是应用程序与操作系统间的接口。Linux 下使用 0x80 号中断作为系统调用入口，使用 eax寄存器指定系统调用号，ebx、ecx、edx、esi、edi 和 ebp 用于传递调用参数；Windows 下使用0x2E 号中断作为系统调用入口。
