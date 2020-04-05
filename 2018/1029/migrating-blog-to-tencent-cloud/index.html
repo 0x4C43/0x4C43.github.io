@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="firmware-mod-kit,修改 firmware" />
+  <meta name="keywords" content="图床" />
 
 
 
@@ -99,24 +99,19 @@
 
 
 
-<meta name="description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta name="keywords" content="firmware-mod-kit,firmware">
+<meta name="description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
+<meta name="keywords" content="图床">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 firmware-mod-kit 修改固件">
-<meta property="og:url" content="http://0x4c43.cn/2017/0605/modify-firmware-using-firmwaremodkit/index.html">
+<meta property="og:title" content="博客图床迁移至腾讯云">
+<meta property="og:url" content="http://0x4c43.cn/2018/1029/migrating-blog-to-tencent-cloud/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
-<meta property="og:description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/78163658.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/6411506.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/10177238.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/63948070.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/59066778.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/31504566.jpg">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png">
+<meta property="og:updated_time" content="2020-04-05T05:43:55.007Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 firmware-mod-kit 修改固件">
-<meta name="twitter:description" content="firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。 该工具包支持以下固件：  DD-WRT v23    tested - versions v23 SP1 and later are compatible">
-<meta name="twitter:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/78163658.jpg">
+<meta name="twitter:title" content="博客图床迁移至腾讯云">
+<meta name="twitter:description" content="博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。 0x01 下载图片七牛云提供命令行工具 qshell 操作对象存储，可以使用该工具将已有数据同步到本地。 1. 密钥设置首先需要设置密钥，密钥 ak 与 sk 可在“个人面板/密钥管理”中查看。1$ qshell">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png">
 
 
 
@@ -144,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2017/0605/modify-firmware-using-firmwaremodkit/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2018/1029/migrating-blog-to-tencent-cloud/"/>
 
 
 
@@ -152,7 +147,7 @@
 
 
 
-  <title> 使用 firmware-mod-kit 修改固件 | 0x4C43's Blog </title>
+  <title> 博客图床迁移至腾讯云 | 0x4C43's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -315,7 +310,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/0605/modify-firmware-using-firmwaremodkit/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/1029/migrating-blog-to-tencent-cloud/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -336,7 +331,7 @@
             
             
               
-                使用 firmware-mod-kit 修改固件
+                博客图床迁移至腾讯云
               
             
           </h1>
@@ -351,8 +346,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-05T21:45:08+08:00">
-                2017-06-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-29T18:20:24+08:00">
+                2018-10-29
               </time>
             
 
@@ -374,8 +369,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Embedded/" itemprop="url" rel="index">
-                    <span itemprop="name">Embedded</span>
+                  <a href="/categories/Others/" itemprop="url" rel="index">
+                    <span itemprop="name">Others</span>
                   </a>
                 </span>
 
@@ -392,9 +387,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/0605/modify-firmware-using-firmwaremodkit/#comments" itemprop="discussionUrl">
+                <a href="/2018/1029/migrating-blog-to-tencent-cloud/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/0605/modify-firmware-using-firmwaremodkit/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/1029/migrating-blog-to-tencent-cloud/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -425,30 +420,20 @@
       
 
       
-        <p>firmware-mod-kit 工具包可用于提取固件中的文件系统，然后对其进行修改，并重新打包成固件。我们可以使用它对固件做定制化的修改，但是也有可能被恶意地用于在固件中添加后门等，所以在下载固件时应到官方网站下载，并检查固件是否被修改过。</p>
-<p>该工具包支持以下固件：</p>
-<blockquote>
-<p>DD-WRT v23    tested - versions v23 SP1 and later are compatible (soon older versions too).<br>DD-WRT v24    tested<br>OpenWrt White Russian    tested<br>OpenWrt Kamikaze    untested (should work) - not really necessary, based on OpenWrt has its Image Builder.<br>FreeWrt    untested - should work ok<br>HyperWrt    untested<br>Ewrt    untested<br>Sveasoft Alchemy    untested<br>Sveasoft Talisman    untested<br>Linksys / other vendor    not supported by scripts yet - haven’t added cramfs handling<br>ASUS WL-330G    untested - should work ok<br>ASUS WL-520G    untested - should work ok<br>ASUS WL-530G    supported<br>ASUS WL-550G    untested  - should work ok<br>Trendnet TEW-632BRP    tested<br>DLink DIR-615    untested<br>many others*    untested</p>
-</blockquote>
-<h1 id="0x01-安装"><a href="#0x01-安装" class="headerlink" title="0x01 安装"></a>0x01 安装</h1><p>可在 <a href="https://code.google.com/archive/p/firmware-mod-kit/" target="_blank" rel="external">google code</a> 下载    Firmware Mod Kit v0.99 安装包，然后解压安装，安装前需要先安装相应的依赖库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For Ubuntu: $ sudo apt-get install git build-essential zlib1g-dev liblzma-dev python-magic</div><div class="line"></div><div class="line">cd firmware-mod-kit/src</div><div class="line">./configure &amp;&amp; make</div></pre></td></tr></table></figure></p>
-<h1 id="0x02-使用"><a href="#0x02-使用" class="headerlink" title="0x02 使用"></a>0x02 使用</h1><p>firmware-mod-kit 中包含以下几个工具脚本：</p>
-<blockquote>
-<p>extract-firmware.sh：解包固件<br>build-firmware.sh：重新打包固件<br>check_for_upgrade.sh：检查更新<br>unsquashfs_all.sh：解包提取出来的 squashfs 文件</p>
-</blockquote>
-<p><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/78163658.jpg" alt=""></p>
-<h2 id="1-解包固件"><a href="#1-解包固件" class="headerlink" title="1.  解包固件"></a>1.  解包固件</h2><p>使用以下命令解包固件，firmware.bin 为需解包的固件，working_directory 为解包结果存储位置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./extract_firmware.sh firmware.bin working_directory/</div></pre></td></tr></table></figure></p>
-<p><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/6411506.jpg" alt=""></p>
-<h2 id="2-重新打包固件"><a href="#2-重新打包固件" class="headerlink" title="2. 重新打包固件"></a>2. 重新打包固件</h2><p>修改完解包后的文件系统后，使用 build_firmware.sh 重新打包固件，新生成的固件将存在 output_directory 目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./build_firmware.sh output_directory/ working_directory/</div></pre></td></tr></table></figure></p>
-<p><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/10177238.jpg" alt=""></p>
-<h1 id="0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing"><a href="#0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing" class="headerlink" title="0x03 Directory Tree Diff &amp;&amp; Fuzzy Hashing"></a>0x03 Directory Tree Diff &amp;&amp; Fuzzy Hashing</h1><p>当我们发现下载的固件是被修改过时，可以使用 <a href="https://github.com/bmaia/binwally" target="_blank" rel="external">binwally</a> 将修改过的固件与<a href="https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">原版固件</a>对比，从而发现具体修改内容。</p>
-<h2 id="1-解包固件-1"><a href="#1-解包固件-1" class="headerlink" title="1. 解包固件"></a>1. 解包固件</h2><p>可以看到固件编译日期为 2007-02-03，而文件系统的创建实际为 2017-06-05,说明固件中的文件系统被修改过。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/63948070.jpg" alt=""></p>
-<h2 id="2-差异对比"><a href="#2-差异对比" class="headerlink" title="2. 差异对比"></a>2. 差异对比</h2><p>google 查找发现 openwrt-wrtsl54gs-squashfs.bin 固件有三个版本，分别为：</p>
-<blockquote>
-<p><a href="https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/default/openwrt-wrtsl54gs-squashfs.bin</a><br> <a href="https://downloads.openwrt.org/whiterussian/0.9/micro/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/micro/openwrt-wrtsl54gs-squashfs.bin</a><br> <a href="https://downloads.openwrt.org/whiterussian/0.9/pptp/openwrt-wrtsl54gs-squashfs.bin" target="_blank" rel="external">https://downloads.openwrt.org/whiterussian/0.9/pptp/openwrt-wrtsl54gs-squashfs.bin</a></p>
-</blockquote>
-<p>使用 binwally 对比结果显示”default” 版本的相似性最高，可知，目标固件是 “default” 版本固件的修改版。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/59066778.jpg" alt=""><br>继续查看具体修改的文件为 /etc/profile 和 /bin/nc。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-6-5/31504566.jpg" alt=""></p>
+        <p>博客搭建的时候选择了七牛云作为图床，到目前为止往上传了大概 100 张图片。近日收到七牛云测试域名回收的通知，只好另选其它云存储作为博客图床，网络上已有图床迁移方法，遂参考并记录于此。</p>
+<h1 id="0x01-下载图片"><a href="#0x01-下载图片" class="headerlink" title="0x01 下载图片"></a>0x01 下载图片</h1><p>七牛云提供命令行工具 <a href="https://developer.qiniu.com/kodo/tools/1302/qshell#2" target="_blank" rel="external">qshell</a> 操作对象存储，可以使用该工具将已有数据同步到本地。</p>
+<h2 id="1-密钥设置"><a href="#1-密钥设置" class="headerlink" title="1. 密钥设置"></a>1. 密钥设置</h2><p>首先需要设置密钥，密钥 <code>ak</code> 与 <code>sk</code> 可在“个人面板/密钥管理”中查看。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ qshell account ak sk</div></pre></td></tr></table></figure></p>
+<h2 id="2-同步数据"><a href="#2-同步数据" class="headerlink" title="2. 同步数据"></a>2. 同步数据</h2><p>使用 <a href="https://github.com/qiniu/qshell/blob/master/docs/qdownload.md" target="_blank" rel="external">qdownload</a> 命令可将图片同步到本地，该功能是收费的，但是通过设置 <code>cdn_domain</code> 参数可免费使用 10G 的流量。该命令使用方法如下，其中 <code>LocalDownloadConfig</code> 为本地下载的配置文件。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ qshell qdownload [&lt;ThreadCount&gt;] &lt;LocalDownloadConfig&gt;</div></pre></td></tr></table></figure></p>
+<p>为能使用免费流量，新建如下配置文件，其中 <code>bucket</code> 为存储空间名称，<code>cdn_domain</code> 为需同步存储空间的外部默认域名。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"dest_dir"</span>   :   <span class="string">"/home/lc/Desktop/images"</span>,</div><div class="line">    <span class="string">"bucket"</span>     :   <span class="string">"hexo"</span>,</div><div class="line">    <span class="string">"prefix"</span>     :   <span class="string">""</span>,</div><div class="line">    <span class="string">"suffixes"</span>   :   <span class="string">""</span>,</div><div class="line">    <span class="string">"cdn_domain"</span> :   <span class="string">"http://ooyovxue7.bkt.clouddn.com"</span>,</div><div class="line">    <span class="string">"referer"</span>    :   <span class="string">""</span>,</div><div class="line">    <span class="string">"log_file"</span>   :   <span class="string">"download.log"</span>,</div><div class="line">    <span class="string">"log_level"</span>  :   <span class="string">"info"</span>,</div><div class="line">    <span class="string">"log_rotate"</span> :   <span class="number">1</span>,</div><div class="line">    <span class="string">"log_stdout"</span> :   false</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>命令执行完后，所有图片将下载到 <code>dest_dir</code> 设定的目录中。</p>
+<h1 id="0x02-腾讯云-COS"><a href="#0x02-腾讯云-COS" class="headerlink" title="0x02 腾讯云 COS"></a>0x02 腾讯云 COS</h1><h2 id="1-上传图片"><a href="#1-上传图片" class="headerlink" title="1. 上传图片"></a>1. 上传图片</h2><p>首先创建存储空间，并设置访问权限为<strong>公有读私有写</strong>，创建好后将下载的图片批量上传至 COS。为方便替换已有文章中图片链接，应保留七牛云中数据的文件夹结构。</p>
+<p>此外，为了防止盗链导致免费流量被耗尽，需要设置防盗链，将博客域名加入白名单中。但设置之后，本地文章中无法正常访问图片，所以酌情设置该功能。</p>
+<h2 id="2-修改链接"><a href="#2-修改链接" class="headerlink" title="2. 修改链接"></a>2. 修改链接</h2><p>将图片上传到腾讯云 COS 之后，即可正常访问这些图片。接下来需要修改已有文章中的图片链接，将链接中的七牛云域名 <code>old_domain_name</code> 替换为腾讯云域名 <code>new_domain_name</code>（在“基础配置/访问域名”中查看），下面使用 <code>sed</code> 命令进行批量修改。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i <span class="string">'s#($old_domain_name#($new_domain_name#g'</span> /path_to_blog/source/_posts/*.md</div></pre></td></tr></table></figure></p>
+<p>所有链接修改完后，博客图床迁移便完成了。</p>
+<p>2020.04.05 更新：近期腾讯云 COS 完成商业版测试，后续 COS 不再免费。因为贫穷，最终又把图床迁移到 Github。</p>
+<h1 id="0x03-PicGo"><a href="#0x03-PicGo" class="headerlink" title="0x03 PicGo"></a>0x03 PicGo</h1><p><a href="https://molunerfinn.com/PicGo/" target="_blank" rel="external">PicGo</a> 是一款图片上传工具，可支持多种图床，其中包括腾讯云 COS。配置方法参看 <a href="https://github.com/Molunerfinn/PicGo/wiki/%E8%AF%A6%E7%BB%86%E7%AA%97%E5%8F%A3%E7%9A%84%E4%BD%BF%E7%94%A8#%E8%85%BE%E8%AE%AF%E4%BA%91cos" target="_blank" rel="external">官方文档</a>，由于主账户权限较大，基于安全考虑，建议新建一个子账户，并对该子账户只授予 COS 读写权限，具体设置方法参考 <a href="https://cloud.tencent.com/document/product/436/11714" target="_blank" rel="external">使用子账号对 COS 进行授权</a>。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020649_20181029174328.png" alt=""></p>
 <hr>
-<p>References：<br>[1] <a href="https://code.google.com/archive/p/firmware-mod-kit/wikis/Documentation.wiki" target="_blank" rel="external">firmware-mod-kit - Documentation.wiki</a><br>[2] <a href="https://bitsum.com/firmware_mod_kit.htm" target="_blank" rel="external">Firmware Modification Kit</a><br>[3] <a href="http://blog.csdn.net/qq1084283172/article/details/68061957" target="_blank" rel="external">路由器逆向分析——firmware-mod-kit工具安装和使用说明</a><br>[4] <a href="https://w00tsec.blogspot.com/2015/02/firmware-forensics-diffs-timelines-elfs.html" target="_blank" rel="external">Firmware Forensics: Diffs, Timelines, ELFs and Backdoors</a></p>
+<p>References:<br>[1] <a href="https://sjq597.github.io/2018/10/13/%E4%B8%83%E7%89%9B%E6%B5%8B%E8%AF%95%E5%9F%9F%E5%90%8D%E5%9B%9E%E6%94%B6%E8%BF%81%E7%A7%BB%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E5%88%B0%E8%85%BE%E8%AE%AF%E4%BA%91/" target="_blank" rel="external">七牛测试域名回收迁移博客图床到腾讯云</a><br>[2] <a href="https://jdhao.github.io/2018/10/20/qiuniu_migrate_to_tencent_cos/" target="_blank" rel="external">把博客图床从七牛云迁移到腾讯云</a>  </p>
 
       
     </div>
@@ -478,9 +463,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/firmware-mod-kit/" rel="tag"># firmware-mod-kit</a>
-          
-            <a href="/tags/firmware/" rel="tag"># firmware</a>
+            <a href="/tags/图床/" rel="tag"># 图床</a>
           
         </div>
       
@@ -493,18 +476,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/0723/a-section-in-the-pe-file/" rel="next" title="PE 文件中添加节区">
-                <i class="fa fa-chevron-left"></i> PE 文件中添加节区
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/0510/dll-injection-remote-thread/" rel="prev" title="DLL 注入之远程线程注入">
-                DLL 注入之远程线程注入 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/1029/2018-triathlon-aleph1-writeup/" rel="prev" title="2018 铁人三项赛 aleph1 Writeup">
+                2018 铁人三项赛 aleph1 Writeup <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -595,7 +574,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -665,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-安装"><span class="nav-text">0x01 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-使用"><span class="nav-text">0x02 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-解包固件"><span class="nav-text">1.  解包固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-重新打包固件"><span class="nav-text">2. 重新打包固件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-Directory-Tree-Diff-amp-amp-Fuzzy-Hashing"><span class="nav-text">0x03 Directory Tree Diff && Fuzzy Hashing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-解包固件-1"><span class="nav-text">1. 解包固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-差异对比"><span class="nav-text">2. 差异对比</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-下载图片"><span class="nav-text">0x01 下载图片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-密钥设置"><span class="nav-text">1. 密钥设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-同步数据"><span class="nav-text">2. 同步数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-腾讯云-COS"><span class="nav-text">0x02 腾讯云 COS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-上传图片"><span class="nav-text">1. 上传图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-修改链接"><span class="nav-text">2. 修改链接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-PicGo"><span class="nav-text">0x03 PicGo</span></a></li></ol></div>
             
 
           </div>
@@ -688,7 +667,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -817,9 +796,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2017/0605/modify-firmware-using-firmwaremodkit/';
-          this.page.identifier = '2017/0605/modify-firmware-using-firmwaremodkit/';
-          this.page.title = '使用 firmware-mod-kit 修改固件';
+          this.page.url = 'http://0x4c43.cn/2018/1029/migrating-blog-to-tencent-cloud/';
+          this.page.identifier = '2018/1029/migrating-blog-to-tencent-cloud/';
+          this.page.title = '博客图床迁移至腾讯云';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://0x4c43s-blog.disqus.com/embed.js';

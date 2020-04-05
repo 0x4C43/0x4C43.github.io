@@ -106,12 +106,12 @@
 <meta property="og:url" content="http://0x4c43.cn/2017/0426/write-articles-using-atom-and-markdown/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="0x01 AtomAtom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo blog。 可以在官网下载Atom。 1. 常用快捷键在File/Settings/Keybindii">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-4-26/26825806-file_1493208795361_1da.png">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021035_26825806-file_1493208795361_1da.png">
+<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Atom 与 Markdown 写文章">
 <meta name="twitter:description" content="0x01 AtomAtom 是 Github 推出的一个开源跨平台文本编辑器。具有简洁和直观的图形用户界面，支持 CSS、HTML、JavaScript 等网页编程语言。 并且支持宏和自动分屏等功能，还集成了文件管理器。同时，Atom 也支持 Markdown 语法，所以可以很方便地写 Hexo blog。 可以在官网下载Atom。 1. 常用快捷键在File/Settings/Keybindii">
-<meta name="twitter:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-4-26/26825806-file_1493208795361_1da.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021035_26825806-file_1493208795361_1da.png">
 
 
 
@@ -504,7 +504,7 @@
 <p>默认标题栏居中对齐，内容居左对齐。<br>-: 表示内容和标题栏靠右对齐，:- 表示内容和标题栏靠左对齐，:-: 表示内容和标题栏居中对齐。</p>
 <h1 id="0x03-插入图片"><a href="#0x03-插入图片" class="headerlink" title="0x03 插入图片"></a>0x03 插入图片</h1><p>用 Markdown 写文章有个麻烦的地方就是不能直接插图片，通常需要将图片放在本地或者云上，然后在文章中通过图片链接（相对地址或网址）来插图片。为了节省 Blog 的空间，将图片上传到<a href="https://www.qiniu.com/" target="_blank" rel="external">七牛云</a>上。   </p>
 <h2 id="1-注册账号并登录"><a href="#1-注册账号并登录" class="headerlink" title="1. 注册账号并登录"></a>1. 注册账号并登录</h2><h2 id="2-新建-buket"><a href="#2-新建-buket" class="headerlink" title="2. 新建 buket"></a>2. 新建 buket</h2><p>对象存储 &gt; 新建存储空间，输入相关信息。   </p>
-<h2 id="3-极简图床-Chrome-插件"><a href="#3-极简图床-Chrome-插件" class="headerlink" title="3. 极简图床 Chrome 插件"></a>3. 极简图床 Chrome 插件</h2><p>使用极简图床可以绑定七牛云存储空间，然后可以通过拖拽的方式上传图片到云上。绑定七牛云需要空间名称、AK、SK 和域名。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-4-26/26825806-file_1493208795361_1da.png" alt=""></p>
+<h2 id="3-极简图床-Chrome-插件"><a href="#3-极简图床-Chrome-插件" class="headerlink" title="3. 极简图床 Chrome 插件"></a>3. 极简图床 Chrome 插件</h2><p>使用极简图床可以绑定七牛云存储空间，然后可以通过拖拽的方式上传图片到云上。绑定七牛云需要空间名称、AK、SK 和域名。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586021035_26825806-file_1493208795361_1da.png" alt=""></p>
 <h2 id="4-插入图片"><a href="#4-插入图片" class="headerlink" title="4. 插入图片"></a>4. 插入图片</h2><p>在文章中使用以下语法插入图片。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">![](image_link)</div><div class="line"></div><div class="line">&lt;div align=center&gt;  # 图片居中</div><div class="line">  &lt;img src= &quot;url&quot;/&gt;</div><div class="line">&lt;/div &gt;</div><div class="line"></div><div class="line">![](image_link?imageView/3/w/400/h/400/q/100)   # 七牛云图片缩放，w：刻度，h：高度，q：图片质量</div></pre></td></tr></table></figure></p>
 <h1 id="0x04-文章发布"><a href="#0x04-文章发布" class="headerlink" title="0x04 文章发布"></a>0x04 文章发布</h1><p>在搭建好 Hexo Blog 之后，可以通过以下步骤新建并发布一篇新的文章。</p>
 <h2 id="1-创建文章"><a href="#1-创建文章" class="headerlink" title="1. 创建文章"></a>1. 创建文章</h2><p>执行下列命令来创建一篇新文章。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new post &lt;title&gt;</div></pre></td></tr></table></figure></p>
@@ -556,7 +556,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/0426/build-a-personal-blog-with-github-and-hexo/" rel="next" title="使用 Github 和 Hexo 搭建个人博客">
+              <a href="/2017/0426/use-github-and-hexo-to-build-a-personal-blog/" rel="next" title="使用 Github 和 Hexo 搭建个人博客">
                 <i class="fa fa-chevron-left"></i> 使用 Github 和 Hexo 搭建个人博客
               </a>
             
@@ -654,7 +654,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -747,7 +747,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

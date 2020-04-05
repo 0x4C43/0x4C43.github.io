@@ -103,10 +103,10 @@
 <meta name="keywords" content="Linux,系统调用,vsdo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 系统调用与虚拟动态共享库">
-<meta property="og:url" content="http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/index.html">
+<meta property="og:url" content="http://0x4c43.cn/2018/0517/linux-system-call-and-virtual-dynamic-shared-library/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="系统调用是应用程序与操作系统间的接口。Linux 下使用 0x80 号中断作为系统调用入口，使用 eax寄存器指定系统调用号，ebx、ecx、edx、esi、edi 和 ebp 用于传递调用参数；Windows 下使用0x2E 号中断作为系统调用入口。  直接使用系统调用编程有以下弊端：1）系统调用接口过于原始，使用不方便；2）各操作系统间系统调用不兼容。因此，运行库作为操作系统与应用程序间的抽象">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 系统调用与虚拟动态共享库">
 <meta name="twitter:description" content="系统调用是应用程序与操作系统间的接口。Linux 下使用 0x80 号中断作为系统调用入口，使用 eax寄存器指定系统调用号，ebx、ecx、edx、esi、edi 和 ebp 用于传递调用参数；Windows 下使用0x2E 号中断作为系统调用入口。  直接使用系统调用编程有以下弊端：1）系统调用接口过于原始，使用不方便；2）各操作系统间系统调用不兼容。因此，运行库作为操作系统与应用程序间的抽象">
@@ -137,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2018/0517/linux-system-call-and-virtual-dynamic-shared-library/"/>
 
 
 
@@ -308,7 +308,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0517/linux-system-call-and-virtual-dynamic-shared-library/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -385,9 +385,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/#comments" itemprop="discussionUrl">
+                <a href="/2018/0517/linux-system-call-and-virtual-dynamic-shared-library/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/0517/linux-system-call-and-virtual-dynamic-shared-library/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -490,7 +490,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/0529/binary-program-analysis-framework-angr/" rel="next" title="二进制程序分析框架 angr">
+              <a href="/2018/0529/binary-analysis-framework-angr/" rel="next" title="二进制程序分析框架 angr">
                 <i class="fa fa-chevron-left"></i> 二进制程序分析框架 angr
               </a>
             
@@ -592,7 +592,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -685,7 +685,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -814,8 +814,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/';
-          this.page.identifier = '2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/';
+          this.page.url = 'http://0x4c43.cn/2018/0517/linux-system-call-and-virtual-dynamic-shared-library/';
+          this.page.identifier = '2018/0517/linux-system-call-and-virtual-dynamic-shared-library/';
           this.page.title = 'Linux 系统调用与虚拟动态共享库';
         };
         var d = document, s = d.createElement('script');

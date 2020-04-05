@@ -103,16 +103,16 @@
 <meta name="keywords" content="DLL 注入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DLL 注入之远程线程注入">
-<meta property="og:url" content="http://0x4c43.cn/2017/0510/dll-injection-remote-thread/index.html">
+<meta property="og:url" content="http://0x4c43.cn/2017/0510/dll-injection-of-remote-thread/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。 0x01 注入原理使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateR">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-11/94028700-file_1494473311845_13a5b.png">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-11/35149412-file_1494473313402_167fd.png">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020220_94028700-file_1494473311845_13a5b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020218_35149412-file_1494473313402_167fd.png">
+<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DLL 注入之远程线程注入">
 <meta name="twitter:description" content="在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。 0x01 注入原理使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateR">
-<meta name="twitter:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-11/94028700-file_1494473311845_13a5b.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020220_94028700-file_1494473311845_13a5b.png">
 
 
 
@@ -140,7 +140,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2017/0510/dll-injection-remote-thread/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2017/0510/dll-injection-of-remote-thread/"/>
 
 
 
@@ -311,7 +311,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/0510/dll-injection-remote-thread/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/0510/dll-injection-of-remote-thread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -388,9 +388,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/0510/dll-injection-remote-thread/#comments" itemprop="discussionUrl">
+                <a href="/2017/0510/dll-injection-of-remote-thread/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/0510/dll-injection-remote-thread/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/0510/dll-injection-of-remote-thread/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -421,7 +421,7 @@
       
 
       
-        <p>在 Windows 中有多种方法实现 DLL 注入，<a href="http://0x4c43.cn/2017/0508/dll-injection-windows-message-hook/">可以使用消息钩子注入 DLL</a>，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。</p>
+        <p>在 Windows 中有多种方法实现 DLL 注入，可以<a href="http://0x4c43.cn/2017/0508/dll-injection-windows-message-hook/">使用消息钩子注入 DLL</a>，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。</p>
 <h1 id="0x01-注入原理"><a href="#0x01-注入原理" class="headerlink" title="0x01 注入原理"></a>0x01 注入原理</h1><p>使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateRemoteThread 函数原型如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">HANDLE WINAPI CreateRemoteThread (</div><div class="line">	HANDLE                  hProcess,	// 远程进程句柄</div><div class="line">	LPSECURITY_ATTRIBUTES  	lpThreadAttributes,	// 线程的安全属性</div><div class="line">	SIZE_T                  dwStackSize,		// 线程栈的大小</div><div class="line">	LPTHREAD_START_ROUTINE	lpStartAddress,  // 线程入口函数的起始地址</div><div class="line">	LPVOID                  lpParameter, 		// 传递给线程函数的参数</div><div class="line">	DWORD                   dwCreationFlags,	// 线程是否立即启动</div><div class="line">	LPDWORD                 lpThreadId		// 用于保存内核分配给线程的ID</div><div class="line">)；</div></pre></td></tr></table></figure></p>
 <p>主要关注三个参数：hProcess、lpStartAddress 和 lpParameter。hProcess 是要执行线程的目标进程句柄；lpStartAddress 是线程函数的起始地址，且该函数必须位于目标进程内；lpParameter 是传递给线程函数的参数。</p>
 <p>为了使远程进程加载 DLL，把 LoadLibrary 函数作为 CreateRemoteThread 的线程函数，要加载的 DLL 路径作为线程函数的参数即可。</p>
@@ -435,7 +435,7 @@
 <h2 id="5-在目标进程中运行远程线程"><a href="#5-在目标进程中运行远程线程" class="headerlink" title="5. 在目标进程中运行远程线程"></a>5. 在目标进程中运行远程线程</h2><p>使用 CreateRemoteThread 函数是目标进程调用 LoadLibraryW 函数加载 DLL。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hThread = CreateRemoteThread(hProcess, <span class="literal">NULL</span>, <span class="number">0</span>, pThreadProc, pRemoteBuf, <span class="number">0</span>, <span class="literal">NULL</span>);</div></pre></td></tr></table></figure></p>
 <h1 id="0x03-测试"><a href="#0x03-测试" class="headerlink" title="0x03 测试"></a>0x03 测试</h1><h2 id="1-需注入-DLL-源码"><a href="#1-需注入-DLL-源码" class="headerlink" title="1. 需注入 DLL 源码"></a>1. 需注入 DLL 源码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Injectdll.dll</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tchar.h"</span></span></div><div class="line"></div><div class="line">HMODULE g_hMod = <span class="literal">NULL</span>;</div><div class="line"><span class="function">BOOL WINAPI <span class="title">DllMain</span><span class="params">(HINSTANCE hinstDll, DWORD dwReason, LPVOID lpvReserved)</span></span></div><div class="line">&#123;</div><div class="line">	TCHAR Msg[<span class="number">50</span>] = _T(<span class="string">"Inject to "</span>);</div><div class="line">	TCHAR szPath[MAX_PATH] = &#123;<span class="number">0</span>&#125;;</div><div class="line">	<span class="keyword">if</span>(!GetModuleFileName(g_hMod, szPath, MAX_PATH))</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	_tcscat(Msg, szPath);</div><div class="line"></div><div class="line">	<span class="keyword">switch</span>( dwReason )</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">case</span> DLL_PROCESS_ATTACH:  </div><div class="line">			OutputDebugString(<span class="string">L"Sucess inject &lt;Injectdll.dll&gt; !!"</span>);</div><div class="line">			MessageBox(<span class="literal">NULL</span>, Msg, TEXT(<span class="string">"InjectDll"</span>), MB_OK);  </div><div class="line">			<span class="keyword">break</span>;  </div><div class="line">		<span class="keyword">case</span> DLL_PROCESS_DETACH:  </div><div class="line">			MessageBox(<span class="literal">NULL</span>, TEXT(<span class="string">"Dll unInjected!!!"</span>), TEXT(<span class="string">"InjectDll"</span>), MB_OK);  </div><div class="line">			<span class="keyword">break</span>;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">return</span> TRUE;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="2-注入程序"><a href="#2-注入程序" class="headerlink" title="2. 注入程序"></a>2. 注入程序</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Injectmain.cpp</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tchar.h"</span></span></div><div class="line"></div><div class="line"><span class="function">BOOL <span class="title">InjectDll</span><span class="params">(DWORD dwPID, LPCTSTR szDllPath)</span></span></div><div class="line">&#123;</div><div class="line">	HANDLE hProcess = <span class="literal">NULL</span>, hThread = <span class="literal">NULL</span>;</div><div class="line">	HMODULE hMod = <span class="literal">NULL</span>;</div><div class="line">	LPVOID pRemoteBuf = <span class="literal">NULL</span>;</div><div class="line">	DWORD dwBufSize = (DWORD)(_tcslen(szDllPath) + <span class="number">1</span>) * <span class="keyword">sizeof</span>(TCHAR);</div><div class="line">	LPTHREAD_START_ROUTINE pThreadProc;</div><div class="line"></div><div class="line">	<span class="comment">// Open target process to inject dll</span></div><div class="line">	<span class="keyword">if</span>( !(hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID)) )</div><div class="line">	&#123;</div><div class="line">		_tprintf(<span class="string">L"Fail to open process %d ! [%d]\n"</span>, dwPID, GetLastError());</div><div class="line">		<span class="keyword">return</span> FALSE;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// Allocate memory in the remote process big enough for the DLL path name</span></div><div class="line">	pRemoteBuf = VirtualAllocEx(hProcess, <span class="literal">NULL</span>, dwBufSize, MEM_COMMIT, PAGE_READWRITE);</div><div class="line"></div><div class="line">	<span class="comment">// Write the DLL path name to the space allocated in the target process</span></div><div class="line">	WriteProcessMemory(hProcess, pRemoteBuf, (LPVOID)szDllPath, dwBufSize, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">	<span class="comment">// Find the address of LoadLibrary in target process(same to this process)</span></div><div class="line">	hMod = GetModuleHandle(<span class="string">L"kernel32.dll"</span>);</div><div class="line">	pThreadProc = (LPTHREAD_START_ROUTINE)GetProcAddress(hMod, <span class="string">"LoadLibraryW"</span>);</div><div class="line"></div><div class="line">	<span class="comment">// Create a remote thread in target process</span></div><div class="line">	hThread = CreateRemoteThread(hProcess, <span class="literal">NULL</span>, <span class="number">0</span>, pThreadProc, pRemoteBuf, <span class="number">0</span>, <span class="literal">NULL</span>);</div><div class="line">	WaitForSingleObject(hThread, INFINITE);</div><div class="line"></div><div class="line">	CloseHandle(hThread);</div><div class="line">	VirtualFreeEx(hProcess, pRemoteBuf, <span class="number">0</span>, MEM_RELEASE);</div><div class="line">	CloseHandle(hProcess);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> TRUE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> _tmain(<span class="keyword">int</span> argc, TCHAR *argv[])</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span>( argc != <span class="number">3</span> )</div><div class="line">	&#123;</div><div class="line">		_tprintf(<span class="string">L"Usage: %s &lt;pid&gt; &lt;dll_path&gt; \n"</span>, argv[<span class="number">0</span>]);</div><div class="line">		<span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// Inject DLL</span></div><div class="line">	<span class="keyword">if</span>( InjectDll((DWORD)_tstol(argv[<span class="number">1</span>]), argv[<span class="number">2</span>]) )</div><div class="line">		_tprintf(<span class="string">L"InjectDll &lt;%s&gt;sucess! \n"</span>, argv[<span class="number">2</span>]);</div><div class="line">	<span class="keyword">else</span></div><div class="line">		_tprintf(<span class="string">L"InjectDLL &lt;%s&gt; fail! \n"</span>, argv[<span class="number">2</span>]);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="3-测试效果"><a href="#3-测试效果" class="headerlink" title="3. 测试效果"></a>3. 测试效果</h2><p>运行 Injectmain.exe 将 DLL 注入到进程 3656（notepad.exe）中，注入成功将弹出消息框。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-11/94028700-file_1494473311845_13a5b.png" alt=""><br>查看 notepad.exe 进程加载的模块列表，可以看到 InjectDll.dll 已被加载。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-5-11/35149412-file_1494473313402_167fd.png" alt="">    </p>
+<h2 id="3-测试效果"><a href="#3-测试效果" class="headerlink" title="3. 测试效果"></a>3. 测试效果</h2><p>运行 Injectmain.exe 将 DLL 注入到进程 3656（notepad.exe）中，注入成功将弹出消息框。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020220_94028700-file_1494473311845_13a5b.png" alt=""><br>查看 notepad.exe 进程加载的模块列表，可以看到 InjectDll.dll 已被加载。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020218_35149412-file_1494473313402_167fd.png" alt="">    </p>
 <hr>
 <p>References:<br>[1] 逆向工程核心原理<br>[2] <a href="https://etenal.me/archives/871" target="_blank" rel="external">DLL注入浅析（下）</a></p>
 
@@ -480,7 +480,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/0605/modify-firmware-using-firmwaremodkit/" rel="next" title="使用 firmware-mod-kit 修改固件">
+              <a href="/2017/0605/use-firmwaremodkit-to-modify-firmware/" rel="next" title="使用 firmware-mod-kit 修改固件">
                 <i class="fa fa-chevron-left"></i> 使用 firmware-mod-kit 修改固件
               </a>
             
@@ -490,7 +490,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/0508/dll-injection-windows-message-hook/" rel="prev" title="DLL 注入之 Windows 消息钩子">
+              <a href="/2017/0508/dll-injected-windows-message-hook/" rel="prev" title="DLL 注入之 Windows 消息钩子">
                 DLL 注入之 Windows 消息钩子 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -582,7 +582,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -675,7 +675,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -804,8 +804,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2017/0510/dll-injection-remote-thread/';
-          this.page.identifier = '2017/0510/dll-injection-remote-thread/';
+          this.page.url = 'http://0x4c43.cn/2017/0510/dll-injection-of-remote-thread/';
+          this.page.identifier = '2017/0510/dll-injection-of-remote-thread/';
           this.page.title = 'DLL 注入之远程线程注入';
         };
         var d = document, s = d.createElement('script');

@@ -103,10 +103,10 @@
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 使用笔记">
-<meta property="og:url" content="http://0x4c43.cn/2017/1005/docker-notes/index.html">
+<meta property="og:url" content="http://0x4c43.cn/2017/1005/docker-usage-notes/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。 Docker 项目的目标是实现轻量级的操作系统虚拟化解决方案，Docker 的基础是 Linux 容器 (LXC) 等技术。在 LCX 的">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 使用笔记">
 <meta name="twitter:description" content="Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。 Docker 项目的目标是实现轻量级的操作系统虚拟化解决方案，Docker 的基础是 Linux 容器 (LXC) 等技术。在 LCX 的">
@@ -137,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2017/1005/docker-notes/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2017/1005/docker-usage-notes/"/>
 
 
 
@@ -308,7 +308,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/1005/docker-notes/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/1005/docker-usage-notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -385,9 +385,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/1005/docker-notes/#comments" itemprop="discussionUrl">
+                <a href="/2017/1005/docker-usage-notes/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/1005/docker-notes/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/1005/docker-usage-notes/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -480,6 +480,19 @@
 <p>-p 则可以指定要映射的端口，在一个指定端口上只可以绑定一个容器。</p>
 <h2 id="1-端口映射"><a href="#1-端口映射" class="headerlink" title="1. 端口映射"></a>1. 端口映射</h2><p>使用 <code>hostPort:containerPort</code> 将本地的 6666 端口映射到容器的 6666 端口。此时默认会绑定本地所有接口上的所有地址。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">lc@ubuntu:~$ sudo docker run -it -d  -p 6666:6666 2d696 bash</div><div class="line">d6112543fa80c1c939f3ef0653efb7c5c29a5ccccc4dcae8fc81c764e743d1ff</div><div class="line">lc@ubuntu:~$ sudo docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES</div><div class="line">d6112543fa80        2d696               "bash"              4 seconds ago       Up 3 seconds        0.0.0.0:6666-&gt;6666/tcp   objective_lumiere</div></pre></td></tr></table></figure></p>
 <h2 id="2-查看映射端口"><a href="#2-查看映射端口" class="headerlink" title="2. 查看映射端口"></a>2. 查看映射端口</h2><p>使用 <code>docker port</code> 可查看当前映射的端口配置，也可以查看绑定的地址。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">lc@ubuntu:~$ sudo docker port d611</div><div class="line">6666/tcp -&gt; 0.0.0.0:6666</div></pre></td></tr></table></figure></p>
+<h1 id="0x06-其它"><a href="#0x06-其它" class="headerlink" title="0x06 其它"></a>0x06 其它</h1><p>Docker守候进程绑定的是一个unix socket，而不是TCP端口。这个套接字默认的属主是root，其他是用户可以使用sudo命令来访问这个套接字文件。因为这个原因，docker服务进程都是以root帐号的身份运行的。</p>
+<p>为了避免每次运行docker命令的时候都需要输入sudo，可以创建一个docker用户组，并把相应的用户添加到这个分组里面。当docker进程启动的时候，会设置该套接字可以被docker这个分组的用户读写。这样只要是在docker这个组里面的用户就可以直接执行docker命令了。    </p>
+<p><strong>操作步骤：</strong></p>
+<ul>
+<li>使用有sudo权限的帐号登录系统。</li>
+<li><p>创建docker分组，并将相应的用户添加到这个分组里面。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo usermod -aG docker your_username</div></pre></td></tr></table></figure>
+</li>
+<li><p>退出，然后重新登录，以便让权限生效。</p>
+</li>
+<li>确认你可以直接运行docker命令。<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run hello-world</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <hr>
 <p>References:<br>[1] <a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="external">Docker — 从入门到实践</a><br>[2] <a href="https://blog.kinpzz.com/2017/05/16/docker-ci-cd/" target="_blank" rel="external">Docker 入门 &amp; CI/CD实践</a>       </p>
 
@@ -626,7 +639,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -696,7 +709,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-安装-Docker"><span class="nav-text">0x01 安装 Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装"><span class="nav-text">1. 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-镜像加速器"><span class="nav-text">2. 镜像加速器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-镜像"><span class="nav-text">0x02 镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取镜像"><span class="nav-text">1. 获取镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-运行容器"><span class="nav-text">2. 运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-列出镜像"><span class="nav-text">3. 列出镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-保存镜像"><span class="nav-text">4. 保存镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-删除镜像"><span class="nav-text">5. 删除镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-容器"><span class="nav-text">0x03 容器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-启动容器"><span class="nav-text">1. 启动容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-终止容器"><span class="nav-text">2. 终止容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-进入容器"><span class="nav-text">3.  进入容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-导出和导入容器"><span class="nav-text">4.  导出和导入容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-删除容器"><span class="nav-text">5. 删除容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-数据管理"><span class="nav-text">0x04 数据管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据卷"><span class="nav-text">1. 数据卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据卷容器"><span class="nav-text">2. 数据卷容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-网络配置"><span class="nav-text">0x05 网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-端口映射"><span class="nav-text">1. 端口映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-查看映射端口"><span class="nav-text">2. 查看映射端口</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-安装-Docker"><span class="nav-text">0x01 安装 Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装"><span class="nav-text">1. 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-镜像加速器"><span class="nav-text">2. 镜像加速器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-镜像"><span class="nav-text">0x02 镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取镜像"><span class="nav-text">1. 获取镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-运行容器"><span class="nav-text">2. 运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-列出镜像"><span class="nav-text">3. 列出镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-保存镜像"><span class="nav-text">4. 保存镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-删除镜像"><span class="nav-text">5. 删除镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-容器"><span class="nav-text">0x03 容器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-启动容器"><span class="nav-text">1. 启动容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-终止容器"><span class="nav-text">2. 终止容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-进入容器"><span class="nav-text">3.  进入容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-导出和导入容器"><span class="nav-text">4.  导出和导入容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-删除容器"><span class="nav-text">5. 删除容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-数据管理"><span class="nav-text">0x04 数据管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据卷"><span class="nav-text">1. 数据卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据卷容器"><span class="nav-text">2. 数据卷容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-网络配置"><span class="nav-text">0x05 网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-端口映射"><span class="nav-text">1. 端口映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-查看映射端口"><span class="nav-text">2. 查看映射端口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x06-其它"><span class="nav-text">0x06 其它</span></a></li></ol></div>
             
 
           </div>
@@ -719,7 +732,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -848,8 +861,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2017/1005/docker-notes/';
-          this.page.identifier = '2017/1005/docker-notes/';
+          this.page.url = 'http://0x4c43.cn/2017/1005/docker-usage-notes/';
+          this.page.identifier = '2017/1005/docker-usage-notes/';
           this.page.title = 'Docker 使用笔记';
         };
         var d = document, s = d.createElement('script');

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://0x4c43.cn/"/>
-  <updated>2018-10-28T20:22:00.000Z</updated>
+  <updated>2020-04-05T05:43:55.007Z</updated>
   <id>http://0x4c43.cn/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>博客图床迁移</title>
-    <link href="http://0x4c43.cn/2018/1029/blog-map-migration/"/>
-    <id>http://0x4c43.cn/2018/1029/blog-map-migration/</id>
+    <title>博客图床迁移至腾讯云</title>
+    <link href="http://0x4c43.cn/2018/1029/migrating-blog-to-tencent-cloud/"/>
+    <id>http://0x4c43.cn/2018/1029/migrating-blog-to-tencent-cloud/</id>
     <published>2018-10-29T10:20:24.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-05T05:43:55.007Z</updated>
     
     <summary type="html">
     
@@ -41,7 +41,7 @@
     <link href="http://0x4c43.cn/2018/1029/2018-triathlon-aleph1-writeup/"/>
     <id>http://0x4c43.cn/2018/1029/2018-triathlon-aleph1-writeup/</id>
     <published>2018-10-29T03:45:08.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -61,7 +61,7 @@
     <link href="http://0x4c43.cn/2018/1013/stack-overflow-smash-utilization/"/>
     <id>http://0x4c43.cn/2018/1013/stack-overflow-smash-utilization/</id>
     <published>2018-10-13T11:40:28.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -82,7 +82,7 @@
     <link href="http://0x4c43.cn/2018/0814/easyrm2mp3-stack-overflow-analysis/"/>
     <id>http://0x4c43.cn/2018/0814/easyrm2mp3-stack-overflow-analysis/</id>
     <published>2018-08-14T09:50:00.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -102,7 +102,7 @@
     <link href="http://0x4c43.cn/2018/0803/idapyhon-script-batch-analysis-program/"/>
     <id>http://0x4c43.cn/2018/0803/idapyhon-script-batch-analysis-program/</id>
     <published>2018-08-03T01:20:18.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -120,10 +120,10 @@
   
   <entry>
     <title>使用 AFL 进行模糊测试</title>
-    <link href="http://0x4c43.cn/2018/0722/use-afl-for-fuzz-testing/"/>
-    <id>http://0x4c43.cn/2018/0722/use-afl-for-fuzz-testing/</id>
+    <link href="http://0x4c43.cn/2018/0722/use-afl-for-fuzzing/"/>
+    <id>http://0x4c43.cn/2018/0722/use-afl-for-fuzzing/</id>
     <published>2018-07-22T13:58:12.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -144,7 +144,7 @@
     <link href="http://0x4c43.cn/2018/0722/american-fuzzy-lop/"/>
     <id>http://0x4c43.cn/2018/0722/american-fuzzy-lop/</id>
     <published>2018-07-22T13:50:34.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -161,10 +161,10 @@
   
   <entry>
     <title>VMWare 中扩展 ubuntu 磁盘空间</title>
-    <link href="http://0x4c43.cn/2018/0707/extend-ubuntu-disk-space-in-vmware/"/>
-    <id>http://0x4c43.cn/2018/0707/extend-ubuntu-disk-space-in-vmware/</id>
+    <link href="http://0x4c43.cn/2018/0707/expanding-ubuntu-disk-space-in-vmware/"/>
+    <id>http://0x4c43.cn/2018/0707/expanding-ubuntu-disk-space-in-vmware/</id>
     <published>2018-07-07T06:00:23.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -173,7 +173,7 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://0x4c43.cn/categories/Linux/"/>
+      <category term="Pro&amp;Sol" scheme="http://0x4c43.cn/categories/Pro-Sol/"/>
     
     
       <category term="磁盘空间" scheme="http://0x4c43.cn/tags/%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/"/>
@@ -185,7 +185,7 @@
     <link href="http://0x4c43.cn/2018/0701/heartbleed-vulnerability-analysis/"/>
     <id>http://0x4c43.cn/2018/0701/heartbleed-vulnerability-analysis/</id>
     <published>2018-07-01T04:02:14.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -205,7 +205,7 @@
     <link href="http://0x4c43.cn/2018/0617/ia32-memory-model-and-address-mapping/"/>
     <id>http://0x4c43.cn/2018/0617/ia32-memory-model-and-address-mapping/</id>
     <published>2018-06-17T13:37:12.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -227,7 +227,7 @@
     <link href="http://0x4c43.cn/2018/0615/vmware-is-not-compatible-with-credential-guard/"/>
     <id>http://0x4c43.cn/2018/0615/vmware-is-not-compatible-with-credential-guard/</id>
     <published>2018-06-15T10:31:34.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -244,10 +244,10 @@
   
   <entry>
     <title>二进制程序分析框架 angr</title>
-    <link href="http://0x4c43.cn/2018/0529/binary-program-analysis-framework-angr/"/>
-    <id>http://0x4c43.cn/2018/0529/binary-program-analysis-framework-angr/</id>
+    <link href="http://0x4c43.cn/2018/0529/binary-analysis-framework-angr/"/>
+    <id>http://0x4c43.cn/2018/0529/binary-analysis-framework-angr/</id>
     <published>2018-05-29T13:30:00.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -267,10 +267,10 @@
   
   <entry>
     <title>Linux 系统调用与虚拟动态共享库</title>
-    <link href="http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/"/>
-    <id>http://0x4c43.cn/2018/0517/linux-system-calls-and-virtual-dynamic-shared-libraries/</id>
+    <link href="http://0x4c43.cn/2018/0517/linux-system-call-and-virtual-dynamic-shared-library/"/>
+    <id>http://0x4c43.cn/2018/0517/linux-system-call-and-virtual-dynamic-shared-library/</id>
     <published>2018-05-17T06:35:20.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -295,7 +295,7 @@
     <link href="http://0x4c43.cn/2018/0508/linux-dynamic-link/"/>
     <id>http://0x4c43.cn/2018/0508/linux-dynamic-link/</id>
     <published>2018-05-08T06:53:14.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -315,10 +315,10 @@
   
   <entry>
     <title>Linux 延迟绑定机制</title>
-    <link href="http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/"/>
-    <id>http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/</id>
+    <link href="http://0x4c43.cn/2018/0429/linux-late-binding-mechanism/"/>
+    <id>http://0x4c43.cn/2018/0429/linux-late-binding-mechanism/</id>
     <published>2018-04-29T13:05:02.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -340,7 +340,7 @@
     <link href="http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/"/>
     <id>http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/</id>
     <published>2018-04-19T15:10:45.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -362,7 +362,7 @@
     <link href="http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/"/>
     <id>http://0x4c43.cn/2018/0413/linux-glibc-heap-houseofspirit/</id>
     <published>2018-04-13T02:30:14.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -381,10 +381,10 @@
   
   <entry>
     <title>配置 Linux Python 开发环境</title>
-    <link href="http://0x4c43.cn/2018/0316/configuring-the-linux-python-development-environment/"/>
-    <id>http://0x4c43.cn/2018/0316/configuring-the-linux-python-development-environment/</id>
+    <link href="http://0x4c43.cn/2018/0316/configure-linux-python-development-environment/"/>
+    <id>http://0x4c43.cn/2018/0316/configure-linux-python-development-environment/</id>
     <published>2018-03-16T11:55:21.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -404,7 +404,7 @@
     <link href="http://0x4c43.cn/2018/0310/zsh-notes/"/>
     <id>http://0x4c43.cn/2018/0310/zsh-notes/</id>
     <published>2018-03-10T14:20:17.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     
@@ -428,7 +428,7 @@
     <link href="http://0x4c43.cn/2017/1231/linux-heap-memory-overflow-unlink-attack/"/>
     <id>http://0x4c43.cn/2017/1231/linux-heap-memory-overflow-unlink-attack/</id>
     <published>2017-12-31T06:53:28.000Z</published>
-    <updated>2018-10-28T20:22:00.000Z</updated>
+    <updated>2020-04-04T16:56:05.019Z</updated>
     
     <summary type="html">
     

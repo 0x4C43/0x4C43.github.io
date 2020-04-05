@@ -106,14 +106,14 @@
 <meta property="og:url" content="http://0x4c43.cn/2018/0419/linux-glibc-heap-houseofforce/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="该利用方法通过堆溢出漏洞修改 top chunk 的 size 字段，使得 malloc 一块很大的内存可使用 top chunk 进行分配，当更新 top chunk 的 ptr 时会发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段、.data 段和 GOT 表等。当再次使用 malloc 申请内存时将从目标内存处进行分配，之后对该内存进行写操作，即可实现">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/51587433.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/65486405.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/46291433.jpg">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020285_51587433.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020287_65486405.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020283_46291433.jpg">
+<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux glibc heap house-of-force">
 <meta name="twitter:description" content="该利用方法通过堆溢出漏洞修改 top chunk 的 size 字段，使得 malloc 一块很大的内存可使用 top chunk 进行分配，当更新 top chunk 的 ptr 时会发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段、.data 段和 GOT 表等。当再次使用 malloc 申请内存时将从目标内存处进行分配，之后对该内存进行写操作，即可实现">
-<meta name="twitter:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/51587433.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020285_51587433.jpg">
 
 
 
@@ -430,12 +430,12 @@
 <p>此时使用 malloc(0x45) 申请一个新 chunk，将会在 top chunk 中分配内存给该 chunk。新分配 chunk ptr 为 0x603020，即原 top chunk 的 ptr，大小为 0x50 = align(0x45 + 0x8)，其中 0x8 为 size 字段长度，对齐单位为 16 字节（32 bit 系统中为 8 字节）；分配完后，top chunk 的 size 为 0x20f90 = 0x20fe0-0x50，ptr 为 0x603070 = 0x603020+0x50；最后返回给用户的内存为 0x603030 = 0x603020+2*0x8。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">gdb-peda$ heapls</div><div class="line">           ADDR             SIZE            STATUS</div><div class="line">sbrk_base  0x603000</div><div class="line">chunk      0x603000         0x20            (inuse)</div><div class="line">chunk      0x603020         0x50            (inuse)</div><div class="line">chunk      0x603070         0x20f90         (top)</div><div class="line">sbrk_end   0x624000</div><div class="line">gdb-peda$ info reg rax</div><div class="line">rax            0x603030 0x603030</div></pre></td></tr></table></figure></p>
 <h1 id="0x02-利用方法"><a href="#0x02-利用方法" class="headerlink" title="0x02 利用方法"></a>0x02 利用方法</h1><p>在 top chunk 中分配一块很大的内存给新申请的 chunk，使得更新 top chunk 的 ptr 时发生整数溢出，从而控制 top chunk ptr 为指定目标内存地址，如 .bss 段、.data 段和 GOT 表等。当再次使用 malloc 申请内存时将返回目标内存地址，之后对该内存进行写操作，即可实现任意地址写数据。    </p>
 <h2 id="1-修改-top-chunk-的-size-为大数"><a href="#1-修改-top-chunk-的-size-为大数" class="headerlink" title="1. 修改 top chunk 的 size 为大数"></a>1. 修改 top chunk 的 size 为大数</h2><p>从上面的分析可知，在 top chunk 中分配内存需要满足以下条件。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(<span class="keyword">unsigned</span> <span class="keyword">long</span>) (size) &gt;= (<span class="keyword">unsigned</span> <span class="keyword">long</span>) (nb + MINSIZE)</div></pre></td></tr></table></figure></p>
-<p>由于 arena 的大小为 132KB，所以 top chunk 的 size 不大于 132KB（0x21000 bytes），因此在正常情况下通过 top chunk 分配的堆不能超过 0x21000 bytes，这导致无法在更新 top chunk 的 ptr 时发生整数溢出。为此，需要先利用堆溢出漏洞修改 top chunk 的 size 为一个大数，通常取 -1（其补码为 0xFFFFFFFFFFFFFFFF），之后便可通过 top chunk 申请一块很大的内存以触发整数溢出。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/51587433.jpg" alt="">     </p>
+<p>由于 arena 的大小为 132KB，所以 top chunk 的 size 不大于 132KB（0x21000 bytes），因此在正常情况下通过 top chunk 分配的堆不能超过 0x21000 bytes，这导致无法在更新 top chunk 的 ptr 时发生整数溢出。为此，需要先利用堆溢出漏洞修改 top chunk 的 size 为一个大数，通常取 -1（其补码为 0xFFFFFFFFFFFFFFFF），之后便可通过 top chunk 申请一块很大的内存以触发整数溢出。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020285_51587433.jpg" alt="">     </p>
 <h2 id="2-malloc-一块大内存，控制-top-chunk-ptr"><a href="#2-malloc-一块大内存，控制-top-chunk-ptr" class="headerlink" title="2. malloc 一块大内存，控制 top chunk ptr"></a>2. malloc 一块大内存，控制 top chunk ptr</h2><p>假设该步骤中申请内存时用户请求大小为 request_size；最终需控制的内存地址为 target；top chunk 的 ptr 初始值为 top_old，分配新 chunk 后的 ptr 为 top_new；由上一节中的分析可得到以下等式，其中 SIZE_SZ 在 64 bits 系统中为 8 bytes，32 bits 系统中为 4 bytes。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">top_new = top_old + align(request_size+ SIZE_SZ)  <span class="comment">// SIZE_SZ为size字段长度</span></div><div class="line">target = top_new + <span class="number">2</span>* SIZE_SZ  <span class="comment">// 2* SIZE_SZ为prev_size和size字段长度</span></div></pre></td></tr></table></figure></p>
 <p>根据上式可得<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">request_size  = target - top_old - <span class="number">2</span>*SIZE_SZ - SIZE_SZ</div></pre></td></tr></table></figure></p>
 <p> 需要注意的是 request_size+SIZE_SZ 要遵循块的对齐机制，如果未对齐应进行调整，将 request_size 的计算结果减去一个值（因为对齐时会增大长度使其对齐），使 request_size+SIZE_SZ 能对齐。</p>
-<p>malloc 执行完后 top chunk ptr 将会更新，并指向目标内存 target-2* SIZE_SZ 处，即 top chunk 已转移到目标内存地址。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/65486405.jpg" alt=""><br><strong>由于计算 request_size 的大小需要知道堆内存中 top_old 的 ptr，所以得借助其他漏洞泄漏堆中 top chunk 的地址。或者可以将 target 指定在堆内存区域，那么通过本地调试可获得 top chunk 的地址，此时使用上式计算所得 request_size 相当于相对地址偏移，当堆基址改变后该值仍适用。</strong></p>
-<h2 id="3-再次-malloc，返回目标内存"><a href="#3-再次-malloc，返回目标内存" class="headerlink" title="3. 再次 malloc，返回目标内存"></a>3. 再次 malloc，返回目标内存</h2><p>此时申请 chunk 将从目标内存处分配，最终成功返回目标内存 target，之后可对该内存写数据，以实现进一步的攻击。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-19/46291433.jpg" alt="">    </p>
+<p>malloc 执行完后 top chunk ptr 将会更新，并指向目标内存 target-2* SIZE_SZ 处，即 top chunk 已转移到目标内存地址。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020287_65486405.jpg" alt=""><br><strong>由于计算 request_size 的大小需要知道堆内存中 top_old 的 ptr，所以得借助其他漏洞泄漏堆中 top chunk 的地址。或者可以将 target 指定在堆内存区域，那么通过本地调试可获得 top chunk 的地址，此时使用上式计算所得 request_size 相当于相对地址偏移，当堆基址改变后该值仍适用。</strong></p>
+<h2 id="3-再次-malloc，返回目标内存"><a href="#3-再次-malloc，返回目标内存" class="headerlink" title="3. 再次 malloc，返回目标内存"></a>3. 再次 malloc，返回目标内存</h2><p>此时申请 chunk 将从目标内存处分配，最终成功返回目标内存 target，之后可对该内存写数据，以实现进一步的攻击。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020283_46291433.jpg" alt="">    </p>
 <h1 id="0x03-实例分析"><a href="#0x03-实例分析" class="headerlink" title="0x03 实例分析"></a>0x03 实例分析</h1><p>下面以 <a href="https://github.com/scwuaptx/HITCON-Training" target="_blank" rel="external">HITCON-Training</a> 中的 lab11 为例说明 house of force 的利用过程，题目文件和利用脚本也可在 <a href="https://github.com/0x4C43/Linux-Exploit/tree/master/heap_house-of-force" target="_blank" rel="external">Github</a> 中下载。</p>
 <h2 id="1-漏洞"><a href="#1-漏洞" class="headerlink" title="1. 漏洞"></a>1. 漏洞</h2><p>程序中在修改 item 时调用 change_item() 函数，name 的长度由用户指定，并且没有进行检查。输入过长字符串到 name 中将会导致堆溢出，可覆盖 top chunk。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">void change_item()&#123;</div><div class="line">    ...</div><div class="line">    if(itemlist[index].name)&#123;</div><div class="line">        printf("Please enter the length of item name:");</div><div class="line">        read(0,lengthbuf,8);</div><div class="line">        length = atoi(lengthbuf);</div><div class="line">        printf("Please enter the new name of the item:");</div><div class="line">        readsize = read(0,itemlist[index].name,length);   // overflow</div><div class="line">        *(itemlist[index].name + readsize) = '\x00';</div><div class="line">    &#125;</div><div class="line">    ...</div></pre></td></tr></table></figure></p>
 <h2 id="2-利用脚本"><a href="#2-利用脚本" class="headerlink" title="2. 利用脚本"></a>2. 利用脚本</h2><h3 id="1）利用思路"><a href="#1）利用思路" class="headerlink" title="1）利用思路"></a>1）利用思路</h3><p>利用 house of force 使得 top chunk 转移到 box 结构体所在内存处，使得下次申请内存时从该地址开始进行分配，控制该内存块后可修改 box 结构体中的函数指针为 magic 函数地址；最后调用 goobye_message 函数时就跳转到 magic 函数执行，从而输出 flag。</p>
@@ -493,7 +493,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/0429/linux-lazy-binding-mechanism/" rel="next" title="Linux 延迟绑定机制">
+              <a href="/2018/0429/linux-late-binding-mechanism/" rel="next" title="Linux 延迟绑定机制">
                 <i class="fa fa-chevron-left"></i> Linux 延迟绑定机制
               </a>
             
@@ -595,7 +595,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -688,7 +688,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

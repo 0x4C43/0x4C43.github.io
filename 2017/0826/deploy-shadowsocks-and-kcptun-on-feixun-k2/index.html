@@ -103,10 +103,10 @@
 <meta name="keywords" content="K2,Shadowsocks,kcptun，IPv6 免流">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在斐讯 K2 上部署 Shadowsocks 与 Kcptun">
-<meta property="og:url" content="http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-fibonacci-k2/index.html">
+<meta property="og:url" content="http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-feixun-k2/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="对于程序员来说，能顺畅使用互联网能够很大程度地提高工作效率。所以，通过 SS 来实现代理上网是一个很好的解决方案。此外，对于能使用校园网的学生党而言，还可以使用 SS + IPv6 来实现免流，这样就能把省下来的网费用来买VPS了。 然而，在 PC 上直接使用客户端软件代理上网有以下缺点：1）不能实现全局流量的代理功能，只有支持代理功能的应用才能通过 SS 代理上网。虽然有相关的软件可以实现全局流">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在斐讯 K2 上部署 Shadowsocks 与 Kcptun">
 <meta name="twitter:description" content="对于程序员来说，能顺畅使用互联网能够很大程度地提高工作效率。所以，通过 SS 来实现代理上网是一个很好的解决方案。此外，对于能使用校园网的学生党而言，还可以使用 SS + IPv6 来实现免流，这样就能把省下来的网费用来买VPS了。 然而，在 PC 上直接使用客户端软件代理上网有以下缺点：1）不能实现全局流量的代理功能，只有支持代理功能的应用才能通过 SS 代理上网。虽然有相关的软件可以实现全局流">
@@ -137,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-fibonacci-k2/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-feixun-k2/"/>
 
 
 
@@ -308,7 +308,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-fibonacci-k2/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-feixun-k2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -385,9 +385,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/0826/deploy-shadowsocks-and-kcptun-on-fibonacci-k2/#comments" itemprop="discussionUrl">
+                <a href="/2017/0826/deploy-shadowsocks-and-kcptun-on-feixun-k2/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/0826/deploy-shadowsocks-and-kcptun-on-fibonacci-k2/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/0826/deploy-shadowsocks-and-kcptun-on-feixun-k2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -450,7 +450,7 @@
 <h2 id="3-附录-–-配置信息"><a href="#3-附录-–-配置信息" class="headerlink" title="3. 附录 – 配置信息"></a>3. 附录 – 配置信息</h2><p>以下为 K2 路由器中的配置信息。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># ipv6</span></div><div class="line">/root/kcptun/client_linux_mipsle -l <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8388</span> -r [xxxx:xxxx:xxxx:xxxx:<span class="number">16</span>d7:<span class="number">3</span>cd1:xxxx:xxxx]:<span class="number">9523</span> -key xxxx -mtu <span class="number">1350</span> -sndwnd <span class="number">512</span> -rcvwnd <span class="number">512</span> -mode fast2 -crypt aes<span class="number">-192</span> -nocomp true &gt; /root/kcptun/kcptun.log <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</div><div class="line"><span class="comment"># ipv4</span></div><div class="line">/root/kcptun/client_linux_mipsle -l <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8388</span> -r xxx.xxx.xxx.xxx:<span class="number">9523</span> -key xxxx -mtu <span class="number">1350</span> -sndwnd <span class="number">512</span> -rcvwnd <span class="number">512</span> -mode fast2 -crypt aes<span class="number">-192</span> -nocomp true &gt; /root/kcptun/kcptun.log <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</div></pre></td></tr></table></figure></p>
 <p>服务端配置如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># cat /usr/local/kcptun/server-config.json</span></div><div class="line">[root@localhost kcptun]</div><div class="line">&#123;</div><div class="line">  <span class="string">"listen"</span>: <span class="string">":9523"</span>,</div><div class="line">  <span class="string">"target"</span>: <span class="string">"127.0.0.1:443"</span>,</div><div class="line">  <span class="string">"key"</span>: <span class="string">"xxxx"</span>,</div><div class="line">  <span class="string">"crypt"</span>: <span class="string">"aes-192"</span>,</div><div class="line">  <span class="string">"mode"</span>: <span class="string">"fast2"</span>,</div><div class="line">  <span class="string">"mtu"</span>: 1350,</div><div class="line">  <span class="string">"sndwnd"</span>: 512,</div><div class="line">  <span class="string">"rcvwnd"</span>: 512,</div><div class="line">  <span class="string">"datashard"</span>: 10,</div><div class="line">  <span class="string">"parityshard"</span>: 3,</div><div class="line">  <span class="string">"dscp"</span>: 0,</div><div class="line">  <span class="string">"nocomp"</span>: <span class="literal">true</span>,</div><div class="line">  <span class="string">"pprof"</span>: <span class="literal">false</span>,</div><div class="line">  <span class="string">"acknodelay"</span>: <span class="literal">false</span>,</div><div class="line">  <span class="string">"sockbuf"</span>: 4194304,</div><div class="line">  <span class="string">"keepalive"</span>: 10</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>客户端可用以下配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"localaddr"</span>: <span class="string">":443"</span>,</div><div class="line">  <span class="string">"remoteaddr"</span>: <span class="string">"xxx.xxx.xxx.xxx:9523"</span>,</div><div class="line">  <span class="string">"key"</span>: <span class="string">"xxxx"</span>,</div><div class="line">  <span class="string">"crypt"</span>: <span class="string">"aes-192"</span>,</div><div class="line">  <span class="string">"mode"</span>: <span class="string">"fast2"</span>,</div><div class="line">  <span class="string">"mtu"</span>: 1350,</div><div class="line">  <span class="string">"sndwnd"</span>: 512,</div><div class="line">  <span class="string">"rcvwnd"</span>: 512,</div><div class="line">  <span class="string">"datashard"</span>: 10,</div><div class="line">  <span class="string">"parityshard"</span>: 3,</div><div class="line">  <span class="string">"dscp"</span>: 0,</div><div class="line">  <span class="string">"nocomp"</span>: <span class="literal">true</span>,</div><div class="line">  <span class="string">"acknodelay"</span>: <span class="literal">false</span>,</div><div class="line">  <span class="string">"sockbuf"</span>: 4194304,</div><div class="line">  <span class="string">"keepalive"</span>: 10</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Android 中 SS 远程端口设置为远程服务器 SS 端口，kcptun 配置如下，注意不能有空格：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># IPV6</span></div><div class="line">remoteaddr=[xxxx:xxxx:xxxx:xxxx:16d7:3<span class="built_in">cd</span>1:xxxx:xxxx]::9523;key=xxxxxx;mtu=1350;sndwnd=512;rcvwnd=512;mode=fast2;crypt=aes-192;nocomp=<span class="literal">true</span></div><div class="line"><span class="comment"># IPV4</span></div><div class="line">remoteaddr=xxx.xxx.xxx.xxx:9523;key=xxxxxx;mtu=1350;sndwnd=512;rcvwnd=512;mode=fast2;crypt=aes-192;nocomp=<span class="literal">true</span></div></pre></td></tr></table></figure></p>
+<p>Android 中 SS 远程端口设置为远程服务器 SS 端口，kcptun 配置如下，注意不能有空格：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># IPV6</span></div><div class="line">remoteaddr=[xxxx:xxxx:xxxx:xxxx:16d7:3<span class="built_in">cd</span>1:xxxx:xxxx]:9523;key=xxxxxx;mtu=1350;sndwnd=512;rcvwnd=512;mode=fast2;crypt=aes-192;nocomp=<span class="literal">true</span></div><div class="line"><span class="comment"># IPV4</span></div><div class="line">remoteaddr=xxx.xxx.xxx.xxx:9523;key=xxxxxx;mtu=1350;sndwnd=512;rcvwnd=512;mode=fast2;crypt=aes-192;nocomp=<span class="literal">true</span></div></pre></td></tr></table></figure></p>
 <hr>
 <p>References:<br>[1] <a href="http://www.right.com.cn/forum/thread-202060-1-1.html" target="_blank" rel="external">在openwrt上部署kcptun给搬瓦工加速看1080p</a><br>[2] <a href="https://keyin.me/2017/02/07/Pandorabox-transparent-proxy/" target="_blank" rel="external">Pandorabox之透明代理</a><br>[3] <a href="https://blog.kuoruan.com/102.html" target="_blank" rel="external">Kcptun加速方案</a><br>[4] <a href="http://www.bwgcn.xyz/?p=159" target="_blank" rel="external">如何用Kcptun给Shadowsocks加速？</a><br>[5] <a href="https://blog.kuoruan.com/113.html" target="_blank" rel="external">OpenWrt 平台 Kcptun 管理界面 lui-app-kcptun</a><br>[6] <a href="http://aes.jypc.org/?p=19339" target="_blank" rel="external">Openwrt华硕固件Kcptun配置使用教程</a><br>[7] <a href="http://phyer.click/zh/2017/08/28/lede-shadowsocks/" target="_blank" rel="external">Lede 17.01 shadowsocks设置</a><br>[8] <a href="https://cokebar.info/archives/664" target="_blank" rel="external">Shadowsocks + ChnRoute 实现 OpenWRT / LEDE 路由器自动翻墙</a><br>[9] <a href="https://cyhour.com/479/" target="_blank" rel="external">OpenWrt 路由器安装 KCPTun 客户端</a></p>
 
@@ -509,7 +509,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/0723/a-section-in-the-pe-file/" rel="prev" title="PE 文件中添加节区">
+              <a href="/2017/0723/add-section-in-pe-file/" rel="prev" title="PE 文件中添加节区">
                 PE 文件中添加节区 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -601,7 +601,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -694,7 +694,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -823,8 +823,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-fibonacci-k2/';
-          this.page.identifier = '2017/0826/deploy-shadowsocks-and-kcptun-on-fibonacci-k2/';
+          this.page.url = 'http://0x4c43.cn/2017/0826/deploy-shadowsocks-and-kcptun-on-feixun-k2/';
+          this.page.identifier = '2017/0826/deploy-shadowsocks-and-kcptun-on-feixun-k2/';
           this.page.title = '在斐讯 K2 上部署 Shadowsocks 与 Kcptun';
         };
         var d = document, s = d.createElement('script');

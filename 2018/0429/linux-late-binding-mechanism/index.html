@@ -103,16 +103,16 @@
 <meta name="keywords" content="PLT,Lazy Binding">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 延迟绑定机制">
-<meta property="og:url" content="http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/index.html">
+<meta property="og:url" content="http://0x4c43.cn/2018/0429/linux-late-binding-mechanism/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
 <meta property="og:description" content="如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。 0x01 延迟绑定原理延迟绑定是当函数第一次被调用的时候才进行绑定（包括符号查找、重定">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/78087498.jpg">
-<meta property="og:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/26402902.jpg">
-<meta property="og:updated_time" content="2018-10-28T20:22:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020528_78087498.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020526_26402902.jpg">
+<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 延迟绑定机制">
 <meta name="twitter:description" content="如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。 0x01 延迟绑定原理延迟绑定是当函数第一次被调用的时候才进行绑定（包括符号查找、重定">
-<meta name="twitter:image" content="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/78087498.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020528_78087498.jpg">
 
 
 
@@ -140,7 +140,7 @@
 
 
 
-  <link rel="canonical" href="http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/"/>
+  <link rel="canonical" href="http://0x4c43.cn/2018/0429/linux-late-binding-mechanism/"/>
 
 
 
@@ -311,7 +311,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/">
+    <link itemprop="mainEntityOfPage" href="http://0x4c43.cn/2018/0429/linux-late-binding-mechanism/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="0x4C43">
@@ -388,9 +388,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/0429/linux-lazy-binding-mechanism/#comments" itemprop="discussionUrl">
+                <a href="/2018/0429/linux-late-binding-mechanism/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/0429/linux-lazy-binding-mechanism/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/0429/linux-late-binding-mechanism/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -428,8 +428,8 @@
 <p>PLT（Procedure Linkage Table，程序链接表）<br>PLT 是 Linux ELF 文件中用于延迟绑定的表。</p>
 </blockquote>
 <p>下面介绍延迟绑定的基本原理。假设程序中调用 func 函数，该函数在 .plt 段中相应的项为 func@plt，在 .got.plt 中相应的项为 func@got，链接器在初始化时将 func@got 中的值填充为 “preapre resolver” 指令处的地址。func@plt 的伪代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func@plt:</div><div class="line">jmp *(func@got)</div><div class="line">prepare resolver</div><div class="line">jmp _dl_runtime_resolve</div></pre></td></tr></table></figure></p>
-<h2 id="1-首次调用"><a href="#1-首次调用" class="headerlink" title="1. 首次调用"></a>1. 首次调用</h2><p>第一次调用 func 函数时，首先会跳转到 PLT 执行 <code>jmp *(func@got)</code>，由于该函数没被调用过，func@got 中的值不是 func 函数的地址，而是 PLT 中的 “preapre resolver” 指令的地址，所以会跳转到 “preapre resolver” 执行，接着会调用 _dl_runtime_resolve 解析 func 函数的地址，并将该函数真正的地址填充到 func@got，最后跳转到 func 函数继续执行代码。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/78087498.jpg" alt="">    </p>
-<h2 id="2-非首次调用"><a href="#2-非首次调用" class="headerlink" title="2. 非首次调用"></a>2. 非首次调用</h2><p>当再次调用 func 函数时，由于 func@got 中已填充正确的函数地址，此时执行 PLT 中的 <code>jmp *(func@got)</code> 即可成功跳转到 func 函数中执行。<br><img src="https://hexo-1253637093.cos.ap-guangzhou.myqcloud.com/18-4-29/26402902.jpg" alt="">    </p>
+<h2 id="1-首次调用"><a href="#1-首次调用" class="headerlink" title="1. 首次调用"></a>1. 首次调用</h2><p>第一次调用 func 函数时，首先会跳转到 PLT 执行 <code>jmp *(func@got)</code>，由于该函数没被调用过，func@got 中的值不是 func 函数的地址，而是 PLT 中的 “preapre resolver” 指令的地址，所以会跳转到 “preapre resolver” 执行，接着会调用 _dl_runtime_resolve 解析 func 函数的地址，并将该函数真正的地址填充到 func@got，最后跳转到 func 函数继续执行代码。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020528_78087498.jpg" alt="">    </p>
+<h2 id="2-非首次调用"><a href="#2-非首次调用" class="headerlink" title="2. 非首次调用"></a>2. 非首次调用</h2><p>当再次调用 func 函数时，由于 func@got 中已填充正确的函数地址，此时执行 PLT 中的 <code>jmp *(func@got)</code> 即可成功跳转到 func 函数中执行。<br><img src="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020526_26402902.jpg" alt="">    </p>
 <h1 id="0x02-实例调试"><a href="#0x02-实例调试" class="headerlink" title="0x02 实例调试"></a>0x02 实例调试</h1><p>下面通过调试程序中 func 函数的调用过程说明延迟绑定的原理。首先函数执行 call 指令调用 func 函数时会跳转到 0x8048420（func@plt）处执行。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   <span class="number">0x8048546</span> &lt;main+<span class="number">11</span>&gt;: mov    ebp,esp</div><div class="line">   <span class="number">0x8048548</span> &lt;main+<span class="number">13</span>&gt;: push   ecx</div><div class="line">   <span class="number">0x8048549</span> &lt;main+<span class="number">14</span>&gt;: sub    esp,<span class="number">0x4</span></div><div class="line">=&gt; <span class="number">0x804854c</span> &lt;main+<span class="number">17</span>&gt;: call   <span class="number">0x8048420</span> &lt;func@plt&gt;</div><div class="line">   <span class="number">0x8048551</span> &lt;main+<span class="number">22</span>&gt;: nop</div><div class="line">   <span class="number">0x8048552</span> &lt;main+<span class="number">23</span>&gt;: add    esp,<span class="number">0x4</span></div><div class="line">   <span class="number">0x8048555</span> &lt;main+<span class="number">26</span>&gt;: pop    ecx</div><div class="line">   <span class="number">0x8048556</span> &lt;main+<span class="number">27</span>&gt;: pop    ebp</div><div class="line">Guessed arguments:</div><div class="line">arg[<span class="number">0</span>]: <span class="number">0xf7fb33dc</span> --&gt; <span class="number">0xf7fb41e0</span> --&gt; <span class="number">0x0</span></div><div class="line">arg[<span class="number">1</span>]: <span class="number">0xffffced0</span> --&gt; <span class="number">0x1</span></div><div class="line">arg[<span class="number">2</span>]: <span class="number">0x0</span></div></pre></td></tr></table></figure></p>
 <p>接着跳转到 ds[0x804a010]（func@got）处，由于是第一次调用该函数，func@got 中的地址并非函数的真实地址，需要对其进行地址重定位。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   <span class="number">0x8048410</span> &lt;__libc_start_main@plt&gt;:   jmp    DWORD PTR ds:<span class="number">0x804a00c</span></div><div class="line">   <span class="number">0x8048416</span> &lt;__libc_start_main@plt+<span class="number">6</span>&gt;: push   <span class="number">0x0</span></div><div class="line">   <span class="number">0x804841b</span> &lt;__libc_start_main@plt+<span class="number">11</span>&gt;:        jmp    <span class="number">0x8048400</span></div><div class="line">=&gt; <span class="number">0x8048420</span> &lt;func@plt&gt;:        jmp    DWORD PTR ds:<span class="number">0x804a010</span></div><div class="line"> | <span class="number">0x8048426</span> &lt;func@plt+<span class="number">6</span>&gt;:      push   <span class="number">0x8</span></div><div class="line"> | <span class="number">0x804842b</span> &lt;func@plt+<span class="number">11</span>&gt;:     jmp    <span class="number">0x8048400</span></div><div class="line"> | <span class="number">0x8048430</span>:   jmp    DWORD PTR ds:<span class="number">0x8049ffc</span></div><div class="line"> | <span class="number">0x8048436</span>:   xchg   ax,ax</div><div class="line"> |-&gt;   <span class="number">0x8048426</span> &lt;func@plt+<span class="number">6</span>&gt;:  push   <span class="number">0x8</span></div><div class="line">       <span class="number">0x804842b</span> &lt;func@plt+<span class="number">11</span>&gt;: jmp    <span class="number">0x8048400</span></div><div class="line">       <span class="number">0x8048430</span>:       jmp    DWORD PTR ds:<span class="number">0x8049ffc</span></div><div class="line">       <span class="number">0x8048436</span>:       xchg   ax,ax</div><div class="line">                                                                  JUMP is taken</div></pre></td></tr></table></figure></p>
 <p>0x804a010 是 func 函数的重定位偏移，即重定位表中 func 符号的重定位入口。此时 0x804a010（func@got）中的地址为 0x8048426，即 PLT 中准备进行地址解析的指令地址。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">readelf -r test_lib1</div><div class="line"></div><div class="line">Relocation section '.rel.plt' at offset 0x3c0 contains 2 entries:</div><div class="line"> Offset     Info    Type            Sym.Value  Sym. Name</div><div class="line">0804a00c  00000307 R_386_JUMP_SLOT   00000000   __libc_start_main@GLIBC_2.0</div><div class="line">0804a010  00000407 R_386_JUMP_SLOT   00000000   func</div><div class="line"></div><div class="line">gdb-peda$ telescope 0x804a010</div><div class="line">0000| 0x804a010 --&gt; 0x8048426 (&lt;func@plt+6&gt;:    push   0x8)</div><div class="line">0004| 0x804a014 --&gt; 0x0</div><div class="line">0008| 0x804a018 --&gt; 0x0</div></pre></td></tr></table></figure></p>
@@ -585,7 +585,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -678,7 +678,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -807,8 +807,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://0x4c43.cn/2018/0429/linux-lazy-binding-mechanism/';
-          this.page.identifier = '2018/0429/linux-lazy-binding-mechanism/';
+          this.page.url = 'http://0x4c43.cn/2018/0429/linux-late-binding-mechanism/';
+          this.page.identifier = '2018/0429/linux-late-binding-mechanism/';
           this.page.title = 'Linux 延迟绑定机制';
         };
         var d = document, s = d.createElement('script');
