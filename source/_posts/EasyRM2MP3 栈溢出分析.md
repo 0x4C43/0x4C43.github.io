@@ -1,9 +1,13 @@
 ---
 title: EasyRM2MP3 栈溢出分析
-date: 2018-08-14 17:50
-tags: [stack overflow]
+date: '2018-08-14 17:50'
+tags:
+  - stack overflow
 categories: Vulnerability Analysis
-keywords: [stack overflow, EasyRM2MP3]
+keywords:
+  - stack overflow
+  - EasyRM2MP3
+translate_title: easyrm2mp3-stack-overflow-analysis
 ---
 
 # 0x01 漏洞信息

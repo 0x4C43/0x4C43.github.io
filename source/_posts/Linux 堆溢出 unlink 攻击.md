@@ -1,9 +1,14 @@
 ---
 title: Linux 堆内存溢出 unlink 攻击
-date: 2017-12-31 14:53:28
-tags: [堆溢出,unlink]
+tags:
+  - 堆溢出
+  - unlink
 categories: Exploit
-keywords: [堆溢出,unlink]
+keywords:
+  - 堆溢出
+  - unlink
+translate_title: linux-heap-memory-overflow-unlink-attack
+date: 2017-12-31 14:53:28
 ---
 
 在二进制漏洞利用中，缓冲区溢出漏洞是最常见的一类漏洞，这类漏洞具有很强的危害性，通常能被攻击者利用并实现任意代码执行。缓冲区溢出漏洞可分为基于栈的内存溢出和基于堆的内存溢出。本文主要介绍如何利用堆内存溢出进行 unlink 攻击，进而实现任意代码执行。

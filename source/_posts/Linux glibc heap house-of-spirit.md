@@ -1,9 +1,14 @@
 ---
 title: Linux glibc heap house-of-spirit
-date: 2018-04-13 10:30:14
-tags: [heap,house-of-spirit]
+tags:
+  - heap
+  - house-of-spirit
 categories: Exploit
-keywords: [heap,house-of-spirit]
+keywords:
+  - heap
+  - house-of-spirit
+translate_title: linux-glibc-heap-houseofspirit
+date: 2018-04-13 10:30:14
 ---
 
 House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪造的 chunk 放入 fastbin 中。当再次申请内存时，会返回伪造的 chunk，接着可对返回的内存写数据。

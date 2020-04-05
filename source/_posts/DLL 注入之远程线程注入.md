@@ -1,12 +1,15 @@
 ---
 title: DLL 注入之远程线程注入
-date: 2017-05-10 21:45:08
-tags: [DLL 注入]
+tags:
+  - DLL 注入
 categories: Windows
-keywords: [DLL 注入，远程线程注入]
+keywords:
+  - DLL 注入，远程线程注入
+translate_title: dll-injection-of-remote-thread
+date: 2017-05-10 21:45:08
 ---
 
-在 Windows 中有多种方法实现 DLL 注入，可以[使用消息钩子注入 DLL](http://0x4c43.cn/2017/0508/dll-injection-windows-message-hook/)，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。
+在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL（参考《DLL 注入之 Windows 消息钩子》这篇文章），但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。
 
 # 0x01 注入原理
 使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateRemoteThread 函数原型如下：

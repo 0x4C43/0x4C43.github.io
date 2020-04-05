@@ -1,9 +1,13 @@
 ---
 title: Heartbleed 漏洞分析
-date: 2018-07-1 12:02:14
-tags: [Heartbleed]
+tags:
+  - Heartbleed
 categories: Vulnerability Analysis
-keywords: [Heartbleed, CVE-2014-0160]
+keywords:
+  - Heartbleed
+  - CVE-2014-0160
+translate_title: heartbleed-vulnerability-analysis
+date: 2018-07-01 12:02:14
 ---
 
 # 0x01 基础知识

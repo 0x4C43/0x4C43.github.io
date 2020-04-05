@@ -1,9 +1,13 @@
 ---
 title: 使用 AFL 进行模糊测试
-date: 2018-07-22 21:58:12
-tags: [Fuzz]
+tags:
+  - Fuzz
 categories: Fuzz
-keywords: [AFL, Fuzz]
+keywords:
+  - AFL
+  - Fuzz
+translate_title: use-afl-for-fuzzing
+date: 2018-07-22 21:58:12
 ---
 
 [American Fuzzy Lop](http://0x4c43.cn/2018/0722/american-fuzzy-lop/) 中介绍了 AFL 的原理和特性，下面将使用 AFL 对几个常用的应用程序进行模糊测试。

@@ -1,9 +1,13 @@
 ---
 title: Linux 使用笔记
-date: 2017-10-28 21:45:08
-tags: [Linux]
+tags:
+  - Linux
 categories: Linux
-keywords: [Linux 配置,使用]
+keywords:
+  - Linux 配置
+  - 使用
+translate_title: linux-notes
+date: 2017-10-28 21:45:08
 ---
 
 # 0x01 基本命令

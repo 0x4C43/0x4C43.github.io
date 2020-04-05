@@ -1,9 +1,18 @@
 ---
 title: 复现 NSA Enternalblue SMB 漏洞
-date: 2017-04-27 17:18:08
-tags: [Enternalblue,Doublepulsar,SMB,Metasploit]
+tags:
+  - Enternalblue
+  - Doublepulsar
+  - SMB
+  - Metasploit
 categories: Vulnerability Analysis
-keywords: [Enternalblue,Doublepulsar,SMB,Metasploit]
+keywords:
+  - Enternalblue
+  - Doublepulsar
+  - SMB
+  - Metasploit
+translate_title: reproduce-nsa-enternalblue-smb-vulnerability
+date: 2017-04-27 17:18:08
 ---
 
 2017年4月14日，Shadow Brokers 再次公开了大量从 NSA 的方程式组织（Equation Group）处窃取的攻击工具，这些工具主要针对 Windows 系统的漏洞，其中还有几个 0 day。工具中的 fuzzbunch 是一个类似于 metasploit 的漏洞利用框架，fb.py 是 fuzzbunch 的入口文件，通过该文件可以调用各攻击模块。

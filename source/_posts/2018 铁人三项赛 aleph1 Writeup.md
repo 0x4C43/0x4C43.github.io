@@ -1,9 +1,13 @@
 ---
 title: 2018 铁人三项赛 aleph1 Writeup
-date: 2018-10-29 11:45:08
-tags: [pwn]
+tags:
+  - pwn
 categories: Exploit
-keywords: [pwn, CTF]
+keywords:
+  - pwn
+  - CTF
+translate_title: 2018-triathlon-aleph1-writeup
+date: 2018-10-29 11:45:08
 ---
 
 

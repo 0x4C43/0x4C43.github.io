@@ -1,9 +1,12 @@
 ---
 title: 终端复用工具 tmux
-date: 2017-10-28 22:57:21
-tags: [tmux]
+tags:
+  - tmux
 categories: Linux
-keywords: [tmux]
+keywords:
+  - tmux
+translate_title: terminal-reuse-tool-tmux
+date: 2017-10-28 22:57:21
 ---
 
 # 0x01 简介

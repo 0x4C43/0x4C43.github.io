@@ -1,9 +1,13 @@
 ---
 title: American Fuzzy Lop
-date: 2018-07-22 21:50:34
-tags: [Fuzz]
+tags:
+  - Fuzz
 categories: Fuzz
-keywords: [AFL, Fuzz]
+keywords:
+  - AFL
+  - Fuzz
+translate_title: american-fuzzy-lop
+date: 2018-07-22 21:50:34
 ---
 
 AFL 是一种安全导向的模糊测试工具，它采用一种新型的编译时插桩和遗传算法来自动生成测试样本，使用这些样本可触发目标二进制程序中新的内部状态，从而可提高模糊测试的代码覆盖率。与其他插桩模糊测试工具相比，afl-fuzz 的设计更具有实用性：具有适度的性能开销，使用各种高效的模糊策略，配置简单，并能够处理复杂的实际使用案例（比如常见的图像解析或文件压缩库）。

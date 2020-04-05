@@ -1,9 +1,16 @@
 ---
 title: Linux 内存管理与堆
-date: 2017-10-24 23:18:34
-tags: [内存管理,malloc,堆]
+tags:
+  - 内存管理
+  - malloc
+  - 堆
 categories: Linux
-keywords: [内存管理,malloc,堆]
+keywords:
+  - 内存管理
+  - malloc
+  - 堆
+translate_title: linux-memory-management-and-heap
+date: 2017-10-24 23:18:34
 ---
 
 目前各大平台主要有如下几种堆内存管理机制：

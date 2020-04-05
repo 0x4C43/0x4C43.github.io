@@ -1,9 +1,14 @@
 ---
 title: 使用 Atom 与 Markdown 写文章
-date: 2017-04-26 15:36:08
-tags: [Atom,Markdown]
+tags:
+  - Atom
+  - Markdown
 categories: Others
-keywords: [Atom,Markdown]
+keywords:
+  - Atom
+  - Markdown
+translate_title: write-articles-using-atom-and-markdown
+date: 2017-04-26 15:36:08
 ---
 
 # 0x01 Atom

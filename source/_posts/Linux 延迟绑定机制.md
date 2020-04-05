@@ -1,9 +1,14 @@
 ---
 title: Linux 延迟绑定机制
-date: 2018-04-29 21:05:02
-tags: [PLT, Lazy Binding]
+tags:
+  - PLT
+  - Lazy Binding
 categories: Linux
-keywords: [PLT, Lazy Binding]
+keywords:
+  - PLT
+  - Lazy Binding
+translate_title: linux-late-binding-mechanism
+date: 2018-04-29 21:05:02
 ---
 
 如果使用动态链接方式生成的程序模块中使用大量的函数引用，在程序执行时会花费大量的时间用于模块间函数引用的符号查找和重定位，导致程序性能下降。由于程序中可能存在部分不常用的功能模块，那么在程序开始执行时就完成所有函数的链接工作将会是一种浪费。因此，Linux 系统采用延迟绑定机制优化动态链接程序的符号重定位过程。

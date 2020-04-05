@@ -1,9 +1,12 @@
 ---
 title: Docker 使用笔记
-date: 2017-10-05 16:20:23
-tags: [Docker]
+tags:
+  - Docker
 categories: Linux
-keywords: [Docker]
+keywords:
+  - Docker
+translate_title: docker-usage-notes
+date: 2017-10-05 16:20:23
 ---
 
 Docker是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业务项目。它基于 Google 公司推出的 Go 语言实现。项目后来加入 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。

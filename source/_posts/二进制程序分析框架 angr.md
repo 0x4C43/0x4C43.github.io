@@ -1,9 +1,13 @@
 ---
 title: 二进制程序分析框架 angr
-date: 2018-05-29 21:30:00
-tags: [angr, binary analysis]
+tags:
+  - angr
+  - binary analysis
 categories: Program Analysis
-keywords: [angr]
+keywords:
+  - angr
+translate_title: binary-analysis-framework-angr
+date: 2018-05-29 21:30:00
 ---
 
 angr 是一个功能强大的二进制程序分析框架，可用于程序的静态分析和动态符号执行。支持 x86、ARM、MIPS 和 PPC 架构中 32 bit 和 64 bit 可执行程序的分析。

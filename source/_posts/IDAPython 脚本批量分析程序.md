@@ -1,9 +1,12 @@
 ---
 title: IDAPyhon 脚本批量分析程序
-date: 2018-08-03 09:20:18
-tags: [IDAPython]
+tags:
+  - IDAPython
 categories: Program Analysis
-keywords: [IDAPython]
+keywords:
+  - IDAPython
+translate_title: idapyhon-script-batch-analysis-program
+date: 2018-08-03 09:20:18
 ---
 
 当我们需要对大量二进制文件进行分析时，使用 Python 将其自动化，可以极大的提高效率。
