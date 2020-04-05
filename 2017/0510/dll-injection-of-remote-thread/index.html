@@ -99,19 +99,19 @@
 
 
 
-<meta name="description" content="在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。 0x01 注入原理使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateR">
+<meta name="description" content="在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL（参考《DLL 注入之 Windows 消息钩子》这篇文章），但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。 0x01 注入原理使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteTh">
 <meta name="keywords" content="DLL 注入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DLL 注入之远程线程注入">
 <meta property="og:url" content="http://0x4c43.cn/2017/0510/dll-injection-of-remote-thread/index.html">
 <meta property="og:site_name" content="0x4C43's Blog">
-<meta property="og:description" content="在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。 0x01 注入原理使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateR">
+<meta property="og:description" content="在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL（参考《DLL 注入之 Windows 消息钩子》这篇文章），但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。 0x01 注入原理使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteTh">
 <meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020220_94028700-file_1494473311845_13a5b.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020218_35149412-file_1494473313402_167fd.png">
-<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
+<meta property="og:updated_time" content="2020-04-05T05:59:48.047Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DLL 注入之远程线程注入">
-<meta name="twitter:description" content="在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。 0x01 注入原理使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateR">
+<meta name="twitter:description" content="在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL（参考《DLL 注入之 Windows 消息钩子》这篇文章），但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。 0x01 注入原理使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteTh">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020220_94028700-file_1494473311845_13a5b.png">
 
 
@@ -421,7 +421,7 @@
       
 
       
-        <p>在 Windows 中有多种方法实现 DLL 注入，可以<a href="http://0x4c43.cn/2017/0508/dll-injection-windows-message-hook/">使用消息钩子注入 DLL</a>，但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。</p>
+        <p>在 Windows 中有多种方法实现 DLL 注入，可以使用消息钩子注入 DLL（参考《DLL 注入之 Windows 消息钩子》这篇文章），但是通过消息钩子的方法可控性差，不能准确的注入到指定的进程中。而使用远程线程注入的方法可以实现准确地在指定时刻将 DLL 注入到指定的进程中，其可控性较好。</p>
 <h1 id="0x01-注入原理"><a href="#0x01-注入原理" class="headerlink" title="0x01 注入原理"></a>0x01 注入原理</h1><p>使用 Windows 远程线程机制，在本地进程中通过 CreateRemoteThread 函数在其他进程中开启并运行一个线程。CreateRemoteThread 函数原型如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">HANDLE WINAPI CreateRemoteThread (</div><div class="line">	HANDLE                  hProcess,	// 远程进程句柄</div><div class="line">	LPSECURITY_ATTRIBUTES  	lpThreadAttributes,	// 线程的安全属性</div><div class="line">	SIZE_T                  dwStackSize,		// 线程栈的大小</div><div class="line">	LPTHREAD_START_ROUTINE	lpStartAddress,  // 线程入口函数的起始地址</div><div class="line">	LPVOID                  lpParameter, 		// 传递给线程函数的参数</div><div class="line">	DWORD                   dwCreationFlags,	// 线程是否立即启动</div><div class="line">	LPDWORD                 lpThreadId		// 用于保存内核分配给线程的ID</div><div class="line">)；</div></pre></td></tr></table></figure></p>
 <p>主要关注三个参数：hProcess、lpStartAddress 和 lpParameter。hProcess 是要执行线程的目标进程句柄；lpStartAddress 是线程函数的起始地址，且该函数必须位于目标进程内；lpParameter 是传递给线程函数的参数。</p>
 <p>为了使远程进程加载 DLL，把 LoadLibrary 函数作为 CreateRemoteThread 的线程函数，要加载的 DLL 路径作为线程函数的参数即可。</p>

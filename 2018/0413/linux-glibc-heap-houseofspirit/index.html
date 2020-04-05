@@ -118,7 +118,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020301_27242292.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020308_44036325.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/0x4C43/BlogImages/master/1586020325_83693658.jpg">
-<meta property="og:updated_time" content="2020-04-04T16:56:05.019Z">
+<meta property="og:updated_time" content="2020-04-05T05:47:31.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux glibc heap house-of-spirit">
 <meta name="twitter:description" content="House of Spirit 利用方法针对 fastbin 中的 chunk，该方法不修改 chunk 结构中的 metadata，而是直接控制释放 chunk 时传递给 free() 函数的指针，使其指向内存中伪造的 fake chunk，free() 函数执行时会将伪造的 chunk 放入 fastbin 中。当再次申请内存时，会返回伪造的 chunk，接着可对返回的内存写数据。 0x01">
