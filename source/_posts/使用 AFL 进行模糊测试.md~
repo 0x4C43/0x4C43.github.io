@@ -6,7 +6,7 @@ categories: Fuzz
 keywords:
   - AFL
   - Fuzz
-translate_title: use-afl-for-fuzz-testing
+translate_title: use-afl-for-fuzzing
 date: 2018-07-22 21:58:12
 ---
 

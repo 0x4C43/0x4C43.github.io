@@ -110,6 +110,7 @@ translate_title:
   proxy_url: http://localhost:50018 # Your proxy_url
   baidu_appid: '' # Your baidu_appid
   baidu_appkey: '' # Your baidu_appkey
+  rewrite: false # is rewrite true | false 
 
 
 # Creative Commons 4.0 International License.
